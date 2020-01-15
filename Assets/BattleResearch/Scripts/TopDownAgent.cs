@@ -1,30 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MLAgents;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
     [RequireComponent(typeof(MlAgentInput))]
-    public class KoalaAgent : Agent
+    public class TopDownAgent : Agent
     {
         private MlAgentInput agentInput => GetComponent<MlAgentInput>();
 
-        public enum Directions { Left, Right, Up, Down }
+        private enum Directions { Left, Right, Up, Down }
 
-        private Dictionary<Directions, KeyCode> directions;
+        private Dictionary<Directions, KeyCode> _directions;
 
-        private Dictionary<Directions, KeyCode> secondaryDirections;
+        private Dictionary<Directions, KeyCode> _secondaryDirections;
 
         private void Start()
         {
-            directions = new Dictionary<Directions, KeyCode>()
+            _directions = new Dictionary<Directions, KeyCode>()
             {
                 {Directions.Left, KeyCode.A},
                 {Directions.Right, KeyCode.D },
                 {Directions.Down, KeyCode.S},
                 {Directions.Up, KeyCode.W }
             };
-            secondaryDirections = new Dictionary<Directions, KeyCode>()
+            _secondaryDirections = new Dictionary<Directions, KeyCode>()
             {
                 {Directions.Left, KeyCode.LeftArrow},
                 {Directions.Right, KeyCode.RightArrow },
@@ -62,6 +63,10 @@ namespace BattleResearch.Scripts
             var secondary = new Vector2(secondaryXInput, secondaryYInput);
 
             agentInput.SecondaryInput = secondary;
+
+            var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
+            
+            agentInput.SetButton(shootButtonDown);
         }
 
         private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
@@ -82,15 +87,19 @@ namespace BattleResearch.Scripts
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
 
-            if (directions!=null && secondaryDirections!=null)
+            if (_directions!=null && _secondaryDirections!=null)
             {
-                x = GetInput(directions[Directions.Left], directions[Directions.Right]);
-                y = GetInput(directions[Directions.Down], directions[Directions.Up]);
+                x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
+                y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
 
-                secondaryX = GetInput(secondaryDirections[Directions.Left], secondaryDirections[Directions.Right]);
-                secondaryY = GetInput(secondaryDirections[Directions.Down], secondaryDirections[Directions.Up]);
+                secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
+                secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
             }
-            return new float[] { x, y, secondaryX, secondaryY };
+
+            var buttonState = Input.GetKey(KeyCode.KeypadEnter);
+            var buttonInput = Convert.ToSingle(buttonState);
+            
+            return new [] { x, y, secondaryX, secondaryY, buttonInput};
         }
     }
 }

@@ -1,30 +1,36 @@
-﻿using MoreMountains.TopDownEngine;
+﻿using System.Linq;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
     public class MlAgentInputManager : InputManager
     {
         public bool aiEnabled = true;
-        private MlAgentInput inputInterface;
 
-        public void UpdateInterface()
+        public int playerNumber = 1;
+        
+        private MlAgentInput _inputInterface;
+
+        private bool CheckAi()
         {
-            if (inputInterface == null)
+            if (aiEnabled)
             {
-                var inputs = FindObjectsOfType<MlAgentInput>();
-                inputInterface = inputs[0];
+                if (_inputInterface == null)
+                {
+                    var inputs = FindObjectsOfType<MlAgentInput>();
+                    _inputInterface = inputs.SingleOrDefault(player => player.playerNumber == playerNumber);
+                }
+                return _inputInterface != null;
             }
+            return false;
         }
 
         public override void SetMovement()
         {
-            if (aiEnabled)
+            if (CheckAi())
             {
-                UpdateInterface();
-                if (inputInterface != null)
-                {
-                    _primaryMovement = inputInterface.PrimaryInput;
-                }
+                _primaryMovement = _inputInterface.PrimaryInput;
             }
             else
             {
@@ -34,17 +40,25 @@ namespace BattleResearch.Scripts
 
         public override void SetSecondaryMovement()
         {
-            if (aiEnabled)
+            if (CheckAi())
             {
-                UpdateInterface();
-                if (inputInterface != null)
-                {
-                    _secondaryMovement = inputInterface.SecondaryInput;
-                }
+                _secondaryMovement = _inputInterface.SecondaryInput;
             }
             else
             {
                 base.SetSecondaryMovement();
+            }
+        }
+        
+        protected override void SetShootAxis()
+        {
+            if (CheckAi())
+            {
+                ShootAxis = _inputInterface.ShootButtonState;
+            }
+            else
+            {
+                base.SetShootAxis();
             }
         }
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using BattleResearch.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoreMountains.Tools;
@@ -152,11 +153,20 @@ namespace MoreMountains.TopDownEngine
 
 			// player instantiation
 			if (PlayerPrefabs.Count() != 0)
-			{ 
+			{
+				var count = 0;
 				foreach (Character playerPrefab in PlayerPrefabs)
 				{
+					count++;
+					
 					Character newPlayer = (Character)Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
+					var agent = newPlayer.GetComponent<MlAgentInput>();
+					if (agent)
+					{
+						agent.playerNumber = count;	
+					}
+
 					Players.Add(newPlayer);
 
 					if (playerPrefab.CharacterType != Character.CharacterTypes.Player)

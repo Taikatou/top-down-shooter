@@ -4,11 +4,12 @@
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,9 +26,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterMovement.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/MMHelpers/MMInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Curves/Demo/Plotter/MMPlotter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Automation/PathMovement/MMPathMovement.cs" root0="FORCE_HIGHLIGHTING" />
@@ -35,14 +37,16 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/RayPerceptionTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/DemonstrationTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Scripts/DungeonDoor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/Sensor/VectorSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterRun.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/MultiplayerLevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterAbility.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/CommunicatorObjects/UnityRlInput.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -50,10 +54,12 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInterface.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
       </list>
     </option>
   </component>
@@ -110,6 +116,8 @@
       <workItem from="1579035762992" duration="236000" />
       <workItem from="1579036182003" duration="1330000" />
       <workItem from="1579038222728" duration="45000" />
+      <workItem from="1579109262234" duration="2728000" />
+      <workItem from="1579113611685" duration="961000" />
     </task>
     <servers />
   </component>
