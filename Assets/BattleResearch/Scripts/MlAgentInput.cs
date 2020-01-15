@@ -5,7 +5,6 @@ namespace BattleResearch.Scripts
 {
     public class MlAgentInput : MonoBehaviour
     {
-        [HideInInspector]
         public int playerNumber = 1;
         public Vector2 PrimaryInput { get; set; }
 
