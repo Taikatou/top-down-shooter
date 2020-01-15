@@ -9,7 +9,6 @@
       <e p="Assets" t="Include">
         <e p="BattleResearch" t="Include">
           <e p="Scripts" t="Include">
-            <e p="KoalaAcademy.cs" t="Include" />
             <e p="MlAgentInput.cs" t="Include" />
             <e p="MlAgentInputManager.cs" t="Include" />
             <e p="TopDownAgent.cs" t="Include" />
@@ -237,6 +236,7 @@
               <e p="RenderTextureSensorComponent.cs" t="Include" />
               <e p="SensorBase.cs" t="Include" />
               <e p="SensorComponent.cs" t="Include" />
+              <e p="SensorShapeValidator.cs" t="Include" />
               <e p="StackingSensor.cs" t="Include" />
               <e p="VectorSensor.cs" t="Include" />
               <e p="WriteAdapter.cs" t="Include" />

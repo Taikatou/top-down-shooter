@@ -249,7 +249,7 @@ namespace MoreMountains.TopDownEngine
 				if (healthBar == null) { continue; }
 				if (healthBar.PlayerID == playerID)
 				{
-					healthBar.UpdateBar(currentHealth,minHealth,maxHealth);
+					healthBar.UpdateBar(currentHealth, minHealth, maxHealth);
 				}
 	    	}
 

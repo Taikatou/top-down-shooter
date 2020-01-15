@@ -68,8 +68,7 @@ namespace MoreMountains.TopDownEngine
 
 		protected Vector3 _initialPosition;
 		protected Renderer _renderer;
-		protected Character _character;
-		protected TopDownController _controller;
+        protected TopDownController _controller;
 	    protected MMHealthBar _healthBar;
 	    protected Collider2D _collider2D;
         protected Collider _collider3D;
@@ -79,10 +78,12 @@ namespace MoreMountains.TopDownEngine
         protected AutoRespawn _autoRespawn;
         protected Animator _animator;
 
-        /// <summary>
-        /// On Start, we initialize our health
-        /// </summary>
-        protected virtual void Start()
+        protected Character _character => GetComponent<Character>();
+
+		/// <summary>
+		/// On Start, we initialize our health
+		/// </summary>
+		protected virtual void Start()
 	    {
 			Initialization();
 	    }
@@ -92,7 +93,6 @@ namespace MoreMountains.TopDownEngine
 	    /// </summary>
 		protected virtual void Initialization()
 		{
-			_character = GetComponent<Character>();
             if (Model != null)
             {
                 Model.SetActive(true);
@@ -416,7 +416,7 @@ namespace MoreMountains.TopDownEngine
 	    public virtual void ResetHealthToMaxHealth()
 	    {
 			CurrentHealth = MaximumHealth;
-			UpdateHealthBar (false);
+			UpdateHealthBar (true);
 	    }	
 
 	    /// <summary>
@@ -428,7 +428,7 @@ namespace MoreMountains.TopDownEngine
 	    	{
 				_healthBar.UpdateBar(CurrentHealth, 0f, MaximumHealth, show);
 	    	}
-
+			
 	    	if (_character != null)
 	    	{
 	    		if (_character.CharacterType == Character.CharacterTypes.Player)
