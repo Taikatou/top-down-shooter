@@ -1,25 +1,46 @@
-﻿using MLAgents;
+﻿using System.Collections.Generic;
+using MLAgents;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
-    public class KoalaAgent : Agent, IInput
+    [RequireComponent(typeof(MlAgentInput))]
+    public class KoalaAgent : Agent
     {
-        private float xAxis = 0.0f;
+        private MlAgentInput agentInput => GetComponent<MlAgentInput>();
 
-        private float yAxis = 0.0f;
+        public enum Directions { Left, Right, Up, Down }
 
-        public float XAxis => xAxis;
-        public float YAxis => yAxis;
+        private Dictionary<Directions, KeyCode> directions;
 
-        private float GetDecision(float input)
+        private Dictionary<Directions, KeyCode> secondaryDirections;
+
+        private void Start()
         {
-            var output = 0.0f;
-            switch (input)
+            directions = new Dictionary<Directions, KeyCode>()
+            {
+                {Directions.Left, KeyCode.A},
+                {Directions.Right, KeyCode.D },
+                {Directions.Down, KeyCode.S},
+                {Directions.Up, KeyCode.W }
+            };
+            secondaryDirections = new Dictionary<Directions, KeyCode>()
+            {
+                {Directions.Left, KeyCode.LeftArrow},
+                {Directions.Right, KeyCode.RightArrow },
+                {Directions.Down, KeyCode.DownArrow },
+                {Directions.Up, KeyCode.UpArrow }
+            };
+        }
+
+        private int GetDecision(float input)
+        {
+            var output = 0;
+            switch (Mathf.FloorToInt(input))
             {
                 case 1:
                     // Left or Down
-                    output = -1.0f;
+                    output = -1;
                     break;
                 case 2:
                     // Right or Up
@@ -31,33 +52,45 @@ namespace BattleResearch.Scripts
 
         public override void AgentAction(float[] vectorAction)
         {
-            var xInput = Mathf.FloorToInt(vectorAction[0]);
-            var yInput = Mathf.FloorToInt(vectorAction[1]);
-            xAxis = GetDecision(xInput);
-            yAxis = GetDecision(yInput);
+            var xInput = GetDecision(vectorAction[0]);
+            var yInput = GetDecision(vectorAction[1]);
+
+            agentInput.PrimaryInput = new Vector2(xInput, yInput);
+
+            var secondaryXInput = GetDecision(vectorAction[2]);
+            var secondaryYInput = GetDecision(vectorAction[3]);
+            var secondary = new Vector2(secondaryXInput, secondaryYInput);
+
+            agentInput.SecondaryInput = secondary;
         }
-        
+
+        private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
+        {
+            var negative = Input.GetKey(negativeKey);
+            var positive = Input.GetKey(positiveKey);
+            if (negative ^ positive)
+            {
+                return negative ? 1 : 2;
+            }
+            return 0;
+        }
+
         public override float[] Heuristic()
         {
-            var x = 0;
-            var y = 0;
-            if (Input.GetKey(KeyCode.D))
+            var x = 0.0f;
+            var y = 0.0f;
+            var secondaryX = 0.0f;
+            var secondaryY = 0.0f;
+
+            if (directions!=null && secondaryDirections!=null)
             {
-                x = 2;
+                x = GetInput(directions[Directions.Left], directions[Directions.Right]);
+                y = GetInput(directions[Directions.Down], directions[Directions.Up]);
+
+                secondaryX = GetInput(secondaryDirections[Directions.Left], secondaryDirections[Directions.Right]);
+                secondaryY = GetInput(secondaryDirections[Directions.Down], secondaryDirections[Directions.Up]);
             }
-            if (Input.GetKey(KeyCode.W))
-            {
-                y = 2;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                x = 1;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                y = 1;
-            }
-            return new float[] { x, y };
+            return new float[] { x, y, secondaryX, secondaryY };
         }
     }
 }

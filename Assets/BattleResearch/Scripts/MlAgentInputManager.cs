@@ -5,18 +5,46 @@ namespace BattleResearch.Scripts
     public class MlAgentInputManager : InputManager
     {
         public bool aiEnabled = true;
-        public IInput inputInterface;
-        
+        private MlAgentInput inputInterface;
+
+        public void UpdateInterface()
+        {
+            if (inputInterface == null)
+            {
+                var inputs = FindObjectsOfType<MlAgentInput>();
+                inputInterface = inputs[0];
+            }
+        }
+
         public override void SetMovement()
         {
             if (aiEnabled)
             {
-                _primaryMovement.x = inputInterface.XAxis;
-                _primaryMovement.y = inputInterface.YAxis;
+                UpdateInterface();
+                if (inputInterface != null)
+                {
+                    _primaryMovement = inputInterface.PrimaryInput;
+                }
             }
             else
             {
                 base.SetMovement();
+            }
+        }
+
+        public override void SetSecondaryMovement()
+        {
+            if (aiEnabled)
+            {
+                UpdateInterface();
+                if (inputInterface != null)
+                {
+                    _secondaryMovement = inputInterface.SecondaryInput;
+                }
+            }
+            else
+            {
+                base.SetSecondaryMovement();
             }
         }
     }
