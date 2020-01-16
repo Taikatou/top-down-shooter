@@ -48,7 +48,8 @@ namespace MoreMountains.TopDownEngine
                         }
 
                     break;
-                case TopDownEngineEventTypes.GameOver:
+                case 
+                TopDownEngineEventTypes.GameOver:
                     if (false)
                     {
                         if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.WinnerID)

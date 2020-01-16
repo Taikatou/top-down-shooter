@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MLAgents;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
@@ -8,7 +9,7 @@ namespace BattleResearch.Scripts
     [RequireComponent(typeof(MlAgentInput))]
     public class TopDownAgent : Agent
     {
-        private MlAgentInput agentInput => GetComponent<MlAgentInput>();
+        public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private enum Directions { Left, Right, Up, Down }
 
@@ -56,17 +57,17 @@ namespace BattleResearch.Scripts
             var xInput = GetDecision(vectorAction[0]);
             var yInput = GetDecision(vectorAction[1]);
 
-            agentInput.PrimaryInput = new Vector2(xInput, yInput);
+            AgentInput.PrimaryInput = new Vector2(xInput, yInput);
 
             var secondaryXInput = GetDecision(vectorAction[2]);
             var secondaryYInput = GetDecision(vectorAction[3]);
             var secondary = new Vector2(secondaryXInput, secondaryYInput);
 
-            agentInput.SecondaryInput = secondary;
+            AgentInput.SecondaryInput = secondary;
 
             var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
             
-            agentInput.SetButton(shootButtonDown);
+            AgentInput.SetButton(shootButtonDown);
         }
 
         private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
@@ -100,6 +101,11 @@ namespace BattleResearch.Scripts
             var buttonInput = Convert.ToSingle(buttonState);
             
             return new [] { x, y, secondaryX, secondaryY, buttonInput};
+        }
+
+        private void ConfigureAgent(int config)
+        {
+            TopDownEngineEvent.Trigger(TopDownEngineEventTypes.MlCuriculum, null);
         }
     }
 }

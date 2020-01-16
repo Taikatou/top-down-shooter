@@ -6378,7 +6378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cea8b4bce9e4a479aad78264d90fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
 --- !u!114 &3536738572098132884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6394,13 +6393,13 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 1
     numStackedVectorObservations: 1
-    vectorActionSize: 01000000
+    vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: TopDown
   m_TeamID: 0
   m_useChildSensors: 1
 --- !u!114 &2358799730759588680

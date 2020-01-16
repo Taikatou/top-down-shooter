@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using BattleResearch.Scripts;
+using MLAgents;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -10,13 +11,18 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
     {
         protected override IEnumerator GameOver()
         {
-            var inputs = FindObjectsOfType<MlAgentInput>();
-            var winner = inputs.SingleOrDefault(player => player.PlayerId == WinnerID);
-            var agent = winner?.GetComponent<TopDownAgent>();
-            if (agent)
+            var agents = FindObjectsOfType<TopDownAgent>();
+            var winner = agents.SingleOrDefault(player => player.AgentInput.PlayerId == WinnerID);
+            if (winner)
             {
-                agent.AddReward(1.0f);
+                winner?.AddReward(1.0f);
             }
+
+            foreach (var agent in agents)
+            {
+                agent.Done();
+            }
+            
             var enumerator = base.GameOver();
             Restart();
             return enumerator;
@@ -32,6 +38,20 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
             }
             Initialization();
             SpawnMultipleCharacters();
+        }
+
+        public override void OnMMEvent(TopDownEngineEvent engineEvent)
+        {
+            base.OnMMEvent(engineEvent);
+            switch (engineEvent.EventType)
+            {
+                case TopDownEngineEventTypes.MlCuriculum:
+                    var dur = Academy.Instance.FloatProperties.GetPropertyWithDefault("game_duration",
+                                                                                        8);
+                    GameDuration = (int) dur;
+                    UpdateCountdown();
+                    break;
+            }
         }
     }
 }

@@ -1,0 +1,7 @@
+TopDown:
+  measure: progress
+  thresholds: [20, 40, 60]
+  min_lesson_length: 100
+  signal_smoothing: true
+  parameters:
+    game_duration: [120, 90, 60]
