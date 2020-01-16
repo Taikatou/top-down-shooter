@@ -61,7 +61,7 @@ namespace MoreMountains.TopDownEngine
                 countdown.ResetCountdown();
             }
         }
-        
+
         /// <summary>
         /// Whenever a player dies, we check if we only have one left alive, in which case we trigger our game over routine
         /// </summary>

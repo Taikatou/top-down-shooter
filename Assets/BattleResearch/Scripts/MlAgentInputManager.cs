@@ -7,8 +7,6 @@ namespace BattleResearch.Scripts
     public class MlAgentInputManager : InputManager
     {
         public bool aiEnabled = true;
-
-        public int playerNumber = 1;
         
         private MlAgentInput _inputInterface;
 
@@ -19,7 +17,7 @@ namespace BattleResearch.Scripts
                 if (_inputInterface == null)
                 {
                     var inputs = FindObjectsOfType<MlAgentInput>();
-                    _inputInterface = inputs.SingleOrDefault(player => player.playerNumber == playerNumber);
+                    _inputInterface = inputs.SingleOrDefault(player => player.PlayerId == PlayerID);
                 }
                 return _inputInterface != null;
             }

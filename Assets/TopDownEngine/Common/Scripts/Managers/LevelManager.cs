@@ -161,10 +161,10 @@ namespace MoreMountains.TopDownEngine
 					
 					Character newPlayer = (Character)Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
-					var agent = newPlayer.GetComponent<MlAgentInput>();
-					if (agent)
+					var character = newPlayer.GetComponent<Character>();
+					if (character)
 					{
-						agent.playerNumber = count;	
+						character.PlayerID = "Player"+count;	
 					}
 
 					Players.Add(newPlayer);
@@ -363,7 +363,7 @@ namespace MoreMountains.TopDownEngine
                 if (GameManager.Instance.CurrentLives <= 0)
                 {
                     TopDownEngineEvent.Trigger(TopDownEngineEventTypes.GameOver, null);
-                    if ((GameManager.Instance.GameOverScene != null) && (GameManager.Instance.GameOverScene != ""))
+                    if (!string.IsNullOrEmpty(GameManager.Instance.GameOverScene))
                     {
                         LoadingSceneManager.LoadScene(GameManager.Instance.GameOverScene);
                     }

@@ -56,7 +56,7 @@ namespace MoreMountains.TopDownEngine
         {
             _instantiatedCharacters = new Character[CharacterPrefabs.Length];
 
-            for (int i = 0; i < CharacterPrefabs.Length; i++)
+            for (var i = 0; i < CharacterPrefabs.Length; i++)
             {
                 Character newCharacter = Instantiate(CharacterPrefabs[i]);
                 newCharacter.name = "CharacterSwitch_" + i;

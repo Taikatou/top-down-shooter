@@ -1,16 +1,25 @@
 ﻿using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
     public class MlAgentInput : MonoBehaviour
     {
-        public int playerNumber = 1;
         public Vector2 PrimaryInput { get; set; }
 
         public Vector2 SecondaryInput { get; set; }
 
         public MMInput.ButtonStates ShootButtonState { get; set; }
+        
+        public string PlayerId
+        {
+            get
+            {
+                var character = GetComponent<Character>();
+                return character.PlayerID;
+            }
+        }
 
         private void Start()
         {
