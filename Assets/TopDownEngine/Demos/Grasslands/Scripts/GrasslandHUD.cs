@@ -16,6 +16,8 @@ namespace MoreMountains.TopDownEngine
         public CanvasGroup DeadMask;
         public CanvasGroup WinnerScreen;
 
+        private bool _usingAi = true;
+        
         protected virtual void Start()
         {
             CoinCounter.text = "0";
@@ -30,9 +32,12 @@ namespace MoreMountains.TopDownEngine
                 case TopDownEngineEventTypes.PlayerDeath:
                     if (tdEvent.OriginCharacter.PlayerID == PlayerID)
                     {
-                        DeadMask.gameObject.SetActive(true);
-                        DeadMask.alpha = 0f;
-                        StartCoroutine(MMFade.FadeCanvasGroup(DeadMask, 0.5f, 0.8f, true));
+                        if (!_usingAi)
+                        {
+                            DeadMask.gameObject.SetActive(true);
+                            DeadMask.alpha = 0f;
+                            StartCoroutine(MMFade.FadeCanvasGroup(DeadMask, 0.5f, 0.8f, true));
+                        }
                     }
                     break;
                 case TopDownEngineEventTypes.Repaint:
@@ -50,7 +55,7 @@ namespace MoreMountains.TopDownEngine
                     break;
                 case 
                 TopDownEngineEventTypes.GameOver:
-                    if (false)
+                    if (!_usingAi)
                     {
                         if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.WinnerID)
                         {
@@ -61,7 +66,7 @@ namespace MoreMountains.TopDownEngine
                     }
                     else
                     {
-                        //Start();
+                        Start();
                     }
                     break;
             }

@@ -5989,7 +5989,7 @@ GameObject:
   - component: {fileID: 8101561938865461}
   - component: {fileID: 7077412277313647688}
   m_Layer: 10
-  m_Name: BaseMLCharacter
+  m_Name: BaseMLCharacter_visual
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6401,7 +6401,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: TopDown
+  m_BehaviorName: TopDownVisual
   m_TeamID: 0
   m_useChildSensors: 1
 --- !u!114 &2358799730759588680

@@ -4,4 +4,4 @@ TopDown:
   min_lesson_length: 100
   signal_smoothing: true
   parameters:
-    game_duration: [120, 90, 60]
+    game_duration: [150, 120, 90]
