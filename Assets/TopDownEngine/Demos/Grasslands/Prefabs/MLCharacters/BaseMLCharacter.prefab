@@ -5986,6 +5986,8 @@ GameObject:
   - component: {fileID: 8883194019563559894}
   - component: {fileID: 3536738572098132884}
   - component: {fileID: 2358799730759588680}
+  - component: {fileID: 8101561938865461}
+  - component: {fileID: 7077412277313647688}
   m_Layer: 10
   m_Name: BaseMLCharacter
   m_TagString: Player
@@ -6419,6 +6421,37 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
+--- !u!114 &8101561938865461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  sensorName: CameraSensor
+  width: 84
+  height: 84
+  grayscale: 1
+  compression: 1
+--- !u!114 &7077412277313647688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab78a4b1949545489dd532394882a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSensor: {fileID: 8101561938865461}
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0

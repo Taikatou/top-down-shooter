@@ -91,33 +91,6 @@ namespace MoreMountains.TopDownEngine
             BoundsCollider = _collider;
 
             Initialization();
-            
-            if (Players == null || Players.Count == 0) { return; }
-
-            // we handle the spawn of the character(s)
-            if (Players.Count == 1)
-            {
-                SpawnSingleCharacter();
-            }
-            else
-            {
-                SpawnMultipleCharacters ();
-            }
-
-            CheckpointAssignment();
-
-            // we trigger a level start event
-            TopDownEngineEvent.Trigger(TopDownEngineEventTypes.LevelStart, null);
-            MMGameEvent.Trigger("Load");
-
-            MMCameraEvent.Trigger(MMCameraEventTypes.SetTargetCharacter, Players[0]);
-            MMCameraEvent.Trigger(MMCameraEventTypes.StartFollowing);
-            if (AutoFocus != null)
-            {
-                AutoFocus.FocusTargets = new Transform[1];
-                AutoFocus.FocusTargets[0] = Players[0].transform;
-            }
-            MMGameEvent.Trigger("CameraBound");
         }
 
         /// <summary>
@@ -231,6 +204,33 @@ namespace MoreMountains.TopDownEngine
             Checkpoints = FindObjectsOfType<CheckPoint>().OrderBy(o => o.CheckPointOrder).ToList();
             _savedPoints =GameManager.Instance.Points;
 			_started = DateTime.UtcNow;
+			
+			if (Players == null || Players.Count == 0) { return; }
+
+			// we handle the spawn of the character(s)
+			if (Players.Count == 1)
+			{
+				SpawnSingleCharacter();
+			}
+			else
+			{
+				SpawnMultipleCharacters ();
+			}
+
+			CheckpointAssignment();
+
+			// we trigger a level start event
+			TopDownEngineEvent.Trigger(TopDownEngineEventTypes.LevelStart, null);
+			MMGameEvent.Trigger("Load");
+
+			MMCameraEvent.Trigger(MMCameraEventTypes.SetTargetCharacter, Players[0]);
+			MMCameraEvent.Trigger(MMCameraEventTypes.StartFollowing);
+			if (AutoFocus != null)
+			{
+				AutoFocus.FocusTargets = new Transform[1];
+				AutoFocus.FocusTargets[0] = Players[0].transform;
+			}
+			MMGameEvent.Trigger("CameraBound");
 		}
 
 		/// <summary>

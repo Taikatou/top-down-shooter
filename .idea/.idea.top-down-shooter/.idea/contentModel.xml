@@ -9,9 +9,11 @@
       <e p="Assets" t="Include">
         <e p="BattleResearch" t="Include">
           <e p="Scripts" t="Include">
+            <e p="CameraPlayerId.cs" t="Include" />
             <e p="MlAgentInput.cs" t="Include" />
             <e p="MlAgentInputManager.cs" t="Include" />
             <e p="TopDownAgent.cs" t="Include" />
+            <e p="UpdateCameraSensor.cs" t="Include" />
           </e>
         </e>
         <e p="ML-Agents" t="Include">

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using Cinemachine;
+using MLAgents.Sensor;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -135,7 +138,6 @@ namespace MoreMountains.TopDownEngine
                 SetTarget(LevelManager.Instance.Players[0]);
                 StartFollowing();
             }
-
             if (topdownEngineEvent.EventType == TopDownEngineEventTypes.CharacterSwap)
             {
                 SetTarget(LevelManager.Instance.Players[0]);

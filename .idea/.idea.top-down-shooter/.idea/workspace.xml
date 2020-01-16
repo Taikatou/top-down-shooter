@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/curriculum.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Config/curriculum.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/BaseMLCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/BaseMLCharacter.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
@@ -27,11 +29,13 @@
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Scripts/DungeonPortal.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Scripts/DungeonDoor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/GUI/MMProgressBar.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/CameraPlayerId.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Scripts/Ball3DAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/Sensor/VectorSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Scripts/FoodCollectorAgent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Explodudes/Scripts/ExplodudesBomb.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Explodudes/Scripts/ExplodudesWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -57,6 +61,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMFeedbacks/MMFeedbacks/Shakers/MMTimeManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Scripts/SoccerFieldArea.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Scripts/PyramidAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Editor/FindMissingScriptsRecursively.cs" root0="FORCE_HIGHLIGHTING" />
@@ -69,12 +75,14 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterRun.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/CommunicatorObjects/UnityRlInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Camera/MMGhostCamera.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/GUI/StartScreen.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -90,11 +98,16 @@
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/PlayerId.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/CameraPlayerId.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensor.cs" />
       </list>
     </option>
   </component>
@@ -119,11 +132,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" pid="7040">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="7040" />
       <option name="userSelectedPid" value="false" />
       <method v="2" />
     </configuration>
@@ -158,7 +171,8 @@
       <workItem from="1579129419705" duration="36000" />
       <workItem from="1579129605614" duration="1474000" />
       <workItem from="1579135311340" duration="2628000" />
-      <workItem from="1579166120442" duration="2998000" />
+      <workItem from="1579166120442" duration="5991000" />
+      <workItem from="1579172185115" duration="256000" />
     </task>
     <servers />
   </component>
@@ -192,16 +206,55 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs</url>
-          <line>168</line>
+          <line>141</line>
           <properties documentPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" initialLine="168">
             <startOffsets>
-              <option value="6434" />
+              <option value="5505" />
             </startOffsets>
             <endOffsets>
-              <option value="6639" />
+              <option value="5710" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs</url>
+          <line>22</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" initialLine="22">
+            <startOffsets>
+              <option value="717" />
+            </startOffsets>
+            <endOffsets>
+              <option value="755" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs</url>
+          <line>19</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" initialLine="19">
+            <startOffsets>
+              <option value="571" />
+            </startOffsets>
+            <endOffsets>
+              <option value="625" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs</url>
+          <line>17</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" initialLine="17">
+            <startOffsets>
+              <option value="519" />
+            </startOffsets>
+            <endOffsets>
+              <option value="540" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
