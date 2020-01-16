@@ -9679,6 +9679,7 @@ GameObject:
   - component: {fileID: 7526697671933341368}
   - component: {fileID: 7993286593346662179}
   - component: {fileID: 5146985213592197525}
+  - component: {fileID: 2090100732119769867}
   m_Layer: 10
   m_Name: Koala
   m_TagString: Player
@@ -10204,6 +10205,32 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
+  useVectorObs: 0
+--- !u!114 &2090100732119769867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorName: RayPerceptionSensor
+  detectableTags: []
+  raysPerDirection: 18
+  maxRayDegrees: 180
+  sphereCastRadius: 0.5
+  rayLength: 20
+  rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 8388403
+  observationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  useWorldPositions: 1
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

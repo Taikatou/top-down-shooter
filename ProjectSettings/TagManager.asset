@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - World
   - walls
+  - Spikes
+  - Destructable
   layers:
   - Default
   - TransparentFX

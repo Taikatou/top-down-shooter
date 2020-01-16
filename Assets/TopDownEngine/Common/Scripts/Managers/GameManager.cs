@@ -189,7 +189,7 @@ namespace MoreMountains.TopDownEngine
 		public virtual void Reset()
 		{
 			Points = 0;
-			Time.timeScale = 1f;
+			// Time.timeScale = 1f;
 			Paused = false;
 		}
         /// <summary>

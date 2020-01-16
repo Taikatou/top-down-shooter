@@ -105,7 +105,7 @@ namespace MoreMountains.Tools
 		/// </summary>
 		protected virtual void Update()
 		{
-            Time.timeScale = 1f;
+            // Time.timeScale = 1f;
 			LoadingProgressBar.GetComponent<Image>().fillAmount = MMMaths.Approach(LoadingProgressBar.GetComponent<Image>().fillAmount,_fillTarget,Time.deltaTime*ProgressBarSpeed);
 		}
 

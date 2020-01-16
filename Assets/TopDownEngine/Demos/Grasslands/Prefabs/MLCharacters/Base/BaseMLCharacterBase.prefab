@@ -5986,7 +5986,7 @@ GameObject:
   - component: {fileID: 8883194019563559894}
   - component: {fileID: 3536738572098132884}
   - component: {fileID: 2358799730759588680}
-  - component: {fileID: 613777338929594102}
+  - component: {fileID: 4399294282693678565}
   m_Layer: 10
   m_Name: BaseMLCharacterBase
   m_TagString: Player
@@ -6392,7 +6392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 88
+    vectorObservationSize: 4
     numStackedVectorObservations: 1
     vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
@@ -6421,7 +6421,7 @@ MonoBehaviour:
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
   useVectorObs: 1
---- !u!114 &613777338929594102
+--- !u!114 &4399294282693678565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6430,9 +6430,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8193291489664769972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a9c4378bb2a40c49eb7a248c52fbf5, type: 3}
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensorName: RayPerceptionSensor
+  detectableTags: []
+  raysPerDirection: 18
+  maxRayDegrees: 180
+  sphereCastRadius: 0.5
+  rayLength: 20
+  rayLayerMask:
+    serializedVersion: 2
+    m_Bits: 8388403
+  observationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  useWorldPositions: 1
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0

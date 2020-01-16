@@ -588,9 +588,9 @@ namespace MLAgents
 
         void UpdateSensors()
         {
-            for (var i = 0; i < sensors.Count; i++)
+            foreach (var t in sensors)
             {
-                sensors[i].Update();
+                t.Update();
             }
         }
 
