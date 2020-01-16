@@ -1,4 +1,5 @@
-﻿using MoreMountains.Feedbacks;
+﻿using System;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,8 +39,9 @@ namespace MoreMountains.TopDownEngine
         /// the ID of the winner
         public string WinnerID { get; set; }
         protected string _playerID;
-        protected bool _gameOver = false;
-        
+        protected bool _gameOver;
+
+
         /// <summary>
         /// On init, we initialize our points and countdowns
         /// </summary>
@@ -48,7 +50,9 @@ namespace MoreMountains.TopDownEngine
             base.Initialization();
             WinnerID = "";
             Points = new GrasslandPoints[Players.Count];
-            int i = 0;
+            _gameOver = false;
+            
+            var i = 0;
             foreach(Character player in Players)
             {
                 Points[i].PlayerID = player.PlayerID;
@@ -69,8 +73,8 @@ namespace MoreMountains.TopDownEngine
         protected override void OnPlayerDeath(Character playerCharacter)
         {
             base.OnPlayerDeath(playerCharacter);
-            int aliveCharacters = 0;
-            int i = 0;
+            var aliveCharacters = 0;
+            var i = 0;
             
             foreach(Character character in LevelManager.Instance.Players)
             {
@@ -99,8 +103,9 @@ namespace MoreMountains.TopDownEngine
             {
                 WinnerID = "Player1";
             }
-            MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
-            _gameOver = true;
+            
+            //MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
+            //_gameOver = true;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.GameOver, null);
         }
 

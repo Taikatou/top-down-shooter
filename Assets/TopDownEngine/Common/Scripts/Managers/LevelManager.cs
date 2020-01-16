@@ -89,15 +89,10 @@ namespace MoreMountains.TopDownEngine
         protected virtual void Start()
         {
             BoundsCollider = _collider;
-            InstantiatePlayableCharacters();
-
-            MMCameraEvent.Trigger(MMCameraEventTypes.SetConfiner, null, BoundsCollider);
-
-            AutoFocus = FindObjectOfType<MMAutoFocus>();
-
-            if (Players == null || Players.Count == 0) { return; }
 
             Initialization();
+            
+            if (Players == null || Players.Count == 0) { return; }
 
             // we handle the spawn of the character(s)
             if (Players.Count == 1)
@@ -143,7 +138,7 @@ namespace MoreMountains.TopDownEngine
             // we check if there's a stored character in the game manager we should instantiate
             if (GameManager.Instance.StoredCharacter != null)
             {
-                Character newPlayer = (Character)Instantiate(GameManager.Instance.StoredCharacter, _initialSpawnPointPosition, Quaternion.identity);
+                Character newPlayer = Instantiate(GameManager.Instance.StoredCharacter, _initialSpawnPointPosition, Quaternion.identity);
                 newPlayer.name = GameManager.Instance.StoredCharacter.name;
                 Players.Add(newPlayer);
                 return;
@@ -159,7 +154,7 @@ namespace MoreMountains.TopDownEngine
 				{
 					count++;
 					
-					Character newPlayer = (Character)Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
+					Character newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
 					var character = newPlayer.GetComponent<Character>();
 					if (character)
@@ -227,6 +222,12 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void Initialization()
 		{
+			InstantiatePlayableCharacters();
+
+			MMCameraEvent.Trigger(MMCameraEventTypes.SetConfiner, null, BoundsCollider);
+
+			AutoFocus = FindObjectOfType<MMAutoFocus>();
+			
             Checkpoints = FindObjectsOfType<CheckPoint>().OrderBy(o => o.CheckPointOrder).ToList();
             _savedPoints =GameManager.Instance.Points;
 			_started = DateTime.UtcNow;

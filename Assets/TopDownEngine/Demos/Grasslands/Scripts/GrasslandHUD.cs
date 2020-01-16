@@ -36,20 +36,31 @@ namespace MoreMountains.TopDownEngine
                     }
                     break;
                 case TopDownEngineEventTypes.Repaint:
-                    foreach (GrasslandsMultiplayerLevelManager.GrasslandPoints points in (LevelManager.Instance as GrasslandsMultiplayerLevelManager).Points)
-                    {
-                        if (points.PlayerID == PlayerID)
+                    var grasslandPoints = (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.Points;
+                    if (grasslandPoints != null)
+                        foreach (GrasslandsMultiplayerLevelManager.GrasslandPoints points in
+                            grasslandPoints)
                         {
-                            CoinCounter.text = points.Points.ToString();
+                            if (points.PlayerID == PlayerID)
+                            {
+                                CoinCounter.text = points.Points.ToString();
+                            }
                         }
-                    }
+
                     break;
                 case TopDownEngineEventTypes.GameOver:
-                    if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager).WinnerID)
+                    if (false)
                     {
-                        WinnerScreen.gameObject.SetActive(true);
-                        WinnerScreen.alpha = 0f;
-                        StartCoroutine(MMFade.FadeCanvasGroup(WinnerScreen, 0.5f, 0.8f, true));
+                        if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.WinnerID)
+                        {
+                            WinnerScreen.gameObject.SetActive(true);
+                            WinnerScreen.alpha = 0f;
+                            StartCoroutine(MMFade.FadeCanvasGroup(WinnerScreen, 0.5f, 0.8f, true));
+                        }
+                    }
+                    else
+                    {
+                        //Start();
                     }
                     break;
             }
