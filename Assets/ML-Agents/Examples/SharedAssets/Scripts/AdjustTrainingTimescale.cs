@@ -9,7 +9,7 @@ namespace  MLAgents
         // Update is called once per frame
         void Update()
         {
-            /*if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Time.timeScale = 1f;
             }
@@ -48,7 +48,7 @@ namespace  MLAgents
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
                 Time.timeScale *= 2f;
-            }*/
+            }
         }
     }
 }

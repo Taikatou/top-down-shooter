@@ -37,10 +37,10 @@ namespace MLAgents.Sensor
         [Header("Debug Gizmos", order = 999)]
         public Color rayHitColor = Color.red;
         public Color rayMissColor = Color.white;
-        
         [Tooltip("Whether to draw the raycasts in the world space of when they happened, or using the Agent's current transform'")]
         public bool useWorldPositions = true;
-        
+
+
         [NonSerialized]
         RayPerceptionSensor m_RaySensor;
 
@@ -102,7 +102,6 @@ namespace MLAgents.Sensor
         /// </summary>
         public void OnDrawGizmos()
         {
-            Debug.Log("Draw Gizmos");
             if (m_RaySensor?.debugDisplayInfo?.rayInfos == null)
             {
                 return;
@@ -142,6 +141,7 @@ namespace MLAgents.Sensor
                     Gizmos.DrawWireSphere(startPositionWorld + rayDirection, hitRadius);
                 }
             }
+
         }
     }
 }
