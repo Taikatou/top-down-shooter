@@ -103,7 +103,7 @@ namespace BattleResearch.Scripts
             return new [] { x, y, secondaryX, secondaryY, buttonInput};
         }
 
-        private void ConfigureAgent(int config)
+        public override void AgentReset()
         {
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.MlCuriculum, null);
         }

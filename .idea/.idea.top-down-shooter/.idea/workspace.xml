@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/BaseMLCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/BaseMLCharacter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/curriculum.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Config/curriculum.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,6 +52,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/CharacterSwapManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.4.0/Runtime/Behaviours/CinemachineVirtualCamera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -95,8 +93,8 @@
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
       </list>
     </option>
   </component>
@@ -160,7 +158,7 @@
       <workItem from="1579129419705" duration="36000" />
       <workItem from="1579129605614" duration="1474000" />
       <workItem from="1579135311340" duration="2628000" />
-      <workItem from="1579166120442" duration="1862000" />
+      <workItem from="1579166120442" duration="2998000" />
     </task>
     <servers />
   </component>
