@@ -13,6 +13,12 @@ namespace BattleResearch.Scripts
 
         public RayPerception2D rayPerception;
 
+        public LayerMask playerMask;
+
+        public LayerMask otherMask;
+        
+        public Health healthComponent;
+
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private enum Directions { Left, Right, Up, Down }
@@ -25,19 +31,19 @@ namespace BattleResearch.Scripts
 
         private CharacterHandleWeapon _handleWeaponAbility;
 
-        private int divisions = 18;
+        private int divisions = 24;
         
         public bool heuristicEnabled;
 
-        private static bool heuristicSetup;
+        private static bool _heuristicSetup;
 
         public override void InitializeAgent()
         {
             base.InitializeAgent();
 
-            if (!heuristicSetup)
+            if (!_heuristicSetup)
             {
-                heuristicSetup = true;
+                _heuristicSetup = true;
                 heuristicEnabled = true;
             }
             
@@ -119,11 +125,14 @@ namespace BattleResearch.Scripts
                     angles[i] =  degrees * i;
                 }
 
-                var detectable = new[] {"walls", "Player", "Spikes", "Destructable"};
+                var detectable = new[] {"walls", "Spikes", "Destructable"};
 
-                var observations = rayPerception.Perceive(25, angles, detectable, 0.8f);
+                var observations = rayPerception.Perceive(25, angles, detectable,  otherMask);
+                
+                var playerOBs = rayPerception.Perceive(25, angles, new[] {"Player"},  playerMask,0.8f);
 
                 AddVectorObs(observations);
+                AddVectorObs(playerOBs);
             }
 
             AddVectorObs(transform.InverseTransformDirection(_agentRb.velocity));
@@ -132,11 +141,12 @@ namespace BattleResearch.Scripts
                 (int) _handleWeaponAbility.CurrentWeapon.WeaponState.CurrentState
                 : -1;
             AddVectorObs(state);
+            
+            AddVectorObs(healthComponent.CurrentHealth);
         }
 
         public override float[] Heuristic()
         {
-            
             var x = 0.0f;
             var y = 0.0f;
             var secondaryX = 0.0f;
@@ -165,6 +175,7 @@ namespace BattleResearch.Scripts
 
         public override void AgentReset()
         {
+            _heuristicSetup = false;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.MlCuriculum, null);
         }
     }

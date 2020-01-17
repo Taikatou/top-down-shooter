@@ -14,8 +14,6 @@ namespace MLAgents
     {
         RaycastHit2D m_Hit;
 
-        public LayerMask masks;
-
         /// <summary>
         /// Creates perception vector to be used as part of an observation of an agent.
         /// Each ray in the rayAngles array adds a sublist of data to the observation.
@@ -34,8 +32,8 @@ namespace MLAgents
         /// <param name="detectableObjects">List of tags which correspond to object types agent can see</param>
         /// <param name="startOffset">Unused</param>
         /// <param name="endOffset">Unused</param>
-        public override IList<float> Perceive(float rayDistance,
-            float[] rayAngles, string[] detectableObjects,
+        public IList<float> Perceive(float rayDistance,
+            float[] rayAngles, string[] detectableObjects, LayerMask masks,
             float startOffset=0.0f, float endOffset=0.0f)
         {
             var perceptionSize = (detectableObjects.Length + 2) * rayAngles.Length;
@@ -54,5 +52,10 @@ namespace MLAgents
             return m_PerceptionBuffer;
         }
 
+        public override IList<float> Perceive(float rayDistance, float[] rayAngles, string[] detectableObjects, float startOffset = 0,
+            float endOffset = 0)
+        {
+            return Perceive(rayDistance, rayAngles, detectableObjects, new LayerMask(), startOffset, endOffset);
+        }
     }
 }

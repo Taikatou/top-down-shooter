@@ -2,6 +2,7 @@
 using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -220,13 +221,8 @@ namespace MoreMountains.TopDownEngine
             {
                 LinkedInputManager = null;
                 InputManager[] foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
-                foreach (InputManager foundInputManager in foundInputManagers)
-                {
-                    if (foundInputManager.PlayerID == PlayerID)
-                    {
-	                    LinkedInputManager = foundInputManager;
-                    }
-                }
+
+                LinkedInputManager = foundInputManagers.Single(manager => manager.PlayerID == PlayerID); 
             }
             UpdateInputManagersInAbilities();
         }
