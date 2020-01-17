@@ -110,16 +110,8 @@ namespace BattleResearch.Scripts
 
                 var detectable = new[] {"walls", "Player", "Spikes", "Destructable"};
 
-                var observations = rayPerception.Perceive(25, angles, detectable);
+                var observations = rayPerception.Perceive(25, angles, detectable, 0.8f);
 
-                var debug = "";
-
-                foreach (var obs in observations)
-                {
-                    debug += obs + ", ";
-                }
-                Debug.Log(debug);
-                
                 AddVectorObs(observations);
             }
 

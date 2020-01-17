@@ -222,6 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a9c4378bb2a40c49eb7a248c52fbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masks:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!1 &3444297378480374653
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,7 +6002,6 @@ GameObject:
   - component: {fileID: 8883194019563559894}
   - component: {fileID: 3536738572098132884}
   - component: {fileID: 2358799730759588680}
-  - component: {fileID: 4399294282693678565}
   m_Layer: 10
   m_Name: BaseMLCharacterBase
   m_TagString: Player
@@ -6062,7 +6064,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.19}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -6073,7 +6075,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!210 &8312006854513627916
 SortingGroup:
@@ -6434,31 +6436,6 @@ MonoBehaviour:
     numberOfActionsBetweenDecisions: 1
   useVectorObs: 1
   rayPerception: {fileID: 7598660802683973252}
---- !u!114 &4399294282693678565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8193291489664769972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensorName: RayPerceptionSensor
-  detectableTags: []
-  raysPerDirection: 18
-  maxRayDegrees: 180
-  sphereCastRadius: 0.5
-  rayLength: 20
-  rayLayerMask:
-    serializedVersion: 2
-    m_Bits: 8388403
-  observationStacks: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  useWorldPositions: 1
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0

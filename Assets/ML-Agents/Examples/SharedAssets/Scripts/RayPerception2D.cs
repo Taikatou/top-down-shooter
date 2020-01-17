@@ -14,6 +14,8 @@ namespace MLAgents
     {
         RaycastHit2D m_Hit;
 
+        public LayerMask masks;
+
         /// <summary>
         /// Creates perception vector to be used as part of an observation of an agent.
         /// Each ray in the rayAngles array adds a sublist of data to the observation.
@@ -46,7 +48,7 @@ namespace MLAgents
             const bool legacyHitFractionBehavior = true;
             RayPerceptionSensor.PerceiveStatic(
                 rayDistance, rayAngles, detectableObjects, startOffset, endOffset, castRadius,
-                transform, RayPerceptionSensor.CastType.Cast2D, m_PerceptionBuffer, legacyHitFractionBehavior
+                transform, RayPerceptionSensor.CastType.Cast2D, m_PerceptionBuffer, legacyHitFractionBehavior, masks
             );
 
             return m_PerceptionBuffer;

@@ -197,7 +197,7 @@ namespace MLAgents.Sensor
                 else
                 {
                     // Vector2s here get converted to Vector3s (and back to Vector2s for casting)
-                    startPositionLocal = new Vector2();
+                    startPositionLocal = PolarToCartesian3D(startOffset, angle);
                     //endPositionLocal = PolarToCartesian2D(rayLength, angle);
                     endPositionLocal = PolarToCartesian3D(rayLength, angle);
                 }
@@ -251,9 +251,6 @@ namespace MLAgents.Sensor
                     {
                         rayHit = Physics2D.Raycast(startPositionWorld, rayDirection, rayLength, layerMask);
                     }
-                    
-                    Debug.Log(rayHit.collider.gameObject + "\t" + rayHit.fraction);
-
                     castHit = rayHit;
                     hitFraction = castHit ? rayHit.fraction : 1.0f;
                     hitObject = castHit ? rayHit.collider.gameObject : null;
