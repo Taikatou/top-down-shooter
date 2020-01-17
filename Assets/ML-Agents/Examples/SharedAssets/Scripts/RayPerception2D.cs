@@ -42,7 +42,7 @@ namespace MLAgents
                 m_PerceptionBuffer = new float[perceptionSize];
             }
 
-            const float castRadius = 0.5f;
+            const float castRadius = 0.0f;
             const bool legacyHitFractionBehavior = true;
             RayPerceptionSensor.PerceiveStatic(
                 rayDistance, rayAngles, detectableObjects, startOffset, endOffset, castRadius,

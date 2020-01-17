@@ -3,32 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Demos/Expert3DBall.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Demos/Expert3DBall.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Demos/Expert3DBallHard.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Demos/Expert3DBallHard.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Basic/Demos/ExpertBasic.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Basic/Demos/ExpertBasic.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Bouncer/Demos/ExpertBouncer.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Bouncer/Demos/ExpertBouncer.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Demos/ExpertCrawlerDyn.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Demos/ExpertCrawlerDyn.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Demos/ExpertCrawlerSta.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Demos/ExpertCrawlerSta.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Demos/ExpertFood.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Demos/ExpertFood.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/GridWorld/Demos/ExpertGrid.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/GridWorld/Demos/ExpertGrid.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Demos/ExpertHallway.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Demos/ExpertHallway.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Demos/ExpertPush.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Demos/ExpertPush.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Demos/ExpertPyramid.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Demos/ExpertPyramid.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Demos/ExpertReacher.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Demos/ExpertReacher.demo.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/SharedAssets/Scripts/RayPerception2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/SharedAssets/Scripts/RayPerception2D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Demos/ExpertTennis.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Demos/ExpertTennis.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Demos/ExpertWalker.demo.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Demos/ExpertWalker.demo.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/Grpc.Core.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/Grpc.Core.dll.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/linux/native/libgrpc_csharp_ext.x64.so.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/linux/native/libgrpc_csharp_ext.x64.so.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/osx/native/libgrpc_csharp_ext.x64.bundle.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/osx/native/libgrpc_csharp_ext.x64.bundle.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/win/native/grpc_csharp_ext.x64.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/win/native/grpc_csharp_ext.x64.dll.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/win/native/grpc_csharp_ext.x86.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Plugins/ProtoBuffer/runtimes/win/native/grpc_csharp_ext.x86.dll.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/BaseMLCharacterBase.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/BaseMLCharacterBase.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/PlayableCharacters/Koala.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/PlayableCharacters/Koala.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -158,9 +134,9 @@
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponentBase.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/SharedAssets/Scripts/RayPerception2D.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensor.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
       </list>
     </option>
   </component>
@@ -228,7 +204,7 @@
       <workItem from="1579172185115" duration="8198000" />
       <workItem from="1579187397282" duration="5154000" />
       <workItem from="1579202390883" duration="1087000" />
-      <workItem from="1579217066973" duration="2360000" />
+      <workItem from="1579217066973" duration="3511000" />
     </task>
     <servers />
   </component>

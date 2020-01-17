@@ -249,9 +249,10 @@ namespace MLAgents.Sensor
                     }
                     else
                     {
-                        Debug.Log(rayDirection);
                         rayHit = Physics2D.Raycast(startPositionWorld, rayDirection, rayLength, layerMask);
                     }
+                    
+                    Debug.Log(rayHit.collider.gameObject + "\t" + rayHit.fraction);
 
                     castHit = rayHit;
                     hitFraction = castHit ? rayHit.fraction : 1.0f;
