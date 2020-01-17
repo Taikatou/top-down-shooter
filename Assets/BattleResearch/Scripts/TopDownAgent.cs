@@ -26,10 +26,21 @@ namespace BattleResearch.Scripts
         private CharacterHandleWeapon _handleWeaponAbility;
 
         private int divisions = 18;
+        
+        public bool heuristicEnabled;
+
+        private static bool heuristicSetup;
 
         public override void InitializeAgent()
         {
             base.InitializeAgent();
+
+            if (!heuristicSetup)
+            {
+                heuristicSetup = true;
+                heuristicEnabled = true;
+            }
+            
             _directions = new Dictionary<Directions, KeyCode>()
             {
                 {Directions.Left, KeyCode.A},
@@ -125,25 +136,30 @@ namespace BattleResearch.Scripts
 
         public override float[] Heuristic()
         {
+            
             var x = 0.0f;
             var y = 0.0f;
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
+            var buttonInput = 0.0f;
 
-            if (_directions!=null)
+            if (heuristicEnabled)
             {
-                x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
-                y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
-            }
-            if (_secondaryDirections != null)
-            {
-                secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
-                secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
+                if (_directions!=null)
+                {
+                    x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
+                    y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
+                }
+                if (_secondaryDirections != null)
+                {
+                    secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
+                    secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
+                }
+
+                var buttonState = Input.GetKey(KeyCode.KeypadEnter);
+                buttonInput = Convert.ToSingle(buttonState);
             }
 
-            var buttonState = Input.GetKey(KeyCode.KeypadEnter);
-            var buttonInput = Convert.ToSingle(buttonState);
-            
             return new [] { x, y, secondaryX, secondaryY, buttonInput};
         }
 

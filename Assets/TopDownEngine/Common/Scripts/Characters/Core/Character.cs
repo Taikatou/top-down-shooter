@@ -224,7 +224,7 @@ namespace MoreMountains.TopDownEngine
                 {
                     if (foundInputManager.PlayerID == PlayerID)
                     {
-                        LinkedInputManager = foundInputManager;
+	                    LinkedInputManager = foundInputManager;
                     }
                 }
             }
@@ -287,7 +287,6 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void Update()
 		{		
 			EveryFrame();
-				
 		}
 
 		/// <summary>

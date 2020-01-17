@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using System;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace BattleResearch.Scripts
         public Vector2 SecondaryInput { get; set; }
 
         public MMInput.ButtonStates ShootButtonState { get; set; }
-        
+
         public string PlayerId
         {
             get

@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8082031899966790966, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: PlayerID
+      value: Player4
+      objectReference: {fileID: 0}
     - target: {fileID: 8193291489664769972, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}
       propertyPath: m_Name
-      value: BaseMLCharacterBase
+      value: RedMLCharacterBase
       objectReference: {fileID: 0}
     - target: {fileID: 8196286455369775702, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}

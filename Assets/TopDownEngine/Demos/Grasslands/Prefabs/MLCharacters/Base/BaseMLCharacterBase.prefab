@@ -6407,7 +6407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 4
+    vectorObservationSize: 112
     numStackedVectorObservations: 1
     vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
@@ -6433,9 +6433,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
     onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 1
+    numberOfActionsBetweenDecisions: 4
   useVectorObs: 1
   rayPerception: {fileID: 7598660802683973252}
+  heuristicEnabled: 0
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0
