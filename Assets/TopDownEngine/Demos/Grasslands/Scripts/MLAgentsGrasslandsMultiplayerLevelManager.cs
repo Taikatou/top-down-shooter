@@ -29,8 +29,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
         }
 
         protected virtual void Restart()
-        {
-            Debug.Log("Restart");
+        { 
             var characters = FindObjectsOfType<Character>();
             foreach (var character in characters)
             {

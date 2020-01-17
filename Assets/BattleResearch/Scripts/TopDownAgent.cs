@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using MLAgents;
-using MLAgents.Sensor;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BattleResearch.Scripts
 {
@@ -12,6 +10,9 @@ namespace BattleResearch.Scripts
     public class TopDownAgent : Agent
     {
         public bool useVectorObs;
+
+        public RayPerception2D rayPerception;
+
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private enum Directions { Left, Right, Up, Down }
@@ -23,6 +24,8 @@ namespace BattleResearch.Scripts
         private Rigidbody2D _agentRb;
 
         private CharacterHandleWeapon _handleWeaponAbility;
+
+        private int divisions = 18;
 
         public override void InitializeAgent()
         {
@@ -94,12 +97,37 @@ namespace BattleResearch.Scripts
         
         public override void CollectObservations()
         {
-            AddVectorObs(transform.InverseTransformDirection(_agentRb.velocity));
-            var state = -1;
-            if (_handleWeaponAbility.CurrentWeapon)
+            if (useVectorObs)
             {
-                state = (int) _handleWeaponAbility.CurrentWeapon.WeaponState.CurrentState;
+                var angles = new float[divisions];
+
+                var degrees = (360 / divisions);
+                
+                for (var i = 0; i < divisions; i++)
+                {
+                    angles[i] =  degrees * i;
+                }
+
+                var detectable = new[] {"walls", "Player", "Spikes", "Destructable"};
+
+                var observations = rayPerception.Perceive(25, angles, detectable);
+
+                var debug = "";
+
+                foreach (var obs in observations)
+                {
+                    debug += obs + ", ";
+                }
+                Debug.Log(debug);
+                
+                AddVectorObs(observations);
             }
+
+            AddVectorObs(transform.InverseTransformDirection(_agentRb.velocity));
+
+            var state = _handleWeaponAbility.CurrentWeapon ?
+                (int) _handleWeaponAbility.CurrentWeapon.WeaponState.CurrentState
+                : -1;
             AddVectorObs(state);
         }
 
@@ -110,11 +138,13 @@ namespace BattleResearch.Scripts
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
 
-            if (_directions!=null && _secondaryDirections!=null)
+            if (_directions!=null)
             {
                 x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
                 y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
-
+            }
+            if (_secondaryDirections != null)
+            {
                 secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
                 secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
             }

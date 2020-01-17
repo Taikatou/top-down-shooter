@@ -198,14 +198,15 @@ namespace MLAgents.Sensor
                 {
                     // Vector2s here get converted to Vector3s (and back to Vector2s for casting)
                     startPositionLocal = new Vector2();
-                    endPositionLocal = PolarToCartesian2D(rayLength, angle);
+                    //endPositionLocal = PolarToCartesian2D(rayLength, angle);
+                    endPositionLocal = PolarToCartesian3D(rayLength, angle);
                 }
 
                 var startPositionWorld = transform.TransformPoint(startPositionLocal);
                 var endPositionWorld = transform.TransformPoint(endPositionLocal);
 
                 var rayDirection = endPositionWorld - startPositionWorld;
-
+                
                 // Do the cast and assign the hit information for each detectable object.
                 //     sublist[0           ] <- did hit detectableObjects[0]
                 //     ...
@@ -248,6 +249,7 @@ namespace MLAgents.Sensor
                     }
                     else
                     {
+                        Debug.Log(rayDirection);
                         rayHit = Physics2D.Raycast(startPositionWorld, rayDirection, rayLength, layerMask);
                     }
 
@@ -310,7 +312,7 @@ namespace MLAgents.Sensor
         {
             var x = radius * Mathf.Cos(Mathf.Deg2Rad * angleDegrees);
             var z = radius * Mathf.Sin(Mathf.Deg2Rad * angleDegrees);
-            return new Vector3(x, 0f, z);
+            return new Vector3(x, z, 0f);
         }
 
         /// <summary>
