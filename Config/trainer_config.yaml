@@ -295,7 +295,7 @@ TopDown:
     hidden_units: 512
     num_layers: 2
     beta: 1.0e-2
-    max_steps: 1.0e7
+    max_steps: 1.0e8
     num_epoch: 3
     reward_signals:
         extrinsic:

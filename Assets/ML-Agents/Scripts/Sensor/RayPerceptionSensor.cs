@@ -279,7 +279,7 @@ namespace MLAgents.Sensor
                 else if (Application.isEditor)
                 {
                     // Legacy drawing
-                    // Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
+                    Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
                 }
 
                 if (castHit)
