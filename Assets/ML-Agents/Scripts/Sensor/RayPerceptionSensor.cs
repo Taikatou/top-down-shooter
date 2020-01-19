@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MLAgents.Sensor
 {
+
     public class RayPerceptionSensor : ISensor
     {
         public enum CastType
@@ -169,7 +170,7 @@ namespace MLAgents.Sensor
             Transform transform, CastType castType, float[] perceptionBuffer,
             bool legacyHitFractionBehavior = false,
             int layerMask = Physics.DefaultRaycastLayers,
-            DebugDisplayInfo debugInfo = null)
+            DebugDisplayInfo debugInfo = null, Color lineC= new Color())
         {
             Array.Clear(perceptionBuffer, 0, perceptionBuffer.Length);
             if (debugInfo != null)
@@ -254,6 +255,16 @@ namespace MLAgents.Sensor
                     castHit = rayHit;
                     hitFraction = castHit ? rayHit.fraction : 1.0f;
                     hitObject = castHit ? rayHit.collider.gameObject : null;
+
+                    
+                    if (hitObject)
+                    {
+                        Debug.DrawLine(startPositionWorld, new Vector3(rayHit.point.x, rayHit.point.y, startPositionWorld.z), lineC, 0.01f, true);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(startPositionWorld,rayDirection, lineC, 0.01f, true);
+                    }
                 }
 
                 if (debugInfo != null)
@@ -268,7 +279,7 @@ namespace MLAgents.Sensor
                 else if (Application.isEditor)
                 {
                     // Legacy drawing
-                    Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
+                    // Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
                 }
 
                 if (castHit)
@@ -302,6 +313,7 @@ namespace MLAgents.Sensor
                 bufferOffset += detectableObjects.Count + 2;
             }
         }
+
 
         /// <summary>
         /// Converts polar coordinate to cartesian coordinate.

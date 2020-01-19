@@ -7,6 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2546362589711674921, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d616ba57d25945642bd9c634af020114, type: 2}
+    - target: {fileID: 2546362589711674926, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300006, guid: 1daac6a1ab2f1b34a8faba74c9e126f9,
+        type: 3}
     - target: {fileID: 8082031899966790966, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}
       propertyPath: PlayerID
@@ -16,6 +27,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedMLCharacterBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193291489664769972, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8196286455369775702, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}

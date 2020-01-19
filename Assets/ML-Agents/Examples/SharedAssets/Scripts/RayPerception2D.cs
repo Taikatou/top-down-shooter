@@ -34,7 +34,7 @@ namespace MLAgents
         /// <param name="endOffset">Unused</param>
         public IList<float> Perceive(float rayDistance,
             float[] rayAngles, string[] detectableObjects, LayerMask masks,
-            float startOffset=0.0f, float endOffset=0.0f)
+            float startOffset=0.0f, float endOffset=0.0f, Color lineColor=new Color())
         {
             var perceptionSize = (detectableObjects.Length + 2) * rayAngles.Length;
             if (m_PerceptionBuffer == null || m_PerceptionBuffer.Length != perceptionSize)
@@ -46,7 +46,8 @@ namespace MLAgents
             const bool legacyHitFractionBehavior = true;
             RayPerceptionSensor.PerceiveStatic(
                 rayDistance, rayAngles, detectableObjects, startOffset, endOffset, castRadius,
-                transform, RayPerceptionSensor.CastType.Cast2D, m_PerceptionBuffer, legacyHitFractionBehavior, masks
+                transform, RayPerceptionSensor.CastType.Cast2D, m_PerceptionBuffer, legacyHitFractionBehavior, masks,
+                null, lineColor
             );
 
             return m_PerceptionBuffer;

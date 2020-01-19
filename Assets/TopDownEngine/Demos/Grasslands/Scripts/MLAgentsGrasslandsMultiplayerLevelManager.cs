@@ -11,11 +11,13 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
     {
         protected override IEnumerator GameOver()
         {
+            Debug.Log("GameOver");
             var agents = FindObjectsOfType<TopDownAgent>();
             var winner = agents.SingleOrDefault(player => player.AgentInput.PlayerId == WinnerID);
             if (winner)
             {
                 winner?.AddReward(1.0f);
+                Debug.Log("Add Reward");
             }
 
             foreach (var agent in agents)

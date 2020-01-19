@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
 using System.Linq;
+using Random = UnityEngine.Random;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -111,7 +113,7 @@ namespace MoreMountains.TopDownEngine
 			Initialization();
 		}
 
-		/// <summary>
+        /// <summary>
 		/// Gets and stores input manager, camera and components
 		/// </summary>
 		protected virtual void Initialization()
@@ -220,9 +222,11 @@ namespace MoreMountains.TopDownEngine
             if (!string.IsNullOrEmpty(PlayerID))
             {
                 LinkedInputManager = null;
-                InputManager[] foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
+                var foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
 
-                LinkedInputManager = foundInputManagers.Single(manager => manager.PlayerID == PlayerID); 
+                var inputManager = foundInputManagers?.Single(manager => manager.PlayerID == PlayerID);
+                SetInputManager(inputManager);
+                SetInputManager(inputManager);
             }
             UpdateInputManagersInAbilities();
         }
@@ -233,8 +237,11 @@ namespace MoreMountains.TopDownEngine
         /// <param name="inputManager"></param>
         public virtual void SetInputManager(InputManager inputManager)
         {
-            LinkedInputManager = inputManager;
-            UpdateInputManagersInAbilities();
+	        if (inputManager)
+	        {
+		        LinkedInputManager = inputManager;
+		        UpdateInputManagersInAbilities();   
+	        }
         }
 
         /// <summary>
@@ -283,6 +290,11 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void Update()
 		{		
 			EveryFrame();
+			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
+			if (LinkedInputManager.PlayerID != PlayerID)
+			{
+				SetInputManager();
+			}
 		}
 
 		/// <summary>

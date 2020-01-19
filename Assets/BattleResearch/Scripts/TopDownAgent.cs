@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MLAgents;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BattleResearch.Scripts
 {
@@ -18,7 +19,6 @@ namespace BattleResearch.Scripts
         public LayerMask otherMask;
         
         public Health healthComponent;
-
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private enum Directions { Left, Right, Up, Down }
@@ -125,11 +125,13 @@ namespace BattleResearch.Scripts
                     angles[i] =  degrees * i;
                 }
 
-                var detectable = new[] {"walls", "Spikes", "Destructable"};
-
-                var observations = rayPerception.Perceive(25, angles, detectable,  otherMask);
+                var observations = rayPerception.Perceive(25, angles, new[] {"walls"}, 
+                                                            otherMask, 0, 0, Color.red);
                 
-                var playerOBs = rayPerception.Perceive(25, angles, new[] {"Player"},  playerMask,0.8f);
+                
+                
+                var playerOBs = rayPerception.Perceive(25, angles, new [] {"Player"}, 
+                                                        playerMask,0, 0, Color.blue);
 
                 AddVectorObs(observations);
                 AddVectorObs(playerOBs);

@@ -9,8 +9,10 @@ TagManager:
   - Enemy
   - World
   - walls
-  - Spikes
-  - Destructable
+  - RedCharacter
+  - BlueCharacter
+  - GreenCharacter
+  - YellowCharacter
   layers:
   - Default
   - TransparentFX

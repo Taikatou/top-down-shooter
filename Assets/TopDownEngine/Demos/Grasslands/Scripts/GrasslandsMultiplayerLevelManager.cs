@@ -3,6 +3,8 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using BattleResearch.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -103,7 +105,7 @@ namespace MoreMountains.TopDownEngine
             {
                 WinnerID = "Player1";
             }
-            
+
             //MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
             //_gameOver = true;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.GameOver, null);
