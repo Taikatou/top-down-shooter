@@ -14,6 +14,8 @@ namespace BattleResearch.Scripts
         public MMInput.ButtonStates ShootButtonState { get; set; }
         
         public MMInput.ButtonStates ReloadButtonState { get; set; }
+        
+        public MMInput.ButtonStates DashButtonState { get; set; }
 
         public string PlayerId
         {
@@ -37,6 +39,11 @@ namespace BattleResearch.Scripts
         public void SetReloadButtonState(bool active)
         {
             ReloadButtonState = SetButton(ReloadButtonState, active);
+        }
+        
+        public void SetDashButtonState(bool active)
+        {
+            DashButtonState = SetButton(DashButtonState, active);
         }
 
         public MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool active)

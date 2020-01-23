@@ -2,34 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scenes/SampleScene.unity.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Editor/AgentEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Editor/AgentEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/MLAgentsEditModeTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/MLAgentsEditModeTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBall.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBallHardNew.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBallHardNew.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/DynamicPlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/DynamicPlatform.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/FixedPlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/FixedPlatform.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Scripts/CrawlerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Scripts/CrawlerAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/FoodCollectorArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/FoodCollectorArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/VisualFoodCollectorArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/VisualFoodCollectorArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/SymbolFinderArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/SymbolFinderArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/VisualSymbolFinderArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/VisualSymbolFinderArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockVisualArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockVisualArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scenes/PushBlock.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scenes/PushBlock.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/AreaPB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/AreaPB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/VisualAreaPyramids.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/VisualAreaPyramids.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Prefabs/Agent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Prefabs/Agent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Prefabs/SoccerFieldTwos.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Prefabs/SoccerFieldTwos.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Prefabs/TennisArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Prefabs/TennisArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Prefabs/WalkerPair.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Prefabs/WalkerPair.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Scripts/WalkerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Scripts/WalkerAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/WallJump/Prefabs/WallJumpArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/WallJump/Prefabs/WallJumpArea.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Academy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Academy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/RpcCommunicator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/RpcCommunicator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/ISensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/ISensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/BaseMLCharacterBase.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/BaseMLCharacterBase.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/SmallTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/SmallTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaGunBullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaGunBullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaPlasmaBullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaPlasmaBullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaRifleBullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaRifleBullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaShotgunBullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaShotgunBullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/NinjaRifleBullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/NinjaRifleBullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaGun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaGun.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaPlasma.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaPlasma.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaRifle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaRifle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaShotgun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaShotgun.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaSword.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaSword.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/NinjaRifle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/NinjaRifle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,6 +76,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/FPS/MMFPSCounter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/MMHelpers/MMInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/GUI/MMFader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/GUI/MMHealthBar.cs" root0="FORCE_HIGHLIGHTING" />
@@ -97,6 +111,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Scripts/PyramidArea.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Scripts/PyramidSwitch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Scripts/SoccerFieldArea.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Scripts/PyramidAgent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -121,7 +136,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/Sensor/VectorSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Scripts/HallwayAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/MLAgentsEditModeTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/SharedAssets/Scripts/RayPerception2D.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBall.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Curves/Demo/Plotter/MMPlotterGenerator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Scenes/3DBall.unity" root0="FORCE_HIGHLIGHTING" />
@@ -134,6 +151,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/RayPerceptionTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/DemonstrationTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Grasslands.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMFeedbacks/MMFeedbacks/Shakers/MMFlash.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/DecisionRequester.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.4.0/Runtime/Behaviours/CinemachineVirtualCamera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
@@ -141,6 +160,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim3D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Editor/FindMissingScriptsRecursively.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterAbility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Academy.cs" root0="FORCE_HIGHLIGHTING" />
@@ -163,7 +183,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInterface.cs" />
-        <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" />
@@ -195,12 +214,21 @@
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DecisionRequester.cs" />
       </list>
     </option>
   </component>
@@ -279,6 +307,8 @@
       <workItem from="1579517256168" duration="2885000" />
       <workItem from="1579654720704" duration="599000" />
       <workItem from="1579728614929" duration="7645000" />
+      <workItem from="1579793871158" duration="816000" />
+      <workItem from="1579794775945" duration="2297000" />
     </task>
     <servers />
   </component>

@@ -14,6 +14,8 @@ namespace BattleResearch.Scripts
         
         public override MMInput.ButtonStates ReloadButtonState => _inputInterface.ReloadButtonState;
 
+        public override MMInput.ButtonStates DashButtonState =>_inputInterface.DashButtonState;
+
         private bool CheckAi()
         {
             if (aiEnabled)

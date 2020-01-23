@@ -18,9 +18,7 @@ namespace BattleResearch.Scripts
 
         public LayerMask otherMask;
         
-        public Health healthComponent;
-        public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
-
+        private Health _healthComponent;
         private enum Directions { Left, Right, Up, Down }
 
         private Dictionary<Directions, KeyCode> _directions;
@@ -36,6 +34,8 @@ namespace BattleResearch.Scripts
         public bool heuristicEnabled;
 
         private static bool _heuristicSetup;
+        
+        public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private int CurrentPoints
         {
@@ -73,6 +73,8 @@ namespace BattleResearch.Scripts
             _agentRb = GetComponent<Rigidbody2D>();
 
             _handleWeaponAbility = GetComponent<CharacterHandleWeapon>();
+
+            _healthComponent = GetComponent<Health>();
         }
 
         private int GetDecision(float input)
@@ -113,6 +115,12 @@ namespace BattleResearch.Scripts
             {
                 var reloadButtonDown = Convert.ToBoolean(vectorAction[5]);
                 AgentInput.SetReloadButtonState(reloadButtonDown);
+            }
+            
+            if (vectorAction.Length >= 6)
+            {
+                var dashButtonDown = Convert.ToBoolean(vectorAction[5]);
+                AgentInput.SetDashButtonState(dashButtonDown);
             }
         }
 
@@ -171,9 +179,9 @@ namespace BattleResearch.Scripts
                 : -1;
             AddVectorObs(state);
 
-            if (healthComponent)
+            if (_healthComponent)
             {
-                AddVectorObs(healthComponent.CurrentHealth);    
+                AddVectorObs(_healthComponent.CurrentHealth);    
             }
 
             var ammo = _handleWeaponAbility.CurrentWeapon ? 
@@ -196,6 +204,7 @@ namespace BattleResearch.Scripts
             var secondaryY = 0.0f;
             var shootButtonInput = 0.0f;
             var reloadButtonInput = 0.0f;
+            var dashButtonInput = 0.0f;
 
             if (heuristicEnabled)
             {
@@ -215,9 +224,14 @@ namespace BattleResearch.Scripts
 
                 var reloadButtonState = Input.GetKey(KeyCode.End);
                 reloadButtonInput = Convert.ToSingle(reloadButtonState);
+                
+                var dashButtonState = Input.GetKey(KeyCode.Home);
+                dashButtonInput = Convert.ToSingle(dashButtonState);
             }
 
-            return new [] { x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput};
+            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput, dashButtonInput};
+
+            return output;
         }
 
         public override void AgentReset()

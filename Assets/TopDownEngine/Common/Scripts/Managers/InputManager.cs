@@ -87,6 +87,8 @@ namespace MoreMountains.TopDownEngine
 
 		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButton.State.CurrentState;
 
+		public virtual MMInput.ButtonStates DashButtonState => DashButton.State.CurrentState;
+
 		protected List<MMInput.IMButton> ButtonList;
 		protected Vector2 _primaryMovement = Vector2.zero;
 		protected Vector2 _secondaryMovement = Vector2.zero;

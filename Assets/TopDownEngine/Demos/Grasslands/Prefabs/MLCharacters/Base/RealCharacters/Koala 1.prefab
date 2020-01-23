@@ -9690,8 +9690,9 @@ GameObject:
   - component: {fileID: 114171358364461030}
   - component: {fileID: 114499223069276626}
   - component: {fileID: 7526697671933341368}
-  - component: {fileID: 7993286593346662179}
-  - component: {fileID: 5146985213592197525}
+  - component: {fileID: 1131789997202442179}
+  - component: {fileID: 5832822908936307152}
+  - component: {fileID: 5387466295621459731}
   m_Layer: 10
   m_Name: Koala 1
   m_TagString: Player
@@ -10174,7 +10175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cea8b4bce9e4a479aad78264d90fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7993286593346662179
+--- !u!114 &1131789997202442179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10198,7 +10199,7 @@ MonoBehaviour:
   m_BehaviorName: Koala Agent
   m_TeamID: 0
   m_useChildSensors: 1
---- !u!114 &5146985213592197525
+--- !u!114 &5832822908936307152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10212,18 +10213,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
-    onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 1
   useVectorObs: 1
   rayPerception: {fileID: 8630999849055733176}
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   otherMask:
     serializedVersion: 2
-    m_Bits: 0
-  healthComponent: {fileID: 0}
+    m_Bits: 256
   heuristicEnabled: 0
+--- !u!114 &5387466295621459731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 1
+  RepeatAction: 1
+  offsetStep: 1
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

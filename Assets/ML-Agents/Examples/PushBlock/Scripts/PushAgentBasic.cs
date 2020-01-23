@@ -163,6 +163,7 @@ public class PushAgentBasic : Agent
     /// </summary>
     public override void AgentAction(float[] vectorAction)
     {
+        Debug.Log("Upate");
         // Move the agent using the action.
         MoveAgent(vectorAction);
 
