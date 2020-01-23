@@ -86,6 +86,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
 		protected virtual void DashStart()
 		{
+			Debug.Log("Dash");
             if (!Cooldown.Ready())
             {
                 return;

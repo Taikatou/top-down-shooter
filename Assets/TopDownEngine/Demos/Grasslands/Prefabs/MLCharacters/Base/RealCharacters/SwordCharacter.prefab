@@ -50,8 +50,23 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3536738572098132884, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536738572098132884, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
       propertyPath: m_BehaviorName
       value: SwordTopDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536738572098132884, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[5]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536738572098132884, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[6]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8081650565943479376, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}
@@ -59,6 +74,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114594623923584052, guid: ea4d9a1282e7d5748a3393a32892ddbf,
         type: 3}
+    - target: {fileID: 8081706780025955900, guid: 86d67af4607406744bfe969d8928780d,
+        type: 3}
+      propertyPath: Cooldown.Unlimited
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8187881470456341690, guid: 86d67af4607406744bfe969d8928780d,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,47 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Editor/AgentEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Editor/AgentEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/MLAgentsEditModeTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Editor/Tests/MLAgentsEditModeTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBallHardNew.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/3DBall/Prefabs/3DBallHardNew.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/DynamicPlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/DynamicPlatform.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/FixedPlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Prefabs/FixedPlatform.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Scripts/CrawlerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Crawler/Scripts/CrawlerAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/FoodCollectorArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/FoodCollectorArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/VisualFoodCollectorArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/FoodCollector/Prefabs/VisualFoodCollectorArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/SymbolFinderArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/SymbolFinderArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/VisualSymbolFinderArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Hallway/Prefabs/VisualSymbolFinderArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockVisualArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Prefabs/PushBlockVisualArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scenes/PushBlock.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scenes/PushBlock.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/AreaPB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/AreaPB.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/VisualAreaPyramids.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Pyramids/Prefabs/VisualAreaPyramids.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Prefabs/Agent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Reacher/Prefabs/Agent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Prefabs/SoccerFieldTwos.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Soccer/Prefabs/SoccerFieldTwos.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Prefabs/TennisArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Tennis/Prefabs/TennisArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Prefabs/WalkerPair.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Prefabs/WalkerPair.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Scripts/WalkerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/Walker/Scripts/WalkerAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Examples/WallJump/Prefabs/WallJumpArea.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Examples/WallJump/Prefabs/WallJumpArea.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Academy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Academy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/RpcCommunicator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Grpc/RpcCommunicator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensorComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/ISensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/ISensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RenderTextureSensorComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RifleCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RifleCharacter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RocketCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RocketCharacter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/ShotgunCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/ShotgunCharacter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/SwordCharacter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/SwordCharacter.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -223,12 +190,12 @@
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent2D.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensorComponent3D.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/DecisionRequester.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterDash2D.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
       </list>
     </option>
   </component>
@@ -308,7 +275,7 @@
       <workItem from="1579654720704" duration="599000" />
       <workItem from="1579728614929" duration="7645000" />
       <workItem from="1579793871158" duration="816000" />
-      <workItem from="1579794775945" duration="2297000" />
+      <workItem from="1579794775945" duration="4513000" />
     </task>
     <servers />
   </component>

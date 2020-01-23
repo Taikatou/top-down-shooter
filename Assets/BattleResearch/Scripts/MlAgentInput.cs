@@ -11,11 +11,11 @@ namespace BattleResearch.Scripts
 
         public Vector2 SecondaryInput { get; set; }
 
-        public MMInput.ButtonStates ShootButtonState { get; set; }
+        public MMInput.ButtonStates ShootButtonState { get; private set; }
         
-        public MMInput.ButtonStates ReloadButtonState { get; set; }
+        public MMInput.ButtonStates ReloadButtonState { get; private set; }
         
-        public MMInput.ButtonStates DashButtonState { get; set; }
+        public MMInput.ButtonStates DashButtonState { get; private set; }
 
         public string PlayerId
         {
@@ -46,7 +46,7 @@ namespace BattleResearch.Scripts
             DashButtonState = SetButton(DashButtonState, active);
         }
 
-        public MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool active)
+        private MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool active)
         {
             if (active)
             {
@@ -59,6 +59,10 @@ namespace BattleResearch.Scripts
                     case MMInput.ButtonStates.ButtonUp:
                         buttonState = MMInput.ButtonStates.ButtonDown;
                         break;
+                    
+                    case MMInput.ButtonStates.Off:
+                        buttonState = MMInput.ButtonStates.ButtonPressed;
+                        break;
                 }
             }
             else
@@ -70,6 +74,10 @@ namespace BattleResearch.Scripts
                         break;
                     
                     case MMInput.ButtonStates.ButtonPressed:
+                        buttonState = MMInput.ButtonStates.ButtonUp;
+                        break;
+                    
+                    case MMInput.ButtonStates.Off:
                         buttonState = MMInput.ButtonStates.ButtonUp;
                         break;
                 }
