@@ -353,6 +353,7 @@ namespace MoreMountains.TopDownEngine
                 CurrentWeapon.SetOwner(_character, this);
                 CurrentWeapon.WeaponID = weaponID;
                 _weaponAim = CurrentWeapon.gameObject.MMGetComponentNoAlloc<WeaponAim>();
+                _weaponAim.AimControl = WeaponAim.AimControls.SecondaryMovement;
                 // we handle (optional) inverse kinematics (IK) 
                 if (_weaponIK != null)
                 {

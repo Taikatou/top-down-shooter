@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -9,6 +11,8 @@ namespace BattleResearch.Scripts
         public bool aiEnabled = true;
         
         private MlAgentInput _inputInterface;
+        
+        public override MMInput.ButtonStates ReloadButtonState => _inputInterface.ReloadButtonState;
 
         private bool CheckAi()
         {

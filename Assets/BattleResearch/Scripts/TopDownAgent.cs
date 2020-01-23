@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using MLAgents;
 using MoreMountains.TopDownEngine;
+using TopDownEngine.Demos.Grasslands.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BattleResearch.Scripts
 {
@@ -36,6 +36,15 @@ namespace BattleResearch.Scripts
         public bool heuristicEnabled;
 
         private static bool _heuristicSetup;
+
+        private int CurrentPoints
+        {
+            get
+            {
+                var level = FindObjectOfType<MLAgentsGrasslandsMultiplayerLevelManager>();
+                return level? level.GetPoints(AgentInput.PlayerId): 0;
+            }
+        }
 
         public override void InitializeAgent()
         {
@@ -98,7 +107,13 @@ namespace BattleResearch.Scripts
 
             var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
             
-            AgentInput.SetButton(shootButtonDown);
+            AgentInput.SetShootButtonState(shootButtonDown);
+
+            if (vectorAction.Length >= 5)
+            {
+                var reloadButtonDown = Convert.ToBoolean(vectorAction[5]);
+                AgentInput.SetReloadButtonState(reloadButtonDown);
+            }
         }
 
         private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
@@ -136,15 +151,41 @@ namespace BattleResearch.Scripts
                 AddVectorObs(observations);
                 AddVectorObs(playerOBs);
             }
+            
+            //AddVectorObs(new Vector2(direction.x, direction.y));
 
-            AddVectorObs(transform.InverseTransformDirection(_agentRb.velocity));
+            var aim2d = GetComponentInChildren<WeaponAim2D>();
+            if (aim2d)
+            {
+                var angle = aim2d.InputMovement;
+                AddVectorObs(angle);
+            }
 
+            var position = _agentRb.transform.position;
+            var position2d = new Vector2(position.x, position.y);
+            AddVectorObs(position2d);
+
+            // Add weapon state
             var state = _handleWeaponAbility.CurrentWeapon ?
                 (int) _handleWeaponAbility.CurrentWeapon.WeaponState.CurrentState
                 : -1;
             AddVectorObs(state);
+
+            if (healthComponent)
+            {
+                AddVectorObs(healthComponent.CurrentHealth);    
+            }
+
+            var ammo = _handleWeaponAbility.CurrentWeapon ? 
+                _handleWeaponAbility.CurrentWeapon.CurrentAmmoLoaded : 0;
+
+            AddVectorObs(ammo);
+
+            var reload = _handleWeaponAbility.CurrentWeapon && _handleWeaponAbility.CurrentWeapon.Reloading;
+            AddVectorObs(reload);
+
+            AddVectorObs(CurrentPoints);
             
-            AddVectorObs(healthComponent.CurrentHealth);
         }
 
         public override float[] Heuristic()
@@ -153,7 +194,8 @@ namespace BattleResearch.Scripts
             var y = 0.0f;
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
-            var buttonInput = 0.0f;
+            var shootButtonInput = 0.0f;
+            var reloadButtonInput = 0.0f;
 
             if (heuristicEnabled)
             {
@@ -168,11 +210,14 @@ namespace BattleResearch.Scripts
                     secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
                 }
 
-                var buttonState = Input.GetKey(KeyCode.KeypadEnter);
-                buttonInput = Convert.ToSingle(buttonState);
+                var shootButtonState = Input.GetKey(KeyCode.KeypadEnter);
+                shootButtonInput = Convert.ToSingle(shootButtonState);
+
+                var reloadButtonState = Input.GetKey(KeyCode.End);
+                reloadButtonInput = Convert.ToSingle(reloadButtonState);
             }
 
-            return new [] { x, y, secondaryX, secondaryY, buttonInput};
+            return new [] { x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput};
         }
 
         public override void AgentReset()

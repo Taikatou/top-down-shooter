@@ -12,6 +12,8 @@ namespace BattleResearch.Scripts
         public Vector2 SecondaryInput { get; set; }
 
         public MMInput.ButtonStates ShootButtonState { get; set; }
+        
+        public MMInput.ButtonStates ReloadButtonState { get; set; }
 
         public string PlayerId
         {
@@ -27,34 +29,46 @@ namespace BattleResearch.Scripts
             ShootButtonState = MMInput.ButtonStates.ButtonUp;
         }
 
-        public void SetButton(bool active)
+        public void SetShootButtonState(bool active)
+        {
+            ShootButtonState = SetButton(ShootButtonState, active);
+        }
+
+        public void SetReloadButtonState(bool active)
+        {
+            ReloadButtonState = SetButton(ReloadButtonState, active);
+        }
+
+        public MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool active)
         {
             if (active)
             {
-                switch (ShootButtonState)
+                switch (buttonState)
                 {
                     case MMInput.ButtonStates.ButtonDown:
-                        ShootButtonState = MMInput.ButtonStates.ButtonPressed;
+                        buttonState = MMInput.ButtonStates.ButtonPressed;
                         break;
 
                     case MMInput.ButtonStates.ButtonUp:
-                        ShootButtonState = MMInput.ButtonStates.ButtonDown;
+                        buttonState = MMInput.ButtonStates.ButtonDown;
                         break;
                 }
             }
             else
             {
-                switch (ShootButtonState)
+                switch (buttonState)
                 {
                     case MMInput.ButtonStates.ButtonDown:
-                        ShootButtonState = MMInput.ButtonStates.ButtonUp;
+                        buttonState = MMInput.ButtonStates.ButtonUp;
                         break;
                     
                     case MMInput.ButtonStates.ButtonPressed:
-                        ShootButtonState = MMInput.ButtonStates.ButtonUp;
+                        buttonState = MMInput.ButtonStates.ButtonUp;
                         break;
                 }
             }
+
+            return buttonState;
         }
     }
 }

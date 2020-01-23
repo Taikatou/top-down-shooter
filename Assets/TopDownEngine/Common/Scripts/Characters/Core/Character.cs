@@ -291,9 +291,12 @@ namespace MoreMountains.TopDownEngine
 		{		
 			EveryFrame();
 			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
-			if (LinkedInputManager.PlayerID != PlayerID)
+			if (LinkedInputManager)
 			{
-				SetInputManager();
+				if (LinkedInputManager.PlayerID != PlayerID)
+				{
+					SetInputManager();
+				}	
 			}
 		}
 

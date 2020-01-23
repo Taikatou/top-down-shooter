@@ -13,11 +13,11 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
         {
             Debug.Log("GameOver");
             var agents = FindObjectsOfType<TopDownAgent>();
-            var winner = agents.SingleOrDefault(player => player.AgentInput.PlayerId == WinnerID);
-            if (winner)
+            foreach(var agent in agents)
             {
-                winner?.AddReward(1.0f);
-                Debug.Log("Add Reward");
+                var winner = agent.AgentInput.PlayerId == WinnerID;
+                var reward = winner ? 1f : -0.25f;
+                agent.SetReward(reward);
             }
 
             foreach (var agent in agents)
@@ -53,6 +53,12 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     UpdateCountdown();
                     break;
             }
+        }
+
+        public int GetPoints(string agentId)
+        {
+            var points = Points.SingleOrDefault(point => point.PlayerID == WinnerID);
+            return points.Points;
         }
     }
 }

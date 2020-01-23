@@ -6404,7 +6404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 149
+    vectorObservationSize: 150
     numStackedVectorObservations: 1
     vectorActionSize: 0300000003000000030000000300000002000000
     vectorActionDescriptions: []
@@ -6440,11 +6440,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   healthComponent: {fileID: 8080766248922532048}
-  playerTags:
-  - RedCharacter
-  - BlueCharacter
-  - GreenCharacter
-  - YellowCharacter
   heuristicEnabled: 0
 --- !u!1 &8193371405363711862
 GameObject:

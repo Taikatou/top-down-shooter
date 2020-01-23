@@ -17,6 +17,8 @@ namespace MoreMountains.TopDownEngine
         protected Vector2 _inputMovement;
         protected Camera _mainCamera;
 
+        public Vector2 InputMovement => _inputMovement;
+
         protected override void Initialization()
         {
             base.Initialization();

@@ -36,7 +36,7 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            if (_inputManager.ReloadButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.ReloadButtonState == MMInput.ButtonStates.ButtonDown)
             {
                 Reload();
             }
