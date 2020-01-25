@@ -3,7 +3,9 @@ using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
 using System;
+using BattleResearch.Scripts;
 using MoreMountains.Feedbacks;
+using UnityEditor.UIElements;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -25,6 +27,9 @@ namespace MoreMountains.TopDownEngine
         /// set this to true to have your object teleport to the impact point on death. Useful for fast moving stuff like projectiles.
         public bool PerfectImpact = false;
 
+
+        public string _collisionTag { get; set; }
+        
         [Header("Damage Caused")]
         /// The amount of health to remove from the player's health
         public int DamageCaused = 10;
@@ -144,6 +149,7 @@ namespace MoreMountains.TopDownEngine
         public virtual void IgnoreGameObject(GameObject newIgnoredGameObject)
         {
             _ignoredGameObjects.Add(newIgnoredGameObject);
+            
         }
 
         /// <summary>
@@ -231,6 +237,35 @@ namespace MoreMountains.TopDownEngine
 
                 return;
             }
+            
+            var agent = Owner.GetComponent<Character>();
+            if (agent)
+            {
+                if (DamageCaused > 0)
+                {
+                    _collisionTag = agent.enemyTag;
+                }
+                else
+                {
+                    _collisionTag = agent.teamTag;
+                }
+            }
+            else
+            {
+                Debug.Log("Update all");
+            }
+
+            var character = collider.GetComponent<Character>();
+
+            if (character)
+            {
+                Debug.Log("a" + character.teamTag + "\t" + "b" + _collisionTag);
+
+                if (character.teamTag != _collisionTag)
+                {
+                    return;
+                }
+            }
 
             // if we're on our first frame, we don't apply damage
             if (Time.time == 0f)
@@ -238,7 +273,7 @@ namespace MoreMountains.TopDownEngine
                 return;
             }
 
-            _collisionPoint = this.transform.position;
+            _collisionPoint = transform.position;
             _colliderHealth = collider.gameObject.MMGetComponentNoAlloc<Health>();
 
             // if what we're colliding with is damageable
@@ -290,8 +325,11 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
-
+            if (DamageCaused > 0)
+            {
+                HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
+            }
+            
             // we apply the damage to the thing we've collided with
             _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
             if (DamageTakenEveryTime + DamageTakenDamageable > 0)

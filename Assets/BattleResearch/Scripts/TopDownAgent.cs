@@ -13,9 +13,7 @@ namespace BattleResearch.Scripts
         public bool useVectorObs;
 
         public RayPerception2D rayPerception;
-
-        public LayerMask playerMask;
-
+        
         public LayerMask otherMask;
         
         private Health _healthComponent;
@@ -24,10 +22,6 @@ namespace BattleResearch.Scripts
         private Dictionary<Directions, KeyCode> _directions;
 
         private Dictionary<Directions, KeyCode> _secondaryDirections;
-        
-        private Rigidbody2D _agentRb;
-
-        private CharacterHandleWeapon _handleWeaponAbility;
 
         private int divisions = 24;
         
@@ -36,6 +30,8 @@ namespace BattleResearch.Scripts
         private static bool _heuristicSetup;
         
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
+
+        private ISense[] _senses;
 
         private int CurrentPoints
         {
@@ -70,11 +66,8 @@ namespace BattleResearch.Scripts
                 {Directions.Down, KeyCode.DownArrow },
                 {Directions.Up, KeyCode.UpArrow }
             };
-            _agentRb = GetComponent<Rigidbody2D>();
 
-            _handleWeaponAbility = GetComponent<CharacterHandleWeapon>();
-
-            _healthComponent = GetComponent<Health>();
+            _senses = GetComponentsInChildren<ISense>();
         }
 
         private int GetDecision(float input)
@@ -108,13 +101,15 @@ namespace BattleResearch.Scripts
             AgentInput.SecondaryInput = secondary;
 
             var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
-            
             AgentInput.SetShootButtonState(shootButtonDown);
             
-            var reloadButtonDown = Convert.ToBoolean(vectorAction[5]);
+            var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[5]);
+            AgentInput.SetSecondaryShootButtonState(secondaryShootButtonDown);
+            
+            var reloadButtonDown = Convert.ToBoolean(vectorAction[6]);
             AgentInput.SetReloadButtonState(reloadButtonDown);
             
-            var dashButtonDown = Convert.ToBoolean(vectorAction[6]);
+            var dashButtonDown = Convert.ToBoolean(vectorAction[7]);
             AgentInput.SetDashButtonState(dashButtonDown);
         }
 
@@ -145,49 +140,29 @@ namespace BattleResearch.Scripts
                 var observations = rayPerception.Perceive(25, angles, new[] {"walls"}, 
                                                             otherMask, 0, 0, Color.red);
                 
-                
-                
-                var playerOBs = rayPerception.Perceive(25, angles, new [] {"Player"}, 
-                                                        playerMask,0, 0, Color.blue);
-
                 AddVectorObs(observations);
-                AddVectorObs(playerOBs);
             }
             
-            //AddVectorObs(new Vector2(direction.x, direction.y));
-
-            var aim2d = GetComponentInChildren<WeaponAim2D>();
-            if (aim2d)
+            foreach (var sense in _senses)
             {
-                var angle = aim2d.InputMovement;
-                AddVectorObs(angle);
+                var obs = sense.GetObservations();
+                AddVectorObs(obs);
             }
+            
+            var agentRb = GetComponent<Rigidbody2D>();
+            var position = agentRb.transform.position;
+            
+            var agentSenses = FindObjectsOfType<AgentSense>();
 
-            var position = _agentRb.transform.position;
-            var position2d = new Vector2(position.x, position.y);
-            AddVectorObs(position2d);
-
-            // Add weapon state
-            var state = _handleWeaponAbility.CurrentWeapon ?
-                (int) _handleWeaponAbility.CurrentWeapon.WeaponState.CurrentState
-                : -1;
-            AddVectorObs(state);
-
-            if (_healthComponent)
+            foreach (var agentSense in agentSenses)
             {
-                AddVectorObs(_healthComponent.CurrentHealth);    
+                if (agentSense.gameObject != gameObject)
+                {
+                    AddVectorObs(agentSense.GetObservations(position));
+                }
             }
-
-            var ammo = _handleWeaponAbility.CurrentWeapon ? 
-                _handleWeaponAbility.CurrentWeapon.CurrentAmmoLoaded : 0;
-
-            AddVectorObs(ammo);
-
-            var reload = _handleWeaponAbility.CurrentWeapon && _handleWeaponAbility.CurrentWeapon.Reloading;
-            AddVectorObs(reload);
 
             AddVectorObs(CurrentPoints);
-            
         }
 
         public override float[] Heuristic()
@@ -199,6 +174,7 @@ namespace BattleResearch.Scripts
             var shootButtonInput = 0.0f;
             var reloadButtonInput = 0.0f;
             var dashButtonInput = 0.0f;
+            var secondaryshootButtonInput = 0.0f;
 
             if (heuristicEnabled)
             {
@@ -213,8 +189,11 @@ namespace BattleResearch.Scripts
                     secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
                 }
 
-                var shootButtonState = Input.GetKey(KeyCode.KeypadEnter);
+                var shootButtonState = Input.GetKey(KeyCode.X);
                 shootButtonInput = Convert.ToSingle(shootButtonState);
+
+                var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+                secondaryshootButtonInput = Convert.ToSingle(secondaryShootButtonState);
 
                 var reloadButtonState = Input.GetKey(KeyCode.End);
                 reloadButtonInput = Convert.ToSingle(reloadButtonState);
@@ -223,7 +202,7 @@ namespace BattleResearch.Scripts
                 dashButtonInput = Convert.ToSingle(dashButtonState);
             }
 
-            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput, dashButtonInput};
+            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, secondaryshootButtonInput, reloadButtonInput, dashButtonInput};
 
             return output;
         }

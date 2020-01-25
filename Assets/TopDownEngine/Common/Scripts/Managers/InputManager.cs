@@ -61,11 +61,11 @@ namespace MoreMountains.TopDownEngine
 		/// the crouch button
 		public MMInput.IMButton CrouchButton { get; protected set; }
 		/// the shoot button
-		public MMInput.IMButton ShootButton { get; protected set; }
+		private MMInput.IMButton ShootButton { get; set; }
         /// the activate button, used for interactions with zones
         public MMInput.IMButton InteractButton { get; protected set; }
         /// the shoot button
-        public MMInput.IMButton SecondaryShootButton { get; protected set; }
+        private MMInput.IMButton SecondaryShootButton { get; set; }
         /// the reload button
         public MMInput.IMButton ReloadButton { get; protected set; }
         /// the pause button
@@ -85,9 +85,13 @@ namespace MoreMountains.TopDownEngine
 		/// the secondary movement (usually the right stick on a gamepad), used to aim
 		public Vector2 SecondaryMovement {get { return _secondaryMovement; } }
 
-		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButton.State.CurrentState;
+		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButtonState;
 
 		public virtual MMInput.ButtonStates DashButtonState => DashButton.State.CurrentState;
+		
+		public virtual MMInput.ButtonStates ShootButtonState => ShootButton.State.CurrentState;
+		
+		public virtual MMInput.ButtonStates SecondaryShootButtonState => SecondaryShootButton.State.CurrentState;
 
 		protected List<MMInput.IMButton> ButtonList;
 		protected Vector2 _primaryMovement = Vector2.zero;

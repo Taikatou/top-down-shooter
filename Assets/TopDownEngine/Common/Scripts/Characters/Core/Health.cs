@@ -216,18 +216,21 @@ namespace MoreMountains.TopDownEngine
 				DamageDisabled();
 				StartCoroutine(DamageEnabled(invincibilityDuration));	
 			}
-            
-			// we trigger a damage taken event
-			MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
 
-            if (_animator != null)
+            if (damage > 0)
             {
-                _animator.SetTrigger("Damage");
+	            // we trigger a damage taken event
+	            MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
+
+	            if ( _animator != null)
+	            {
+		            _animator.SetTrigger("Damage");
+	            }
+
+	            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
             }
 
-            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
-            
-			// we update the health bar
+            // we update the health bar
 			UpdateHealthBar(true);
 
 			// if health has reached zero

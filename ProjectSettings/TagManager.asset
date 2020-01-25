@@ -13,6 +13,8 @@ TagManager:
   - BlueCharacter
   - GreenCharacter
   - YellowCharacter
+  - Team1
+  - Team2
   layers:
   - Default
   - TransparentFX
@@ -37,8 +39,8 @@ TagManager:
   - Camera2
   - Camera3
   - Camera4
-  - 
-  - 
+  - TeamA
+  - TeamB
   - 
   - 
   - 

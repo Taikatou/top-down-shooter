@@ -9,6 +9,9 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
 {
     public class MLAgentsGrasslandsMultiplayerLevelManager : GrasslandsMultiplayerLevelManager
     {
+        public enum GameMode {Single, Team}
+
+        public GameMode currentGameMode;
         protected override IEnumerator GameOver()
         {
             Debug.Log("GameOver");
@@ -59,6 +62,15 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
         {
             var points = Points.SingleOrDefault(point => point.PlayerID == WinnerID);
             return points.Points;
+        }
+
+        protected override void SpawnMultipleCharacters()
+        {
+            base.SpawnMultipleCharacters();
+            var agents = FindObjectsOfType<TopDownAgent>();
+            foreach (var agent in agents)
+            {
+            }
         }
     }
 }

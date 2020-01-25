@@ -9681,18 +9681,19 @@ GameObject:
   - component: {fileID: 114184457958384624}
   - component: {fileID: 114079283237680582}
   - component: {fileID: 114495819129293066}
-  - component: {fileID: 114545434076996454}
   - component: {fileID: 114619658823058744}
   - component: {fileID: 114530058247276760}
   - component: {fileID: 114863807796539354}
   - component: {fileID: 114644362621734812}
   - component: {fileID: 114104414726605804}
   - component: {fileID: 114171358364461030}
-  - component: {fileID: 114499223069276626}
   - component: {fileID: 7526697671933341368}
   - component: {fileID: 1131789997202442179}
   - component: {fileID: 5832822908936307152}
   - component: {fileID: 5387466295621459731}
+  - component: {fileID: 5991429737727883605}
+  - component: {fileID: 114545434076996454}
+  - component: {fileID: 4100927853220877645}
   m_Layer: 10
   m_Name: Koala 1
   m_TagString: Player
@@ -9975,38 +9976,6 @@ MonoBehaviour:
     CooldownState: 0
     CurrentDurationLeft: 0
   DashFeedback: {fileID: 5986297841957823375}
---- !u!114 &114545434076996454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a07c6668aa55403790d27b575279549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  InitialWeapon: {fileID: 0}
-  CanPickupWeapons: 1
-  WeaponUseFeedback: {fileID: 0}
-  WeaponAttachment: {fileID: 4515663194721164}
-  ProjectileSpawn: {fileID: 0}
-  AutomaticallyBindAnimator: 1
-  AutoIK: 1
-  ContinuousPress: 0
-  GettingHitInterruptsAttack: 0
-  BufferInput: 1
-  NewInputExtendsBuffer: 0
-  MaximumBufferDuration: 0.25
-  RequiresPerfectTile: 0
-  CurrentWeapon: {fileID: 0}
 --- !u!114 &114619658823058744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10134,35 +10103,6 @@ MonoBehaviour:
   DisableModelOnDeath: 1
   DisableCollisionsOnDeath: 0
   DeathMMFeedbacks: {fileID: 4206741978730624185}
---- !u!114 &114499223069276626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceea5d59c11750f4e8deb2c47ff8bcb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObstacleMask:
-    serializedVersion: 2
-    m_Bits: 8448
-  VisionRadius: 100
-  VisionAngle: 360
-  Direction: {x: 0, y: 0, z: 0}
-  EulerAngles: {x: 0, y: 0, z: 0}
-  ShouldScanForTargets: 0
-  TargetMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  ScanFrequencyInSeconds: 1
-  VisibleTargets: []
-  MeshDensity: 1
-  EdgePrecision: 3
-  EdgeThreshold: 0.5
-  VisionMeshFilter: {fileID: 0}
 --- !u!114 &7526697671933341368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10190,7 +10130,7 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 112
     numStackedVectorObservations: 1
-    vectorActionSize: 0300000003000000030000000300000002000000
+    vectorActionSize: 0300000003000000030000000300000002000000020000000200000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -10234,9 +10174,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 1
+  DecisionPeriod: 4
   RepeatAction: 1
   offsetStep: 1
+--- !u!114 &5991429737727883605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54b7b53e26347643a7d54dd14a14b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  InitialWeapon: {fileID: 8653064631849661448, guid: 7d5f206b4418e084ab14232e1b36d109,
+    type: 3}
+  CanPickupWeapons: 0
+  WeaponUseFeedback: {fileID: 0}
+  WeaponAttachment: {fileID: 0}
+  ProjectileSpawn: {fileID: 0}
+  AutomaticallyBindAnimator: 1
+  AutoIK: 1
+  ContinuousPress: 0
+  GettingHitInterruptsAttack: 0
+  BufferInput: 1
+  NewInputExtendsBuffer: 0
+  MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
+  CurrentWeapon: {fileID: 0}
+--- !u!114 &114545434076996454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a07c6668aa55403790d27b575279549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  InitialWeapon: {fileID: 114594623923584052, guid: ea4d9a1282e7d5748a3393a32892ddbf,
+    type: 3}
+  CanPickupWeapons: 0
+  WeaponUseFeedback: {fileID: 0}
+  WeaponAttachment: {fileID: 4515663194721164}
+  ProjectileSpawn: {fileID: 0}
+  AutomaticallyBindAnimator: 1
+  AutoIK: 1
+  ContinuousPress: 0
+  GettingHitInterruptsAttack: 0
+  BufferInput: 1
+  NewInputExtendsBuffer: 0
+  MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
+  CurrentWeapon: {fileID: 0}
+--- !u!114 &4100927853220877645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca5bb8e4ad530245824c3a06f79ed39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

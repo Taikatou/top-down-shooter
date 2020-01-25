@@ -1,6 +1,8 @@
 using Barracuda;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using BattleResearch.Scripts;
 using UnityEngine;
 
 namespace MLAgents
@@ -95,6 +97,51 @@ namespace MLAgents
             m_Model = model;
             m_InferenceDevice = inferenceDevice;
             m_BehaviorName = behaviorName;
+        }
+
+        public float GetObservations()
+        {
+            var nameId = NameChecker.Index(m_BehaviorName);
+            return nameId;
+        }
+    }
+
+    public class NameChecker
+    {
+        private static NameChecker _instance;
+        
+        private readonly List<string> _currentStuff;
+
+        private static NameChecker Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new NameChecker();
+                }
+
+                return _instance;
+            }
+        }
+
+        public static float Index(string current)
+        {
+            return Instance._Index(current);
+        }
+        
+        public NameChecker()
+        {
+            _currentStuff = new List<string>();
+        }
+
+        public float _Index(string current)
+        {
+            if (!_currentStuff.Contains(current))
+            {
+                _currentStuff.Append(current);
+            }
+            return _currentStuff.IndexOf(current);
         }
     }
 }

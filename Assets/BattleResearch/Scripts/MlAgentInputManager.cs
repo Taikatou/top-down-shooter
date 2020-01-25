@@ -15,6 +15,10 @@ namespace BattleResearch.Scripts
         public override MMInput.ButtonStates ReloadButtonState => _inputInterface.ReloadButtonState;
 
         public override MMInput.ButtonStates DashButtonState =>_inputInterface.DashButtonState;
+        
+        public override MMInput.ButtonStates ShootButtonState => _inputInterface.ShootButtonState;
+		
+        public override MMInput.ButtonStates SecondaryShootButtonState => _inputInterface.SecondaryButtonState;
 
         private bool CheckAi()
         {
@@ -51,18 +55,6 @@ namespace BattleResearch.Scripts
             else
             {
                 base.SetSecondaryMovement();
-            }
-        }
-        
-        protected override void SetShootAxis()
-        {
-            if (CheckAi())
-            {
-                ShootAxis = _inputInterface.ShootButtonState;
-            }
-            else
-            {
-                base.SetShootAxis();
             }
         }
     }

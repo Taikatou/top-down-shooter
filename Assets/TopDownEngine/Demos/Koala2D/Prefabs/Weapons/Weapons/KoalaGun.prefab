@@ -14649,7 +14649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: 
   WeaponCurrentlyActive: 1
-  TriggerMode: 1
+  TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 1
   TimeBetweenUses: 1
@@ -14668,10 +14668,11 @@ MonoBehaviour:
   LeftFacingFlipValue: {x: -1, y: 1, z: 1}
   LeftHandHandle: {fileID: 0}
   RightHandHandle: {fileID: 0}
-  ModifyMovementWhileAttacking: 1
+  ModifyMovementWhileAttacking: 0
   MovementMultiplier: 0.5
   PreventAllMovementWhileInUse: 0
   RecoilForce: 500
+  ApplyRecoil: 0
   Animators:
   - {fileID: 95598217650214546}
   WeaponAnimationID: 0
@@ -14700,7 +14701,7 @@ MonoBehaviour:
   Spread: {x: 0, y: 0, z: 10}
   RotateWeaponOnSpread: 1
   RandomSpread: 1
-  SpawnPosition: {x: 55.223595, y: -30.547655, z: 0}
+  SpawnPosition: {x: 0.9, y: -0.87, z: 0}
   TestShootButton: 0
 --- !u!114 &114349044915979940
 MonoBehaviour:

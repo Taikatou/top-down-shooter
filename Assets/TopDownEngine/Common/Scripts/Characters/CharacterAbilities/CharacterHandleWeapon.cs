@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.Collections;
+using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
 
@@ -12,7 +14,7 @@ namespace MoreMountains.TopDownEngine
     /// Animator parameters : defined from the Weapon's inspector
     /// </summary>
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Handle Weapon")]
-    public class CharacterHandleWeapon : CharacterAbility
+    public class CharacterHandleWeapon : CharacterAbility, ISense
     {
         /// This method is only used to display a helpbox text at the beginning of the ability's inspector
         public override string HelpBoxText() { return "This component will allow your character to pickup and use weapons. What the weapon will do is defined in the Weapon classes. This just describes the behaviour of the 'hand' holding the weapon, not the weapon itself. Here you can set an initial weapon for your character to start with, allow weapon pickup, and specify a weapon attachment (a transform inside of your character, could be just an empty child gameobject, or a subpart of your model."; }
@@ -162,14 +164,14 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
+            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown || _inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown)
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonPressed))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
@@ -179,12 +181,12 @@ namespace MoreMountains.TopDownEngine
                 }
             }
             
-            if (_inputManager.ReloadButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.ReloadButtonState == MMInput.ButtonStates.ButtonDown)
             {
                 Reload();
             }
 
-            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
+            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -192,7 +194,7 @@ namespace MoreMountains.TopDownEngine
             if (CurrentWeapon != null)
             {
                 if ((CurrentWeapon.WeaponState.CurrentState == Weapon.WeaponStates.WeaponDelayBetweenUses)
-                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.Off)))
+                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButtonState == MMInput.ButtonStates.Off)))
                 {
                     CurrentWeapon.WeaponInputStop();
                 }
@@ -470,6 +472,23 @@ namespace MoreMountains.TopDownEngine
         {
             base.OnRespawn();
             Setup();
+        }
+
+        public float[] GetObservations()
+        {
+            // Add weapon state
+            var state = CurrentWeapon ?
+                (int) CurrentWeapon.WeaponState.CurrentState
+                : -1;
+
+            var ammo = CurrentWeapon ? 
+                CurrentWeapon.CurrentAmmoLoaded : 0;
+            
+            var reload = CurrentWeapon && CurrentWeapon.Reloading;
+            var reloadFloat = Convert.ToSingle(reload);
+
+
+            return new float [] { state, ammo, reloadFloat };
         }
     }
 }

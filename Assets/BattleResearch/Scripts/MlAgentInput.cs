@@ -13,6 +13,8 @@ namespace BattleResearch.Scripts
 
         public MMInput.ButtonStates ShootButtonState { get; private set; }
         
+        public MMInput.ButtonStates SecondaryButtonState { get; private set; }
+        
         public MMInput.ButtonStates ReloadButtonState { get; private set; }
         
         public MMInput.ButtonStates DashButtonState { get; private set; }
@@ -34,6 +36,11 @@ namespace BattleResearch.Scripts
         public void SetShootButtonState(bool active)
         {
             ShootButtonState = SetButton(ShootButtonState, active);
+        }
+        
+        public void SetSecondaryShootButtonState(bool active)
+        {
+            SecondaryButtonState = SetButton(SecondaryButtonState, active);
         }
 
         public void SetReloadButtonState(bool active)

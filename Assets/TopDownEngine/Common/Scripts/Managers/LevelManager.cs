@@ -10,6 +10,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.FeedbacksForThirdParty;
 
 using Cinemachine;
+using UnityEditor.UIElements;
 
 
 namespace MoreMountains.TopDownEngine
@@ -101,6 +102,10 @@ namespace MoreMountains.TopDownEngine
 
         }
 
+        public string team1Layer;
+
+        public string team2Layer;
+
         /// <summary>
         /// Instantiate playable characters based on the ones specified in the PlayerPrefabs list in the LevelManager's inspector.
         /// </summary>
@@ -132,7 +137,12 @@ namespace MoreMountains.TopDownEngine
 					var character = newPlayer.GetComponent<Character>();
 					if (character)
 					{
-						character.PlayerID = "Player"+count;	
+						var curentTeam = count <= 2;
+						character.PlayerID = "Player"+count;
+						
+						character.teamTag = curentTeam? team1Layer : team2Layer;
+						
+						character.enemyTag = !curentTeam? team1Layer : team2Layer;
 					}
 
 					Players.Add(newPlayer);

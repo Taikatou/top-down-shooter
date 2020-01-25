@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace MoreMountains.TopDownEngine
     /// Supported control modes are mouse, primary movement (you aim wherever you direct your character) and secondary movement (using a secondary axis, separate from the movement).
     /// </summary>
     [AddComponentMenu("TopDown Engine/Weapons/Weapon Aim 2D")]
-    public class WeaponAim2D : WeaponAim
+    public class WeaponAim2D : WeaponAim, ISense
     {
         protected Vector2 _lastNonNullMovement;
         protected Vector2 _inputMovement;
@@ -415,6 +416,12 @@ namespace MoreMountains.TopDownEngine
             {
                 Cursor.visible = true;
             }
+        }
+
+        public float[] GetObservations()
+        {
+            var angle = InputMovement;
+            return ISenseMethods.ToArray(angle).ToArray();
         }
     }
 }
