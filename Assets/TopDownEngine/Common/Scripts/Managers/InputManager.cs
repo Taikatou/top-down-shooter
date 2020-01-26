@@ -87,8 +87,6 @@ namespace MoreMountains.TopDownEngine
 
 		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButtonState;
 
-		public virtual MMInput.ButtonStates DashButtonState => DashButton.State.CurrentState;
-		
 		public virtual MMInput.ButtonStates ShootButtonState => ShootButton.State.CurrentState;
 		
 		public virtual MMInput.ButtonStates SecondaryShootButtonState => SecondaryShootButton.State.CurrentState;

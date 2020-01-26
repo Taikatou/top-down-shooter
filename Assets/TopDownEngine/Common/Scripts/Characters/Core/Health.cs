@@ -17,7 +17,7 @@ namespace MoreMountains.TopDownEngine
 
 		/// the current health of the character
 		[ReadOnly]
-		public int CurrentHealth ;
+		public float CurrentHealth;
 		/// If this is true, this object can't take damage
 		[ReadOnly]
 		public bool Invulnerable = false;	
@@ -208,6 +208,11 @@ namespace MoreMountains.TopDownEngine
             if (CurrentHealth < 0)
             {
                 CurrentHealth = 0;
+            }
+
+            else if (CurrentHealth > MaximumHealth)
+            {
+	            CurrentHealth = MaximumHealth;
             }
 
             // we prevent the character from colliding with Projectiles, Player and Enemies
@@ -406,7 +411,7 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		/// <param name="health">The health the character gets.</param>
 		/// <param name="instigator">The thing that gives the character health.</param>
-		public virtual void GetHealth(int health,GameObject instigator)
+		public virtual void GetHealth(float health,GameObject instigator)
 		{
 			// this function adds health to the character's Health and prevents it to go above MaxHealth.
 			CurrentHealth = Mathf.Min (CurrentHealth + health,MaximumHealth);

@@ -108,9 +108,6 @@ namespace BattleResearch.Scripts
             
             var reloadButtonDown = Convert.ToBoolean(vectorAction[6]);
             AgentInput.SetReloadButtonState(reloadButtonDown);
-            
-            var dashButtonDown = Convert.ToBoolean(vectorAction[7]);
-            AgentInput.SetDashButtonState(dashButtonDown);
         }
 
         private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
@@ -173,8 +170,7 @@ namespace BattleResearch.Scripts
             var secondaryY = 0.0f;
             var shootButtonInput = 0.0f;
             var reloadButtonInput = 0.0f;
-            var dashButtonInput = 0.0f;
-            var secondaryshootButtonInput = 0.0f;
+            var secondaryShootButtonInput = 0.0f;
 
             if (heuristicEnabled)
             {
@@ -193,16 +189,14 @@ namespace BattleResearch.Scripts
                 shootButtonInput = Convert.ToSingle(shootButtonState);
 
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
-                secondaryshootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+                secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
 
                 var reloadButtonState = Input.GetKey(KeyCode.End);
                 reloadButtonInput = Convert.ToSingle(reloadButtonState);
-                
-                var dashButtonState = Input.GetKey(KeyCode.Q);
-                dashButtonInput = Convert.ToSingle(dashButtonState);
+
             }
 
-            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, secondaryshootButtonInput, reloadButtonInput, dashButtonInput};
+            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, secondaryShootButtonInput, reloadButtonInput };
 
             return output;
         }

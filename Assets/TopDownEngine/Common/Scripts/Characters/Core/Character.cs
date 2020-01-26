@@ -19,8 +19,22 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Character/Core/Character")] 
 	public class Character : MonoBehaviour
     {
-	    public string teamTag { get; set; }
-	    public string enemyTag { get; set; }
+	    public int TeamId { get; set; }
+
+	    public int EnemyId
+	    {
+		    get
+		    {
+			    if (TeamId == 1)
+			    {
+				    return 2;
+			    }
+			    else
+			    {
+				    return 1;
+			    }
+		    }
+	    }
 	    
 	    /// the possible initial facing direction for your character
         public enum FacingDirections { West, East, North, South }
@@ -107,6 +121,8 @@ namespace MoreMountains.TopDownEngine
         protected int _zSpeedAnimationParameter;
         protected int _idleAnimationParameter;
         protected int _randomAnimationParameter;
+
+        public bool Dead => ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
 
 
         /// <summary>

@@ -1,10 +1,6 @@
-﻿using System;
-using MoreMountains.Feedbacks;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using BattleResearch.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,23 +71,29 @@ namespace MoreMountains.TopDownEngine
         protected override void OnPlayerDeath(Character playerCharacter)
         {
             base.OnPlayerDeath(playerCharacter);
+
+            var gameOver = GameOverCondition();
+            if (gameOver)
+            {
+                StartCoroutine(GameOver());
+            }
+        }
+
+        protected virtual bool GameOverCondition()
+        {
             var aliveCharacters = 0;
             var i = 0;
             
-            foreach(Character character in LevelManager.Instance.Players)
+            foreach(var character in Instance.Players)
             {
-                if (character.ConditionState.CurrentState != CharacterStates.CharacterConditions.Dead)
+                if (!character.Dead)
                 {
                     WinnerID = character.PlayerID;
                     aliveCharacters++;
                 }
                 i++;
             }
-
-            if (aliveCharacters <= 1)
-            {
-                StartCoroutine(GameOver());
-            }
+            return aliveCharacters <= 1;
         }
 
         /// <summary>

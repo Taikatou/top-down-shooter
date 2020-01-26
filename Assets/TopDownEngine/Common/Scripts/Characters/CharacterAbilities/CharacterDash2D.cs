@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
+using BattleResearch.Scripts;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Feedbacks;
 
@@ -11,7 +13,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this ability to a character and it'll be able to dash in 2D, covering a certain distance in a certain duration
     /// </summary>
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Dash 2D")]
-    public class CharacterDash2D : CharacterAbility 
+    public class CharacterDash2D : CharacterAbility, ISense
 	{
         /// the possible dash modes (fixed : always the same direction)
         public enum DashModes { Fixed, MainMovement, SecondaryMovement, MousePosition }
@@ -75,7 +77,7 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            if (_inputManager.DashButtonState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.ButtonDown)
 			{
 				DashStart();
 			}
@@ -188,5 +190,10 @@ namespace MoreMountains.TopDownEngine
 		{
             MMAnimatorExtensions.UpdateAnimatorBool(_animator, _dashingAnimationParameter, (_movement.CurrentState == CharacterStates.MovementStates.Dashing),_character._animatorParameters);
 		}
-	}
+
+        public float[] GetObservations()
+        {
+            return new[] { Convert.ToSingle(_dashing), _dashTimer, Cooldown.CurrentDurationLeft, (float) Cooldown.CooldownState };
+        }
+    }
 }

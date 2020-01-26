@@ -43,8 +43,7 @@ namespace MoreMountains.TopDownEngine
 
         public bool FollowsAPlayer = true;
         public bool ConfineCameraToLevelBounds = true;
-        [ReadOnly]
-        public Character TargetCharacter;
+        public Character TargetCharacter { get; set; }
 
         protected CinemachineVirtualCamera _virtualCamera;
         protected CinemachineConfiner _confiner;

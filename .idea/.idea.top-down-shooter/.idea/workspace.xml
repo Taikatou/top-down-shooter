@@ -2,34 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b10717a-88a6-4195-884a-5c04c2d5d6b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.top-down-shooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/AgentSense.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BattleResearch/Scripts/AgentSense.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Damage/DamageOnTouch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Damage/DamageOnTouch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/Koala 1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RifleCharacter.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RifleCharacter.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RocketCharacter.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/RocketCharacter.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/ShotgunCharacter.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/ShotgunCharacter.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/SwordCharacter.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Prefabs/MLCharacters/Base/RealCharacters/SwordCharacter.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/SmallTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/SmallTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaGun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaGun.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/summaries/abcd_timers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaGunBulletHealing.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Projectiles/KoalaGunBulletHealing.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaSword.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Koala2D/Prefabs/Weapons/Weapons/KoalaSword.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/csharp_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/csharp_timers.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -156,6 +141,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.4.0/Runtime/Behaviours/CinemachineVirtualCamera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/ProjectileWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Bomb.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMFeedbacks/MMFeedbacks/Shakers/MMTimeManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim3D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/Weapon.cs" root0="FORCE_HIGHLIGHTING" />
@@ -164,6 +150,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Monitor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/DemonstrationRecorder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/AgentSense.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/MeleeWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Editor/FindMissingScriptsRecursively.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterAbility.cs" root0="FORCE_HIGHLIGHTING" />
@@ -174,6 +161,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/GoalDetect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Examples/PushBlock/Scripts/PushAgentBasic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/BattleResearch/Scripts/BreatherAbility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterButtonActivation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterSwap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" root0="FORCE_HIGHLIGHTING" />
@@ -187,15 +175,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInterface.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/IInput.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/ThirdParty/MoreMountains/MMTools/Singletons/Singleton.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/KoalaAgent.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAcademy.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/GUIManager.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/PlayerId.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/CameraPlayerId.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/UpdateCameraSensor.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/CameraSensor.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandHUD.cs" />
@@ -210,7 +195,6 @@
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Agent.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterAbility.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MLAgentsDebugger.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Examples/SharedAssets/Scripts/RayPerception2D.cs" />
         <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Sensor/RayPerceptionSensor.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleSecondaryWeapon.cs" />
@@ -226,18 +210,22 @@
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/MlAgentInput.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/ShieldCharacterAbility.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/ISense.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/WeaponAim2D.cs" />
-        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" />
         <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/TopDownAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Weapons/MeleeWeapon.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Managers/LevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Demos/Grasslands/Scripts/MLAgentsGrasslandsMultiplayerLevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Camera/CinemachineCameraController.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/AgentSense.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" />
         <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Damage/DamageOnTouch.cs" />
-        <option value="$PROJECT_DIR$/Assets/ML-Agents/Scripts/Policy/BehaviorParameters.cs" />
-        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/AgentSense.cs" />
+        <option value="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs" />
+        <option value="$PROJECT_DIR$/Assets/BattleResearch/Scripts/BreatherAbility.cs" />
       </list>
     </option>
   </component>
@@ -324,7 +312,8 @@
       <workItem from="1579966664792" duration="19000" />
       <workItem from="1579966828028" duration="2547000" />
       <workItem from="1579976362461" duration="12000" />
-      <workItem from="1579976479670" duration="8126000" />
+      <workItem from="1579976479670" duration="8586000" />
+      <workItem from="1580038867484" duration="5069000" />
     </task>
     <servers />
   </component>
@@ -410,13 +399,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs</url>
-          <line>227</line>
+          <line>243</line>
           <properties documentPath="$PROJECT_DIR$/Assets/TopDownEngine/Common/Scripts/Characters/Core/Character.cs" initialLine="221">
             <startOffsets>
-              <option value="11837" />
+              <option value="12066" />
             </startOffsets>
             <endOffsets>
-              <option value="11863" />
+              <option value="12092" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />

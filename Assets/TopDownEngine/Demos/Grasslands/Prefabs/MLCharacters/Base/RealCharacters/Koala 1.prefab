@@ -9680,7 +9680,6 @@ GameObject:
   - component: {fileID: 114265374337090402}
   - component: {fileID: 114184457958384624}
   - component: {fileID: 114079283237680582}
-  - component: {fileID: 114495819129293066}
   - component: {fileID: 114619658823058744}
   - component: {fileID: 114530058247276760}
   - component: {fileID: 114863807796539354}
@@ -9691,7 +9690,6 @@ GameObject:
   - component: {fileID: 1131789997202442179}
   - component: {fileID: 5832822908936307152}
   - component: {fileID: 5387466295621459731}
-  - component: {fileID: 5991429737727883605}
   - component: {fileID: 114545434076996454}
   - component: {fileID: 4100927853220877645}
   m_Layer: 10
@@ -9921,61 +9919,6 @@ MonoBehaviour:
   RunSpeed: 10
   AutoRun: 0
   AutoRunThreshold: 0.6
---- !u!114 &114495819129293066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde870ae7090b974bb115e88bfbf8320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  DashMode: 1
-  DashDirection: {x: 1, y: 0, z: 0}
-  DashDistance: 6
-  DashDuration: 0.2
-  DashCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  Cooldown:
-    Unlimited: 0
-    ConsumptionDuration: 0.2
-    PauseOnEmptyDuration: 0.1
-    RefillDuration: 0.5
-    CanInterruptRefill: 0
-    CooldownState: 0
-    CurrentDurationLeft: 0
-  DashFeedback: {fileID: 5986297841957823375}
 --- !u!114 &114619658823058744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10130,7 +10073,7 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 112
     numStackedVectorObservations: 1
-    vectorActionSize: 0300000003000000030000000300000002000000020000000200000002000000
+    vectorActionSize: 03000000030000000300000003000000020000000200000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -10155,9 +10098,6 @@ MonoBehaviour:
     maxStep: 0
   useVectorObs: 1
   rayPerception: {fileID: 8630999849055733176}
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   otherMask:
     serializedVersion: 2
     m_Bits: 256
@@ -10177,39 +10117,6 @@ MonoBehaviour:
   DecisionPeriod: 4
   RepeatAction: 1
   offsetStep: 1
---- !u!114 &5991429737727883605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c54b7b53e26347643a7d54dd14a14b62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  InitialWeapon: {fileID: 8653064631849661448, guid: 7d5f206b4418e084ab14232e1b36d109,
-    type: 3}
-  CanPickupWeapons: 0
-  WeaponUseFeedback: {fileID: 0}
-  WeaponAttachment: {fileID: 0}
-  ProjectileSpawn: {fileID: 0}
-  AutomaticallyBindAnimator: 1
-  AutoIK: 1
-  ContinuousPress: 0
-  GettingHitInterruptsAttack: 0
-  BufferInput: 1
-  NewInputExtendsBuffer: 0
-  MaximumBufferDuration: 0.25
-  RequiresPerfectTile: 0
-  CurrentWeapon: {fileID: 0}
 --- !u!114 &114545434076996454
 MonoBehaviour:
   m_ObjectHideFlags: 0

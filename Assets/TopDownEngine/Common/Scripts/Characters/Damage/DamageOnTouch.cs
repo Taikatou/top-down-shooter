@@ -26,10 +26,6 @@ namespace MoreMountains.TopDownEngine
         public LayerMask TargetLayerMask;
         /// set this to true to have your object teleport to the impact point on death. Useful for fast moving stuff like projectiles.
         public bool PerfectImpact = false;
-
-
-        public string _collisionTag { get; set; }
-        
         [Header("Damage Caused")]
         /// The amount of health to remove from the player's health
         public int DamageCaused = 10;
@@ -237,31 +233,19 @@ namespace MoreMountains.TopDownEngine
 
                 return;
             }
-            
+
             var agent = Owner.GetComponent<Character>();
-            if (agent)
-            {
-                if (DamageCaused > 0)
-                {
-                    _collisionTag = agent.enemyTag;
-                }
-                else
-                {
-                    _collisionTag = agent.teamTag;
-                }
-            }
-            else
-            {
-                Debug.Log("Update all");
-            }
-
             var character = collider.GetComponent<Character>();
-
+            
             if (character)
             {
-                Debug.Log("a" + character.teamTag + "\t" + "b" + _collisionTag);
+                var healingItem = DamageCaused < 0;
+                Debug.Log(DamageCaused);
+                var targetId = healingItem ? agent.TeamId : agent.EnemyId;
+                
+                Debug.Log(targetId + "\t" + character.TeamId);
 
-                if (character.teamTag != _collisionTag)
+                if (targetId != character.TeamId)
                 {
                     return;
                 }

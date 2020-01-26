@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using BattleResearch.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoreMountains.Tools;
-using MoreMountains.Feedbacks;
 using MoreMountains.FeedbacksForThirdParty;
-
-using Cinemachine;
-using UnityEditor.UIElements;
+using Random = System.Random;
 
 
 namespace MoreMountains.TopDownEngine
@@ -102,10 +98,6 @@ namespace MoreMountains.TopDownEngine
 
         }
 
-        public string team1Layer;
-
-        public string team2Layer;
-
         /// <summary>
         /// Instantiate playable characters based on the ones specified in the PlayerPrefabs list in the LevelManager's inspector.
         /// </summary>
@@ -128,11 +120,14 @@ namespace MoreMountains.TopDownEngine
 			if (PlayerPrefabs.Count() != 0)
 			{
 				var count = 0;
-				foreach (Character playerPrefab in PlayerPrefabs)
+				for (var i = 0; i < 4; i++)
 				{
 					count++;
-					
-					Character newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
+
+                    var random = new Random();
+
+                    var playerPrefab = PlayerPrefabs[random.Next(PlayerPrefabs.Length)];
+					var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
 					var character = newPlayer.GetComponent<Character>();
 					if (character)
@@ -140,9 +135,8 @@ namespace MoreMountains.TopDownEngine
 						var curentTeam = count <= 2;
 						character.PlayerID = "Player"+count;
 						
-						character.teamTag = curentTeam? team1Layer : team2Layer;
+						character.TeamId = curentTeam? 1 : 2;
 						
-						character.enemyTag = !curentTeam? team1Layer : team2Layer;
 					}
 
 					Players.Add(newPlayer);

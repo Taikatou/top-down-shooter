@@ -106,6 +106,7 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
+  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0
@@ -136,7 +137,7 @@ MonoBehaviour:
   ActiveDuration: 0.2
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 8448
+    m_Bits: 9472
   DamageCaused: 10
   Knockback: 1
   KnockbackForce: {x: 500, y: 0}
@@ -179,6 +180,7 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
+  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0
@@ -252,6 +254,7 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
+  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0

@@ -14,8 +14,6 @@ namespace BattleResearch.Scripts
         
         public override MMInput.ButtonStates ReloadButtonState => _inputInterface.ReloadButtonState;
 
-        public override MMInput.ButtonStates DashButtonState =>_inputInterface.DashButtonState;
-        
         public override MMInput.ButtonStates ShootButtonState => _inputInterface.ShootButtonState;
 		
         public override MMInput.ButtonStates SecondaryShootButtonState => _inputInterface.SecondaryButtonState;
