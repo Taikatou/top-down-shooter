@@ -163,12 +163,11 @@ public class PushAgentBasic : Agent
     /// </summary>
     public override void AgentAction(float[] vectorAction)
     {
-        Debug.Log("Upate");
         // Move the agent using the action.
         MoveAgent(vectorAction);
 
         // Penalty given each step to encourage agent to finish task quickly.
-        AddReward(-1f / agentParameters.maxStep);
+        AddReward(-1f / maxStep);
     }
 
     public override float[] Heuristic()
