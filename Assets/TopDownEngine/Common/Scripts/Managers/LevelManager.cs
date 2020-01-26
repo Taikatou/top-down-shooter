@@ -98,6 +98,8 @@ namespace MoreMountains.TopDownEngine
 
         }
 
+        public bool randomCharacter = false;
+
         /// <summary>
         /// Instantiate playable characters based on the ones specified in the PlayerPrefabs list in the LevelManager's inspector.
         /// </summary>
@@ -124,9 +126,14 @@ namespace MoreMountains.TopDownEngine
 				{
 					count++;
 
-                    var random = new Random();
+                    var index = i;
+                    if (randomCharacter)
+                    {
+                        var random = new Random();
+                        index = random.Next(PlayerPrefabs.Length);
+                    }
 
-                    var playerPrefab = PlayerPrefabs[random.Next(PlayerPrefabs.Length)];
+                    var playerPrefab = PlayerPrefabs[index];
 					var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
 					var character = newPlayer.GetComponent<Character>();

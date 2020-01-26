@@ -234,20 +234,22 @@ namespace MoreMountains.TopDownEngine
                 return;
             }
 
-            var agent = Owner.GetComponent<Character>();
-            var character = collider.GetComponent<Character>();
-            
-            if (character)
+            if (Owner)
             {
-                var healingItem = DamageCaused < 0;
-                Debug.Log(DamageCaused);
-                var targetId = healingItem ? agent.TeamId : agent.EnemyId;
-                
-                Debug.Log(targetId + "\t" + character.TeamId);
+                var owner = Owner.GetComponent<Character>();
+                var character = collider.GetComponent<Character>();
 
-                if (targetId != character.TeamId)
+                if (character)
                 {
-                    return;
+                    var healingItem = DamageCaused < 0;
+                    var targetId = healingItem ? owner.TeamId : owner.EnemyId;
+
+                    if (targetId != character.TeamId)
+                    {
+                        return;
+                    }
+                    var agent = owner.GetComponent<TopDownAgent>();
+                    agent?.AddReward(0.1f);
                 }
             }
 

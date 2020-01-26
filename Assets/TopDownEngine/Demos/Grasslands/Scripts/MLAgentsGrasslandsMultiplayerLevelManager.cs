@@ -63,18 +63,17 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
         {
             Debug.Log("GameOver");
             var agents = FindObjectsOfType<TopDownAgent>();
-            foreach(var agent in agents)
+            foreach (var agent in agents)
+            {
+                agent.Done();
+            }
+            foreach (var agent in agents)
             {
                 var winner = IsWinner(agent);
                 var reward = winner ? 1f : -0.25f;
                 agent.SetReward(reward);
             }
 
-            foreach (var agent in agents)
-            {
-                agent.Done();
-            }
-            
             var enumerator = base.GameOver();
             Restart();
             return enumerator;

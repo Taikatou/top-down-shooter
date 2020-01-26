@@ -110,22 +110,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealDistance: 6
   HealPerSecond: 1.5
---- !u!114 &6919141543567326363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712080913073816515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4143b8ef0cea31b4996eba2b7897f640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ThetaScale: 0.01
-  Size: 100
-  Radius: 6
-  LineRenderer: {fileID: 8358347320767386080}
 --- !u!114 &2507027219795707508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +165,22 @@ MonoBehaviour:
     CooldownState: 0
     CurrentDurationLeft: 0
   DashFeedback: {fileID: 0}
+--- !u!114 &6919141543567326363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712080913073816515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4143b8ef0cea31b4996eba2b7897f640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThetaScale: 0.01
+  Size: 100
+  Radius: 6
+  LineRenderer: {fileID: 8358347320767386080}
 --- !u!1001 &3712838523923919681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,6 +251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BehaviorName
       value: KoalaHealerAOE
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e216b32211f86408f3c70b9f224a1f, type: 3}

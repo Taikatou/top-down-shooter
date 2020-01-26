@@ -259,7 +259,7 @@ namespace MLAgents.Sensor
                     
                     if (hitObject)
                     {
-                        Debug.DrawLine(startPositionWorld, new Vector3(rayHit.point.x, rayHit.point.y, startPositionWorld.z), lineC, 0.01f, true);
+                        Debug.DrawLine(startPositionWorld, new Vector3(rayHit.point.x, rayHit.point.y, startPositionWorld.z), lineC, 0, true);
                     }
                     else
                     {
@@ -279,7 +279,7 @@ namespace MLAgents.Sensor
                 else if (Application.isEditor)
                 {
                     // Legacy drawing
-                    Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
+                    // Debug.DrawRay(startPositionWorld,rayDirection, Color.black, 0.01f, true);
                 }
 
                 if (castHit)

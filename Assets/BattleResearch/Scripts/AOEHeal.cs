@@ -26,11 +26,7 @@ namespace BattleResearch.Scripts
         public void HealUnit(GameObject unitToHeal, float healthBack)
         {
             var health = unitToHeal.GetComponent<Health>();
-            if (health)
-            {
-                Debug.Log("healing: " + unitToHeal);
-                health.GetHealth(healthBack, gameObject);
-            }
+            health?.GetHealth(healthBack, gameObject);
         }
     }
 }

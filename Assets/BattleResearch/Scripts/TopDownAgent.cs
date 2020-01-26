@@ -15,8 +15,7 @@ namespace BattleResearch.Scripts
         public RayPerception2D rayPerception;
         
         public LayerMask otherMask;
-        
-        private Health _healthComponent;
+
         private enum Directions { Left, Right, Up, Down }
 
         private Dictionary<Directions, KeyCode> _directions;
@@ -24,11 +23,7 @@ namespace BattleResearch.Scripts
         private Dictionary<Directions, KeyCode> _secondaryDirections;
 
         private int divisions = 24;
-        
-        public bool heuristicEnabled;
 
-        private static bool _heuristicSetup;
-        
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private ISense[] _senses;
@@ -46,12 +41,6 @@ namespace BattleResearch.Scripts
         {
             base.InitializeAgent();
 
-            if (!_heuristicSetup)
-            {
-                _heuristicSetup = true;
-                heuristicEnabled = true;
-            }
-            
             _directions = new Dictionary<Directions, KeyCode>()
             {
                 {Directions.Left, KeyCode.A},
@@ -168,33 +157,27 @@ namespace BattleResearch.Scripts
             var y = 0.0f;
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
-            var shootButtonInput = 0.0f;
-            var reloadButtonInput = 0.0f;
-            var secondaryShootButtonInput = 0.0f;
 
-            if (heuristicEnabled)
+            Debug.Log("Heuristic");
+            if (_directions!=null)
             {
-                if (_directions!=null)
-                {
-                    x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
-                    y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
-                }
-                if (_secondaryDirections != null)
-                {
-                    secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
-                    secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
-                }
-
-                var shootButtonState = Input.GetKey(KeyCode.X);
-                shootButtonInput = Convert.ToSingle(shootButtonState);
-
-                var secondaryShootButtonState = Input.GetKey(KeyCode.C);
-                secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-
-                var reloadButtonState = Input.GetKey(KeyCode.End);
-                reloadButtonInput = Convert.ToSingle(reloadButtonState);
-
+                x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
+                y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
             }
+            if (_secondaryDirections != null)
+            {
+                secondaryX = GetInput(_secondaryDirections[Directions.Left], _secondaryDirections[Directions.Right]);
+                secondaryY = GetInput(_secondaryDirections[Directions.Down], _secondaryDirections[Directions.Up]);
+            }
+
+            var shootButtonState = Input.GetKey(KeyCode.X);
+            var shootButtonInput = Convert.ToSingle(shootButtonState);
+
+            var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+            var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+
+            var reloadButtonState = Input.GetKey(KeyCode.End);
+            var reloadButtonInput = Convert.ToSingle(reloadButtonState);
 
             var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, secondaryShootButtonInput, reloadButtonInput };
 
@@ -203,7 +186,6 @@ namespace BattleResearch.Scripts
 
         public override void AgentReset()
         {
-            _heuristicSetup = false;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.MlCuriculum, null);
         }
     }
