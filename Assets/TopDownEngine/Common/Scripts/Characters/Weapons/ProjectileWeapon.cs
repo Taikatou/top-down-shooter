@@ -107,7 +107,6 @@ namespace MoreMountains.TopDownEngine
         {
             /// we get the next object in the pool and make sure it's not null
             GameObject nextGameObject = ObjectPooler.GetPooledGameObject();
-            Debug.Log("Spawn projectile");
             // mandatory checks
             if (nextGameObject == null) { return null; }
             if (nextGameObject.GetComponent<MMPoolableObject>() == null)

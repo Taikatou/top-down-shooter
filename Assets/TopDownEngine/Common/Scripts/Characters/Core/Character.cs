@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.UIElements;
 using Random = UnityEngine.Random;
 
 namespace MoreMountains.TopDownEngine
