@@ -18,20 +18,32 @@ namespace BattleResearch.Scripts
             var healthComponent = GetComponent<Health>();
             var agentRb = GetComponent<Rigidbody2D>();
             var position = agentRb.transform.position;
-            var newPosition = new Vector2(position.x - currentPosition.x, position.y - currentPosition.y);
-            var positionArray = ISenseMethods.ToArray(newPosition);
-            
+
+            var positionX = GetPositionScaled(position.x - currentPosition.x);
+            var positionY = GetPositionScaled(position.y - currentPosition.y);
+
             var behaviorName = GetComponent<BehaviorParameters>();
             var character = GetComponent<Character>();
 
             var playerStats = new List<float>
             {
+                positionX,
+                positionY,
                 healthComponent.CurrentHealth,
                 behaviorName.GetObservations(),
                 character.TeamId
             };
 
-            return positionArray.Concat(playerStats).ToArray();
+            var senses = playerStats.ToArray();
+
+            return senses;
+        }
+
+        public float GetPositionScaled(float position)
+        {
+            var positionNewX = Mathf.Clamp(position, -25, 25);
+            positionNewX = positionNewX /= 25;
+            return positionNewX;
         }
     }
 }

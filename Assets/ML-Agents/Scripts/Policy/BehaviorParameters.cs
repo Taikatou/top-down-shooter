@@ -139,7 +139,7 @@ namespace MLAgents
         {
             if (!_currentStuff.Contains(current))
             {
-                _currentStuff.Append(current);
+                _currentStuff.Add(current);
             }
             return _currentStuff.IndexOf(current);
         }

@@ -84,6 +84,9 @@ namespace MoreMountains.TopDownEngine
         {
             if (!Settings.SfxOn)
                 return null;
+            if (Time.time > 1)
+                return null;
+
             // we create a temporary game object to host our audio source
             GameObject temporaryAudioHost = new GameObject("TempAudio");
             // we set the temp audio's position

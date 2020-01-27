@@ -55,6 +55,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 61514178196617758, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 61514178196617758, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 114184457958384624, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: WalkSpeed

@@ -10,7 +10,10 @@
         <e p="BattleResearch" t="Include">
           <e p="Scripts" t="Include">
             <e p="AgentSense.cs" t="Include" />
+            <e p="AOEHeal.cs" t="Include" />
+            <e p="BreatherAbility.cs" t="Include" />
             <e p="CameraPlayerId.cs" t="Include" />
+            <e p="CircleDraw.cs" t="Include" />
             <e p="ISense.cs" t="Include" />
             <e p="MlAgentInput.cs" t="Include" />
             <e p="MlAgentInputManager.cs" t="Include" />

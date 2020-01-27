@@ -66,12 +66,12 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
             foreach (var agent in agents)
             {
                 agent.Done();
-            }
-            foreach (var agent in agents)
-            {
+                
                 var winner = IsWinner(agent);
-                var reward = winner ? 1f : -0.25f;
-                agent.SetReward(reward);
+                if (winner)
+                {
+                    agent.SetReward(1.0f);
+                }
             }
 
             var enumerator = base.GameOver();
@@ -96,10 +96,11 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
             switch (engineEvent.EventType)
             {
                 case TopDownEngineEventTypes.MlCuriculum:
+                    Debug.Log("Reset Event");
                     var dur = Academy.Instance.FloatProperties.GetPropertyWithDefault("game_duration",
                                                                                         8);
                     GameDuration = (int) dur;
-                    UpdateCountdown();
+                    StartCoroutine(GameOver());
                     break;
             }
         }

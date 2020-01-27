@@ -158,7 +158,6 @@ namespace BattleResearch.Scripts
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
 
-            Debug.Log("Heuristic");
             if (_directions!=null)
             {
                 x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
