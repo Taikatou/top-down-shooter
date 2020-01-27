@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -9,34 +8,35 @@ namespace BattleResearch.Scripts
     public class MlAgentInputManager : InputManager
     {
         public bool aiEnabled = true;
+
+        public bool Enabled => aiEnabled && InputInterface != null;
         
         private MlAgentInput _inputInterface;
-        
-        public override MMInput.ButtonStates ReloadButtonState => _inputInterface.ReloadButtonState;
 
-        public override MMInput.ButtonStates ShootButtonState => _inputInterface.ShootButtonState;
-		
-        public override MMInput.ButtonStates SecondaryShootButtonState => _inputInterface.SecondaryButtonState;
-
-        private bool CheckAi()
+        private MlAgentInput InputInterface
         {
-            if (aiEnabled)
+            get
             {
                 if (_inputInterface == null)
                 {
                     var inputs = FindObjectsOfType<MlAgentInput>();
-                    _inputInterface = inputs.SingleOrDefault(player => player.PlayerId == PlayerID);
+                    _inputInterface = Array.Find(inputs, player => player.PlayerId == PlayerID);
                 }
-                return _inputInterface != null;
+                return _inputInterface;
             }
-            return false;
         }
+
+        public override MMInput.ButtonStates ReloadButtonState => Enabled ? InputInterface.ReloadButtonState : base.ReloadButtonState;
+
+        public override MMInput.ButtonStates ShootButtonState => Enabled ? InputInterface.ShootButtonState : base.ShootButtonState;
+		
+        public override MMInput.ButtonStates SecondaryShootButtonState => Enabled ? InputInterface.SecondaryButtonState : base.SecondaryShootButtonState;
 
         public override void SetMovement()
         {
-            if (CheckAi())
+            if (Enabled)
             {
-                _primaryMovement = _inputInterface.PrimaryInput;
+                _primaryMovement = InputInterface.PrimaryInput;
             }
             else
             {
@@ -46,9 +46,9 @@ namespace BattleResearch.Scripts
 
         public override void SetSecondaryMovement()
         {
-            if (CheckAi())
+            if (Enabled)
             {
-                _secondaryMovement = _inputInterface.SecondaryInput;
+                _secondaryMovement = InputInterface.SecondaryInput;
             }
             else
             {

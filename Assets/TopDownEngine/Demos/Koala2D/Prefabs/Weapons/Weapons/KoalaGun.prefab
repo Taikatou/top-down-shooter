@@ -14651,7 +14651,7 @@ MonoBehaviour:
   WeaponCurrentlyActive: 1
   TriggerMode: 0
   DelayBeforeUse: 0
-  DelayBeforeUseReleaseInterruption: 1
+  DelayBeforeUseReleaseInterruption: 0
   TimeBetweenUses: 1
   TimeBetweenUsesReleaseInterruption: 0
   MagazineBased: 0

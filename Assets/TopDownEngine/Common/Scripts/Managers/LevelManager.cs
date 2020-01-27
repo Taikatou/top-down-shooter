@@ -100,6 +100,8 @@ namespace MoreMountains.TopDownEngine
 
         public bool randomCharacter = false;
 
+        public int playerCount = 4;
+
         /// <summary>
         /// Instantiate playable characters based on the ones specified in the PlayerPrefabs list in the LevelManager's inspector.
         /// </summary>
@@ -122,7 +124,7 @@ namespace MoreMountains.TopDownEngine
 			if (PlayerPrefabs.Count() != 0)
 			{
 				var count = 0;
-				for (var i = 0; i < 4; i++)
+				for (var i = 0; i < playerCount; i++)
 				{
 					count++;
 

@@ -8,16 +8,16 @@ namespace BattleResearch.Scripts
         float[] GetObservations();
     }
 
-    public class ISenseMethods
+    public class SenseMethods
     {
-        public static List<float> ToArray(Vector2 position)
+        public static void PrintDebug(string name, float [] senses)
         {
-            return new List<float> {position.x, position.y};
-        }
-        
-        private static List<float> ToArray(Vector3 position)
-        {
-            return new List<float> {position.x, position.y};
+            var debug = name + "\t";
+            foreach (var ob in senses)
+            {
+                debug += ob + "\t";
+            }
+            Debug.Log(debug);
         }
     }
 }

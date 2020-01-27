@@ -26,7 +26,7 @@ namespace BattleResearch.Scripts
 
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
-        private ISense[] _senses;
+        private ISense[] Senses => GetComponentsInChildren<ISense>();
 
         private int CurrentPoints
         {
@@ -55,8 +55,6 @@ namespace BattleResearch.Scripts
                 {Directions.Down, KeyCode.DownArrow },
                 {Directions.Up, KeyCode.UpArrow }
             };
-
-            _senses = GetComponentsInChildren<ISense>();
         }
 
         private int GetDecision(float input)
@@ -91,7 +89,7 @@ namespace BattleResearch.Scripts
 
             var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
             AgentInput.SetShootButtonState(shootButtonDown);
-            
+
             var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[5]);
             AgentInput.SetSecondaryShootButtonState(secondaryShootButtonDown);
             
@@ -129,9 +127,10 @@ namespace BattleResearch.Scripts
                 AddVectorObs(observations);
             }
             
-            foreach (var sense in _senses)
+            foreach (var sense in Senses)
             {
                 var obs = sense.GetObservations();
+
                 AddVectorObs(obs);
             }
             
@@ -144,7 +143,8 @@ namespace BattleResearch.Scripts
             {
                 if (agentSense.gameObject != gameObject)
                 {
-                    AddVectorObs(agentSense.GetObservations(position));
+                    var obs = agentSense.GetObservationsOtherAgent(position);
+                    AddVectorObs(obs);
                 }
             }
 

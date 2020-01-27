@@ -45,43 +45,27 @@ namespace BattleResearch.Scripts
         {
             ReloadButtonState = SetButton(ReloadButtonState, active);
         }
-        
 
-        private MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool active)
+
+        private MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool down)
         {
-            if (active)
+            switch (buttonState)
             {
-                switch (buttonState)
-                {
-                    case MMInput.ButtonStates.ButtonDown:
-                        buttonState = MMInput.ButtonStates.ButtonPressed;
-                        break;
+                case MMInput.ButtonStates.ButtonDown:
+                    buttonState = down? MMInput.ButtonStates.ButtonPressed: MMInput.ButtonStates.ButtonUp;
+                    break;
 
-                    case MMInput.ButtonStates.ButtonUp:
-                        buttonState = MMInput.ButtonStates.ButtonDown;
-                        break;
-                    
-                    case MMInput.ButtonStates.Off:
-                        buttonState = MMInput.ButtonStates.ButtonPressed;
-                        break;
-                }
-            }
-            else
-            {
-                switch (buttonState)
-                {
-                    case MMInput.ButtonStates.ButtonDown:
-                        buttonState = MMInput.ButtonStates.ButtonUp;
-                        break;
-                    
-                    case MMInput.ButtonStates.ButtonPressed:
-                        buttonState = MMInput.ButtonStates.ButtonUp;
-                        break;
-                    
-                    case MMInput.ButtonStates.Off:
-                        buttonState = MMInput.ButtonStates.ButtonUp;
-                        break;
-                }
+                case MMInput.ButtonStates.ButtonUp:
+                    buttonState = down? MMInput.ButtonStates.ButtonDown: MMInput.ButtonStates.Off;
+                    break;
+                
+                case MMInput.ButtonStates.Off:
+                    buttonState = down? MMInput.ButtonStates.ButtonPressed : MMInput.ButtonStates.Off;
+                    break;
+
+                case MMInput.ButtonStates.ButtonPressed:
+                    buttonState = down? MMInput.ButtonStates.ButtonDown : MMInput.ButtonStates.ButtonUp;
+                    break;
             }
 
             return buttonState;

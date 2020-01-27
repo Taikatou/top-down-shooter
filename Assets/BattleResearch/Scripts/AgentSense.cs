@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MLAgents;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -10,33 +9,42 @@ namespace BattleResearch.Scripts
     {
         public float[] GetObservations()
         {
-            return GetObservations(new Vector2());
+            var senses = GetObservationsList().ToArray();
+            return senses;
         }
         
-        public float[] GetObservations(Vector2 currentPosition)
+        public List<float> GetObservationsList()
         {
             var healthComponent = GetComponent<Health>();
-            var agentRb = GetComponent<Rigidbody2D>();
-            var position = agentRb.transform.position;
-
-            var positionX = GetPositionScaled(position.x - currentPosition.x);
-            var positionY = GetPositionScaled(position.y - currentPosition.y);
 
             var behaviorName = GetComponent<BehaviorParameters>();
             var character = GetComponent<Character>();
 
             var playerStats = new List<float>
             {
-                positionX,
-                positionY,
-                healthComponent.CurrentHealth,
+                healthComponent.CurrentHealth / healthComponent.MaximumHealth,
                 behaviorName.GetObservations(),
                 character.TeamId
             };
 
-            var senses = playerStats.ToArray();
+            var senses = playerStats;
 
             return senses;
+        }
+
+        public float [] GetObservationsOtherAgent(Vector2 currentPosition)
+        {
+            var agentRb = GetComponent<Rigidbody2D>();
+            var position = agentRb.transform.position;
+            var positionX = GetPositionScaled(position.x - currentPosition.x);
+            var positionY = GetPositionScaled(position.y - currentPosition.y);
+
+            var playerStats = GetObservationsList();
+
+            playerStats.Add(positionX);
+            playerStats.Add(positionY);
+
+            return playerStats.ToArray();
         }
 
         public float GetPositionScaled(float position)

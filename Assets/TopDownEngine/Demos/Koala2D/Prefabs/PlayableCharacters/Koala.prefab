@@ -9663,9 +9663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a9c4378bb2a40c49eb7a248c52fbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masks:
-    serializedVersion: 2
-    m_Bits: 9472
 --- !u!1 &1498750440386690
 GameObject:
   m_ObjectHideFlags: 0
@@ -9996,7 +9993,8 @@ MonoBehaviour:
   AbilityStartFeedbacks: {fileID: 0}
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
-  InitialWeapon: {fileID: 0}
+  InitialWeapon: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+    type: 3}
   CanPickupWeapons: 1
   WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 4515663194721164}
@@ -10214,12 +10212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4b9d6c6b9700b49ab9d862b83d8a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-    onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 1
+  maxStep: 0
   useVectorObs: 1
   rayPerception: {fileID: 8630999849055733176}
+  otherMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

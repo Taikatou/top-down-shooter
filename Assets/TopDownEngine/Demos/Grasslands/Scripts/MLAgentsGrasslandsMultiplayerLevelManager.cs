@@ -98,7 +98,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 case TopDownEngineEventTypes.MlCuriculum:
                     Debug.Log("Reset Event");
                     var dur = Academy.Instance.FloatProperties.GetPropertyWithDefault("game_duration",
-                                                                                        8);
+                                                                                        160);
                     GameDuration = (int) dur;
                     StartCoroutine(GameOver());
                     break;

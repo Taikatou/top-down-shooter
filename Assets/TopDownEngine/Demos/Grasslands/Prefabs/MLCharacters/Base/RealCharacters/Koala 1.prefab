@@ -10094,8 +10094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4b9d6c6b9700b49ab9d862b83d8a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
+  maxStep: 0
   useVectorObs: 1
   rayPerception: {fileID: 8630999849055733176}
   otherMask:
@@ -10113,7 +10112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 4
+  DecisionPeriod: 1
   RepeatAction: 1
   offsetStep: 1
 --- !u!114 &114545434076996454

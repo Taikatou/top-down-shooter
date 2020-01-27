@@ -284,7 +284,7 @@ namespace MoreMountains.TopDownEngine
         {
             TriggerWeaponStartFeedback();
             WeaponState.ChangeState(WeaponStates.WeaponStart);
-            if ((_characterMovement != null) && (ModifyMovementWhileAttacking))
+            if (_characterMovement != null && ModifyMovementWhileAttacking)
             {
                 _movementMultiplierStorage = _characterMovement.MovementSpeedMultiplier;
                 _characterMovement.MovementSpeedMultiplier = MovementMultiplier;
@@ -323,7 +323,11 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void ProcessWeaponState()
         {
-            if (WeaponState == null) { return; }
+            if (WeaponState == null)
+            {
+                Debug.Log("Null Weapon state");
+                return;
+            }
 
             switch (WeaponState.CurrentState)
             {

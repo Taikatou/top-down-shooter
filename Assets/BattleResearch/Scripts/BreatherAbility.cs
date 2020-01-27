@@ -112,7 +112,10 @@ namespace BattleResearch.Scripts
         public float[] GetObservations()
         {
             var breathingFloat = Convert.ToSingle(CurrentlyBreathing);
-            return new [] { breathingFloat, CurrentCooldownTime };
+
+            var senses = new[] {breathingFloat, CurrentCooldownTime};
+
+            return senses;
         }
     }
 }

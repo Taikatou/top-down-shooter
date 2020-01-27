@@ -159,11 +159,13 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void HandleInput()
         {
-            if (!AbilityPermitted
-                || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
+            if (!AbilityPermitted || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
             {
                 return;
             }
+
+
+            // Debug.Log(_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown);
             if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown || _inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown)
             {
                 ShootStart();
@@ -171,11 +173,10 @@ namespace MoreMountains.TopDownEngine
 
             if (CurrentWeapon != null)
             {
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed))
-                {
-                    ShootStart();
-                }
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed))
+                var triggerMode = CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto;
+                var shootButton = _inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed;
+                var shootAxis = _inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed;
+                if (ContinuousPress && triggerMode && (shootButton || shootAxis))
                 {
                     ShootStart();
                 }
@@ -186,7 +187,7 @@ namespace MoreMountains.TopDownEngine
                 Reload();
             }
 
-            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
+            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp)
             {
                 ShootStop();
             }
@@ -482,13 +483,15 @@ namespace MoreMountains.TopDownEngine
                 : -1;
 
             var ammo = CurrentWeapon ? 
-                CurrentWeapon.CurrentAmmoLoaded : 0;
+                (float)CurrentWeapon.CurrentAmmoLoaded / (float)CurrentWeapon.MagazineSize : 0.0f;
             
             var reload = CurrentWeapon && CurrentWeapon.Reloading;
             var reloadFloat = Convert.ToSingle(reload);
 
+            var senses = new[] {state, ammo, reloadFloat};
 
-            return new float [] { state, ammo, reloadFloat };
+
+            return senses;
         }
     }
 }

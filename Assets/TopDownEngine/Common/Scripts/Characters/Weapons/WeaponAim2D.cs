@@ -421,7 +421,10 @@ namespace MoreMountains.TopDownEngine
         public float[] GetObservations()
         {
             var angle = InputMovement;
-            return ISenseMethods.ToArray(angle).ToArray();
+
+            var senses = new[] { angle.x, angle.y };
+
+            return senses;
         }
     }
 }

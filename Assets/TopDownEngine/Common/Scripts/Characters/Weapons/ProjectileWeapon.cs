@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using MoreMountains.Tools;
 using System;
 
@@ -105,10 +104,14 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual GameObject SpawnProjectile(Vector3 spawnPosition, int projectileIndex, int totalProjectiles, bool triggerObjectActivation = true)
         {
+
             /// we get the next object in the pool and make sure it's not null
             GameObject nextGameObject = ObjectPooler.GetPooledGameObject();
             // mandatory checks
-            if (nextGameObject == null) { return null; }
+            if (nextGameObject == null)
+            {
+                return null;
+            }
             if (nextGameObject.GetComponent<MMPoolableObject>() == null)
             {
                 throw new Exception(gameObject.name + " is trying to spawn objects that don't have a PoolableObject component.");

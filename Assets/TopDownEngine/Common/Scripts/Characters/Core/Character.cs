@@ -305,7 +305,7 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// This is called every frame.
 		/// </summary>
-		protected virtual void Update()
+		private void Update()
 		{		
 			EveryFrame();
 			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
