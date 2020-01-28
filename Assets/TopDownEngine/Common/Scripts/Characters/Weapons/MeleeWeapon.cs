@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using BattleResearch.Scripts;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
@@ -8,7 +11,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A basic melee weapon class, that will activate a "hurt zone" when the weapon is used
     /// </summary>
-    public class MeleeWeapon : Weapon
+    public class MeleeWeapon : Weapon, ISense
     {
         /// the possible shapes for the melee weapon's damage area
         public enum MeleeDamageAreaShapes { Rectangle, Circle, Box, Sphere }
@@ -235,5 +238,18 @@ namespace MoreMountains.TopDownEngine
                 Gizmos.DrawWireSphere(this.transform.position + AreaOffset, AreaSize.x / 2);
             }
         }
+
+        public Dictionary<string, float> GetObservations()
+        {
+            var attk = Convert.ToSingle(_attackInProgress);
+            var obs = new Dictionary<string, float>()
+            {
+                { "AttackInProgress", attk }
+            };
+
+            return obs;
+        }
+
+        public string SenseName => "Melee Weapon";
     }
 }

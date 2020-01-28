@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MLAgents;
 using UnityEngine;
 
 public class TestTimeRate : MonoBehaviour
 {
     void Update()
     {
-        if (Application.targetFrameRate != 300)
-        {
-            Application.targetFrameRate = 300;
-        }
+        Academy.Instance.DisableAutomaticStepping();
+        Academy.Instance.EnvironmentStep();
     }
 }

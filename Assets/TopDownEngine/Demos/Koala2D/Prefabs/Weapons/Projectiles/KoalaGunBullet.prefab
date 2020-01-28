@@ -9803,7 +9803,7 @@ Transform:
   m_GameObject: {fileID: 1579859513670320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.42, y: -1.546, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4034307314382222}
   - {fileID: 4560113285790094}
@@ -9894,6 +9894,7 @@ MonoBehaviour:
     m_Bits: 9984
   PerfectImpact: 0
   DamageCaused: 10
+  HealingItem: 0
   DamageCausedKnockbackType: 1
   DamageCausedKnockbackDirection: 0
   DamageCausedKnockbackForce: {x: 400, y: 0, z: 0}

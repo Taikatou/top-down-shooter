@@ -431,5 +431,7 @@ namespace MoreMountains.TopDownEngine
 
             return senses;
         }
+
+        public string SenseName => "Aim2D";
     }
 }

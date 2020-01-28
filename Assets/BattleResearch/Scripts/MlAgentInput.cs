@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
-    public class MlAgentInput : MonoBehaviour
+    public class MlAgentInput : MonoBehaviour, ISense
     {
         public Vector2 PrimaryInput { get; set; }
 
@@ -46,7 +47,6 @@ namespace BattleResearch.Scripts
             ReloadButtonState = SetButton(ReloadButtonState, active);
         }
 
-
         private MMInput.ButtonStates SetButton(MMInput.ButtonStates buttonState, bool down)
         {
             switch (buttonState)
@@ -70,5 +70,18 @@ namespace BattleResearch.Scripts
 
             return buttonState;
         }
+
+        public Dictionary<string, float> GetObservations()
+        {
+            var obs = new Dictionary<string, float>()
+            {
+                { "Shoot Button State", (float)ShootButtonState },
+                { "SecondaryButtonState", (float)SecondaryButtonState },
+                { "ReloadButtonState", (float) ReloadButtonState }
+            };
+            return obs;
+        }
+
+        public string SenseName => "Agent Sense";
     }
 }

@@ -182,18 +182,18 @@ namespace MoreMountains.TopDownEngine
 		/// <param name="instigator">The object that caused the damage.</param>
 		/// <param name="flickerDuration">The time (in seconds) the object should flicker after taking the damage.</param>
 		/// <param name="invincibilityDuration">The duration of the short invincibility following the hit.</param>
-		public virtual void Damage(int damage,GameObject instigator, float flickerDuration, float invincibilityDuration)
+		public virtual float Damage(int damage,GameObject instigator, float flickerDuration, float invincibilityDuration)
 		{
 			// if the object is invulnerable, we do nothing and exit
 			if (Invulnerable)
 			{
-				return;
+				return 0.0f;
 			}
 
 			// if we're already below zero, we do nothing and exit
 			if ((CurrentHealth <= 0) && (InitialHealth != 0))
 			{
-				return;
+				return 0.0f;
 			}
 
 			// we decrease the character's health by the damage
@@ -246,6 +246,8 @@ namespace MoreMountains.TopDownEngine
 
 				Kill();
 			}
+
+			return previousHealth - CurrentHealth;
 		}
 
 		/// <summary>

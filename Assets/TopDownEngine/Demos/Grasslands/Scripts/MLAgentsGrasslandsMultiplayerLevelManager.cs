@@ -36,26 +36,33 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
             }
 
             var teamDeaths = GetTeamDeaths();
-
-            Debug.Log(teamDeaths[0] + "\t" + teamDeaths[1]);
+            
             var gameOver = teamDeaths[0] == 2 || teamDeaths[1] == 2;
             return gameOver;
         }
+        
+        public enum GameEnding {Draw, Loss, Win}
 
-        public bool IsWinner(TopDownAgent agent)
+        public GameEnding IsWinner(TopDownAgent agent)
         {
             if (currentGameMode == GameMode.Single)
             {
                 var winner = agent.AgentInput.PlayerId == WinnerID;
-                return winner;
+                return winner? GameEnding.Win : GameEnding.Loss;
             }
             else
             {
                 var teamDeaths = GetTeamDeaths();
                 var character = agent.GetComponent<Character>();
-                var winningId = teamDeaths[0] > teamDeaths[1] ? 1 : 2;
-                var winner = character.TeamId == winningId;
-                return winner;
+                Debug.Log(teamDeaths[0] + "\t" + teamDeaths[1]);
+                if ((teamDeaths[0] > 0 || teamDeaths[1] > 0) && teamDeaths[0] != teamDeaths[1])
+                {
+                    var winningId = teamDeaths[0] > teamDeaths[1] ? 1 : 2;
+                    var winner = character.TeamId == winningId;
+                    return winner? GameEnding.Win : GameEnding.Loss;
+                }
+
+                return GameEnding.Draw;
             }
         }
 
@@ -68,9 +75,15 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 agent.Done();
                 
                 var winner = IsWinner(agent);
-                if (winner)
+                if (winner == GameEnding.Win)
                 {
+                    Debug.Log("Winner");
                     agent.SetReward(1.0f);
+                }
+                else if (winner == GameEnding.Loss)
+                {
+                    Debug.Log("Looser");
+                    agent.SetReward(-0.25f);
                 }
             }
 

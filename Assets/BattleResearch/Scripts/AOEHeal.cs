@@ -50,5 +50,7 @@ namespace BattleResearch.Scripts
 
             return obs;
         }
+
+        public string SenseName => "AOEHeal";
     }
 }

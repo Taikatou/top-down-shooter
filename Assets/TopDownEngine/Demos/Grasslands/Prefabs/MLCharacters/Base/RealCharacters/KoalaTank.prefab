@@ -21,6 +21,7 @@ MonoBehaviour:
   BreathTime: 3
   HeathBack: 10
   CooldownTime: 6
+  reUsable: 0
 --- !u!1001 &5362287806656257747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,17 +88,17 @@ PrefabInstance:
     - target: {fileID: 61514178196617758, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 61514178196617758, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 61514178196617758, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 114171358364461030, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
@@ -117,7 +118,7 @@ PrefabInstance:
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_BrainParameters.vectorObservationSize
-      value: 98
+      value: 99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e216b32211f86408f3c70b9f224a1f, type: 3}

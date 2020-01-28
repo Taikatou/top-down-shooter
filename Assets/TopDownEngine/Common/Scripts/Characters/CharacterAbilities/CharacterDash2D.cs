@@ -202,5 +202,7 @@ namespace MoreMountains.TopDownEngine
             };
             return obs;
         }
-    }
+
+        public string SenseName => "Dash2D";
+	}
 }

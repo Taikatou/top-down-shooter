@@ -499,5 +499,7 @@ namespace MoreMountains.TopDownEngine
 
             return senses;
         }
+
+        public string SenseName => "HandleWeapon";
     }
 }

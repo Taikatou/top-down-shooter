@@ -6,6 +6,8 @@ namespace BattleResearch.Scripts
     public interface ISense
     {
         Dictionary<string, float> GetObservations();
+        
+        string SenseName { get; }
     }
 
     public class SenseMethods

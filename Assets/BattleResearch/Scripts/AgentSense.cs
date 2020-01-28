@@ -12,7 +12,9 @@ namespace BattleResearch.Scripts
             var senses = GetObservationsList();
             return senses;
         }
-        
+
+        public string SenseName => "AgentSense";
+
         public Dictionary<string, float>  GetObservationsList()
         {
             var healthComponent = GetComponent<Health>();

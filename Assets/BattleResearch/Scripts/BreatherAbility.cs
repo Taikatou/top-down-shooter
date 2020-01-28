@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BattleResearch.Scripts
 {
@@ -23,6 +24,10 @@ namespace BattleResearch.Scripts
         public bool CurrentlyBreathing { get; set; }
 
         private Health HealthComponent => GetComponent<Health>();
+
+        private bool _used;
+
+        public bool reUsable;
 
         public bool OnCoolDown
         {
@@ -60,10 +65,18 @@ namespace BattleResearch.Scripts
         {
             if (!BreathButtonDown && !CurrentlyBreathing && !OnCoolDown)
             {
-                BreathButtonDown = true;
-                CurrentlyBreathing = true;
-                CurrentTime = BreathTime;
-                SetWeaponsEnabled(false);
+                if (reUsable || !_used)
+                {
+                    if (HealthComponent.CurrentHealth < HealthComponent.MaximumHealth)
+                    {
+                        BreathButtonDown = true;
+                        CurrentlyBreathing = true;
+                        CurrentTime = BreathTime;
+                        SetWeaponsEnabled(false);
+                    
+                        _used = true;
+                    }
+                }
             }
         }
 
@@ -117,10 +130,13 @@ namespace BattleResearch.Scripts
             var senses = new Dictionary<string, float>()
             {
                 { "Breathing Float", breathingFloat },
-                { "Current Cool Down", CurrentCooldownTime}
+                { "Current Cool Down", CurrentCooldownTime},
+                { "Used", Convert.ToSingle(_used) }
             };
 
             return senses;
         }
+
+        public string SenseName => "BreatherAbility";
     }
 }

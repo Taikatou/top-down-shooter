@@ -29,7 +29,20 @@ namespace BattleResearch.Scripts
         public bool Continuous => GetComponent<BehaviorParameters>().Continuous;
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
-        private ISense[] Senses => GetComponentsInChildren<ISense>();
+        private ISense[] _senses;
+
+        private ISense[] Senses
+        {
+            get
+            {
+                if (_senses == null)
+                {
+                    _senses = GetComponentsInChildren<ISense>();
+                    Array.Sort(_senses, (x,y) => String.CompareOrdinal(x.SenseName, y.SenseName));
+                }
+                return _senses;
+            }
+        }
 
         private int CurrentPoints
         {
@@ -96,7 +109,6 @@ namespace BattleResearch.Scripts
             AgentInput.SecondaryInput = secondary;
 
             var shootButtonDown = ToBoolean(vectorAction[4]);
-            Debug.Log(shootButtonDown);
             AgentInput.SetShootButtonState(shootButtonDown);
             
             var reloadButtonDown = ToBoolean(vectorAction[5]);
@@ -124,10 +136,8 @@ namespace BattleResearch.Scripts
                 {
                     return negative ? -1 : 1;
                 }
-                else
-                {
-                    return negative ? 1 : 2;
-                }
+
+                return negative ? 1 : 2;
             }
 
             return 0;
@@ -150,6 +160,7 @@ namespace BattleResearch.Scripts
                     new[]
                     {
                         "walls",
+                        "projectile"
                     }, 
                     otherMask, 0, 0, Color.red);
                 

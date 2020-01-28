@@ -27,6 +27,8 @@ namespace MoreMountains.TopDownEngine
         /// The amount of health to remove from the player's health
         public int DamageCaused = 10;
 
+        public int HealCaused = 7;
+
         public bool HealingItem = false;
         /// the type of knockback to apply when causing damage
         public KnockbackStyles DamageCausedKnockbackType = KnockbackStyles.AddForce;
@@ -243,13 +245,10 @@ namespace MoreMountains.TopDownEngine
                 {
                     isTeam = owner.TeamId == character.TeamId;
 
-                    if (!HealingItem && !isTeam)
+                    if (!HealingItem && isTeam)
                     {
                         return;
                     }
-                    var agent = owner.GetComponent<TopDownAgent>();
-                    agent.AddReward(0.1f);
-                    Debug.Log("Hit");
                 }
             }
 
@@ -316,16 +315,50 @@ namespace MoreMountains.TopDownEngine
             {
                 HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
             }
-            
-            // we apply the damage to the thing we've collided with
-            var damageCaused = isTeam ? -(int)(DamageCaused*0.75f) : DamageCaused;
-            _colliderHealth.Damage(damageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
-            if (DamageTakenEveryTime + DamageTakenDamageable > 0)
+
+            var reward = 0.0f;
+            if (!isTeam)
             {
-                SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
+                reward = _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration)
+                    / 100.0f;
+                if (DamageTakenEveryTime + DamageTakenDamageable > 0)
+                {
+                    SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
+                }
+                
+                if (punishHit)
+                {
+                    var otherAgent = _colliderHealth.GetComponent<TopDownAgent>();
+                    otherAgent?.AddReward(reward * hitDiscount);
+                }
+            }
+            else
+            {
+                reward = _colliderHealth.GetHealth(HealCaused, gameObject) / 100.0f;
+            }
+
+
+            if (Owner && reward > 0 && rewardShots)
+            {
+                var agent = Owner.GetComponent<TopDownAgent>();
+
+                if (agent != null)
+                {
+                    agent.AddReward(reward);
+                    Debug.Log("Hit");
+                }
+                else
+                {
+                    Debug.Log("Null Agent");
+                }
             }
         }
 
+        public bool rewardShots = false;
+
+        public bool punishHit = false;
+
+        public float hitDiscount = 0.5f;
         /// <summary>
         /// Describes what happens when colliding with a non damageable object
         /// </summary>
