@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using UnityEngine.UI;
@@ -418,11 +419,15 @@ namespace MoreMountains.TopDownEngine
             }
         }
 
-        public float[] GetObservations()
+        public Dictionary<string, float> GetObservations()
         {
             var angle = InputMovement;
 
-            var senses = new[] { angle.x, angle.y };
+            var senses = new Dictionary<string, float>()
+            {
+                { "Aim X", angle.x },
+                { "Aim Y", angle.y}
+            };
 
             return senses;
         }

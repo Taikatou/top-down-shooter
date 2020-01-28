@@ -5,7 +5,7 @@ namespace BattleResearch.Scripts
 {
     public interface ISense
     {
-        float[] GetObservations();
+        Dictionary<string, float> GetObservations();
     }
 
     public class SenseMethods

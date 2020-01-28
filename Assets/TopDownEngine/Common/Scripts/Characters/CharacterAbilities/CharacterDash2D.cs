@@ -191,9 +191,16 @@ namespace MoreMountains.TopDownEngine
             MMAnimatorExtensions.UpdateAnimatorBool(_animator, _dashingAnimationParameter, (_movement.CurrentState == CharacterStates.MovementStates.Dashing),_character._animatorParameters);
 		}
 
-        public float[] GetObservations()
+        public Dictionary<string, float> GetObservations()
         {
-            return new[] { Convert.ToSingle(_dashing), _dashTimer, Cooldown.CurrentDurationLeft, (float) Cooldown.CooldownState };
+            var obs = new Dictionary<string, float>
+            {
+	            { "Dasshing", Convert.ToSingle(_dashing) },
+	            { "Dash Timer", _dashTimer },
+	            { "Breather Cooldown", Cooldown.CurrentDurationLeft },
+	            { "Cooldown State", (float) Cooldown.CooldownState }
+            };
+            return obs;
         }
     }
 }

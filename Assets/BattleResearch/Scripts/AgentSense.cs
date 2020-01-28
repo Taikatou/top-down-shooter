@@ -7,24 +7,24 @@ namespace BattleResearch.Scripts
 {
     public class AgentSense : MonoBehaviour, ISense
     {
-        public float[] GetObservations()
+        public Dictionary<string, float> GetObservations()
         {
-            var senses = GetObservationsList().ToArray();
+            var senses = GetObservationsList();
             return senses;
         }
         
-        public List<float> GetObservationsList()
+        public Dictionary<string, float>  GetObservationsList()
         {
             var healthComponent = GetComponent<Health>();
 
             var behaviorName = GetComponent<BehaviorParameters>();
             var character = GetComponent<Character>();
 
-            var playerStats = new List<float>
+            var playerStats = new Dictionary<string, float>()
             {
-                healthComponent.CurrentHealth / healthComponent.MaximumHealth,
-                behaviorName.GetObservations(),
-                character.TeamId
+                { "Current Health", healthComponent.CurrentHealth / healthComponent.MaximumHealth },
+                { "Behavior Name", behaviorName.GetObservations() },
+                { "Team ID", character.TeamId }
             };
 
             var senses = playerStats;
@@ -32,7 +32,7 @@ namespace BattleResearch.Scripts
             return senses;
         }
 
-        public float [] GetObservationsOtherAgent(Vector2 currentPosition)
+        public Dictionary<string, float>  GetObservationsOtherAgent(Vector2 currentPosition)
         {
             var agentRb = GetComponent<Rigidbody2D>();
             var position = agentRb.transform.position;
@@ -41,10 +41,10 @@ namespace BattleResearch.Scripts
 
             var playerStats = GetObservationsList();
 
-            playerStats.Add(positionX);
-            playerStats.Add(positionY);
+            playerStats.Add("PositionX", positionX);
+            playerStats.Add("PositionY", positionY);
 
-            return playerStats.ToArray();
+            return playerStats;
         }
 
         public float GetPositionScaled(float position)

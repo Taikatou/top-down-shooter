@@ -23,6 +23,8 @@ namespace BattleResearch.Scripts
         private Dictionary<Directions, KeyCode> _secondaryDirections;
 
         private int divisions = 24;
+        
+        public bool debugSenses = true;
 
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
@@ -133,7 +135,7 @@ namespace BattleResearch.Scripts
 
                 AddVectorObs(obs);
             }
-            
+
             var agentRb = GetComponent<Rigidbody2D>();
             var position = agentRb.transform.position;
             
@@ -149,6 +151,22 @@ namespace BattleResearch.Scripts
             }
 
             AddVectorObs(CurrentPoints);
+        }
+
+        protected virtual void AddVectorObs(Dictionary<string, float> observations, bool printObs=false,
+            string obsName="Default")
+        {
+            var debugTxt = obsName + ":\t";
+            foreach (KeyValuePair<string, float> entry in observations)
+            {
+                AddVectorObs(entry.Value);
+                debugTxt += entry.Key + ": " + entry.Value + "\t";
+            }
+
+            if (printObs)
+            {
+                Debug.Log(debugTxt);
+            }
         }
 
         public override float[] Heuristic()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -109,11 +110,15 @@ namespace BattleResearch.Scripts
             }
         }
 
-        public float[] GetObservations()
+        public Dictionary<string, float> GetObservations()
         {
             var breathingFloat = Convert.ToSingle(CurrentlyBreathing);
 
-            var senses = new[] {breathingFloat, CurrentCooldownTime};
+            var senses = new Dictionary<string, float>()
+            {
+                { "Breathing Float", breathingFloat },
+                { "Current Cool Down", CurrentCooldownTime}
+            };
 
             return senses;
         }

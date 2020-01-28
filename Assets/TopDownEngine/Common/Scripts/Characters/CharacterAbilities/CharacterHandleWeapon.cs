@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
@@ -475,7 +476,7 @@ namespace MoreMountains.TopDownEngine
             Setup();
         }
 
-        public float[] GetObservations()
+        public Dictionary<string, float> GetObservations()
         {
             // Add weapon state
             var state = CurrentWeapon ?
@@ -488,7 +489,12 @@ namespace MoreMountains.TopDownEngine
             var reload = CurrentWeapon && CurrentWeapon.Reloading;
             var reloadFloat = Convert.ToSingle(reload);
 
-            var senses = new[] {state, ammo, reloadFloat};
+            var senses = new Dictionary<string, float>()
+            {
+                { "WeaponState",  state },
+                { "Ammo", ammo },
+                { "ReloadFloat", reloadFloat } 
+            };
 
 
             return senses;
