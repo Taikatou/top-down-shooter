@@ -110,6 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealDistance: 6
   HealPerSecond: 1.5
+  healedCharachters: 0
+  healthRecovered: 0
 --- !u!114 &2507027219795707508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +257,12 @@ PrefabInstance:
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_BrainParameters.vectorObservationSize
-      value: 100
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[0]
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e216b32211f86408f3c70b9f224a1f, type: 3}

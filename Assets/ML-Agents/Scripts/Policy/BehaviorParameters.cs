@@ -104,6 +104,8 @@ namespace MLAgents
             var nameId = NameChecker.Index(m_BehaviorName);
             return nameId;
         }
+        
+        public bool Continuous => m_BrainParameters.vectorActionSpaceType == SpaceType.Continuous;
     }
 
     public class NameChecker

@@ -26,6 +26,8 @@ namespace MoreMountains.TopDownEngine
         [Header("Damage Caused")]
         /// The amount of health to remove from the player's health
         public int DamageCaused = 10;
+
+        public bool HealingItem = false;
         /// the type of knockback to apply when causing damage
         public KnockbackStyles DamageCausedKnockbackType = KnockbackStyles.AddForce;
         /// The direction to apply the knockback 
@@ -231,6 +233,7 @@ namespace MoreMountains.TopDownEngine
                 return;
             }
 
+            var isTeam = false;
             if (Owner)
             {
                 var owner = Owner.GetComponent<Character>();
@@ -238,10 +241,9 @@ namespace MoreMountains.TopDownEngine
 
                 if (character)
                 {
-                    var healingItem = DamageCaused < 0;
-                    var targetId = healingItem ? owner.TeamId : owner.EnemyId;
+                    isTeam = owner.TeamId == character.TeamId;
 
-                    if (targetId != character.TeamId)
+                    if (!HealingItem && !isTeam)
                     {
                         return;
                     }
@@ -265,7 +267,7 @@ namespace MoreMountains.TopDownEngine
             {
                 if (_colliderHealth.CurrentHealth > 0)
                 {
-                    OnCollideWithDamageable(_colliderHealth);
+                    OnCollideWithDamageable(_colliderHealth, isTeam);
                 }
             }
 
@@ -280,7 +282,8 @@ namespace MoreMountains.TopDownEngine
         /// Describes what happens when colliding with a damageable object
         /// </summary>
         /// <param name="health">Health.</param>
-        protected virtual void OnCollideWithDamageable(Health health)
+        /// <param name="isTeam"></param>
+        protected virtual void OnCollideWithDamageable(Health health, bool isTeam)
         {
             // if what we're colliding with is a TopDownController, we apply a knockback force
             _colliderTopDownController = health.gameObject.MMGetComponentNoAlloc<TopDownController>();
@@ -315,7 +318,8 @@ namespace MoreMountains.TopDownEngine
             }
             
             // we apply the damage to the thing we've collided with
-            _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
+            var damageCaused = isTeam ? -(int)(DamageCaused*0.75f) : DamageCaused;
+            _colliderHealth.Damage(damageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
             if (DamageTakenEveryTime + DamageTakenDamageable > 0)
             {
                 SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);

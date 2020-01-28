@@ -10073,9 +10073,9 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 112
     numStackedVectorObservations: 1
-    vectorActionSize: 03000000030000000300000003000000020000000200000002000000
+    vectorActionSize: 07000000
     vectorActionDescriptions: []
-    vectorActionSpaceType: 0
+    vectorActionSpaceType: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -10099,7 +10099,8 @@ MonoBehaviour:
   rayPerception: {fileID: 8630999849055733176}
   otherMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 262400
+  debugSenses: 1
 --- !u!114 &5387466295621459731
 MonoBehaviour:
   m_ObjectHideFlags: 0

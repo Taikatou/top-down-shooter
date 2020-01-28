@@ -1,9 +1,10 @@
-﻿using MoreMountains.TopDownEngine;
+﻿using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
 {
-    public class AOEHeal : MonoBehaviour
+    public class AOEHeal : MonoBehaviour, ISense
     {
         private Collider2D[] colliders;
 
@@ -11,12 +12,17 @@ namespace BattleResearch.Scripts
 
         public float HealPerSecond = 5;
 
+        public int healedCharachters;
+
+        public float healthRecovered;
         // Update is called once per frame
         void Update()
         {
             var healthBack = HealPerSecond * Time.deltaTime;
             var position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
             colliders = Physics2D.OverlapCircleAll(position, HealDistance);
+            healedCharachters = 0;
+            healthRecovered = 0.0f;
             foreach (var t in colliders)
             {
                 HealUnit(t.gameObject, healthBack);
@@ -26,7 +32,23 @@ namespace BattleResearch.Scripts
         public void HealUnit(GameObject unitToHeal, float healthBack)
         {
             var health = unitToHeal.GetComponent<Health>();
-            health?.GetHealth(healthBack, gameObject);
+
+            if (health != null)
+            {
+                healedCharachters++;
+                healthRecovered += health.GetHealth(healthBack, gameObject);
+            }
+        }
+
+        public Dictionary<string, float> GetObservations()
+        {
+            var obs = new Dictionary<string, float>
+            {
+                { "Healed Characters", healedCharachters },
+                { "Health Recovered", healthRecovered }
+            };
+
+            return obs;
         }
     }
 }

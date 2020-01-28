@@ -411,11 +411,13 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		/// <param name="health">The health the character gets.</param>
 		/// <param name="instigator">The thing that gives the character health.</param>
-		public virtual void GetHealth(float health,GameObject instigator)
+		public virtual float GetHealth(float health,GameObject instigator)
 		{
 			// this function adds health to the character's Health and prevents it to go above MaxHealth.
+			var previousHealth = CurrentHealth;
 			CurrentHealth = Mathf.Min (CurrentHealth + health,MaximumHealth);
 			UpdateHealthBar(true);
+			return CurrentHealth - previousHealth;
 		}
 
 	    /// <summary>

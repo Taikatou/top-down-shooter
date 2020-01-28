@@ -104,7 +104,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual GameObject SpawnProjectile(Vector3 spawnPosition, int projectileIndex, int totalProjectiles, bool triggerObjectActivation = true)
         {
-
+            Debug.Log("Spawn Weapon");
             /// we get the next object in the pool and make sure it's not null
             GameObject nextGameObject = ObjectPooler.GetPooledGameObject();
             // mandatory checks

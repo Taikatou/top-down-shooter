@@ -26,6 +26,7 @@ namespace BattleResearch.Scripts
         
         public bool debugSenses = true;
 
+        public bool Continuous => GetComponent<BehaviorParameters>().Continuous;
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private ISense[] Senses => GetComponentsInChildren<ISense>();
@@ -59,7 +60,7 @@ namespace BattleResearch.Scripts
             };
         }
 
-        private int GetDecision(float input)
+        private int GetDecisionDiscrete(float input)
         {
             var output = 0;
             switch (Mathf.FloorToInt(input))
@@ -76,6 +77,11 @@ namespace BattleResearch.Scripts
             return output;
         }
 
+        private float GetDecision(float input)
+        {
+            return Continuous ? input : GetDecisionDiscrete(input);
+        }
+
         public override void AgentAction(float[] vectorAction)
         {
             var xInput = GetDecision(vectorAction[0]);
@@ -89,24 +95,41 @@ namespace BattleResearch.Scripts
 
             AgentInput.SecondaryInput = secondary;
 
-            var shootButtonDown = Convert.ToBoolean(vectorAction[4]);
+            var shootButtonDown = ToBoolean(vectorAction[4]);
+            Debug.Log(shootButtonDown);
             AgentInput.SetShootButtonState(shootButtonDown);
-
-            var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[5]);
-            AgentInput.SetSecondaryShootButtonState(secondaryShootButtonDown);
             
-            var reloadButtonDown = Convert.ToBoolean(vectorAction[6]);
+            var reloadButtonDown = ToBoolean(vectorAction[5]);
             AgentInput.SetReloadButtonState(reloadButtonDown);
+
+            if (vectorAction.Length >= 7)
+            {
+                var secondaryShootButtonDown = ToBoolean(vectorAction[6]);
+                AgentInput.SetSecondaryShootButtonState(secondaryShootButtonDown);
+            }
         }
 
-        private int GetInput(KeyCode negativeKey, KeyCode positiveKey)
+        private bool ToBoolean(float input)
+        {
+            return input > 0.4f;
+        }
+
+        private float GetInput(KeyCode negativeKey, KeyCode positiveKey)
         {
             var negative = Input.GetKey(negativeKey);
             var positive = Input.GetKey(positiveKey);
             if (negative ^ positive)
             {
-                return negative ? 1 : 2;
+                if (Continuous)
+                {
+                    return negative ? -1 : 1;
+                }
+                else
+                {
+                    return negative ? 1 : 2;
+                }
             }
+
             return 0;
         }
         
@@ -123,8 +146,12 @@ namespace BattleResearch.Scripts
                     angles[i] =  degrees * i;
                 }
 
-                var observations = rayPerception.Perceive(25, angles, new[] {"walls"}, 
-                                                            otherMask, 0, 0, Color.red);
+                var observations = rayPerception.Perceive(25, angles, 
+                    new[]
+                    {
+                        "walls",
+                    }, 
+                    otherMask, 0, 0, Color.red);
                 
                 AddVectorObs(observations);
             }
@@ -190,13 +217,13 @@ namespace BattleResearch.Scripts
             var shootButtonState = Input.GetKey(KeyCode.X);
             var shootButtonInput = Convert.ToSingle(shootButtonState);
 
+            var reloadButtonState = Input.GetKey(KeyCode.End);
+            var reloadButtonInput = Convert.ToSingle(reloadButtonState);
+            
             var secondaryShootButtonState = Input.GetKey(KeyCode.C);
             var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
 
-            var reloadButtonState = Input.GetKey(KeyCode.End);
-            var reloadButtonInput = Convert.ToSingle(reloadButtonState);
-
-            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, secondaryShootButtonInput, reloadButtonInput };
+            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput, secondaryShootButtonInput };
 
             return output;
         }
