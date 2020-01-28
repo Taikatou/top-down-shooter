@@ -69,13 +69,17 @@ namespace MoreMountains.TopDownEngine
 	    protected int _savedPoints;
         protected Collider _collider;
         protected Vector3 _initialSpawnPointPosition;
-		
-		/// <summary>
-		/// On awake, instantiates the player
-		/// </summary>
-		protected override void Awake()
+
+        private Random _random;
+
+        /// <summary>
+        /// On awake, instantiates the player
+        /// </summary>
+        protected override void Awake()
 		{
 			base.Awake();
+
+            _random = new Random();
             _collider = this.GetComponent<Collider>();
             _initialSpawnPointPosition = (InitialSpawnPoint == null) ? Vector3.zero : InitialSpawnPoint.transform.position;
         }
@@ -124,15 +128,14 @@ namespace MoreMountains.TopDownEngine
 			if (PlayerPrefabs.Count() != 0)
 			{
 				var count = 0;
-				for (var i = 0; i < playerCount; i++)
+                for (var i = 0; i < playerCount; i++)
 				{
 					count++;
 
                     var index = i;
                     if (randomCharacter)
                     {
-                        var random = new Random();
-                        index = random.Next(PlayerPrefabs.Length);
+                        index = _random.Next(PlayerPrefabs.Length);
                     }
 
                     var playerPrefab = PlayerPrefabs[index];

@@ -246,7 +246,7 @@ namespace MoreMountains.TopDownEngine
                         return;
                     }
                     var agent = owner.GetComponent<TopDownAgent>();
-                    agent?.AddReward(0.1f);
+                    agent.AddReward(0.1f);
                     Debug.Log("Hit");
                 }
             }
