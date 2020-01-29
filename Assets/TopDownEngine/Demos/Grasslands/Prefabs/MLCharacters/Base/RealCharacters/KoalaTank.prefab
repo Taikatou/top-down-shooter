@@ -112,6 +112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
       propertyPath: m_BehaviorName
       value: KoalaTank
       objectReference: {fileID: 0}
@@ -119,6 +124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BrainParameters.vectorObservationSize
       value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[6]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e216b32211f86408f3c70b9f224a1f, type: 3}

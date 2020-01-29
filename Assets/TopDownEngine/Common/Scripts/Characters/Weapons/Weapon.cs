@@ -273,6 +273,7 @@ namespace MoreMountains.TopDownEngine
             if (WeaponState.CurrentState == WeaponStates.WeaponIdle)
             {
                 _triggerReleased = false;
+                Debug.Log("Weapon on");
                 TurnWeaponOn();
             }
         }
@@ -298,6 +299,8 @@ namespace MoreMountains.TopDownEngine
                 _characterMovement.SetMovement(Vector2.zero);
                 _characterMovement.MovementForbidden = true;
             }
+
+            CaseWeaponUse();
         }
 
         /// <summary>

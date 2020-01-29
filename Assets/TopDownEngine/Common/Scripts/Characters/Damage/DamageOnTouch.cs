@@ -137,7 +137,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// During last update, we store the position and velocity of the object
         /// </summary>
-        private void FixedUpdate()
+        private void Update()
         {
             ComputeVelocity();
         }

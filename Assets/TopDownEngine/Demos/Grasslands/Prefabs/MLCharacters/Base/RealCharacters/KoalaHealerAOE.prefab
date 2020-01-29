@@ -109,64 +109,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealDistance: 6
-  HealPerSecond: 1.5
+  HealPerSecond: 0.8
   healedCharachters: 0
   healthRecovered: 0
---- !u!114 &2507027219795707508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712080913073816515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde870ae7090b974bb115e88bfbf8320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  DashMode: 1
-  DashDirection: {x: 0, y: 0, z: 1}
-  DashDistance: 6
-  DashDuration: 0.2
-  DashCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  Cooldown:
-    Unlimited: 1
-    ConsumptionDuration: 2
-    PauseOnEmptyDuration: 1
-    RefillDuration: 1
-    CanInterruptRefill: 1
-    CooldownState: 0
-    CurrentDurationLeft: 0
-  DashFeedback: {fileID: 0}
 --- !u!114 &6919141543567326363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: m_BrainParameters.vectorObservationSize
-      value: 102
+      value: 98
       objectReference: {fileID: 0}
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}

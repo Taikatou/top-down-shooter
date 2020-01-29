@@ -308,14 +308,7 @@ namespace MoreMountains.TopDownEngine
 		private void FixedUpdate()
 		{		
 			EveryFrame();
-			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
-			if (LinkedInputManager)
-			{
-				if (LinkedInputManager.PlayerID != PlayerID)
-				{
-					SetInputManager();
-				}	
-			}
+			
 		}
 
 		/// <summary>
@@ -327,7 +320,19 @@ namespace MoreMountains.TopDownEngine
 			EarlyProcessAbilities();
 			ProcessAbilities();
 			LateProcessAbilities();
+		}
 
+		private void Update()
+		{
+			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
+			if (LinkedInputManager)
+			{
+				if (LinkedInputManager.PlayerID != PlayerID)
+				{
+					SetInputManager();
+				}	
+			}
+			
 			// we send our various states to the animator.		 
 			UpdateAnimators ();
 		}

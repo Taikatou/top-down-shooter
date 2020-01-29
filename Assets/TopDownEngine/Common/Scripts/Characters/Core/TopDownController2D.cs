@@ -109,16 +109,19 @@ namespace MoreMountains.TopDownEngine
             }
         }
 
+        protected override void Update()
+        {
+            base.Update();
+            Velocity = _rigidBody.velocity;
+            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
+        }
+
         /// <summary>
         /// On fixed update, we move our rigidbody 
         /// </summary>
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            
-            base.Update();
-            Velocity = _rigidBody.velocity;
-            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
 
             ApplyImpact();
 

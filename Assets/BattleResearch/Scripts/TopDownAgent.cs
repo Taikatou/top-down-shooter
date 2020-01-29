@@ -106,8 +106,15 @@ namespace BattleResearch.Scripts
             var secondaryYInput = GetDecision(vectorAction[3]);
             var secondary = new Vector2(secondaryXInput, secondaryYInput);
 
-            AgentInput.SecondaryInput = secondary;
+            if (!Continuous)
+            {
+                secondary = AgentInput.SecondaryInput + (secondary / 10);
+                secondary.x = Mathf.Clamp(secondary.x, -1, 1);
+                secondary.y = Mathf.Clamp(secondary.y, -1, 1);
+            }
 
+            AgentInput.SecondaryInput = secondary;
+            
             var shootButtonDown = ToBoolean(vectorAction[4]);
             AgentInput.SetShootButtonState(shootButtonDown);
             
@@ -123,7 +130,12 @@ namespace BattleResearch.Scripts
 
         private bool ToBoolean(float input)
         {
-            return input > 0.4f;
+            if (Continuous)
+            {
+                return input > 0.4f;
+            }
+
+            return Convert.ToBoolean(input);
         }
 
         private float GetInput(KeyCode negativeKey, KeyCode positiveKey)
