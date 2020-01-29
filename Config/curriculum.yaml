@@ -5,3 +5,4 @@ TopDown:
   signal_smoothing: true
   parameters:
     game_duration: [150, 120, 90]
+    damage_scale: [2, 1.5, 1]

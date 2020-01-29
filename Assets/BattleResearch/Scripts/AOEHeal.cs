@@ -16,7 +16,7 @@ namespace BattleResearch.Scripts
 
         public float healthRecovered;
         // Update is called once per frame
-        void Update()
+        private void FixedUpdate()
         {
             var healthBack = HealPerSecond * Time.deltaTime;
             var position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);

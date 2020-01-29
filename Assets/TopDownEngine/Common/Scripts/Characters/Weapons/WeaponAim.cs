@@ -169,14 +169,6 @@ namespace MoreMountains.TopDownEngine
         }
 
         /// <summary>
-        /// Every frame, we compute the aim direction and rotate the weapon accordingly
-        /// </summary>
-        protected virtual void Update()
-        {
-
-        }
-
-        /// <summary>
         /// On LateUpdate, resets any additional angle
         /// </summary>
         protected virtual void LateUpdate()

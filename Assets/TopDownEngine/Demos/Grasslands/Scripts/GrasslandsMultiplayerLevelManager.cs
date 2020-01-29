@@ -116,7 +116,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// On update, we update our countdowns and check for input if we're in game over state
         /// </summary>
-        public override void Update()
+        private void FixedUpdate()
         {
             base.Update();
             UpdateCountdown();

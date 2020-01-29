@@ -303,7 +303,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// On Update, we check if the weapon is or should be used
         /// </summary>
-        protected virtual void Update()
+        private void FixedUpdate()
         {
             FlipWeapon();
             ApplyOffset();            

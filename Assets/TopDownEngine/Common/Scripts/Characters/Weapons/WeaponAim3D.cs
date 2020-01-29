@@ -168,7 +168,7 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// Every frame, we compute the aim direction and rotate the weapon accordingly
 		/// </summary>
-		protected override void Update()
+		private void FixedUpdate()
 		{
 			GetCurrentAim ();
 			DetermineWeaponRotation ();

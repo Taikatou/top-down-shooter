@@ -107,7 +107,7 @@ namespace BattleResearch.Scripts
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (CurrentlyBreathing)
             {

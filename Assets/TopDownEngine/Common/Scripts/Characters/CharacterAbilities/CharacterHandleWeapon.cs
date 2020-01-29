@@ -165,6 +165,7 @@ namespace MoreMountains.TopDownEngine
                 return;
             }
 
+            Debug.Log(_inputManager.ShootButtonState.ToString());
 
             // Debug.Log(_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown);
             if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown || _inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown)

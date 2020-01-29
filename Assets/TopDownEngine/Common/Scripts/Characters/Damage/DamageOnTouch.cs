@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections.Generic;
 using BattleResearch.Scripts;
 using MoreMountains.Feedbacks;
+using TopDownEngine.Demos.Grasslands.Scripts;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -84,6 +85,8 @@ namespace MoreMountains.TopDownEngine
         protected Vector3 _gizmoOffset;
         protected Transform _gizmoTransform;
 
+        public float DamageScale => FindObjectOfType<MLAgentsGrasslandsMultiplayerLevelManager>().damageScale;
+
         /// <summary>
         /// Initialization
         /// </summary>
@@ -134,7 +137,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// During last update, we store the position and velocity of the object
         /// </summary>
-        protected virtual void Update()
+        private void FixedUpdate()
         {
             ComputeVelocity();
         }
@@ -319,7 +322,8 @@ namespace MoreMountains.TopDownEngine
             var reward = 0.0f;
             if (!isTeam)
             {
-                reward = _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration)
+                var damage = (int) ((float)DamageCaused * DamageScale);
+                reward = _colliderHealth.Damage(damage, gameObject, InvincibilityDuration, InvincibilityDuration)
                     / 100.0f;
                 if (DamageTakenEveryTime + DamageTakenDamageable > 0)
                 {

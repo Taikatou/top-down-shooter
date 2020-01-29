@@ -263,16 +263,11 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// Every frame, we compute the aim direction and rotate the weapon accordingly
         /// </summary>
-        protected override void Update()
-        {
-            GetCurrentAim();
-            DetermineWeaponRotation();
-        }
 
         protected virtual void FixedUpdate()
         {            
-            MoveReticle();
-            HideReticle();
+            GetCurrentAim();
+            DetermineWeaponRotation();
         }
 
         /// <summary>

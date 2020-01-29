@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class TestTimeRate : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
         Academy.Instance.DisableAutomaticStepping();
         Academy.Instance.EnvironmentStep();
+        
+        Debug.Log(Time.deltaTime);
     }
 }

@@ -131,10 +131,10 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 6, y: 4, z: 0}
+  AreaSize: {x: 5, y: 2.5, z: 0}
   AreaOffset: {x: 0.64, y: 0, z: 0}
   InitialDelay: 0
-  ActiveDuration: 0.2
+  ActiveDuration: 0.3
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 9472
@@ -160,7 +160,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.4
+  TimeBetweenUses: 0.2
   TimeBetweenUsesReleaseInterruption: 0
   MagazineBased: 0
   MagazineSize: 30
@@ -205,8 +205,8 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 5, y: 5, z: 0}
-  AreaOffset: {x: 0.57, y: 0.2, z: 0}
+  AreaSize: {x: 3, y: 4, z: 0}
+  AreaOffset: {x: 0.57, y: 0, z: 0}
   InitialDelay: 0
   ActiveDuration: 0.2
   TargetLayerMask:
@@ -279,8 +279,8 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 6, y: 4, z: 0}
-  AreaOffset: {x: 1.5, y: 0.5, z: 0}
+  AreaSize: {x: 4, y: 3, z: 0}
+  AreaOffset: {x: 1.5, y: 0, z: 0}
   InitialDelay: 0
   ActiveDuration: 0.2
   TargetLayerMask:

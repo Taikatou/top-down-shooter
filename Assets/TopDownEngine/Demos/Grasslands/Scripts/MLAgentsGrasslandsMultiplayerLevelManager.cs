@@ -77,6 +77,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
+
                     Debug.Log("Winner");
                     agent.SetReward(1.0f);
                 }
@@ -103,6 +104,8 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
             SpawnMultipleCharacters();
         }
 
+        public float damageScale = 1;
+
         public override void OnMMEvent(TopDownEngineEvent engineEvent)
         {
             base.OnMMEvent(engineEvent);
@@ -112,6 +115,9 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     Debug.Log("Reset Event");
                     var dur = Academy.Instance.FloatProperties.GetPropertyWithDefault("game_duration",
                                                                                         160);
+                    var scale = Academy.Instance.FloatProperties.GetPropertyWithDefault("damage_scale",
+                        1);
+                    damageScale = scale;
                     GameDuration = (int) dur;
                     StartCoroutine(GameOver());
                     break;

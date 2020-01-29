@@ -73,7 +73,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// On Update we reset our combo if needed
         /// </summary>
-        protected virtual void Update()
+        private void FixedUpdate()
         {
             ResetCombo();
         }

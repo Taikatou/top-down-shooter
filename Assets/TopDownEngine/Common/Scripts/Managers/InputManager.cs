@@ -191,7 +191,7 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// At update, we check the various commands and update our values and states accordingly.
 		/// </summary>
-		protected virtual void Update()
+		private void FixedUpdate()
 		{		
 			if (!IsMobile && InputDetectionActive)
 			{	
