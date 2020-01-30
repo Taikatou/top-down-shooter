@@ -74,8 +74,6 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
 
             foreach (var agent in agents)
             {
-                agent.Done();
-                
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
@@ -87,6 +85,8 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     Debug.Log("Looser");
                     agent.SetReward(-0.25f);
                 }
+
+                agent.Done();
             }
 
             AppendResult(agents, GameEnding.Win);
