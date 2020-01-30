@@ -163,7 +163,7 @@ namespace BattleResearch.Scripts
             {
                 var angles = new float[divisions];
 
-                var degrees = (360 / divisions);
+                var degrees = 360 / divisions;
                 
                 for (var i = 0; i < divisions; i++)
                 {
@@ -177,9 +177,7 @@ namespace BattleResearch.Scripts
                     new[]
                     {
                         "walls",
-                        "projectile",
-                        "Team" + TeamId,
-                        "Team" + otherId
+                        "projectile"
                     },
                     obstacleMask, 0, 0, Color.red);
                 
