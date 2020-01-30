@@ -31,6 +31,8 @@ namespace BattleResearch.Scripts
 
         private ISense[] _senses;
 
+        public string BehaviourName => GetComponent<BehaviorParameters>().Name;
+
         private ISense[] Senses
         {
             get

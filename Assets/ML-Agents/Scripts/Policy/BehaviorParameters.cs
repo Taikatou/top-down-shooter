@@ -39,6 +39,9 @@ namespace MLAgents
         [HideInInspector]
         [SerializeField]
         string m_BehaviorName = "My Behavior";
+
+        public string Name => m_BehaviorName;
+
         [HideInInspector] [SerializeField]
         int m_TeamID = 0;
         [HideInInspector]

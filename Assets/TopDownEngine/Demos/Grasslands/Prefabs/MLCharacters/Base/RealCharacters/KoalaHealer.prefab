@@ -86,6 +86,12 @@ PrefabInstance:
       propertyPath: m_BrainParameters.vectorActionSize.Array.data[0]
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 88cad14dd94fee544bf57eccee80d1ae,
+        type: 3}
     - target: {fileID: 5832822908936307152, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
       propertyPath: otherMask.m_Bits

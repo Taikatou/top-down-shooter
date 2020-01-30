@@ -209,6 +209,12 @@ PrefabInstance:
       propertyPath: m_BrainParameters.vectorActionSize.Array.data[0]
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: fcdceddb2211b794aaf458839b20618d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e216b32211f86408f3c70b9f224a1f, type: 3}
 --- !u!1 &3712080913073816515 stripped

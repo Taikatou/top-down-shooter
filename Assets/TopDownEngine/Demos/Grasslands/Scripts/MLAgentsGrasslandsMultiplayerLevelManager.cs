@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using BattleResearch.Scripts;
 using MLAgents;
@@ -70,6 +71,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
         {
             Debug.Log("GameOver");
             var agents = FindObjectsOfType<TopDownAgent>();
+
             foreach (var agent in agents)
             {
                 agent.Done();
@@ -77,7 +79,6 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
-
                     Debug.Log("Winner");
                     agent.SetReward(1.0f);
                 }
@@ -88,9 +89,30 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 }
             }
 
+            AppendResult(agents, GameEnding.Win);
+            AppendResult(agents, GameEnding.Loss);
+
+
             var enumerator = base.GameOver();
             Restart();
             return enumerator;
+        }
+
+        private void AppendResult(TopDownAgent[] agents, GameEnding condition)
+        {
+            var logger = FindObjectOfType<DataLogger>();
+            var winners = Array.FindAll(agents, agent => IsWinner(agent) == condition);
+            Debug.Log(winners.Length);
+            if (winners.Length > 0)
+            {
+                Array.Sort(winners, (x, y) => string.CompareOrdinal(x.BehaviourName, y.BehaviourName));
+                var winnersName = string.Join("", winners.Select((z => z.BehaviourName)));
+
+                var wins = condition == GameEnding.Win ? 1 : 0;
+                var losses = condition == GameEnding.Loss ? 1 : 0;
+                var draws = condition == GameEnding.Draw ? 1 : 0;
+                logger.AddResult(winnersName, wins, losses, draws);
+            }
         }
 
         protected virtual void Restart()
@@ -116,7 +138,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     var dur = Academy.Instance.FloatProperties.GetPropertyWithDefault("game_duration",
                                                                                         160);
                     var scale = Academy.Instance.FloatProperties.GetPropertyWithDefault("damage_scale",
-                        1);
+                        2);
                     damageScale = scale;
                     GameDuration = (int) dur;
                     StartCoroutine(GameOver());
