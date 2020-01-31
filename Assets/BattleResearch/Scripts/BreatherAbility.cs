@@ -1,18 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BattleResearch.Scripts
 {
-    public class BreatherAbility : CharacterAbility, ISense
+    public class BreatherAbility : BaseTankAbility
     {
         public float BreathTime;
 
         public float HeathBack;
+        private Health HealthComponent => GetComponent<Health>();
+        protected override void StartAbility()
+        {
+            if (HealthComponent.CurrentHealth < HealthComponent.MaximumHealth)
+            {
+                BreathButtonDown = true;
+                CurrentlyBreathing = true;
+                CurrentTime = BreathTime;
+                SetWeaponsEnabled(false);
 
+                _used = true;
+            }
+        }
+
+        protected override void UpdateAbility()
+        {
+            var healthBack = (HeathBack / BreathTime) * Time.deltaTime;
+            HealthComponent?.GetHealth(healthBack, gameObject);
+        }
+    }
+    
+    public abstract class BaseTankAbility : CharacterAbility, ISense
+    {
         public float CooldownTime;
 
         public float CurrentTime { get; set; }
@@ -23,9 +45,7 @@ namespace BattleResearch.Scripts
 
         public bool CurrentlyBreathing { get; set; }
 
-        private Health HealthComponent => GetComponent<Health>();
-
-        private bool _used;
+        protected bool _used;
 
         public bool reUsable;
 
@@ -53,31 +73,31 @@ namespace BattleResearch.Scripts
             switch (_inputManager.SecondaryShootButtonState)
             {
                 case MMInput.ButtonStates.ButtonDown:
-                    StartBreath();
+                    CheckStartAbility();
                     break;
                 case MMInput.ButtonStates.ButtonUp:
-                    StopBreathingButton();
+                    StopAbility();
                     break;
             }
         }
 
-        protected void StartBreath()
+        protected abstract void StartAbility();
+
+        protected virtual void CheckStartAbility()
         {
             if (!BreathButtonDown && !CurrentlyBreathing && !OnCoolDown)
             {
                 if (reUsable || !_used)
                 {
-                    if (HealthComponent.CurrentHealth < HealthComponent.MaximumHealth)
-                    {
-                        BreathButtonDown = true;
-                        CurrentlyBreathing = true;
-                        CurrentTime = BreathTime;
-                        SetWeaponsEnabled(false);
-                    
-                        _used = true;
-                    }
+                    StartAbility();
                 }
             }
+        }
+
+
+        protected virtual void StopAbility()
+        {
+            StopBreathingButton();
         }
 
         protected void StopBreathingButton()
@@ -107,17 +127,18 @@ namespace BattleResearch.Scripts
             }
         }
 
+        protected abstract void UpdateAbility();
+
         private void Update()
         {
             if (CurrentlyBreathing)
             {
-                var healthBack = (HeathBack / BreathTime) * Time.deltaTime;
-                HealthComponent?.GetHealth(healthBack, gameObject);
+                UpdateAbility();
 
                 CurrentTime -= Time.deltaTime;
                 StopBreathingCheck();
             }
-            else if(OnCoolDown)
+            else if (OnCoolDown)
             {
                 CurrentCooldownTime -= Time.deltaTime;
             }

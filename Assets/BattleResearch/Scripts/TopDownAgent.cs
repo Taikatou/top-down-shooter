@@ -172,7 +172,6 @@ namespace BattleResearch.Scripts
 
 
                 var otherId = TeamId == 1 ? 2 : 1;
-                Debug.Log(otherId);
                 var observations = rayPerception.Perceive(25, angles, 
                     new[]
                     {

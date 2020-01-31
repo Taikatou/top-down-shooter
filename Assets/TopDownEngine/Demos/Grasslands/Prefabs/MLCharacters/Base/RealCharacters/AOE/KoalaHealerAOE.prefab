@@ -14,6 +14,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -192,7 +193,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialWeapon
       value: 
-      objectReference: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+      objectReference: {fileID: 4323181328491906969, guid: 80d62077147543f4e8bccca400290436,
         type: 3}
     - target: {fileID: 1131789997202442179, guid: d8e216b32211f86408f3c70b9f224a1f,
         type: 3}
