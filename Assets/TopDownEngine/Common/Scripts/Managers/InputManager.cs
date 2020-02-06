@@ -13,14 +13,14 @@ namespace MoreMountains.TopDownEngine
 	/// See https://docs.unity3d.com/Manual/class-ScriptExecution.html for more details
 	/// </summary>
 	[AddComponentMenu("TopDown Engine/Managers/Input Manager")]
-	public class InputManager : Singleton<InputManager>
+	public class InputManager : MMSingleton<InputManager>
 	{
 		[Header("Status")]
 		/// set this to false to prevent input to be detected
 		public bool InputDetectionActive = true;
 
 		[Header("Player binding")]
-		[Information("The first thing you need to set on your InputManager is the PlayerID. This ID will be used to bind the input manager to your character(s). You'll want to go with Player1, Player2, Player3 or Player4.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The first thing you need to set on your InputManager is the PlayerID. This ID will be used to bind the input manager to your character(s). You'll want to go with Player1, Player2, Player3 or Player4.",MMInformationAttribute.InformationType.Info,false)]
 		/// a string identifying the target player(s). You'll need to set this exact same string on your Character, and set its type to Player
 		public string PlayerID = "Player1";
 		/// the possible modes for this input manager
@@ -28,7 +28,7 @@ namespace MoreMountains.TopDownEngine
 		/// the possible kinds of control used for movement
 		public enum MovementControls { Joystick, Arrows }
 		[Header("Mobile controls")]
-		[Information("If you check Auto Mobile Detection, the engine will automatically switch to mobile controls when your build target is Android or iOS. You can also force mobile or desktop (keyboard, gamepad) controls using the dropdown below.\nNote that if you don't need mobile controls and/or GUI this component can also work on its own, just put it on an empty GameObject instead.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If you check Auto Mobile Detection, the engine will automatically switch to mobile controls when your build target is Android or iOS. You can also force mobile or desktop (keyboard, gamepad) controls using the dropdown below.\nNote that if you don't need mobile controls and/or GUI this component can also work on its own, just put it on an empty GameObject instead.",MMInformationAttribute.InformationType.Info,false)]
 		/// if this is set to true, the InputManager will try to detect what mode it should be in, based on the current target device
 		public bool AutoMobileDetection = true;
 		/// use this to force desktop (keyboard, pad) or mobile (touch) mode
@@ -36,7 +36,7 @@ namespace MoreMountains.TopDownEngine
         /// if this is true, the weapon mode will be forced to the selected WeaponForcedMode
         public bool ForceWeaponMode = false;
         /// use this to force a control mode for weapons
-        [Condition("ForceWeaponMode", true)]
+        [MMCondition("ForceWeaponMode", true)]
         public WeaponAim.AimControls WeaponForcedMode;
 		/// if this is true, mobile controls will be hidden in editor mode, regardless of the current build target or the forced mode
 		public bool HideMobileControlsInEditor = false;
@@ -46,7 +46,7 @@ namespace MoreMountains.TopDownEngine
 		public bool IsMobile { get; protected set; }
 
 		[Header("Movement settings")]
-		[Information("Turn SmoothMovement on to have inertia in your controls (meaning there'll be a small delay between a press/release of a direction and your character moving/stopping). You can also define here the horizontal and vertical thresholds.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Turn SmoothMovement on to have inertia in your controls (meaning there'll be a small delay between a press/release of a direction and your character moving/stopping). You can also define here the horizontal and vertical thresholds.",MMInformationAttribute.InformationType.Info,false)]
 		/// If set to true, acceleration / deceleration will take place when moving / stopping
 		public bool SmoothMovement=true;
 		/// the minimum horizontal and vertical value you need to reach to trigger movement on an analog controller (joystick for example)

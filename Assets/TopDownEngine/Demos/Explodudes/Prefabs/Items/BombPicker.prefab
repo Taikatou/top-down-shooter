@@ -68,11 +68,16 @@ MonoBehaviour:
   Label: Sound
   Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: 5a3f509b4e0031e4293782601996213c, type: 3}
   RandomSfx: []
@@ -99,11 +104,16 @@ MonoBehaviour:
   Label: Impulse
   Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
@@ -151,11 +161,16 @@ MonoBehaviour:
   Label: Particles Play
   Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
   BoundParticleSystem: {fileID: 1778809740238693884}
   MoveToPosition: 0
@@ -14971,7 +14986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778809740724351082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0, z: -2.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1778809739762372764}
@@ -24774,32 +24789,32 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 262106836416695341, guid: 0f79ce428d503024191003a42b10041e,
+    - target: {fileID: -4147989403716289507, guid: 0f79ce428d503024191003a42b10041e,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1

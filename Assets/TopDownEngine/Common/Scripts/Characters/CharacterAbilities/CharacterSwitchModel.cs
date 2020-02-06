@@ -11,7 +11,7 @@ namespace MoreMountains.TopDownEngine
     /// If instead you'd like to change the prefab entirely, look at the CharacterSwitchManager class.
     /// If you want to swap characters between a bunch of characters within a scene, look at the CharacterSwap ability and CharacterSwapManager
     /// </summary>
-    [HiddenProperties("AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Switch Model")] 
 	public class CharacterSwitchModel : CharacterAbility
     {
@@ -19,7 +19,7 @@ namespace MoreMountains.TopDownEngine
         public enum NextModelChoices { Sequential, Random }
 
         [Header("Models")]
-        [Information("Add this component to a character and it'll be able to switch its model when pressing the SwitchCharacter button (P by default).", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Add this component to a character and it'll be able to switch its model when pressing the SwitchCharacter button (P by default).", MMInformationAttribute.InformationType.Info, false)]
         
         /// the list of possible characters models to switch to
         public GameObject[] CharacterModels;

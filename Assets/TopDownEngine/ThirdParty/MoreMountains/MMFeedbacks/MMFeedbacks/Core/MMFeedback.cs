@@ -27,15 +27,44 @@ namespace MoreMountains.Feedbacks
         [HideInInspector]
         /// whether or not this feedback is in debug mode
         public bool DebugActive = false;
+        /// the time (or unscaled time) based on the selected Timing settings
+        public float FeedbackTime { get {
+                if (Timing.TimescaleMode == TimescaleModes.Scaled)
+                {
+                    return Time.time;
+                }
+                else
+                {
+                    return Time.unscaledTime;
+                }
+        } }
+        /// the delta time (or unscaled delta time) based on the selected Timing settings
+        public float FeedbackDeltaTime
+        {
+            get
+            {
+                if (Timing.TimescaleMode == TimescaleModes.Scaled)
+                {
+                    return Time.deltaTime;
+                }
+                else
+                {
+                    return Time.unscaledDeltaTime;
+                }
+            }
+        }
 
         protected WaitForSeconds _initialDelayWaitForSeconds;
         protected WaitForSeconds _betweenDelayWaitForSeconds;
+        protected WaitForSeconds _sequenceDelayWaitForSeconds;
         protected float _lastPlayTimestamp = 0f;
         protected int _playsLeft;
         protected bool _initialized = false;
         protected Coroutine _playCoroutine;
         protected Coroutine _infinitePlayCoroutine;
+        protected Coroutine _sequenceCoroutine;
         protected Coroutine _repeatedPlayCoroutine;
+        protected int _sequenceTrackID = 0;
 
         /// <summary>
         /// Initializes the feedback and its timing related variables
@@ -46,15 +75,31 @@ namespace MoreMountains.Feedbacks
             _initialized = true;
             Owner = owner;
             _playsLeft = Timing.NumberOfRepeats;
+
             if (Timing.InitialDelay > 0f)
             {
                 _initialDelayWaitForSeconds = new WaitForSeconds(Timing.InitialDelay);
             }
+
             if (Timing.DelayBetweenRepeats > 0f)
             {
                 _betweenDelayWaitForSeconds = new WaitForSeconds(Timing.DelayBetweenRepeats);
             }
-            CustomInitialization(owner);
+            
+            if (Timing.Sequence != null)
+            {
+                _sequenceDelayWaitForSeconds = new WaitForSeconds(Timing.DelayBetweenRepeats + Timing.Sequence.Length);
+
+                for (int i = 0; i < Timing.Sequence.SequenceTracks.Count; i++)
+                {
+                    if (Timing.Sequence.SequenceTracks[i].ID == Timing.TrackID)
+                    {
+                        _sequenceTrackID = i;
+                    }
+                }
+            }
+
+            CustomInitialization(owner);            
         }
 
         /// <summary>
@@ -71,7 +116,7 @@ namespace MoreMountains.Feedbacks
             }
             
             // we check the cooldown
-            if ((Timing.CooldownDuration > 0f) && (Time.time - _lastPlayTimestamp < Timing.CooldownDuration))
+            if ((Timing.CooldownDuration > 0f) && (FeedbackTime - _lastPlayTimestamp < Timing.CooldownDuration))
             {
                 return;
             }
@@ -82,7 +127,7 @@ namespace MoreMountains.Feedbacks
             }
             else
             {
-                _lastPlayTimestamp = Time.time;
+                _lastPlayTimestamp = FeedbackTime;
                 RegularPlay(position, attenuation);
             }  
         }
@@ -96,7 +141,7 @@ namespace MoreMountains.Feedbacks
         protected virtual IEnumerator PlayCoroutine(Vector3 position, float attenuation = 1.0f)
         {
             yield return _initialDelayWaitForSeconds;
-            _lastPlayTimestamp = Time.time;
+            _lastPlayTimestamp = FeedbackTime;
             RegularPlay(position, attenuation);
         }
 
@@ -131,7 +176,15 @@ namespace MoreMountains.Feedbacks
                 _repeatedPlayCoroutine = StartCoroutine(RepeatedPlay(position, attenuation));
                 return;
             }            
-            CustomPlayFeedback(position, attenuation);
+            if (Timing.Sequence == null)
+            {
+                CustomPlayFeedback(position, attenuation);
+            }
+            else
+            {
+                _sequenceCoroutine = StartCoroutine(SequenceCoroutine(position, attenuation));
+            }
+            
         }
 
         /// <summary>
@@ -144,9 +197,17 @@ namespace MoreMountains.Feedbacks
         {
             while (true)
             {
-                _lastPlayTimestamp = Time.time;
-                CustomPlayFeedback(position, attenuation);
-                yield return _betweenDelayWaitForSeconds;
+                _lastPlayTimestamp = FeedbackTime;
+                if (Timing.Sequence == null)
+                {
+                    CustomPlayFeedback(position, attenuation);
+                    yield return _betweenDelayWaitForSeconds;
+                }
+                else
+                {
+                    _sequenceCoroutine = StartCoroutine(SequenceCoroutine(position, attenuation));
+                    yield return _sequenceDelayWaitForSeconds;
+                }
             }
         }
 
@@ -160,12 +221,79 @@ namespace MoreMountains.Feedbacks
         {
             while (_playsLeft > 0)
             {
-                _lastPlayTimestamp = Time.time;
+                _lastPlayTimestamp = FeedbackTime;
                 _playsLeft--;
-                CustomPlayFeedback(position, attenuation);                
-                yield return _betweenDelayWaitForSeconds;
+                if (Timing.Sequence == null)
+                {
+                    CustomPlayFeedback(position, attenuation);
+                    yield return _betweenDelayWaitForSeconds;
+                }
+                else
+                {
+                    _sequenceCoroutine = StartCoroutine(SequenceCoroutine(position, attenuation));
+                    yield return _sequenceDelayWaitForSeconds;
+                }
             }
             _playsLeft = Timing.NumberOfRepeats;
+        }
+
+        protected float _beatInterval;
+        protected bool BeatThisFrame = false;
+        protected int LastBeatIndex = 0;
+        protected int CurrentSequenceIndex = 0;
+        protected float LastBeatTimestamp = 0f;
+
+        protected virtual IEnumerator SequenceCoroutine(Vector3 position, float attenuation = 1.0f)
+        {
+            yield return null;
+            float timeStartedAt = FeedbackTime;
+            float lastFrame = FeedbackTime;
+
+            BeatThisFrame = false;
+            LastBeatIndex = 0;
+            CurrentSequenceIndex = 0;
+            LastBeatTimestamp = 0f;
+
+            if (Timing.Quantized)
+            {
+                while (CurrentSequenceIndex < Timing.Sequence.QuantizedSequence[0].Line.Count)
+                {
+                    _beatInterval = 60f / Timing.TargetBPM;
+
+                    if ((FeedbackTime - LastBeatTimestamp >= _beatInterval) || (LastBeatTimestamp == 0f))
+                    {
+                        BeatThisFrame = true;
+                        LastBeatIndex = CurrentSequenceIndex;
+                        LastBeatTimestamp = FeedbackTime;
+
+                        for (int i = 0; i < Timing.Sequence.SequenceTracks.Count; i++)
+                        {
+                            if (Timing.Sequence.QuantizedSequence[i].Line[CurrentSequenceIndex].ID == Timing.TrackID)
+                            {
+                                CustomPlayFeedback(position, attenuation);
+                            }
+                        }
+                        CurrentSequenceIndex++;
+                    }
+                    yield return null;
+                }
+            }
+            else
+            {
+                while (FeedbackTime - timeStartedAt < Timing.Sequence.Length)
+                {
+                    foreach (MMSequenceNote item in Timing.Sequence.OriginalSequence.Line)
+                    {
+                        if ((item.ID == Timing.TrackID) && (item.Timestamp >= lastFrame) && (item.Timestamp <= FeedbackTime - timeStartedAt))
+                        {
+                            CustomPlayFeedback(position, attenuation);
+                        }
+                    }
+                    lastFrame = FeedbackTime - timeStartedAt;
+                    yield return null;
+                }
+            }
+                    
         }
 
         /// <summary>
@@ -178,6 +306,7 @@ namespace MoreMountains.Feedbacks
             if (_playCoroutine != null) { StopCoroutine(_playCoroutine); }
             if (_infinitePlayCoroutine != null) { StopCoroutine(_infinitePlayCoroutine); }
             if (_repeatedPlayCoroutine != null) { StopCoroutine(_repeatedPlayCoroutine); }            
+            if (_sequenceCoroutine != null) { StopCoroutine(_sequenceCoroutine);  }
 
             _lastPlayTimestamp = 0f;
             _playsLeft = Timing.NumberOfRepeats;

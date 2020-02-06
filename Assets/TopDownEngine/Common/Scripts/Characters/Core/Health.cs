@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using Sirenix.OdinInspector;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -23,21 +24,21 @@ namespace MoreMountains.TopDownEngine
 		public bool Invulnerable = false;	
 
 		[Header("Health")]
-		[Information("Add this component to an object and it'll have health, will be able to get damaged and potentially die.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Add this component to an object and it'll have health, will be able to get damaged and potentially die.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the initial amount of health of the object
 	    public int InitialHealth = 10;
 	    /// the maximum amount of health of the object
 	    public int MaximumHealth = 10;
 
         [Header("Damage")]
-        [Information("Here you can specify an effect and a sound FX to instantiate when the object gets damaged, and also how long the object should flicker when hit (only works for sprites).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can specify an effect and a sound FX to instantiate when the object gets damaged, and also how long the object should flicker when hit (only works for sprites).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// whether or not this object is immune to damage knockback
         public bool ImmuneToKnockback = false;
         /// the feedback to play when getting damage
         public MMFeedbacks DamageMMFeedbacks;
 
         [Header("Death")]
-        [Information("Here you can set an effect to instantiate when the object dies, a force to apply to it (topdown controller required), how many points to add to the game score, if the device should vibrate (only works on iOS and Android), and where the character should respawn (for non-player characters only).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can set an effect to instantiate when the object dies, a force to apply to it (topdown controller required), how many points to add to the game score, if the device should vibrate (only works on iOS and Android), and where the character should respawn (for non-player characters only).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         public bool DestroyOnDeath = true;
 		/// the time (in seconds) before the character is destroyed or disabled
 		public float DelayBeforeDestruction = 0f;

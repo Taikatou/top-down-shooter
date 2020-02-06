@@ -9,7 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this component to a character and it'll make your character fall down holes in 2D
     /// </summary>
-    [HiddenProperties("AbilityStartFeedbacks")]
+    [MMHiddenProperties("AbilityStartFeedbacks")]
     [RequireComponent(typeof(TopDownController2D))]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Fall Down Holes 2D")]
     public class CharacterFallDownHoles2D : CharacterAbility

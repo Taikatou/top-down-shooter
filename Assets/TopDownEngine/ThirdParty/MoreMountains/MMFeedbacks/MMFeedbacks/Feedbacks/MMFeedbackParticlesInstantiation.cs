@@ -1,5 +1,4 @@
-﻿using MoreMountains.Tools;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,7 +19,7 @@ namespace MoreMountains.Feedbacks
         /// whether the particle system should be cached or created on demand the first time
         public Modes Mode = Modes.Cached;
         /// if this is false, a brand new particle system will be created every time
-        [EnumCondition("Mode", (int)Modes.OnDemand)]
+        [MMFEnumCondition("Mode", (int)Modes.OnDemand)]
         public bool CachedRecycle = true;
         /// the particle system to spawn
         public ParticleSystem ParticlesPrefab;

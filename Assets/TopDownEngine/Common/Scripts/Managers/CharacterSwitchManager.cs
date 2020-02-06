@@ -19,7 +19,7 @@ namespace MoreMountains.TopDownEngine
         public enum NextCharacterChoices { Sequential, Random }
 
         [Header("Character Switch")]
-        [Information("Add this component to an empty object in your scene, and when you'll press the SwitchCharacter button (P by default, change that in Unity's InputManager settings), your main character will be replaced by one of the prefabs in the list set on this component. You can decide the order (sequential or random), and have as many as you want.", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Add this component to an empty object in your scene, and when you'll press the SwitchCharacter button (P by default, change that in Unity's InputManager settings), your main character will be replaced by one of the prefabs in the list set on this component. You can decide the order (sequential or random), and have as many as you want.", MMInformationAttribute.InformationType.Info, false)]
 
         /// the list of possible characters prefabs to switch to
         public Character[] CharacterPrefabs;
@@ -56,7 +56,7 @@ namespace MoreMountains.TopDownEngine
         {
             _instantiatedCharacters = new Character[CharacterPrefabs.Length];
 
-            for (var i = 0; i < CharacterPrefabs.Length; i++)
+            for (int i = 0; i < CharacterPrefabs.Length; i++)
             {
                 Character newCharacter = Instantiate(CharacterPrefabs[i]);
                 newCharacter.name = "CharacterSwitch_" + i;

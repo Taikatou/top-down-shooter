@@ -9,7 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this ability to a character and it'll rotate or flip to face the direction of movement or the weapon's, or both, or none
     /// Only add this ability to a 2D character
     /// </summary>
-    [HiddenProperties("AbilityStartFeedbacks", "AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStartFeedbacks", "AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Rotation 2D")]
     public class CharacterRotation2D : CharacterAbility
     {
@@ -33,10 +33,10 @@ namespace MoreMountains.TopDownEngine
         public float RotateToFaceMovementDirectionSpeed = 10f;
         /// the threshold after which we start rotating (absolute mode only)
         public float AbsoluteThresholdMovement = 0.5f;
-        [ReadOnly]
+        [MMReadOnly]
         /// the direction of the model
         public Vector3 ModelDirection;
-        [ReadOnly]
+        [MMReadOnly]
         /// the direction of the model in angle values
         public Vector3 ModelAngles;
 

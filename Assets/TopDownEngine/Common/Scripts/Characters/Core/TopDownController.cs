@@ -21,37 +21,37 @@ namespace MoreMountains.TopDownEngine
         /// by default, the length of the raycasts used to get back to normal size will be auto generated based on your character's normal/standing height, but here you can specify a different value
         public float CrouchedRaycastLengthMultiplier = 1f;
 
-        [ReadOnly]
+        [MMReadOnly]
         /// the current speed of the character
 		public Vector3 Speed;
-		[ReadOnly]
+		[MMReadOnly]
         /// the current velocity
 		public Vector3 Velocity;
-		[ReadOnly]
+		[MMReadOnly]
         /// the velocity of the character last frame
 		public Vector3 VelocityLastFrame;
-		[ReadOnly]
+		[MMReadOnly]
         /// the current acceleration
 		public Vector3 Acceleration;
-		[ReadOnly]
+		[MMReadOnly]
         /// whether or not the character is grounded
 		public bool Grounded;
-		[ReadOnly]
+		[MMReadOnly]
         /// whether or not the character got grounded this frame
 		public bool JustGotGrounded;
-		[ReadOnly]
+		[MMReadOnly]
         /// the current movement of the character
 		public Vector3 CurrentMovement;
-		[ReadOnly]
+		[MMReadOnly]
         /// the direction the character is going in
 		public Vector3 CurrentDirection;
-		[ReadOnly]
+		[MMReadOnly]
         /// the current friction
 		public float Friction;
-		[ReadOnly]
+		[MMReadOnly]
         /// the current added force, to be added to the character's movement
 		public Vector3 AddedForce;
-        [ReadOnly]
+        [MMReadOnly]
         /// whether or not the character is in free movement mode or not
         public bool FreeMovement = true;
         

@@ -8,13 +8,6 @@ I HAVE A LOT OF QUESTIONS!
 Have you read the FAQ at https://topdown-engine.moremountains.com/topdown-engine-contact#faq ?
 You should read it.
 
-I GET ERRORS ABOUT CINEMACHINE OR POSTPROCESSING!
--------------------------------------------------
-
-This asset relies on a few Unity packages to function. 
-If you run into errors on import, make sure you read the HowToInstall.txt file.
-If that still doesn't work, please check this page : https://topdown-engine-docs.moremountains.com/
-
 
 WHAT'S IN THE TOPDOWN ENGINE?
 -----------------------------
@@ -24,6 +17,7 @@ Everything is in the Assets folder, and in it you'll find the following folders 
 
 - /Common : a bunch of stuff (scenes, sprites, animations...) that don't belong to any particular demo, but may be used by any demo. Stuff like the startscreen, loading screen, etc, will go in there. /Common also contains the main /Scripts folder, which is the actual engine : all the scripts that make it work, grouped by theme. This includes camera scripts, character controllers, enemy AI, health management, moving platforms, weapons, level management, etc... It's all sorted for you in the right folders.
 - /Demos : grouped by demo types (koala, minimal 2d, loft, minimal 3d...), it contains everything from sprite to prefabs that make these demo work
+- /ThirdParty : helpers and libraries
 
 In the demos/common folders you'll usually find the following structure :
 - Animations : contains all the animations in the game
@@ -45,10 +39,4 @@ DOCUMENTATION
 
 A complete documentation is available for this asset, go to https://topdown-engine-docs.moremountains.com/API/ for a complete API documentation, or https://topdown-engine-docs.moremountains.com/ for a functional one
 
-SOUNDS
-------
-
-All the music files in this asset are copyright Uniform Motion and can't be reused without authorization.
-The sound effects come from either www.freesound.org or www.noiseforfun.com (under the CC-BY-ND 3.0 Attribution license)
-
-v1.5.1
+v1.6.1

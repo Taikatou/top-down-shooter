@@ -1,119 +1,329 @@
 fileFormatVersion: 2
 guid: cfa90e1c5a6a1ce4fb96787e95557df5
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Camera
-    100002: Cube
-    100004: Cube.001
-    100006: Dude
-    100008: Lamp
-    100010: mixamorig:Head
-    100012: mixamorig:HeadTop_End
-    100014: mixamorig:Hips
-    100016: mixamorig:LeftArm
-    100018: mixamorig:LeftFoot
-    100020: mixamorig:LeftForeArm
-    100022: mixamorig:LeftHand
-    100024: mixamorig:LeftHandIndex1
-    100026: mixamorig:LeftHandIndex2
-    100028: mixamorig:LeftHandIndex3
-    100030: mixamorig:LeftHandIndex4
-    100032: mixamorig:LeftLeg
-    100034: mixamorig:LeftShoulder
-    100036: mixamorig:LeftToe_End
-    100038: mixamorig:LeftToeBase
-    100040: mixamorig:LeftUpLeg
-    100042: mixamorig:Neck
-    100044: mixamorig:RightArm
-    100046: mixamorig:RightFoot
-    100048: mixamorig:RightForeArm
-    100050: mixamorig:RightHand
-    100052: mixamorig:RightHandIndex1
-    100054: mixamorig:RightHandIndex2
-    100056: mixamorig:RightHandIndex3
-    100058: mixamorig:RightHandIndex4
-    100060: mixamorig:RightLeg
-    100062: mixamorig:RightShoulder
-    100064: mixamorig:RightToe_End
-    100066: mixamorig:RightToeBase
-    100068: mixamorig:RightUpLeg
-    100070: mixamorig:Spine
-    100072: mixamorig:Spine1
-    100074: mixamorig:Spine2
-    100076: Pants
-    100078: Shirt
-    100080: Shoes
-    100082: //RootNode
-    400000: Camera
-    400002: Cube
-    400004: Cube.001
-    400006: Dude
-    400008: Lamp
-    400010: mixamorig:Head
-    400012: mixamorig:HeadTop_End
-    400014: mixamorig:Hips
-    400016: mixamorig:LeftArm
-    400018: mixamorig:LeftFoot
-    400020: mixamorig:LeftForeArm
-    400022: mixamorig:LeftHand
-    400024: mixamorig:LeftHandIndex1
-    400026: mixamorig:LeftHandIndex2
-    400028: mixamorig:LeftHandIndex3
-    400030: mixamorig:LeftHandIndex4
-    400032: mixamorig:LeftLeg
-    400034: mixamorig:LeftShoulder
-    400036: mixamorig:LeftToe_End
-    400038: mixamorig:LeftToeBase
-    400040: mixamorig:LeftUpLeg
-    400042: mixamorig:Neck
-    400044: mixamorig:RightArm
-    400046: mixamorig:RightFoot
-    400048: mixamorig:RightForeArm
-    400050: mixamorig:RightHand
-    400052: mixamorig:RightHandIndex1
-    400054: mixamorig:RightHandIndex2
-    400056: mixamorig:RightHandIndex3
-    400058: mixamorig:RightHandIndex4
-    400060: mixamorig:RightLeg
-    400062: mixamorig:RightShoulder
-    400064: mixamorig:RightToe_End
-    400066: mixamorig:RightToeBase
-    400068: mixamorig:RightUpLeg
-    400070: mixamorig:Spine
-    400072: mixamorig:Spine1
-    400074: mixamorig:Spine2
-    400076: Pants
-    400078: Shirt
-    400080: Shoes
-    400082: //RootNode
-    2000000: Camera
-    2100000: No Name
-    2100002: Shoes
-    2100004: PantsMaterial
-    2100006: Shirt
-    2100008: MazeLowMan.001
-    4300000: Cube.001
-    4300002: Cube
-    4300004: Shoes
-    4300006: Pants
-    4300008: Shirt
-    4300010: Dude
-    7400000: Jump
-    9500000: //RootNode
-    10800000: Lamp
-    13700000: Cube
-    13700002: Cube.001
-    13700004: Dude
-    13700006: Pants
-    13700008: Shirt
-    13700010: Shoes
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Camera
+  - first:
+      1: 100002
+    second: Cube
+  - first:
+      1: 100004
+    second: Cube.001
+  - first:
+      1: 100006
+    second: Dude
+  - first:
+      1: 100008
+    second: Lamp
+  - first:
+      1: 100010
+    second: mixamorig:Head
+  - first:
+      1: 100012
+    second: mixamorig:HeadTop_End
+  - first:
+      1: 100014
+    second: mixamorig:Hips
+  - first:
+      1: 100016
+    second: mixamorig:LeftArm
+  - first:
+      1: 100018
+    second: mixamorig:LeftFoot
+  - first:
+      1: 100020
+    second: mixamorig:LeftForeArm
+  - first:
+      1: 100022
+    second: mixamorig:LeftHand
+  - first:
+      1: 100024
+    second: mixamorig:LeftHandIndex1
+  - first:
+      1: 100026
+    second: mixamorig:LeftHandIndex2
+  - first:
+      1: 100028
+    second: mixamorig:LeftHandIndex3
+  - first:
+      1: 100030
+    second: mixamorig:LeftHandIndex4
+  - first:
+      1: 100032
+    second: mixamorig:LeftLeg
+  - first:
+      1: 100034
+    second: mixamorig:LeftShoulder
+  - first:
+      1: 100036
+    second: mixamorig:LeftToe_End
+  - first:
+      1: 100038
+    second: mixamorig:LeftToeBase
+  - first:
+      1: 100040
+    second: mixamorig:LeftUpLeg
+  - first:
+      1: 100042
+    second: mixamorig:Neck
+  - first:
+      1: 100044
+    second: mixamorig:RightArm
+  - first:
+      1: 100046
+    second: mixamorig:RightFoot
+  - first:
+      1: 100048
+    second: mixamorig:RightForeArm
+  - first:
+      1: 100050
+    second: mixamorig:RightHand
+  - first:
+      1: 100052
+    second: mixamorig:RightHandIndex1
+  - first:
+      1: 100054
+    second: mixamorig:RightHandIndex2
+  - first:
+      1: 100056
+    second: mixamorig:RightHandIndex3
+  - first:
+      1: 100058
+    second: mixamorig:RightHandIndex4
+  - first:
+      1: 100060
+    second: mixamorig:RightLeg
+  - first:
+      1: 100062
+    second: mixamorig:RightShoulder
+  - first:
+      1: 100064
+    second: mixamorig:RightToe_End
+  - first:
+      1: 100066
+    second: mixamorig:RightToeBase
+  - first:
+      1: 100068
+    second: mixamorig:RightUpLeg
+  - first:
+      1: 100070
+    second: mixamorig:Spine
+  - first:
+      1: 100072
+    second: mixamorig:Spine1
+  - first:
+      1: 100074
+    second: mixamorig:Spine2
+  - first:
+      1: 100076
+    second: Pants
+  - first:
+      1: 100078
+    second: Shirt
+  - first:
+      1: 100080
+    second: Shoes
+  - first:
+      1: 100082
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Camera
+  - first:
+      4: 400002
+    second: Cube
+  - first:
+      4: 400004
+    second: Cube.001
+  - first:
+      4: 400006
+    second: Dude
+  - first:
+      4: 400008
+    second: Lamp
+  - first:
+      4: 400010
+    second: mixamorig:Head
+  - first:
+      4: 400012
+    second: mixamorig:HeadTop_End
+  - first:
+      4: 400014
+    second: mixamorig:Hips
+  - first:
+      4: 400016
+    second: mixamorig:LeftArm
+  - first:
+      4: 400018
+    second: mixamorig:LeftFoot
+  - first:
+      4: 400020
+    second: mixamorig:LeftForeArm
+  - first:
+      4: 400022
+    second: mixamorig:LeftHand
+  - first:
+      4: 400024
+    second: mixamorig:LeftHandIndex1
+  - first:
+      4: 400026
+    second: mixamorig:LeftHandIndex2
+  - first:
+      4: 400028
+    second: mixamorig:LeftHandIndex3
+  - first:
+      4: 400030
+    second: mixamorig:LeftHandIndex4
+  - first:
+      4: 400032
+    second: mixamorig:LeftLeg
+  - first:
+      4: 400034
+    second: mixamorig:LeftShoulder
+  - first:
+      4: 400036
+    second: mixamorig:LeftToe_End
+  - first:
+      4: 400038
+    second: mixamorig:LeftToeBase
+  - first:
+      4: 400040
+    second: mixamorig:LeftUpLeg
+  - first:
+      4: 400042
+    second: mixamorig:Neck
+  - first:
+      4: 400044
+    second: mixamorig:RightArm
+  - first:
+      4: 400046
+    second: mixamorig:RightFoot
+  - first:
+      4: 400048
+    second: mixamorig:RightForeArm
+  - first:
+      4: 400050
+    second: mixamorig:RightHand
+  - first:
+      4: 400052
+    second: mixamorig:RightHandIndex1
+  - first:
+      4: 400054
+    second: mixamorig:RightHandIndex2
+  - first:
+      4: 400056
+    second: mixamorig:RightHandIndex3
+  - first:
+      4: 400058
+    second: mixamorig:RightHandIndex4
+  - first:
+      4: 400060
+    second: mixamorig:RightLeg
+  - first:
+      4: 400062
+    second: mixamorig:RightShoulder
+  - first:
+      4: 400064
+    second: mixamorig:RightToe_End
+  - first:
+      4: 400066
+    second: mixamorig:RightToeBase
+  - first:
+      4: 400068
+    second: mixamorig:RightUpLeg
+  - first:
+      4: 400070
+    second: mixamorig:Spine
+  - first:
+      4: 400072
+    second: mixamorig:Spine1
+  - first:
+      4: 400074
+    second: mixamorig:Spine2
+  - first:
+      4: 400076
+    second: Pants
+  - first:
+      4: 400078
+    second: Shirt
+  - first:
+      4: 400080
+    second: Shoes
+  - first:
+      4: 400082
+    second: //RootNode
+  - first:
+      20: 2000000
+    second: Camera
+  - first:
+      21: 2100000
+    second: No Name
+  - first:
+      21: 2100002
+    second: Shoes
+  - first:
+      21: 2100004
+    second: PantsMaterial
+  - first:
+      21: 2100006
+    second: Shirt
+  - first:
+      21: 2100008
+    second: MazeLowMan.001
+  - first:
+      43: 4300000
+    second: Cube.001
+  - first:
+      43: 4300002
+    second: Cube
+  - first:
+      43: 4300004
+    second: Shoes
+  - first:
+      43: 4300006
+    second: Pants
+  - first:
+      43: 4300008
+    second: Shirt
+  - first:
+      43: 4300010
+    second: Dude
+  - first:
+      74: 7400000
+    second: Suspenders Jump
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      108: 10800000
+    second: Lamp
+  - first:
+      137: 13700000
+    second: Cube
+  - first:
+      137: 13700002
+    second: Cube.001
+  - first:
+      137: 13700004
+    second: Dude
+  - first:
+      137: 13700006
+    second: Pants
+  - first:
+      137: 13700008
+    second: Shirt
+  - first:
+      137: 13700010
+    second: Shoes
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MazeLowMan.001
-    second: {fileID: 2100000, guid: 7bd1231c40d82dc4facb87a03126be4f, type: 2}
+    second: {fileID: 2100000, guid: 47daf36a20dbf574295e41cc8c493e64, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -162,8 +372,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump
+      name: Suspenders Jump
       takeName: mixamo.com
+      internalID: 7400000
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -195,6 +406,8 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -202,27 +415,32 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: mixamorig:Hips
       humanName: Hips
@@ -669,8 +887,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1

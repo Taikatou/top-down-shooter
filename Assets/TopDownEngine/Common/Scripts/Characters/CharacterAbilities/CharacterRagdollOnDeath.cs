@@ -23,7 +23,7 @@ namespace MoreMountains.TopDownEngine
         public float ForceMultiplier = 10000f;
 
         [Header("Test")]
-        [InspectorButton("Ragdoll")]
+        [MMInspectorButton("Ragdoll")]
         /// A test button to trigger the ragdoll from the inspector
         public bool RagdollButton;
         

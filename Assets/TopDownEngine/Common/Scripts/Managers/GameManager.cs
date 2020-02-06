@@ -25,7 +25,7 @@ namespace MoreMountains.TopDownEngine
         CharacterSwap,
         CharacterSwitch,
         Repaint,
-        MlCuriculum
+		MlCuriculum
 	}
 
 	/// <summary>
@@ -121,7 +121,7 @@ namespace MoreMountains.TopDownEngine
 	/// The game manager is a persistent singleton that handles points and time
 	/// </summary>
 	[AddComponentMenu("TopDown Engine/Managers/Game Manager")]
-	public class GameManager : 	PersistentSingleton<GameManager>, 
+	public class GameManager : 	MMPersistentSingleton<GameManager>, 
 								MMEventListener<MMGameEvent>, 
 								MMEventListener<TopDownEngineEvent>, 
 								MMEventListener<TopDownEnginePointEvent>
@@ -140,7 +140,7 @@ namespace MoreMountains.TopDownEngine
 
         [Header("Points")]
         /// the current number of game points
-        [ReadOnly]
+        [MMReadOnly]
         public int Points;
 
         [Header("Pause")]
@@ -189,7 +189,7 @@ namespace MoreMountains.TopDownEngine
 		public virtual void Reset()
 		{
 			Points = 0;
-			// Time.timeScale = 1f;
+			Time.timeScale = 1f;
 			Paused = false;
 		}
         /// <summary>
@@ -393,9 +393,9 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		public virtual void ResetAllSaves()
         {
-            SaveLoadManager.DeleteSaveFolder("InventoryEngine");
-            SaveLoadManager.DeleteSaveFolder("TopDownEngine");
-            SaveLoadManager.DeleteSaveFolder("MMAchievements");
+            MMSaveLoadManager.DeleteSaveFolder("InventoryEngine");
+            MMSaveLoadManager.DeleteSaveFolder("TopDownEngine");
+            MMSaveLoadManager.DeleteSaveFolder("MMAchievements");
         }
 
         /// <summary>

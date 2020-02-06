@@ -14,7 +14,7 @@ namespace MoreMountains.TopDownEngine
         public enum ButtonActivatedRequirements { Character, ButtonActivator, Either, None }
 
         [Header("Requirements")]
-        [Information("Here you can specify what is needed for something to interact with this zone. Does it require the ButtonActivation character ability? Can it only be interacted with by the Player? ", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can specify what is needed for something to interact with this zone. Does it require the ButtonActivation character ability? Can it only be interacted with by the Player? ", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// if this is true, objects with a ButtonActivator class will be able to interact with this zone
         public ButtonActivatedRequirements ButtonActivatedRequirement = ButtonActivatedRequirements.Either;
         /// if this is true, this can only be activated by player Characters
@@ -24,7 +24,7 @@ namespace MoreMountains.TopDownEngine
         
 
         [Header("Activation Conditions")]
-		[Information("Here you can specific how that zone is interacted with. You can have it auto activate, activate only when grounded, or prevent its activation altogether.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can specific how that zone is interacted with. You can have it auto activate, activate only when grounded, or prevent its activation altogether.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
         /// if this is false, the zone won't be activable 
         public bool Activable = true;
         /// if true, the zone will activate whether the button is pressed or not
@@ -37,7 +37,7 @@ namespace MoreMountains.TopDownEngine
         public bool OnlyOneActivationAtOnce = true;
 
 		[Header("Number of Activations")]
-		[Information("You can decide to have that zone be interactable forever, or just a limited number of times, and can specify a delay between uses (in seconds).",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("You can decide to have that zone be interactable forever, or just a limited number of times, and can specify a delay between uses (in seconds).",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// if this is set to false, your number of activations will be MaxNumberOfActivations
         public bool UnlimitedActivations = true;
 		/// the number of times the zone can be interacted with
@@ -48,32 +48,32 @@ namespace MoreMountains.TopDownEngine
         public bool DisableAfterUse = false;
 
         [Header("Visual Prompt")]
-        [Information("You can have this zone show a visual prompt to indicate to the player that it's interactable.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("You can have this zone show a visual prompt to indicate to the player that it's interactable.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// if this is true, a prompt will be shown if setup properly
         public bool UseVisualPrompt = true;
 		/// the gameobject to instantiate to present the prompt
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
 		public ButtonPrompt ButtonPromptPrefab;
         /// the text to display in the button prompt
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public string ButtonPromptText = "A";
         /// the text to display in the button prompt
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public Color ButtonPromptColor = MMColors.LawnGreen;
         /// the color for the prompt's text
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public Color ButtonPromptTextColor = MMColors.White;
         /// If true, the "buttonA" prompt will always be shown, whether the player is in the zone or not.
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public bool AlwaysShowPrompt = true;
         /// If true, the "buttonA" prompt will be shown when a player is colliding with the zone
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public bool ShowPromptWhenColliding = true;
         /// If true, the prompt will hide after use
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public bool HidePromptAfterUse = false;
         /// the position of the actual buttonA prompt relative to the object's center
-        [ConditionAttribute("UseVisualPrompt", true)]
+        [MMConditionAttribute("UseVisualPrompt", true)]
         public Vector3 PromptRelativePosition = Vector3.zero;
         
         [Header("Feedbacks")]

@@ -1,8 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using BattleResearch.Scripts;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
@@ -238,18 +235,5 @@ namespace MoreMountains.TopDownEngine
                 Gizmos.DrawWireSphere(this.transform.position + AreaOffset, AreaSize.x / 2);
             }
         }
-
-        public Dictionary<string, float> GetObservations()
-        {
-            var attk = Convert.ToSingle(_attackInProgress);
-            var obs = new Dictionary<string, float>()
-            {
-                { "AttackInProgress", attk }
-            };
-
-            return obs;
-        }
-
-        public string SenseName => "Melee Weapon";
     }
 }

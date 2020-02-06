@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using Sirenix.OdinInspector;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -49,14 +48,14 @@ namespace MoreMountains.TopDownEngine
         [Header("Buffering")]
         /// whether or not attack input should be buffered, letting you prepare an attack while another is being performed, making it easier to chain them
         public bool BufferInput;
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         /// if this is true, every new input will prolong the buffer
         public bool NewInputExtendsBuffer;
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         /// the maximum duration for the buffer, in seconds
         public float MaximumBufferDuration = 0.25f;
         /// if this is true, and if this character is using GridMovement, then input will only be triggered when on a perfect tile
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         public bool RequiresPerfectTile = false;
         
         /// returns the currently equipped weapon

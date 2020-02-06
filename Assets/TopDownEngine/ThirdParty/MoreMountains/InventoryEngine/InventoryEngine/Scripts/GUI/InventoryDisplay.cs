@@ -21,7 +21,7 @@ namespace MoreMountains.InventoryEngine
 	{
 		[Header("Binding")]
 		/// the name of the inventory to display
-		[Information("An InventoryDisplay is a component that will handle the visualization of the data contained in an Inventory. Start by specifying the name of the inventory you want to display.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("An InventoryDisplay is a component that will handle the visualization of the data contained in an Inventory. Start by specifying the name of the inventory you want to display.",MMInformationAttribute.InformationType.Info,false)]
 		public string TargetInventoryName = "MainInventory";
 
 		protected Inventory _targetInventory = null;
@@ -54,7 +54,7 @@ namespace MoreMountains.InventoryEngine
 
 		[Header("Inventory Size")]
 		/// the number of rows to display
-		[Information("An InventoryDisplay presents an inventory's data in slots containing one item each, and displayed in a grid. Here you can set how many rows and columns of slots you want. Once you're happy with your settings, you can press the 'auto setup' button at the bottom of this inspector to see your changes.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("An InventoryDisplay presents an inventory's data in slots containing one item each, and displayed in a grid. Here you can set how many rows and columns of slots you want. Once you're happy with your settings, you can press the 'auto setup' button at the bottom of this inspector to see your changes.",MMInformationAttribute.InformationType.Info,false)]
 		public int NumberOfRows = 3;
 		/// the number of columns to display
 		public int NumberOfColumns = 2;
@@ -63,17 +63,17 @@ namespace MoreMountains.InventoryEngine
 		public int InventorySize { get { return NumberOfRows * NumberOfColumns; } set {} }		
 
 		[Header("Equipment")]
-		[Information("If this displays the contents of an Equipment Inventory, you should bind here a Choice Inventory. A Choice Inventory is the inventory in which you'll pick items for your equipment. Usually the Choice Inventory is the Main Inventory. Again, if this is an equipment inventory, you can specify what class of items you want to authorize.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If this displays the contents of an Equipment Inventory, you should bind here a Choice Inventory. A Choice Inventory is the inventory in which you'll pick items for your equipment. Usually the Choice Inventory is the Main Inventory. Again, if this is an equipment inventory, you can specify what class of items you want to authorize.",MMInformationAttribute.InformationType.Info,false)]
 		public InventoryDisplay TargetChoiceInventory;
 		public ItemClasses ItemClass;
 
 		[Header("Behaviour")]
 		/// if this is true, we'll draw slots even if they don't contain an object. Otherwise we don't draw them
-		[Information("If you set this to true, empty slots will be drawn, otherwise they'll be hidden from the player.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If you set this to true, empty slots will be drawn, otherwise they'll be hidden from the player.",MMInformationAttribute.InformationType.Info,false)]
 		public bool DrawEmptySlots=true;
 
 		[Header("Inventory Padding")]
-		[Information("Here you can define the padding between the borders of the inventory panel and the slots.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define the padding between the borders of the inventory panel and the slots.",MMInformationAttribute.InformationType.Info,false)]
 		/// The internal margin between the top of the inventory panel and the first slots
 		public int PaddingTop=20;
 		/// The internal margin between the right of the inventory panel and the last slots
@@ -84,7 +84,7 @@ namespace MoreMountains.InventoryEngine
 		public int PaddingLeft=20;
 
 		[Header("Slots")]
-		[Information("When pressing the auto setup button at the bottom of this inventory, the InventoryDisplay will fill itself with slots ready to display your inventory's contents. Here you can define the slot's size, margins, and define the images to use when the slot is empty, filled, etc.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("When pressing the auto setup button at the bottom of this inventory, the InventoryDisplay will fill itself with slots ready to display your inventory's contents. Here you can define the slot's size, margins, and define the images to use when the slot is empty, filled, etc.",MMInformationAttribute.InformationType.Info,false)]
 		// the horizontal and vertical size of the slots
 		public Vector2 SlotSize = new Vector2(50,50);
 		// the size of the icon in each slot
@@ -108,14 +108,14 @@ namespace MoreMountains.InventoryEngine
 		public Image.Type SlotImageType;
 
 		[Header("Navigation")]
-		[Information("Here you can decide whether or not you want to use the built-in navigation system (allowing the player to move from slot to slot using keyboard arrows or a joystick), and whether or not this inventory display panel should be focused whent the scene starts. Usually you'll want your main inventory to get focus.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can decide whether or not you want to use the built-in navigation system (allowing the player to move from slot to slot using keyboard arrows or a joystick), and whether or not this inventory display panel should be focused whent the scene starts. Usually you'll want your main inventory to get focus.",MMInformationAttribute.InformationType.Info,false)]
 		/// if true, the engine will automatically create bindings to navigate through the different slots using keyboard or gamepad.
 		public bool EnableNavigation = true;
 		/// if this is true, this inventory display will get the focus on start
 		public bool GetFocusOnStart = false;
 
 		[Header("Title Text")]
-		[Information("Here you can decide to display (or not) a title next to your inventory display panel. For it you can specify the title, font, font size, color etc.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can decide to display (or not) a title next to your inventory display panel. For it you can specify the title, font, font size, color etc.",MMInformationAttribute.InformationType.Info,false)]
 		/// if true, will display the panel's title
 		public bool DisplayTitle=true;
 		/// the title for the inventory that will be displayed
@@ -132,7 +132,7 @@ namespace MoreMountains.InventoryEngine
 		public TextAnchor TitleAlignment = TextAnchor.LowerRight;
 
 		[Header("Quantity Text")]
-		[Information("If your inventory contains stacked items (more than one item of a certain sort in a single slot, like coins or potions maybe) you'll probably want to display the quantity next to the item's icon. For that, you can specify here the font to use, the color, and position of that quantity text.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If your inventory contains stacked items (more than one item of a certain sort in a single slot, like coins or potions maybe) you'll probably want to display the quantity next to the item's icon. For that, you can specify here the font to use, the color, and position of that quantity text.",MMInformationAttribute.InformationType.Info,false)]
 		/// the font used to display the quantity
 		public Font QtyFont;
 		/// the font size to use 
@@ -145,7 +145,7 @@ namespace MoreMountains.InventoryEngine
 		public TextAnchor QtyAlignment = TextAnchor.LowerRight;
 
 		[Header("Extra Inventory Navigation")]
-		[Information("The InventoryInputManager comes with controls allowing you to go from one inventory panel to the next. Here you can define what inventory the player should go to from this panel when pressing the previous or next inventory button.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The InventoryInputManager comes with controls allowing you to go from one inventory panel to the next. Here you can define what inventory the player should go to from this panel when pressing the previous or next inventory button.",MMInformationAttribute.InformationType.Info,false)]
 		public InventoryDisplay PreviousInventory;
 		public InventoryDisplay NextInventory;
 
@@ -161,7 +161,7 @@ namespace MoreMountains.InventoryEngine
 		public InventoryDisplay ReturnInventory { get; protected set; }	
 
 		/// the item currently being moved
-		[Hidden]
+		[MMHidden]
 		public int CurrentlyBeingMovedItemIndex=-1;
 
 		protected bool _inventoryWindowIsOpen;

@@ -82,7 +82,7 @@ namespace MoreMountains.Feedbacks
                 BoundLight.intensity = Intensity.Evaluate(percent) * IntensityMultiplier;
                 BoundLight.color = ColorOverTime.Evaluate(percent);
 
-                journey += Time.deltaTime;
+                journey += FeedbackDeltaTime;
                 yield return null;
             }
             Turn(false);

@@ -44,12 +44,12 @@ namespace MoreMountains.TopDownEngine
         /// if this is set to true, the object will be disabled when picked
 		public bool DisableObjectOnPick = true;
         /// the duration (in seconds) after which to disable the object, instant if 0
-        [Condition("DisableObjectOnPick", true)]
+        [MMCondition("DisableObjectOnPick", true)]
         public float DisableDelay = 0f;
         /// if this is set to true, the object will be disabled when picked
         public bool DisableModelOnPick = false;
         /// the visual representation of this picker
-        [Condition("DisableModelOnPick", true)]
+        [MMCondition("DisableModelOnPick", true)]
         public GameObject Model;
 
         protected Collider _collider;

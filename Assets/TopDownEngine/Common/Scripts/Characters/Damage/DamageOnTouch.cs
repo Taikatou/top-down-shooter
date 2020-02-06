@@ -1,9 +1,9 @@
 using UnityEngine;
+using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
-using BattleResearch.Scripts;
+using System;
 using MoreMountains.Feedbacks;
-using TopDownEngine.Demos.Grasslands.Scripts;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -19,18 +19,15 @@ namespace MoreMountains.TopDownEngine
         public enum KnockbackDirections { BasedOnOwnerPosition, BasedOnSpeed }
 
         [Header("Targets")]
-        [Information("This component will make your object cause damage to objects that collide with it. Here you can define what layers will be affected by the damage (for a standard enemy, choose Player), how much damage to give, and how much force should be applied to the object that gets the damage on hit. You can also specify how long the post-hit invincibility should last (in seconds).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("This component will make your object cause damage to objects that collide with it. Here you can define what layers will be affected by the damage (for a standard enemy, choose Player), how much damage to give, and how much force should be applied to the object that gets the damage on hit. You can also specify how long the post-hit invincibility should last (in seconds).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         // the layers that will be damaged by this object
         public LayerMask TargetLayerMask;
         /// set this to true to have your object teleport to the impact point on death. Useful for fast moving stuff like projectiles.
         public bool PerfectImpact = false;
+
         [Header("Damage Caused")]
         /// The amount of health to remove from the player's health
         public int DamageCaused = 10;
-
-        public int HealCaused = 7;
-
-        public bool HealingItem = false;
         /// the type of knockback to apply when causing damage
         public KnockbackStyles DamageCausedKnockbackType = KnockbackStyles.AddForce;
         /// The direction to apply the knockback 
@@ -41,7 +38,7 @@ namespace MoreMountains.TopDownEngine
         public float InvincibilityDuration = 0.5f;
 
         [Header("Damage Taken")]
-        [Information("After having applied the damage to whatever it collided with, you can have this object hurt itself. A bullet will explode after hitting a wall for example. Here you can define how much damage it'll take every time it hits something, or only when hitting something that's damageable, or non damageable. Note that this object will need a Health component too for this to be useful.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("After having applied the damage to whatever it collided with, you can have this object hurt itself. A bullet will explode after hitting a wall for example. Here you can define how much damage it'll take every time it hits something, or only when hitting something that's damageable, or non damageable. Note that this object will need a Health component too for this to be useful.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// The amount of damage taken every time, whether what we collide with is damageable or not
         public int DamageTakenEveryTime = 0;
         /// The amount of damage taken when colliding with a damageable object
@@ -61,7 +58,7 @@ namespace MoreMountains.TopDownEngine
         public MMFeedbacks HitDamageableFeedback;
         public MMFeedbacks HitNonDamageableFeedback;
 
-        [ReadOnly]
+        [MMReadOnly]
         /// the owner of the DamageOnTouch zone
         public GameObject Owner;
 
@@ -84,8 +81,6 @@ namespace MoreMountains.TopDownEngine
         protected Vector3 _gizmoSize;
         protected Vector3 _gizmoOffset;
         protected Transform _gizmoTransform;
-
-        public float DamageScale => FindObjectOfType<MLAgentsGrasslandsMultiplayerLevelManager>().damageScale;
 
         /// <summary>
         /// Initialization
@@ -137,7 +132,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// During last update, we store the position and velocity of the object
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
             ComputeVelocity();
         }
@@ -149,7 +144,6 @@ namespace MoreMountains.TopDownEngine
         public virtual void IgnoreGameObject(GameObject newIgnoredGameObject)
         {
             _ignoredGameObjects.Add(newIgnoredGameObject);
-            
         }
 
         /// <summary>
@@ -238,30 +232,13 @@ namespace MoreMountains.TopDownEngine
                 return;
             }
 
-            var isTeam = false;
-            if (Owner)
-            {
-                var owner = Owner.GetComponent<Character>();
-                var character = collider.GetComponent<Character>();
-
-                if (character)
-                {
-                    isTeam = owner.TeamId == character.TeamId;
-
-                    if (!HealingItem && isTeam)
-                    {
-                        return;
-                    }
-                }
-            }
-
             // if we're on our first frame, we don't apply damage
             if (Time.time == 0f)
             {
                 return;
             }
 
-            _collisionPoint = transform.position;
+            _collisionPoint = this.transform.position;
             _colliderHealth = collider.gameObject.MMGetComponentNoAlloc<Health>();
 
             // if what we're colliding with is damageable
@@ -269,7 +246,7 @@ namespace MoreMountains.TopDownEngine
             {
                 if (_colliderHealth.CurrentHealth > 0)
                 {
-                    OnCollideWithDamageable(_colliderHealth, isTeam);
+                    OnCollideWithDamageable(_colliderHealth);
                 }
             }
 
@@ -284,8 +261,7 @@ namespace MoreMountains.TopDownEngine
         /// Describes what happens when colliding with a damageable object
         /// </summary>
         /// <param name="health">Health.</param>
-        /// <param name="isTeam"></param>
-        protected virtual void OnCollideWithDamageable(Health health, bool isTeam)
+        protected virtual void OnCollideWithDamageable(Health health)
         {
             // if what we're colliding with is a TopDownController, we apply a knockback force
             _colliderTopDownController = health.gameObject.MMGetComponentNoAlloc<TopDownController>();
@@ -314,55 +290,16 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            if (DamageCaused > 0)
-            {
-                HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
-            }
+            HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
 
-            var reward = 0.0f;
-            if (!isTeam)
+            // we apply the damage to the thing we've collided with
+            _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
+            if (DamageTakenEveryTime + DamageTakenDamageable > 0)
             {
-                var damage = (int) ((float)DamageCaused * DamageScale);
-                reward = _colliderHealth.Damage(damage, gameObject, InvincibilityDuration, InvincibilityDuration)
-                    / 100.0f;
-                if (DamageTakenEveryTime + DamageTakenDamageable > 0)
-                {
-                    SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
-                }
-                
-                if (punishHit)
-                {
-                    var otherAgent = _colliderHealth.GetComponent<TopDownAgent>();
-                    otherAgent?.AddReward(reward * hitDiscount);
-                }
-            }
-            else
-            {
-                reward = _colliderHealth.GetHealth(HealCaused, gameObject) / 100.0f;
-            }
-
-
-            if (Owner && reward > 0 && rewardShots)
-            {
-                var agent = Owner.GetComponent<TopDownAgent>();
-
-                if (agent != null)
-                {
-                    agent.AddReward(reward);
-                    Debug.Log("Hit");
-                }
-                else
-                {
-                    Debug.Log("Null Agent");
-                }
+                SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
             }
         }
 
-        public bool rewardShots = false;
-
-        public bool punishHit = false;
-
-        public float hitDiscount = 0.5f;
         /// <summary>
         /// Describes what happens when colliding with a non damageable object
         /// </summary>

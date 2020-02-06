@@ -16,6 +16,10 @@ namespace MoreMountains.TopDownEngine
         public bool ChangeDirectionOnObstacle = true;
         /// the layermask to look for obstacles on
         public LayerMask ObstaclesLayerMask;
+        /// the frequency (in seconds) at which to check for obstacles
+        public float ObstaclesCheckFrequency = 1f;
+        /// the coordinates of the last patrol point
+        public Vector3 LastReachedPatrolPoint { get; set; }
 
         // private stuff
         protected TopDownController _controller;
@@ -30,6 +34,11 @@ namespace MoreMountains.TopDownEngine
         protected float _distanceToTarget;
         protected Vector3 _initialPosition;
         protected MMPath _mmPath;
+        protected float _lastObstacleDetectionTimestamp = 0f;
+
+        protected int _currentIndex = 0;
+        protected int _indexLastFrame = -1;
+        protected float _waitingDelay = 0f;
 
         /// <summary>
         /// On init we grab all the components we'll need
@@ -49,6 +58,9 @@ namespace MoreMountains.TopDownEngine
             _initialPosition = this.transform.position;
             _initialDirection = _direction;
             _initialScale = transform.localScale;
+            _currentIndex = 0;
+            _indexLastFrame = -1;
+            _waitingDelay = 0;
         }
 
 
@@ -65,6 +77,8 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void Patrol()
         {
+            _waitingDelay -= Time.deltaTime;
+
             if (_character == null)
             {
                 return;
@@ -74,14 +88,31 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
+
+            if (_waitingDelay > 0)
+            {
+                _characterMovement.SetHorizontalMovement(0f);
+                _characterMovement.SetVerticalMovement(0f);
+                return;
+            }
+
             // moves the agent in its current direction
             CheckForObstacles();
+
+            _currentIndex = _mmPath.CurrentIndex();
+            if (_currentIndex != _indexLastFrame)
+            {
+                LastReachedPatrolPoint = _mmPath.CurrentPoint();
+                _waitingDelay = _mmPath.PathElements[_currentIndex].Delay;
+            }
 
             _direction = _mmPath.CurrentPoint() - this.transform.position;
             _direction = _direction.normalized;
 
             _characterMovement.SetHorizontalMovement(_direction.x);
             _characterMovement.SetVerticalMovement(_direction.y);
+
+            _indexLastFrame = _currentIndex;
         }
 
         /// <summary>
@@ -116,7 +147,12 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            
+
+            if (Time.time - _lastObstacleDetectionTimestamp < ObstaclesCheckFrequency)
+            {
+                return;
+            }
+
             RaycastHit2D raycast = MMDebug.RayCast(_controller.ColliderCenter, _direction, 1f, ObstaclesLayerMask, MMColors.Gold, true);
 
             // if the agent is colliding with something, make it turn around
@@ -124,6 +160,8 @@ namespace MoreMountains.TopDownEngine
             {
                 ChangeDirection();
             }
+
+            _lastObstacleDetectionTimestamp = Time.time;
         }
         
         /// <summary>

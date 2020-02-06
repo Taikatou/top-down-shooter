@@ -19,7 +19,7 @@ namespace MoreMountains.TopDownEngine
         /// the possible states the weapon can be in
         public enum WeaponStates { WeaponIdle, WeaponStart, WeaponDelayBeforeUse, WeaponUse, WeaponDelayBetweenUses, WeaponStop, WeaponReloadNeeded, WeaponReloadStart, WeaponReload, WeaponReloadStop, WeaponInterrupted }
 
-        [ReadOnly]
+        [MMReadOnly]
         /// whether or not the weapon is currently active
         public bool WeaponCurrentlyActive = true;
 
@@ -50,7 +50,7 @@ namespace MoreMountains.TopDownEngine
         public bool AutoDestroyWhenEmpty;
         /// the delay (in seconds) before weapon destruction if empty
         public float AutoDestroyWhenEmptyDelay = 1f;
-        [ReadOnly]
+        [MMReadOnly]
         /// the current amount of ammo loaded inside the weapon
         public int CurrentAmmoLoaded = 0;
 
@@ -81,9 +81,6 @@ namespace MoreMountains.TopDownEngine
         /// the force to apply to push the character back when shooting
         public float RecoilForce = 0f;
 
-
-        public bool ApplyRecoil;
-        
         [Header("Animation")]
         /// the other animators (other than the Character's) that you want to update every time this weapon gets used
         public List<Animator> Animators;
@@ -141,13 +138,10 @@ namespace MoreMountains.TopDownEngine
         /// the weapon's owner's CharacterHandleWeapon component
         public CharacterHandleWeapon CharacterHandleWeapon { get; set; }
         /// if true, the weapon is flipped
-        [ReadOnly]
+        [MMReadOnly]
         public bool Flipped;
         /// the WeaponAmmo component optionnally associated to this weapon
         public WeaponAmmo WeaponAmmo { get; protected set; }
-        
-        public bool Reloading {get; private set;}
-
         /// the weapon's state machine
         public MMStateMachine<WeaponStates> WeaponState;
 
@@ -159,6 +153,7 @@ namespace MoreMountains.TopDownEngine
         protected float _delayBetweenUsesCounter = 0f;
         protected float _reloadingCounter = 0f;
         protected bool _triggerReleased = false;
+        protected bool _reloading = false;
         protected ComboWeapon _comboWeapon;
         protected TopDownController _controller;
         protected CharacterMovement _characterMovement;
@@ -184,6 +179,8 @@ namespace MoreMountains.TopDownEngine
         protected int _weaponAngleRelativeAnimationParameter;
         protected int _aliveAnimationParameter;
         protected int _comboInProgressAnimationParameter;
+
+        public bool Reloading => _reloading;
 
         /// <summary>
         /// On start we initialize our weapon
@@ -266,14 +263,13 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual void WeaponInputStart()
         {
-            if (Reloading)
+            if (_reloading)
             {
                 return;
             }
             if (WeaponState.CurrentState == WeaponStates.WeaponIdle)
             {
                 _triggerReleased = false;
-                Debug.Log("Weapon on");
                 TurnWeaponOn();
             }
         }
@@ -285,7 +281,7 @@ namespace MoreMountains.TopDownEngine
         {
             TriggerWeaponStartFeedback();
             WeaponState.ChangeState(WeaponStates.WeaponStart);
-            if (_characterMovement != null && ModifyMovementWhileAttacking)
+            if ((_characterMovement != null) && (ModifyMovementWhileAttacking))
             {
                 _movementMultiplierStorage = _characterMovement.MovementSpeedMultiplier;
                 _characterMovement.MovementSpeedMultiplier = MovementMultiplier;
@@ -299,14 +295,12 @@ namespace MoreMountains.TopDownEngine
                 _characterMovement.SetMovement(Vector2.zero);
                 _characterMovement.MovementForbidden = true;
             }
-
-            CaseWeaponUse();
         }
 
         /// <summary>
         /// On Update, we check if the weapon is or should be used
         /// </summary>
-        private void FixedUpdate()
+        protected virtual void Update()
         {
             FlipWeapon();
             ApplyOffset();            
@@ -326,11 +320,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void ProcessWeaponState()
         {
-            if (WeaponState == null)
-            {
-                Debug.Log("Null Weapon state");
-                return;
-            }
+            if (WeaponState == null) { return; }
 
             switch (WeaponState.CurrentState)
             {
@@ -491,7 +481,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual void CaseWeaponReloadStop()
         {
-            Reloading = false;
+            _reloading = false;
             WeaponState.ChangeState(WeaponStates.WeaponIdle);
             if (WeaponAmmo == null)
             {
@@ -526,7 +516,7 @@ namespace MoreMountains.TopDownEngine
         public virtual void ShootRequest()
         {
             // if we have a weapon ammo component, we determine if we have enough ammunition to shoot
-            if (Reloading)
+            if (_reloading)
             {
                 return;
             }
@@ -597,29 +587,26 @@ namespace MoreMountains.TopDownEngine
         public virtual void WeaponUse()
         {
             // apply recoil
-            if (ApplyRecoil)
+            if ((RecoilForce > 0f) && (_controller != null))
             {
-                if ((RecoilForce > 0f) && (_controller != null))
+                if (Owner != null)
                 {
-                    if (Owner != null)
+                    if (Owner.Orientation2D != null)
                     {
-                        if (Owner.Orientation2D != null)
+                        if (Flipped)
                         {
-                            if (Flipped)
-                            {
-                                _controller.Impact(this.transform.right, RecoilForce);
-                            }
-                            else
-                            {
-                                _controller.Impact(-this.transform.right, RecoilForce);
-                            }
+                            _controller.Impact(this.transform.right, RecoilForce);
                         }
                         else
                         {
-                            _controller.Impact(-this.transform.forward, RecoilForce);
+                            _controller.Impact(-this.transform.right, RecoilForce);
                         }
-                    }                
-                }   
+                    }
+                    else
+                    {
+                        _controller.Impact(-this.transform.forward, RecoilForce);
+                    }
+                }                
             }
             TriggerWeaponUsedFeedback();
         }
@@ -629,7 +616,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual void WeaponInputStop()
         {
-            if (Reloading)
+            if (_reloading)
             {
                 return;
             }
@@ -683,12 +670,12 @@ namespace MoreMountains.TopDownEngine
         public virtual void InitiateReloadWeapon()
         {
             // if we're already reloading, we do nothing and exit
-            if (Reloading)
+            if (_reloading)
             {
                 return;
             }
             WeaponState.ChangeState(WeaponStates.WeaponReloadStart);
-            Reloading = true;
+            _reloading = true;
         }
 
         /// <summary>

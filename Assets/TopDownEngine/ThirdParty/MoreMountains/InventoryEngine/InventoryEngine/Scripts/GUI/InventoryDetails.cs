@@ -11,16 +11,16 @@ namespace MoreMountains.InventoryEngine
 	public class InventoryDetails : MonoBehaviour, MMEventListener<MMInventoryEvent>
 	{
 		/// the reference inventory from which we'll display item details
-		[Information("Specify here the name of the inventory whose content's details you want to display in this Details panel.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Specify here the name of the inventory whose content's details you want to display in this Details panel.",MMInformationAttribute.InformationType.Info,false)]
 		public string TargetInventoryName;
 		/// whether the details are currently hidden or not 
 		public bool Hidden { get; protected set; }
 
 		[Header("Default")]
-		[Information("By checking HideOnEmptySlot, the Details panel won't be displayed if you select an empty slot.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("By checking HideOnEmptySlot, the Details panel won't be displayed if you select an empty slot.",MMInformationAttribute.InformationType.Info,false)]
 		/// whether or not the details panel should be hidden when the currently selected slot is empty
 		public bool HideOnEmptySlot=true;
-		[Information("Here you can set default values for all fields of the details panel. These values will be displayed when no item is selected (and if you've chosen not to hide the panel in that case).",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can set default values for all fields of the details panel. These values will be displayed when no item is selected (and if you've chosen not to hide the panel in that case).",MMInformationAttribute.InformationType.Info,false)]
 		/// the title to display when none is provided
 		public string DefaultTitle;
 		/// the short description to display when none is provided
@@ -33,11 +33,11 @@ namespace MoreMountains.InventoryEngine
 		public Sprite DefaultIcon;
 
 		[Header("Behaviour")]
-		[Information("Here you can decide whether or not to hide the details panel on start.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can decide whether or not to hide the details panel on start.",MMInformationAttribute.InformationType.Info,false)]
 		public bool HideOnStart = true;
 
 		[Header("Components")]
-		[Information("Here you need to bind the panel components.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you need to bind the panel components.",MMInformationAttribute.InformationType.Info,false)]
 		/// the icon container object
 		public Image Icon;
 		/// the title container object

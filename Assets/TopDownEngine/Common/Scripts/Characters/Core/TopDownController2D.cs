@@ -10,7 +10,7 @@ namespace MoreMountains.TopDownEngine
     /// </summary>
 	public class TopDownController2D : TopDownController 
 	{
-        [ReadOnly]
+        [MMReadOnly]
         /// whether or not the character is above a hole right now
         public bool OverHole = false;
         /// the collider's center position   
@@ -76,6 +76,16 @@ namespace MoreMountains.TopDownEngine
         }
 
         /// <summary>
+        /// On update we determine our acceleration
+        /// </summary>
+        protected override void Update()
+        {
+            base.Update();
+            Velocity = _rigidBody.velocity;
+            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
+        }
+
+        /// <summary>
         /// On late update, we apply an impact
         /// </summary>
         protected override void LateUpdate()
@@ -107,13 +117,6 @@ namespace MoreMountains.TopDownEngine
                 AddedForce.y = 0f;
                 AddedForce = SurfaceModifierBelow.AddedForce;
             }
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-            Velocity = _rigidBody.velocity;
-            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
         }
 
         /// <summary>

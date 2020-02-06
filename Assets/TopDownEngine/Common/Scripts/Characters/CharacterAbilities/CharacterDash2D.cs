@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
-using BattleResearch.Scripts;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Feedbacks;
 
@@ -13,7 +11,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this ability to a character and it'll be able to dash in 2D, covering a certain distance in a certain duration
     /// </summary>
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Dash 2D")]
-    public class CharacterDash2D : CharacterAbility, ISense
+    public class CharacterDash2D : CharacterAbility 
 	{
         /// the possible dash modes (fixed : always the same direction)
         public enum DashModes { Fixed, MainMovement, SecondaryMovement, MousePosition }
@@ -77,7 +75,7 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            if (_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.DashButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
 			{
 				DashStart();
 			}
@@ -88,7 +86,6 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
 		protected virtual void DashStart()
 		{
-			// Debug.Log("Dash");
             if (!Cooldown.Ready())
             {
                 return;
@@ -190,19 +187,5 @@ namespace MoreMountains.TopDownEngine
 		{
             MMAnimatorExtensions.UpdateAnimatorBool(_animator, _dashingAnimationParameter, (_movement.CurrentState == CharacterStates.MovementStates.Dashing),_character._animatorParameters);
 		}
-
-        public Dictionary<string, float> GetObservations()
-        {
-            var obs = new Dictionary<string, float>
-            {
-	            { "Dasshing", Convert.ToSingle(_dashing) },
-	            { "Dash Timer", _dashTimer },
-	            { "Breather Cooldown", Cooldown.CurrentDurationLeft },
-	            { "Cooldown State", (float) Cooldown.CooldownState }
-            };
-            return obs;
-        }
-
-        public string SenseName => "Dash2D";
 	}
 }

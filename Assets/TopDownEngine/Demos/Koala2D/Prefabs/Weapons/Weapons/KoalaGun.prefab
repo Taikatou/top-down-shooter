@@ -14651,7 +14651,7 @@ MonoBehaviour:
   WeaponCurrentlyActive: 1
   TriggerMode: 1
   DelayBeforeUse: 0
-  DelayBeforeUseReleaseInterruption: 0
+  DelayBeforeUseReleaseInterruption: 1
   TimeBetweenUses: 1
   TimeBetweenUsesReleaseInterruption: 0
   MagazineBased: 0
@@ -14668,11 +14668,10 @@ MonoBehaviour:
   LeftFacingFlipValue: {x: -1, y: 1, z: 1}
   LeftHandHandle: {fileID: 0}
   RightHandHandle: {fileID: 0}
-  ModifyMovementWhileAttacking: 0
+  ModifyMovementWhileAttacking: 1
   MovementMultiplier: 0.5
   PreventAllMovementWhileInUse: 0
   RecoilForce: 500
-  ApplyRecoil: 0
   Animators:
   - {fileID: 95598217650214546}
   WeaponAnimationID: 0
@@ -14701,7 +14700,7 @@ MonoBehaviour:
   Spread: {x: 0, y: 0, z: 10}
   RotateWeaponOnSpread: 1
   RandomSpread: 1
-  SpawnPosition: {x: 0.9, y: -0.87, z: 0}
+  SpawnPosition: {x: 55.223595, y: -30.547655, z: 0}
   TestShootButton: 0
 --- !u!114 &114349044915979940
 MonoBehaviour:
@@ -14733,14 +14732,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba85f5b87cb8cf84f9e09dcca90cd372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AimControl: 2
+  AimControl: 3
   RotationMode: 0
   WeaponRotationSpeed: 0
   MinimumAngle: -180
   MaximumAngle: 180
   MinimumMagnitude: 0.2
-  ReticleType: 0
-  Reticle: {fileID: 1000010525066036, guid: f08bfeb16a6183b4386f121ccf51b56e, type: 3}
+  ReticleType: 2
+  Reticle: {fileID: 1373789777524232, guid: f31b518c2b50cc2479370c46d4485485, type: 3}
   ReticleDistance: 5
   ReticleAtMousePosition: 1
   RotateReticle: 0

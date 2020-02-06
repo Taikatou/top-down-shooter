@@ -10,7 +10,7 @@ namespace MoreMountains.InventoryEngine
 	public class ItemPicker : MonoBehaviour 
 	{
 		/// the item that should be picked 
-		[Information("Add this component to a Trigger box collider 2D and it'll make it pickable, and will add the specified item to its target inventory. Just drag a previously created item into the slot below. For more about how to create items, have a look at the documentation. Here you can also specify how many of that item should be picked when picking the object.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Add this component to a Trigger box collider 2D and it'll make it pickable, and will add the specified item to its target inventory. Just drag a previously created item into the slot below. For more about how to create items, have a look at the documentation. Here you can also specify how many of that item should be picked when picking the object.",MMInformationAttribute.InformationType.Info,false)]
 		public InventoryItem Item ;
 		[Header("Pick Quantity")]
 		/// the quantity of that item that should be added to the inventory when picked
@@ -50,7 +50,7 @@ namespace MoreMountains.InventoryEngine
         public virtual void OnTriggerEnter(Collider collider)
         {
             // if what's colliding with the picker ain't a characterBehavior, we do nothing and exit
-            if (collider.tag != "Player")
+            if (!collider.CompareTag("Player"))
             {
                 return;
             }
@@ -65,7 +65,7 @@ namespace MoreMountains.InventoryEngine
         public virtual void OnTriggerEnter2D (Collider2D collider) 
 		{
             // if what's colliding with the picker ain't a characterBehavior, we do nothing and exit
-            if (collider.tag != "Player")
+            if (!collider.CompareTag("Player"))
 			{
 				return;
 			}
