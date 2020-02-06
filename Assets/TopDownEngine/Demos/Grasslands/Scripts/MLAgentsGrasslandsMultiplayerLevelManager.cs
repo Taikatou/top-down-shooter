@@ -25,7 +25,6 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     teamDeaths[index]++;
                 }
             }
-
             return teamDeaths;
         }
 
@@ -77,11 +76,11 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
-                    agent.SetReward(1.0f);
+                    agent.AddReward(1.0f);
                 }
                 else if (winner == GameEnding.Loss)
                 {
-                    agent.SetReward(-0.25f);
+                    agent.AddReward(-0.25f);
                 }
 
                 agent.Done();

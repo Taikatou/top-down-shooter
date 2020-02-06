@@ -75,7 +75,7 @@ namespace MoreMountains.TopDownEngine
             var gameOver = GameOverCondition();
             if (gameOver)
             {
-                // StartCoroutine(GameOver());
+                StartCoroutine(GameOver());
             }
         }
 
