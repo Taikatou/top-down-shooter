@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A basic melee weapon class, that will activate a "hurt zone" when the weapon is used
     /// </summary>
-    public class MeleeWeapon : Weapon, ISense
+    public class MeleeWeapon : Weapon
     {
         /// the possible shapes for the melee weapon's damage area
         public enum MeleeDamageAreaShapes { Rectangle, Circle, Box, Sphere }

@@ -5,7 +5,7 @@ using MLAgents;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace TopDownEngine.Demos.Grasslands.Scripts
+namespace BattleResearch.Scripts
 {
     public class MLAgentsGrasslandsMultiplayerLevelManager : GrasslandsMultiplayerLevelManager
     {

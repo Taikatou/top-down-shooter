@@ -14,7 +14,7 @@ namespace MoreMountains.TopDownEngine
     /// Animator parameters : defined from the Weapon's inspector
     /// </summary>
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Handle Weapon")]
-    public class CharacterHandleWeapon : CharacterAbility, ISense
+    public class CharacterHandleWeapon : CharacterAbility
     {
         /// This method is only used to display a helpbox text at the beginning of the ability's inspector
         public override string HelpBoxText() { return "This component will allow your character to pickup and use weapons. What the weapon will do is defined in the Weapon classes. This just describes the behaviour of the 'hand' holding the weapon, not the weapon itself. Here you can set an initial weapon for your character to start with, allow weapon pickup, and specify a weapon attachment (a transform inside of your character, could be just an empty child gameobject, or a subpart of your model."; }

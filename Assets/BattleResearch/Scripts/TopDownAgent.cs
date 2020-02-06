@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using MLAgents;
 using MoreMountains.TopDownEngine;
-using TopDownEngine.Demos.Grasslands.Scripts;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
@@ -13,7 +12,7 @@ namespace BattleResearch.Scripts
         public bool useVectorObs;
 
         public RayPerception2D rayPerception;
-        
+
         public LayerMask obstacleMask;
 
         private enum Directions { Left, Right, Up, Down }
@@ -40,7 +39,7 @@ namespace BattleResearch.Scripts
                 if (_senses == null)
                 {
                     _senses = GetComponentsInChildren<ISense>();
-                    Array.Sort(_senses, (x,y) => String.CompareOrdinal(x.SenseName, y.SenseName));
+                    Array.Sort(_senses, (x, y) => String.CompareOrdinal(x.SenseName, y.SenseName));
                 }
                 return _senses;
             }
@@ -51,7 +50,7 @@ namespace BattleResearch.Scripts
             get
             {
                 var level = FindObjectOfType<MLAgentsGrasslandsMultiplayerLevelManager>();
-                return level? level.GetPoints(AgentInput.PlayerId): 0;
+                return level ? level.GetPoints(AgentInput.PlayerId) : 0;
             }
         }
 
@@ -116,10 +115,10 @@ namespace BattleResearch.Scripts
             }
 
             AgentInput.SecondaryInput = secondary;
-            
+
             var shootButtonDown = ToBoolean(vectorAction[4]);
             AgentInput.SetShootButtonState(shootButtonDown);
-            
+
             var reloadButtonDown = ToBoolean(vectorAction[5]);
             AgentInput.SetReloadButtonState(reloadButtonDown);
 
@@ -156,7 +155,7 @@ namespace BattleResearch.Scripts
 
             return 0;
         }
-        
+
         public override void CollectObservations()
         {
             if (useVectorObs)
@@ -164,25 +163,25 @@ namespace BattleResearch.Scripts
                 var angles = new float[divisions];
 
                 var degrees = 360 / divisions;
-                
+
                 for (var i = 0; i < divisions; i++)
                 {
-                    angles[i] =  degrees * i;
+                    angles[i] = degrees * i;
                 }
 
 
                 var otherId = TeamId == 1 ? 2 : 1;
-                var observations = rayPerception.Perceive(25, angles, 
+                var observations = rayPerception.Perceive(25, angles,
                     new[]
                     {
                         "walls",
                         "projectile"
                     },
                     obstacleMask, 0, 0, Color.red);
-                
+
                 AddVectorObs(observations);
             }
-            
+
             foreach (var sense in Senses)
             {
                 var obs = sense.GetObservations();
@@ -192,7 +191,7 @@ namespace BattleResearch.Scripts
 
             var agentRb = GetComponent<Rigidbody2D>();
             var position = agentRb.transform.position;
-            
+
             var agentSenses = FindObjectsOfType<AgentSense>();
 
             foreach (var agentSense in agentSenses)
@@ -207,8 +206,8 @@ namespace BattleResearch.Scripts
             AddVectorObs(CurrentPoints);
         }
 
-        protected virtual void AddVectorObs(Dictionary<string, float> observations, bool printObs=false,
-            string obsName="Default")
+        protected virtual void AddVectorObs(Dictionary<string, float> observations, bool printObs = false,
+            string obsName = "Default")
         {
             var debugTxt = obsName + ":\t";
             foreach (KeyValuePair<string, float> entry in observations)
@@ -230,7 +229,7 @@ namespace BattleResearch.Scripts
             var secondaryX = 0.0f;
             var secondaryY = 0.0f;
 
-            if (_directions!=null)
+            if (_directions != null)
             {
                 x = GetInput(_directions[Directions.Left], _directions[Directions.Right]);
                 y = GetInput(_directions[Directions.Down], _directions[Directions.Up]);
@@ -246,11 +245,11 @@ namespace BattleResearch.Scripts
 
             var reloadButtonState = Input.GetKey(KeyCode.End);
             var reloadButtonInput = Convert.ToSingle(reloadButtonState);
-            
+
             var secondaryShootButtonState = Input.GetKey(KeyCode.C);
             var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
 
-            var output = new[] {x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput, secondaryShootButtonInput };
+            var output = new[] { x, y, secondaryX, secondaryY, shootButtonInput, reloadButtonInput, secondaryShootButtonInput };
 
             return output;
         }
