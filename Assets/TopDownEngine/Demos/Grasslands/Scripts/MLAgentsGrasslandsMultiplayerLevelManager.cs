@@ -25,7 +25,6 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                     teamDeaths[index]++;
                 }
             }
-
             return teamDeaths;
         }
 
@@ -74,23 +73,22 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
 
             foreach (var agent in agents)
             {
-                agent.Done();
-                
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
-                    Debug.Log("Winner");
-                    agent.SetReward(1.0f);
+                    agent.AddReward(1.0f);
                 }
                 else if (winner == GameEnding.Loss)
                 {
-                    Debug.Log("Looser");
-                    agent.SetReward(-0.25f);
+                    agent.AddReward(-0.25f);
                 }
+
+                agent.Done();
             }
 
             AppendResult(agents, GameEnding.Win);
             AppendResult(agents, GameEnding.Loss);
+            AppendResult(agents, GameEnding.Draw);
 
 
             var enumerator = base.GameOver();
@@ -108,10 +106,13 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                 Array.Sort(winners, (x, y) => string.CompareOrdinal(x.BehaviourName, y.BehaviourName));
                 var winnersName = string.Join("", winners.Select((z => z.BehaviourName)));
 
-                var wins = condition == GameEnding.Win ? 1 : 0;
-                var losses = condition == GameEnding.Loss ? 1 : 0;
-                var draws = condition == GameEnding.Draw ? 1 : 0;
-                logger.AddResult(winnersName, wins, losses, draws);
+                
+                logger.AddResultTeam(winnersName, condition);
+
+                foreach (var agent in winners)
+                {
+                    logger.AddResultAgent(agent.BehaviourName, condition);
+                }
             }
         }
 
@@ -141,7 +142,7 @@ namespace TopDownEngine.Demos.Grasslands.Scripts
                         2);
                     damageScale = scale;
                     GameDuration = (int) dur;
-                    StartCoroutine(GameOver());
+                    // StartCoroutine(GameOver());
                     break;
             }
         }

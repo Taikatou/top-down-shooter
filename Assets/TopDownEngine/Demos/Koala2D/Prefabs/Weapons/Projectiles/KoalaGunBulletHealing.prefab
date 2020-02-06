@@ -89,5 +89,10 @@ PrefabInstance:
       propertyPath: HealingItem
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114419784322626702, guid: eea0f4966d999fa408fcfaa6b22f1b33,
+        type: 3}
+      propertyPath: HealCaused
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea0f4966d999fa408fcfaa6b22f1b33, type: 3}

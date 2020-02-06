@@ -17,24 +17,9 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Character/Core/Character")] 
 	public class Character : MonoBehaviour
     {
-	    public int TeamId { get; set; }
+        public int TeamId { get; set; }
 
-	    public int EnemyId
-	    {
-		    get
-		    {
-			    if (TeamId == 1)
-			    {
-				    return 2;
-			    }
-			    else
-			    {
-				    return 1;
-			    }
-		    }
-	    }
-	    
-	    /// the possible initial facing direction for your character
+        /// the possible initial facing direction for your character
         public enum FacingDirections { West, East, North, South }
         /// the possible directions you can force your character to look at after its spawn
         public enum SpawnFacingDirections { Default, Left, Right, Up, Down }

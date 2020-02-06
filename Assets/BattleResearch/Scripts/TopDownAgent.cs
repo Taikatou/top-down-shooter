@@ -14,7 +14,7 @@ namespace BattleResearch.Scripts
 
         public RayPerception2D rayPerception;
         
-        public LayerMask otherMask;
+        public LayerMask obstacleMask;
 
         private enum Directions { Left, Right, Up, Down }
 
@@ -23,8 +23,6 @@ namespace BattleResearch.Scripts
         private Dictionary<Directions, KeyCode> _secondaryDirections;
 
         private int divisions = 24;
-        
-        public bool debugSenses = true;
 
         public bool Continuous => GetComponent<BehaviorParameters>().Continuous;
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
@@ -32,6 +30,8 @@ namespace BattleResearch.Scripts
         private ISense[] _senses;
 
         public string BehaviourName => GetComponent<BehaviorParameters>().Name;
+
+        public int TeamId => GetComponent<Character>().TeamId;
 
         private ISense[] Senses
         {
@@ -163,20 +163,22 @@ namespace BattleResearch.Scripts
             {
                 var angles = new float[divisions];
 
-                var degrees = (360 / divisions);
+                var degrees = 360 / divisions;
                 
                 for (var i = 0; i < divisions; i++)
                 {
                     angles[i] =  degrees * i;
                 }
 
+
+                var otherId = TeamId == 1 ? 2 : 1;
                 var observations = rayPerception.Perceive(25, angles, 
                     new[]
                     {
                         "walls",
                         "projectile"
-                    }, 
-                    otherMask, 0, 0, Color.red);
+                    },
+                    obstacleMask, 0, 0, Color.red);
                 
                 AddVectorObs(observations);
             }

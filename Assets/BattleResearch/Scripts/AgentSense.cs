@@ -7,6 +7,7 @@ namespace BattleResearch.Scripts
 {
     public class AgentSense : MonoBehaviour, ISense
     {
+        public bool IncludePosition = false;
         public Dictionary<string, float> GetObservations()
         {
             var senses = GetObservationsList();
@@ -36,15 +37,18 @@ namespace BattleResearch.Scripts
 
         public Dictionary<string, float>  GetObservationsOtherAgent(Vector2 currentPosition)
         {
-            var agentRb = GetComponent<Rigidbody2D>();
-            var position = agentRb.transform.position;
-            var positionX = GetPositionScaled(position.x - currentPosition.x);
-            var positionY = GetPositionScaled(position.y - currentPosition.y);
-
             var playerStats = GetObservationsList();
+            if (IncludePosition)
+            {
+                var agentRb = GetComponent<Rigidbody2D>();
+                var position = agentRb.transform.position;
+                var positionX = GetPositionScaled(position.x - currentPosition.x);
+                var positionY = GetPositionScaled(position.y - currentPosition.y);
 
-            playerStats.Add("PositionX", positionX);
-            playerStats.Add("PositionY", positionY);
+                playerStats.Add("PositionX", positionX);
+                playerStats.Add("PositionY", positionY);
+            }
+            
 
             return playerStats;
         }
