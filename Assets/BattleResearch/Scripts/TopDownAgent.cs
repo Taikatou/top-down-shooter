@@ -156,7 +156,7 @@ namespace BattleResearch.Scripts
             return 0;
         }
 
-        public override void CollectObservations()
+        public override void CollectObservations(VectorSensor sensor)
         {
             if (useVectorObs)
             {
@@ -177,16 +177,16 @@ namespace BattleResearch.Scripts
                         "walls",
                         "projectile"
                     },
-                    obstacleMask, 0, 0, Color.red);
+                    obstacleMask, 0, 0);
 
-                AddVectorObs(observations);
+                sensor.AddObservation(observations);
             }
 
             foreach (var sense in Senses)
             {
                 var obs = sense.GetObservations();
 
-                AddVectorObs(obs);
+                AddVectorObs(sensor, obs);
             }
 
             var agentRb = GetComponent<Rigidbody2D>();
@@ -199,20 +199,20 @@ namespace BattleResearch.Scripts
                 if (agentSense.gameObject != gameObject)
                 {
                     var obs = agentSense.GetObservationsOtherAgent(position);
-                    AddVectorObs(obs);
+                    AddVectorObs(sensor, obs);
                 }
             }
 
-            AddVectorObs(CurrentPoints);
+            sensor.AddObservation(CurrentPoints);
         }
 
-        protected virtual void AddVectorObs(Dictionary<string, float> observations, bool printObs = false,
+        protected virtual void AddVectorObs(VectorSensor sensor, Dictionary<string, float> observations, bool printObs = false,
             string obsName = "Default")
         {
             var debugTxt = obsName + ":\t";
             foreach (KeyValuePair<string, float> entry in observations)
             {
-                AddVectorObs(entry.Value);
+                sensor.AddObservation(entry.Value);
                 debugTxt += entry.Key + ": " + entry.Value + "\t";
             }
 

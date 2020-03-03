@@ -26,7 +26,7 @@ namespace BattleResearch.Scripts
             var playerStats = new Dictionary<string, float>()
             {
                 { "Current Health", healthComponent.CurrentHealth / healthComponent.MaximumHealth },
-                { "Behavior Name", behaviorName.GetObservations() },
+                { "Behavior Name", NameChecker.Index(behaviorName.Name)},
                 { "Team ID", character.TeamId }
             };
 

@@ -7,7 +7,7 @@ public class TestTimeRate : MonoBehaviour
 {
     void FixedUpdate()
     {
-        Academy.Instance.DisableAutomaticStepping();
+        //Academy.Instance.DisableAutomaticStepping();
         Academy.Instance.EnvironmentStep();
         
         Debug.Log(Time.deltaTime);

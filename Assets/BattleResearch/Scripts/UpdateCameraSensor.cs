@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using MLAgents.Sensor;
+using MLAgents;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
