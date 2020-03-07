@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MLAgents;
+using MLAgents.Policies;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -20,13 +21,13 @@ namespace BattleResearch.Scripts
         {
             var healthComponent = GetComponent<Health>();
 
-            var behaviorName = GetComponent<BehaviorParameters>();
+            // var behaviorName = GetComponent<BehaviorParameters>();
             var character = GetComponent<Character>();
 
             var playerStats = new Dictionary<string, float>()
             {
                 { "Current Health", healthComponent.CurrentHealth / healthComponent.MaximumHealth },
-                { "Behavior Name", NameChecker.Index(behaviorName.Name)},
+                { "Behavior Name", 0 },
                 { "Team ID", character.TeamId }
             };
 

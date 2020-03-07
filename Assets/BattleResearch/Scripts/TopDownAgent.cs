@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MLAgents;
+using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -9,9 +10,6 @@ namespace BattleResearch.Scripts
     [RequireComponent(typeof(MlAgentInput))]
     public class TopDownAgent : Agent
     {
-        public bool useVectorObs;
-
-        public RayPerception2D rayPerception;
 
         public LayerMask obstacleMask;
 
@@ -23,12 +21,12 @@ namespace BattleResearch.Scripts
 
         private int divisions = 24;
 
-        public bool Continuous => GetComponent<BehaviorParameters>().Continuous;
+        public bool Continuous => false; //GetComponent<BehaviorParameters>().Continuous;
         public MlAgentInput AgentInput => GetComponent<MlAgentInput>();
 
         private ISense[] _senses;
 
-        public string BehaviourName => GetComponent<BehaviorParameters>().Name;
+        public string BehaviourName => ""; //GetComponent<BehaviorParameters>().Name;
 
         public int TeamId => GetComponent<Character>().TeamId;
 
@@ -158,30 +156,6 @@ namespace BattleResearch.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            if (useVectorObs)
-            {
-                var angles = new float[divisions];
-
-                var degrees = 360 / divisions;
-
-                for (var i = 0; i < divisions; i++)
-                {
-                    angles[i] = degrees * i;
-                }
-
-
-                var otherId = TeamId == 1 ? 2 : 1;
-                var observations = rayPerception.Perceive(25, angles,
-                    new[]
-                    {
-                        "walls",
-                        "projectile"
-                    },
-                    obstacleMask, 0, 0);
-
-                sensor.AddObservation(observations);
-            }
-
             foreach (var sense in Senses)
             {
                 var obs = sense.GetObservations();
