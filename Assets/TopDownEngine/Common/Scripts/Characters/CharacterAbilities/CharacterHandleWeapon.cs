@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
-using Sirenix.OdinInspector;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -60,7 +58,7 @@ namespace MoreMountains.TopDownEngine
         
         /// returns the currently equipped weapon
         [Header("Debug")]
-        [ReadOnly]
+        [MMReadOnly]
         public Weapon CurrentWeapon;
 
         /// an animator to update when the weapon is used
@@ -90,6 +88,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void PreInitialization()
         {
+            base.PreInitialization();
             // filler if the WeaponAttachment has not been set
             if (WeaponAttachment == null)
             {
@@ -101,7 +100,6 @@ namespace MoreMountains.TopDownEngine
         protected override void Initialization()
         {
             base.Initialization();
-
             Setup();
         }
 
@@ -159,34 +157,34 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void HandleInput()
         {
-            if (!AbilityPermitted || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
+            if (!AbilityPermitted
+                || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
             {
                 return;
             }
-            
-            // Debug.Log(_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown);
-            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown || _inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown)
+            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                var triggerMode = CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto;
-                var shootButton = _inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed;
-                var shootAxis = _inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed;
-                if (ContinuousPress && triggerMode && (shootButton || shootAxis))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonPressed))
+                {
+                    ShootStart();
+                }
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
             }
             
-            if (_inputManager.ReloadButtonState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.ReloadButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
             {
                 Reload();
             }
 
-            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp)
+            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -194,7 +192,7 @@ namespace MoreMountains.TopDownEngine
             if (CurrentWeapon != null)
             {
                 if ((CurrentWeapon.WeaponState.CurrentState == Weapon.WeaponStates.WeaponDelayBetweenUses)
-                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButtonState == MMInput.ButtonStates.Off)))
+                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.Off)))
                 {
                     CurrentWeapon.WeaponInputStop();
                 }
@@ -355,7 +353,6 @@ namespace MoreMountains.TopDownEngine
                 CurrentWeapon.SetOwner(_character, this);
                 CurrentWeapon.WeaponID = weaponID;
                 _weaponAim = CurrentWeapon.gameObject.MMGetComponentNoAlloc<WeaponAim>();
-                _weaponAim.AimControl = WeaponAim.AimControls.SecondaryMovement;
                 // we handle (optional) inverse kinematics (IK) 
                 if (_weaponIK != null)
                 {
@@ -473,31 +470,5 @@ namespace MoreMountains.TopDownEngine
             base.OnRespawn();
             Setup();
         }
-
-        public Dictionary<string, float> GetObservations()
-        {
-            // Add weapon state
-            var state = CurrentWeapon ?
-                (int) CurrentWeapon.WeaponState.CurrentState
-                : -1;
-
-            var ammo = CurrentWeapon ? 
-                (float)CurrentWeapon.CurrentAmmoLoaded / (float)CurrentWeapon.MagazineSize : 0.0f;
-            
-            var reload = CurrentWeapon && CurrentWeapon.Reloading;
-            var reloadFloat = Convert.ToSingle(reload);
-
-            var senses = new Dictionary<string, float>()
-            {
-                { "WeaponState",  state },
-                { "Ammo", ammo },
-                { "ReloadFloat", reloadFloat } 
-            };
-
-
-            return senses;
-        }
-
-        public string SenseName => "HandleWeapon";
     }
 }

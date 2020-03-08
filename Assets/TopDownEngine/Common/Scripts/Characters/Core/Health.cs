@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
-using Sirenix.OdinInspector;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -17,10 +16,10 @@ namespace MoreMountains.TopDownEngine
         public GameObject Model;
 
 		/// the current health of the character
-		[ReadOnly]
-		public float CurrentHealth;
+		[MMReadOnly]
+		public float CurrentHealth ;
 		/// If this is true, this object can't take damage
-		[ReadOnly]
+		[MMReadOnly]
 		public bool Invulnerable = false;	
 
 		[Header("Health")]
@@ -69,7 +68,8 @@ namespace MoreMountains.TopDownEngine
 
 		protected Vector3 _initialPosition;
 		protected Renderer _renderer;
-        protected TopDownController _controller;
+		protected Character _character;
+		protected TopDownController _controller;
 	    protected MMHealthBar _healthBar;
 	    protected Collider2D _collider2D;
         protected Collider _collider3D;
@@ -79,12 +79,10 @@ namespace MoreMountains.TopDownEngine
         protected AutoRespawn _autoRespawn;
         protected Animator _animator;
 
-        protected Character _character => GetComponent<Character>();
-
-		/// <summary>
-		/// On Start, we initialize our health
-		/// </summary>
-		protected virtual void Start()
+        /// <summary>
+        /// On Start, we initialize our health
+        /// </summary>
+        protected virtual void Start()
 	    {
 			Initialization();
 	    }
@@ -94,6 +92,7 @@ namespace MoreMountains.TopDownEngine
 	    /// </summary>
 		protected virtual void Initialization()
 		{
+			_character = GetComponent<Character>();
             if (Model != null)
             {
                 Model.SetActive(true);
@@ -183,18 +182,18 @@ namespace MoreMountains.TopDownEngine
 		/// <param name="instigator">The object that caused the damage.</param>
 		/// <param name="flickerDuration">The time (in seconds) the object should flicker after taking the damage.</param>
 		/// <param name="invincibilityDuration">The duration of the short invincibility following the hit.</param>
-		public virtual float Damage(int damage,GameObject instigator, float flickerDuration, float invincibilityDuration)
+		public virtual void Damage(int damage,GameObject instigator, float flickerDuration, float invincibilityDuration)
 		{
 			// if the object is invulnerable, we do nothing and exit
 			if (Invulnerable)
 			{
-				return 0.0f;
+				return;
 			}
 
 			// if we're already below zero, we do nothing and exit
 			if ((CurrentHealth <= 0) && (InitialHealth != 0))
 			{
-				return 0.0f;
+				return;
 			}
 
 			// we decrease the character's health by the damage
@@ -211,32 +210,24 @@ namespace MoreMountains.TopDownEngine
                 CurrentHealth = 0;
             }
 
-            else if (CurrentHealth > MaximumHealth)
-            {
-	            CurrentHealth = MaximumHealth;
-            }
-
             // we prevent the character from colliding with Projectiles, Player and Enemies
             if (invincibilityDuration > 0)
 			{
 				DamageDisabled();
 				StartCoroutine(DamageEnabled(invincibilityDuration));	
 			}
+            
+			// we trigger a damage taken event
+			MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
 
-            if (damage > 0)
+            if (_animator != null)
             {
-	            // we trigger a damage taken event
-	            MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
-
-	            if ( _animator != null)
-	            {
-		            _animator.SetTrigger("Damage");
-	            }
-
-	            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
+                _animator.SetTrigger("Damage");
             }
 
-            // we update the health bar
+            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
+            
+			// we update the health bar
 			UpdateHealthBar(true);
 
 			// if health has reached zero
@@ -247,8 +238,6 @@ namespace MoreMountains.TopDownEngine
 
 				Kill();
 			}
-
-			return previousHealth - CurrentHealth;
 		}
 
 		/// <summary>
@@ -414,14 +403,14 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		/// <param name="health">The health the character gets.</param>
 		/// <param name="instigator">The thing that gives the character health.</param>
-		public virtual float GetHealth(float health,GameObject instigator)
-		{
+		public virtual float GetHealth(float health, GameObject instigator)
+        {
+            float previousHealth = CurrentHealth;
 			// this function adds health to the character's Health and prevents it to go above MaxHealth.
-			var previousHealth = CurrentHealth;
 			CurrentHealth = Mathf.Min (CurrentHealth + health,MaximumHealth);
 			UpdateHealthBar(true);
-			return CurrentHealth - previousHealth;
-		}
+            return CurrentHealth - previousHealth;
+        }
 
 	    /// <summary>
 	    /// Resets the character's health to its max value
@@ -429,7 +418,7 @@ namespace MoreMountains.TopDownEngine
 	    public virtual void ResetHealthToMaxHealth()
 	    {
 			CurrentHealth = MaximumHealth;
-			UpdateHealthBar (true);
+			UpdateHealthBar (false);
 	    }	
 
 	    /// <summary>
@@ -441,7 +430,7 @@ namespace MoreMountains.TopDownEngine
 	    	{
 				_healthBar.UpdateBar(CurrentHealth, 0f, MaximumHealth, show);
 	    	}
-			
+
 	    	if (_character != null)
 	    	{
 	    		if (_character.CharacterType == Character.CharacterTypes.Player)
