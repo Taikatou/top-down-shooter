@@ -15,6 +15,7 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Character/Core/Character")] 
 	public class Character : MonoBehaviour
     {
+        public int TeamId { get; set; }
         /// the possible initial facing direction for your character
         public enum FacingDirections { West, East, North, South }
         /// the possible directions you can force your character to look at after its spawn
@@ -102,10 +103,8 @@ namespace MoreMountains.TopDownEngine
         protected int _randomAnimationParameter;
         protected bool _animatorInitialized = false;
 
-        public int TeamId;
-
-
         public bool Dead => ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
+
 
         /// <summary>
         /// Initializes this instance of the character
@@ -296,10 +295,16 @@ namespace MoreMountains.TopDownEngine
 		/// This is called every frame.
 		/// </summary>
 		protected virtual void Update()
-		{		
+		{
+            if (LinkedInputManager)
+            {
+                if (LinkedInputManager.PlayerID != PlayerID)
+                {
+                    SetInputManager();
+                }
+            }
 			EveryFrame();
-				
-		}
+        }
 
 		/// <summary>
 		/// We do this every frame. This is separate from Update for more flexibility.

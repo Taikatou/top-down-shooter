@@ -28,6 +28,8 @@ namespace BattleResearch.Scripts
 
         public string BehaviourName => ""; //GetComponent<BehaviorParameters>().Name;
 
+        public int TeamId => GetComponent<Character>().TeamId;
+
         private ISense[] Senses
         {
             get
