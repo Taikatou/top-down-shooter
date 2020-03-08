@@ -25,7 +25,7 @@ namespace MoreMountains.TopDownEngine
         CharacterSwap,
         CharacterSwitch,
         Repaint,
-		MlCuriculum
+        MlCuriculum
 	}
 
 	/// <summary>

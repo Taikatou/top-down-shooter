@@ -180,8 +180,6 @@ namespace MoreMountains.TopDownEngine
         protected int _aliveAnimationParameter;
         protected int _comboInProgressAnimationParameter;
 
-        public bool Reloading => _reloading;
-
         /// <summary>
         /// On start we initialize our weapon
         /// </summary>

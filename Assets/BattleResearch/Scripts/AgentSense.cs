@@ -28,7 +28,7 @@ namespace BattleResearch.Scripts
             {
                 { "Current Health", healthComponent.CurrentHealth / healthComponent.MaximumHealth },
                 { "Behavior Name", 0 },
-                { "Team ID", character.TeamId }
+                //{ "Team ID", character.TeamId }
             };
 
             var senses = playerStats;

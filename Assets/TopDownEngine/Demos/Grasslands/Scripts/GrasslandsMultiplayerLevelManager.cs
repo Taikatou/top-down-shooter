@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,9 +38,8 @@ namespace MoreMountains.TopDownEngine
         /// the ID of the winner
         public string WinnerID { get; set; }
         protected string _playerID;
-        protected bool _gameOver;
-
-
+        protected bool _gameOver = false;
+        
         /// <summary>
         /// On init, we initialize our points and countdowns
         /// </summary>
@@ -48,9 +48,7 @@ namespace MoreMountains.TopDownEngine
             base.Initialization();
             WinnerID = "";
             Points = new GrasslandPoints[Players.Count];
-            _gameOver = false;
-            
-            var i = 0;
+            int i = 0;
             foreach(Character player in Players)
             {
                 Points[i].PlayerID = player.PlayerID;
@@ -63,7 +61,7 @@ namespace MoreMountains.TopDownEngine
                 countdown.ResetCountdown();
             }
         }
-
+        
         /// <summary>
         /// Whenever a player dies, we check if we only have one left alive, in which case we trigger our game over routine
         /// </summary>
@@ -71,6 +69,8 @@ namespace MoreMountains.TopDownEngine
         protected override void OnPlayerDeath(Character playerCharacter)
         {
             base.OnPlayerDeath(playerCharacter);
+            int aliveCharacters = 0;
+            int i = 0;
 
             var gameOver = GameOverCondition();
             if (gameOver)
@@ -83,8 +83,8 @@ namespace MoreMountains.TopDownEngine
         {
             var aliveCharacters = 0;
             var i = 0;
-            
-            foreach(var character in Instance.Players)
+
+            foreach (var character in Instance.Players)
             {
                 if (!character.Dead)
                 {
@@ -107,16 +107,15 @@ namespace MoreMountains.TopDownEngine
             {
                 WinnerID = "Player1";
             }
-
-            //MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
-            //_gameOver = true;
+            MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
+            _gameOver = true;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.GameOver, null);
         }
 
         /// <summary>
         /// On update, we update our countdowns and check for input if we're in game over state
         /// </summary>
-        private void Update()
+        public override void Update()
         {
             base.Update();
             UpdateCountdown();
