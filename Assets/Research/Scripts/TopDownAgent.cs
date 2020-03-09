@@ -1,19 +1,9 @@
-﻿using UnityEngine;
+﻿using MLAgents;
 
 namespace Research.Scripts
 {
-    public class TopDownAgent : MonoBehaviour
+    public class TopDownAgent : Agent
     {
-        // Start is called before the first frame update
-        void Start()
-        {
         
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }
