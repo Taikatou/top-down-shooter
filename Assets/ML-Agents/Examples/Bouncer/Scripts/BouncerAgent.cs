@@ -112,7 +112,7 @@ public class BouncerAgent : Agent
         return action;
     }
 
-    void Update()
+    private void Update()
     {
         if (m_LookDir.magnitude > float.Epsilon)
         {
