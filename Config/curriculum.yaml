@@ -1,8 +1,0 @@
-TopDown:
-  measure: progress
-  thresholds: [20, 40]
-  min_lesson_length: 100
-  signal_smoothing: true
-  parameters:
-    game_duration: [150, 120, 90]
-    damage_scale: [2, 1.5, 1]
