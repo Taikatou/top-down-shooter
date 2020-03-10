@@ -154,9 +154,9 @@ namespace MoreMountains.TopDownEngine
 			// player instantiation
 			if (PlayerPrefabs.Count() != 0)
 			{ 
-				foreach (Character playerPrefab in PlayerPrefabs)
+				foreach (var playerPrefab in PlayerPrefabs)
 				{
-					Character newPlayer = (Character)Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
+					var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
 					Players.Add(newPlayer);
 
