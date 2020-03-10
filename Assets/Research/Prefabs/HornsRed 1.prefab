@@ -6065,9 +6065,10 @@ GameObject:
   - component: {fileID: 8081161772012464654}
   - component: {fileID: 8081274505164087466}
   - component: {fileID: 8080766248922532048}
-  - component: {fileID: 8550386635207569731}
   - component: {fileID: 632719323387897084}
-  - component: {fileID: 7748392480103530234}
+  - component: {fileID: 9112377620518402100}
+  - component: {fileID: 7948682930951353615}
+  - component: {fileID: -9001665551302892106}
   m_Layer: 10
   m_Name: HornsRed 1
   m_TagString: Player
@@ -6083,7 +6084,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8193291489664769972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.61, y: 2.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2546362589711674927}
@@ -6447,27 +6448,6 @@ MonoBehaviour:
   DisableModelOnDeath: 1
   DisableCollisionsOnDeath: 0
   DeathMMFeedbacks: {fileID: 5462973699615251343}
---- !u!114 &8550386635207569731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8193291489664769972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281595ba54132634bbe48b336e62e2c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InputDetectionActive: 1
-  AutoMobileDetection: 1
-  InputForcedMode: 0
-  ForceWeaponMode: 0
-  WeaponForcedMode: 0
-  HideMobileControlsInEditor: 0
-  MovementControl: 0
-  SmoothMovement: 1
-  Threshold: {x: 0.1, y: 0.4}
 --- !u!114 &632719323387897084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6484,7 +6464,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
---- !u!114 &7748392480103530234
+  inputManager: {fileID: -9001665551302892106}
+--- !u!114 &9112377620518402100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6493,21 +6474,67 @@ MonoBehaviour:
   m_GameObject: {fileID: 8193291489664769972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags: []
-  m_RaysPerDirection: 10
+  m_RaysPerDirection: 5
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
-  m_RayLength: 100
+  m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 523286
-  m_ObservationStacks: 3
+    m_Bits: 8387379
+  m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_VerticalOffSet: 0.3
+--- !u!114 &7948682930951353615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 0
+    numStackedVectorObservations: 1
+    vectorActionSize: 0300000003000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: TopDownAgent
+  TeamId: 0
+  m_UseChildSensors: 1
+--- !u!114 &-9001665551302892106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8779c1d16e208fa498429dafc1d111a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputDetectionActive: 1
+  AutoMobileDetection: 1
+  InputForcedMode: 0
+  ForceWeaponMode: 0
+  WeaponForcedMode: 0
+  HideMobileControlsInEditor: 0
+  MovementControl: 0
+  SmoothMovement: 1
+  Threshold: {x: 0.1, y: 0.4}
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0
