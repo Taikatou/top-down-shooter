@@ -13,7 +13,7 @@ public class DirectionsKeyMapper : MonoBehaviour
 
     private Dictionary<Directions, Vector2> _vectorDirectionsMap;
 
-    private void Start()
+    void Start()
     {
         _primaryDirections = new Dictionary<Directions, KeyCode>
         {
@@ -47,8 +47,7 @@ public class DirectionsKeyMapper : MonoBehaviour
     }
 
     public Directions GetDirectionVector(Vector2 input)
-    {
-        Debug.Log(input);
+    { 
         if (_directionsVectorMap.ContainsKey(input))
         {
             return _directionsVectorMap[input];
@@ -58,7 +57,11 @@ public class DirectionsKeyMapper : MonoBehaviour
 
     public Vector2 GetVectorDirection(Directions direction)
     {
-        return _vectorDirectionsMap[direction];
+        if (_vectorDirectionsMap != null)
+        {
+            return _vectorDirectionsMap[direction];
+        }
+        return new Vector2();
     }
 
     public Vector2 GetVectorDirection(float direction)
@@ -72,7 +75,7 @@ public class DirectionsKeyMapper : MonoBehaviour
         var positive = Input.GetKey(positiveKey);
         if (negative ^ positive)
         {
-            return negative ? 1 : 2;
+            return negative ? -1 : 1;
         }
 
         return 0;
