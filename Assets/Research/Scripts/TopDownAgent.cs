@@ -16,12 +16,10 @@ namespace Research.Scripts
         {
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
             inputManager.SetAiPrimaryMovement(primaryDirection);
-            // var secondaryDirection = (Directions)vectorAction[0];
         }
 
         public override float[] Heuristic()
         {
-            Debug.Log("Heuristic");
             var output = new []
             {
                 (float)directionsKeyMapper.PrimaryDirections,  
@@ -29,6 +27,17 @@ namespace Research.Scripts
             };
 
             return output;
+        }
+
+        public void Success()
+        {
+            AddReward(1);
+            EndEpisode();
+        }
+
+        public override void OnEpisodeBegin()
+        {
+            
         }
     }
 }

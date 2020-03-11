@@ -9,6 +9,12 @@ TagManager:
   - Enemy
   - World
   - Walls
+  - ball
+  - purpleAgent
+  - blueAgent
+  - purpleGoal
+  - blueGoal
+  - Coin
   layers:
   - Default
   - TransparentFX

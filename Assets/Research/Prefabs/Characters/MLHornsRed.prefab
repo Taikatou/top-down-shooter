@@ -6072,7 +6072,7 @@ GameObject:
   - component: {fileID: 4867674338094617903}
   - component: {fileID: 2669925307097661078}
   m_Layer: 10
-  m_Name: HornsRed 1
+  m_Name: MLHornsRed
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6484,7 +6484,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Walls
   - Player
-  - Player
+  - Coin
   m_RaysPerDirection: 6
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
@@ -6516,9 +6516,9 @@ MonoBehaviour:
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: TopDownAgent
-  TeamId: 0
+  TeamId: 1
   m_UseChildSensors: 1
 --- !u!114 &-9001665551302892106
 MonoBehaviour:
