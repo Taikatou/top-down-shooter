@@ -12,6 +12,13 @@ namespace Research.Scripts
 
         public DirectionsKeyMapper directionsKeyMapper;
 
+        private Vector2 _transform;
+
+        public override void Initialize()
+        {
+
+        }
+        
         public override void OnActionReceived(float[] vectorAction)
         {
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
