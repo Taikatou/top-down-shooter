@@ -14,16 +14,16 @@ namespace Research.Scripts
 
         private Vector2 _aiSecondaryMovement;
 
-        public void SetAIPrimaryMovement(float x, float y)
+        public void SetAiPrimaryMovement(Vector2 vector)
         {
-            _aiPrimaryMovement.x = x;
-            _aiPrimaryMovement.y = y;
+            _aiPrimaryMovement.x = vector.x;
+            _aiPrimaryMovement.y = vector.y;
         }
 
-        public void SetAISecondaryMovement(float x, float y)
+        public void SetAiSecondaryMovement(Vector2 vector)
         {
-            _aiSecondaryMovement.x = x;
-            _aiSecondaryMovement.y = y;
+            _aiSecondaryMovement.x = vector.x;
+            _aiSecondaryMovement.y = vector.y;
         }
     }
 }
