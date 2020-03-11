@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Research.Scripts;
 using UnityEngine;
@@ -12,6 +13,10 @@ public class DirectionsKeyMapper : MonoBehaviour
     private Dictionary<Vector2, Directions> _directionsVectorMap;
 
     private Dictionary<Directions, Vector2> _vectorDirectionsMap;
+
+    public Directions PrimaryDirections => GetDirection(_primaryDirections);
+
+    public Directions SecondaryDirections => GetDirection(_secondaryDirections);
 
     void Start()
     {
@@ -83,14 +88,19 @@ public class DirectionsKeyMapper : MonoBehaviour
 
     public Directions GetDirection(Dictionary<Directions, KeyCode> directions)
     {
-        var x = GetInput(directions[Directions.Left], directions[Directions.Right]);
-        var y = GetInput(directions[Directions.Down], directions[Directions.Up]);
+        if (directions != null)
+        {
+            if (directions.ContainsKey(Directions.Left) && directions.ContainsKey(Directions.Right) &&
+                directions.ContainsKey(Directions.Down) && directions.ContainsKey(Directions.Up))
+            {
+                var x = GetInput(directions[Directions.Left], directions[Directions.Right]);
+                var y = GetInput(directions[Directions.Down], directions[Directions.Up]);
 
-        var input = new Vector2(x, y);
-        return GetDirectionVector(input);
+                var input = new Vector2(x, y);
+                return GetDirectionVector(input);
+            }
+        }
+
+        return Directions.None;
     }
-
-    public Directions PrimaryDirections => GetDirection(_primaryDirections);
-
-    public Directions SecondaryDirections => GetDirection(_secondaryDirections);
 }

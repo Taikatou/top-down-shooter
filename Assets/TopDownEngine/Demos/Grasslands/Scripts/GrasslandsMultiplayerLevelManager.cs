@@ -48,20 +48,22 @@ namespace MoreMountains.TopDownEngine
             base.Initialization();
             WinnerID = "";
             Points = new GrasslandPoints[Players.Count];
-            int i = 0;
-            foreach(Character player in Players)
+            _gameOver = false;
+
+            var i = 0;
+            foreach (Character player in Players)
             {
                 Points[i].PlayerID = player.PlayerID;
                 Points[i].Points = 0;
                 i++;
             }
-            foreach(MMCountdown countdown in Countdowns)
+            foreach (var countdown in Countdowns)
             {
                 countdown.CountdownFrom = GameDuration;
                 countdown.ResetCountdown();
             }
         }
-        
+
         /// <summary>
         /// Whenever a player dies, we check if we only have one left alive, in which case we trigger our game over routine
         /// </summary>
@@ -69,24 +71,36 @@ namespace MoreMountains.TopDownEngine
         protected override void OnPlayerDeath(Character playerCharacter)
         {
             base.OnPlayerDeath(playerCharacter);
-            int aliveCharacters = 0;
-            int i = 0;
-            
-            foreach(Character character in LevelManager.Instance.Players)
+
+            var gameOver = GameOverCondition();
+            if (gameOver)
             {
-                if (character.ConditionState.CurrentState != CharacterStates.CharacterConditions.Dead)
+                StartCoroutine(GameOver());
+            }
+        }
+
+        protected virtual bool GameOverCondition()
+        {
+            var aliveCharacters = 0;
+            var i = 0;
+
+            foreach (var character in Instance.Players)
+            {
+                if (Dead(character))
                 {
                     WinnerID = character.PlayerID;
                     aliveCharacters++;
                 }
                 i++;
             }
-
-            if (aliveCharacters <= 1)
-            {
-                StartCoroutine(GameOver());
-            }
+            return aliveCharacters <= 1;
         }
+
+        public bool Dead(Character character)
+        {
+            return character.ConditionState.CurrentState != CharacterStates.CharacterConditions.Dead;
+        }
+
 
         /// <summary>
         /// On game over, freezes time and displays the game over screen
