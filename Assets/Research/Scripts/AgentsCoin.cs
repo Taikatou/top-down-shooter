@@ -26,6 +26,8 @@ namespace Research.Scripts
                         playerAgent.EndEpisode();
                     }
                 }
+                
+                Debug.Log("Reward Found");
 
                 levelManager.Restart();
             }

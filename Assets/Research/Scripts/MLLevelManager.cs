@@ -17,7 +17,7 @@ namespace Research.Scripts
                 if (Dead(character))
                 {
                     var behaviour = character.GetComponent<BehaviorParameters>();
-                    var index = behaviour.TeamId - 1;
+                    var index = behaviour.TeamId;
                     teamDeaths[index]++;
                 }
             }
@@ -59,7 +59,6 @@ namespace Research.Scripts
 
         protected override IEnumerator GameOver()
         {
-            Debug.Log("GameOver");
             var agents = FindObjectsOfType<TopDownAgent>();
 
             foreach (var agent in agents)
@@ -77,10 +76,9 @@ namespace Research.Scripts
                 agent.EndEpisode();
             }
 
-
-            var enumerator = base.GameOver();
+            Debug.Log("GameOver");
             Restart();
-            return enumerator;
+            yield break;
         }
     }
 }

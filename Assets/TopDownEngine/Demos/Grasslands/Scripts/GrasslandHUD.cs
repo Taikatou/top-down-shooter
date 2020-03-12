@@ -47,8 +47,8 @@ namespace MoreMountains.TopDownEngine
                 case TopDownEngineEventTypes.GameOver:
                     if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager).WinnerID)
                     {
-                        WinnerScreen.gameObject.SetActive(true);
-                        WinnerScreen.alpha = 0f;
+                        // WinnerScreen.gameObject.SetActive(true);
+                        // WinnerScreen.alpha = 0f;
                         StartCoroutine(MMFade.FadeCanvasGroup(WinnerScreen, 0.5f, 0.8f, true));
                     }
                     break;

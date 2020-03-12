@@ -280,7 +280,7 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// Called every frame, if not on mobile, gets secondary movement values from input
 		/// </summary>
-		public virtual void SetSecondaryMovement()
+		protected void SetSecondaryMovement()
 		{
 			if (!IsMobile && InputDetectionActive)
 			{
