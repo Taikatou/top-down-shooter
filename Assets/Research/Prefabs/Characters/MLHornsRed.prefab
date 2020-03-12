@@ -6480,7 +6480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
+  m_SensorName: SensorTopDown
   m_DetectableTags:
   - Walls
   - Player
