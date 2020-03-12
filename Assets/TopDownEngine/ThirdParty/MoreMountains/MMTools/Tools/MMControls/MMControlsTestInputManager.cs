@@ -12,7 +12,7 @@ namespace MoreMountains.Tools
 		// on start, we force a high target frame rate for a more fluid experience on mobile devices
 		protected virtual void Start()
 		{
-			Application.targetFrameRate = 300;
+			//Application.targetFrameRate = 300;
 		}
 
 		public virtual void LeftJoystickMovement(Vector2 movement) { MMDebug.DebugOnScreen("left joystick",movement); }

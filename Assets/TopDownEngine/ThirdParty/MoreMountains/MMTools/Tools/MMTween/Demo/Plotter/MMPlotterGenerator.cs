@@ -37,7 +37,7 @@ namespace MoreMountains.Tools
 
         protected virtual void Awake()
         {
-            Time.timeScale = 0f;
+            //Time.timeScale = 0f;
 
             GeneratePlotters();
         }

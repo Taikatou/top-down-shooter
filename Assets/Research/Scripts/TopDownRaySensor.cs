@@ -10,7 +10,7 @@ namespace MLAgents.Sensors
     [AddComponentMenu("ML Agents/Top Down Ray Perception Sensor 2D", (int) MenuGroup.Sensors)]
     public class TopDownRaySensor : RayPerceptionSensorComponentBase
     {
-        public float m_VerticalOffSet = 100.0f;
+        public float verticalOffSet = 100.0f;
         /// <summary>
         /// Initializes the raycast sensor component.
         /// </summary>
@@ -28,7 +28,7 @@ namespace MLAgents.Sensors
 
         public override float GetStartVerticalOffset()
         {
-            return m_VerticalOffSet;
+            return verticalOffSet;
         }
     }
 
@@ -47,7 +47,7 @@ namespace MLAgents.Sensors
             {
                 base.AddProperties(so, is3d);
 
-                EditorGUILayout.PropertyField(so.FindProperty("m_VerticalOffSet"), true);
+                EditorGUILayout.PropertyField(so.FindProperty("verticalOffSet"), true);
             }
         }
     }
