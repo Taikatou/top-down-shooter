@@ -100,6 +100,8 @@
       <e p="SideChannels" t="Include">
         <e p="EngineConfigurationChannel.cs" t="Include" />
         <e p="FloatPropertiesChannel.cs" t="Include" />
+        <e p="IncomingMessage.cs" t="Include" />
+        <e p="OutgoingMessage.cs" t="Include" />
         <e p="RawBytesChannel.cs" t="Include" />
         <e p="SideChannel.cs" t="Include" />
       </e>
@@ -245,6 +247,7 @@
         <e p="Research" t="Include">
           <e p="Scripts" t="Include">
             <e p="AgentsCoin.cs" t="Include" />
+            <e p="Checker.cs" t="Include" />
             <e p="DirectionsKeyMapper.cs" t="Include" />
             <e p="MLLevelManager.cs" t="Include" />
             <e p="TopDownAgent.cs" t="Include" />

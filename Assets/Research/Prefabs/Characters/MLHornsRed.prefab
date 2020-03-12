@@ -6495,7 +6495,7 @@ MonoBehaviour:
   m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_VerticalOffSet: 0.3
+  verticalOffSet: 0.3
 --- !u!114 &7948682930951353615
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,8 +37,8 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void UpdateSettings()
         {
-            QualitySettings.vSyncCount = VSyncCount;
-            Application.targetFrameRate = TargetFPS;
+            // QualitySettings.vSyncCount = VSyncCount;
+            // Application.targetFrameRate = TargetFPS;
         }
 	}
 }
