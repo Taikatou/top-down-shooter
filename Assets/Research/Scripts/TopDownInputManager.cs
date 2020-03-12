@@ -25,5 +25,10 @@ namespace Research.Scripts
             _aiSecondaryMovement.x = vector.x;
             _aiSecondaryMovement.y = vector.y;
         }
+
+        public override void SetMovement()
+        {
+            
+        }
     }
 }
