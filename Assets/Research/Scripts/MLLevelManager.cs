@@ -9,7 +9,6 @@ namespace Research.Scripts
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {
-
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
@@ -29,7 +28,8 @@ namespace Research.Scripts
         {
             foreach (var player in Players)
             {
-                
+                player.Reset();
+                Destroy(player.gameObject);
             }
 
             Initialization();
@@ -49,7 +49,7 @@ namespace Research.Scripts
 
         public enum GameEnding { Draw, Loss, Win }
 
-        public GameEnding IsWinner(TopDownAgent agent)
+        private GameEnding IsWinner(TopDownAgent agent)
         {
             var behaviour = agent.GetComponent<BehaviorParameters>();
 

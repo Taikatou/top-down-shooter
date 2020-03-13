@@ -223,21 +223,9 @@ namespace MoreMountains.TopDownEngine
                 UpdateInputManagersInAbilities();
                 return;
             }
-
-            // we get the corresponding input manager
-            if (!string.IsNullOrEmpty(PlayerID))
-            {
-                LinkedInputManager = null;
-                InputManager[] foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
-                foreach (InputManager foundInputManager in foundInputManagers)
-                {
-                    if (foundInputManager.PlayerID == PlayerID)
-                    {
-                        LinkedInputManager = foundInputManager;
-                    }
-                }
-            }
-            UpdateInputManagersInAbilities();
+            
+	        LinkedInputManager = GetComponent<InputManager>();
+	        UpdateInputManagersInAbilities();
         }
 
         /// <summary>
