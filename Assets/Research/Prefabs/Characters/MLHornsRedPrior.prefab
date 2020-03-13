@@ -6072,7 +6072,7 @@ GameObject:
   - component: {fileID: 4867674338094617903}
   - component: {fileID: 2669925307097661078}
   m_Layer: 10
-  m_Name: MLHornsRed 1
+  m_Name: MLHornsRedPrior
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6207,6 +6207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterDimension: 0
   CharacterType: 0
+  PlayerID: Player1
   DirectionOnSpawn: 0
   CharacterAnimator: {fileID: 2546362589711674921}
   UseDefaultMecanim: 1

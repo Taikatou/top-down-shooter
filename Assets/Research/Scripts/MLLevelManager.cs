@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using MLAgents.Policies;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEditor.UI;
 using UnityEngine;
@@ -26,8 +27,16 @@ namespace Research.Scripts
 
         public virtual void Restart()
         {
+            foreach (var player in Players)
+            {
+                
+            }
+
             Initialization();
+            InstantiatePlayableCharacters();
             SpawnMultipleCharacters();
+            
+            MMGameEvent.Trigger("Load");
         }
 
         protected override bool GameOverCondition()

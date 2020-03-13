@@ -235,7 +235,7 @@ namespace MoreMountains.TopDownEngine
 			{
 				// we set its health to zero (useful for the healthbar)
 				CurrentHealth = 0;
-
+				
 				Kill();
 			}
 		}
@@ -245,7 +245,7 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		public virtual void Kill()
         {
-            if (_character != null)
+	        if (_character != null)
             {
                 // we set its dead state to true
                 _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);

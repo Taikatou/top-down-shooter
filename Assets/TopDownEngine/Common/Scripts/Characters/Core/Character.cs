@@ -31,12 +31,10 @@ namespace MoreMountains.TopDownEngine
 		/// Is the character player-controlled or controlled by an AI ?
 		public CharacterTypes CharacterType = CharacterTypes.AI;
 
-        /// Only used if the character is player-controlled. The PlayerID must match an input manager's PlayerID. It's also used to match Unity's input settings. So you'll be safe if you keep to Player1, Player2, Player3 or Player4
-        public string PlayerID { get; set; }
+		/// Only used if the character is player-controlled. The PlayerID must match an input manager's PlayerID. It's also used to match Unity's input settings. So you'll be safe if you keep to Player1, Player2, Player3 or Player4
+		public string PlayerID;
 
-        private static int PlayerCounter = 1;
-
-		/// the various states of the character
+        /// the various states of the character
 		public CharacterStates CharacterState { get; protected set; }
 	
 		/// the direction the character will face on spawn
@@ -112,10 +110,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void Awake()
         {
-            PlayerID = "Player" + PlayerCounter;
-            PlayerCounter++;
-
-            Initialization();
+	        Initialization();
 		}
 
 		/// <summary>

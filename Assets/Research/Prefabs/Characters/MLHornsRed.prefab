@@ -6207,6 +6207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterDimension: 0
   CharacterType: 0
+  PlayerID: Player1
   DirectionOnSpawn: 0
   CharacterAnimator: {fileID: 2546362589711674921}
   UseDefaultMecanim: 1

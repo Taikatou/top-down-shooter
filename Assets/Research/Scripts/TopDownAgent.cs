@@ -24,11 +24,13 @@ namespace Research.Scripts
 
         public override float[] Heuristic()
         {
+            Debug.Log("Heuristic");
             var output = new []
             {
                 (float)directionsKeyMapper.PrimaryDirections,  
                 (float)directionsKeyMapper.SecondaryDirections
             };
+            Debug.Log(output);
 
             return output;
         }
