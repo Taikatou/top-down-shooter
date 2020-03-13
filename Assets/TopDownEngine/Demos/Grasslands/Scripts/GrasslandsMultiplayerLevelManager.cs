@@ -62,7 +62,6 @@ namespace MoreMountains.TopDownEngine
                 countdown.CountdownFrom = GameDuration;
                 countdown.ResetCountdown();
             }
-            Debug.Log("Update");
         }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace MoreMountains.TopDownEngine
 
         public bool Dead(Character character)
         {
-            return character.ConditionState.CurrentState != CharacterStates.CharacterConditions.Dead;
+            return character.ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
         }
 
 

@@ -17,8 +17,9 @@ namespace Research.Scripts
         public override void OnActionReceived(float[] vectorAction)
         {
             // Extrinsic Penalty
-            AddReward(-1f / 3000f);
+            // AddReward(-1f / 3000f);
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
+
             inputManager.SetAiPrimaryMovement(primaryDirection);
         }
 

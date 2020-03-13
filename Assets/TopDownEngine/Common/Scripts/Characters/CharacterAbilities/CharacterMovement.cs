@@ -202,18 +202,18 @@ namespace MoreMountains.TopDownEngine
             // if we're not walking anymore, we stop our walking sound
             if ((_movement.CurrentState != CharacterStates.MovementStates.Walking) && _startFeedbackIsPlaying)
             {
-                StopStartFeedbacks();
+                // StopStartFeedbacks();
             }
 
             // if we're not walking anymore, we stop our walking sound
             if (_movement.CurrentState != CharacterStates.MovementStates.Walking && _abilityInProgressSfx != null)
 			{
-				StopAbilityUsedSfx();
+				// StopAbilityUsedSfx();
 			}
 
 			if (_movement.CurrentState == CharacterStates.MovementStates.Walking && _abilityInProgressSfx == null)
 			{
-				PlayAbilityUsedSfx();
+				// PlayAbilityUsedSfx();
 			}
 
 			// if movement is prevented, or if the character is dead/frozen/can't move, we exit and do nothing
