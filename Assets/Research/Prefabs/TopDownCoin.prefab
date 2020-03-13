@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4747542924170215075}
   - component: {fileID: 4509690113503265737}
   - component: {fileID: 7066597080674126357}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PickedMMFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 8214045318544481208}
   - component: {fileID: 8294650277138055374}
   - component: {fileID: 8123991243472952098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Koala_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8206060077905844790}
   - component: {fileID: 8123893602025379240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,8 @@ GameObject:
   - component: {fileID: 8214468215922366348}
   - component: {fileID: 8157776196848938340}
   - component: {fileID: -8848204336608564653}
-  m_Layer: 0
+  - component: {fileID: 7836190221387929941}
+  m_Layer: 8
   m_Name: TopDownCoin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -513,6 +514,32 @@ MonoBehaviour:
   DisableModelOnPick: 0
   Model: {fileID: 0}
   levelManager: {fileID: 0}
+--- !u!61 &7836190221387929941
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208804515136833318}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8208972468204969734
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +551,7 @@ GameObject:
   - component: {fileID: 8214473214109600722}
   - component: {fileID: 8295313804721552700}
   - component: {fileID: 8123378678368014840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Koala_Pickups_Shadow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
