@@ -246,14 +246,29 @@
         </e>
         <e p="Research" t="Include">
           <e p="Scripts" t="Include">
+            <e p="AgentInput" t="Include">
+              <e p="DirectionsKeyMapper.cs" t="Include" />
+              <e p="SecondaryDirectionsInput.cs" t="Include" />
+              <e p="VectorInput.cs" t="Include" />
+            </e>
             <e p="AgentsCoin.cs" t="Include" />
-            <e p="Checker.cs" t="Include" />
-            <e p="DirectionsKeyMapper.cs" t="Include" />
+            <e p="Characters" t="Include">
+              <e p="AOE" t="Include">
+                <e p="AOEHeal.cs" t="Include" />
+                <e p="CircleDraw.cs" t="Include" />
+              </e>
+              <e p="Tank" t="Include">
+                <e p="BaseTankAbility.cs" t="Include" />
+                <e p="BreatherTankAbility.cs" t="Include" />
+                <e p="ShieldAbility.cs" t="Include" />
+              </e>
+            </e>
+            <e p="ml-agents" t="Include">
+              <e p="TopDownAgent.cs" t="Include" />
+              <e p="TopDownRaySensor.cs" t="Include" />
+            </e>
             <e p="MLLevelManager.cs" t="Include" />
-            <e p="TopDownAgent.cs" t="Include" />
             <e p="TopDownInputManager.cs" t="Include" />
-            <e p="TopDownRaySensor.cs" t="Include" />
-            <e p="TopDownTeam.cs" t="Include" />
           </e>
         </e>
         <e p="TopDownEngine" t="Include">

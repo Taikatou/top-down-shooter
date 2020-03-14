@@ -6071,6 +6071,7 @@ GameObject:
   - component: {fileID: -9001665551302892106}
   - component: {fileID: 4867674338094617903}
   - component: {fileID: 2669925307097661078}
+  - component: {fileID: 455029419896814874}
   m_Layer: 10
   m_Name: MLHornsRed
   m_TagString: Player
@@ -6469,6 +6470,7 @@ MonoBehaviour:
   maxStep: 0
   inputManager: {fileID: -9001665551302892106}
   directionsKeyMapper: {fileID: 4867674338094617903}
+  secondaryDirectionsInput: {fileID: 455029419896814874}
 --- !u!114 &9112377620518402100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6510,9 +6512,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 0
+    vectorObservationSize: 2
     numStackedVectorObservations: 1
-    vectorActionSize: 0500000005000000
+    vectorActionSize: 05000000030000000300000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -6569,6 +6571,18 @@ MonoBehaviour:
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   offsetStep: 0
+--- !u!114 &455029419896814874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0

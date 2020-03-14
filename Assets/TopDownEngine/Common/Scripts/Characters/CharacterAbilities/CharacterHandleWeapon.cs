@@ -162,14 +162,14 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
+            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonPressed))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
@@ -184,7 +184,7 @@ namespace MoreMountains.TopDownEngine
                 Reload();
             }
 
-            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
+            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -192,7 +192,7 @@ namespace MoreMountains.TopDownEngine
             if (CurrentWeapon != null)
             {
                 if ((CurrentWeapon.WeaponState.CurrentState == Weapon.WeaponStates.WeaponDelayBetweenUses)
-                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.Off)))
+                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButtonState == MMInput.ButtonStates.Off)))
                 {
                     CurrentWeapon.WeaponInputStop();
                 }

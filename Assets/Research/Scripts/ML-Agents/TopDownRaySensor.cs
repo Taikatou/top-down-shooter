@@ -1,8 +1,10 @@
-﻿using MLAgents.Editor;
+﻿using MLAgents;
+using MLAgents.Editor;
+using MLAgents.Sensors;
 using UnityEditor;
 using UnityEngine;
 
-namespace MLAgents.Sensors
+namespace Research.Scripts
 {
     /// <summary>
     /// A component for 2D Ray Perception.

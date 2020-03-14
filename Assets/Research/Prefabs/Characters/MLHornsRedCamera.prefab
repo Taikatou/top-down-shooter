@@ -6053,7 +6053,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4587429614122233936}
   - component: {fileID: 7577010724841746281}
-  - component: {fileID: 8704308052196051767}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -6118,14 +6117,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8704308052196051767
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8123259778082947842}
-  m_Enabled: 1
 --- !u!1 &8193291489664769972
 GameObject:
   m_ObjectHideFlags: 0
@@ -6154,6 +6145,7 @@ GameObject:
   - component: {fileID: 4867674338094617903}
   - component: {fileID: 2669925307097661078}
   - component: {fileID: -4810770478393432591}
+  - component: {fileID: 1748835409120148555}
   m_Layer: 10
   m_Name: MLHornsRedCamera
   m_TagString: Player
@@ -6553,6 +6545,7 @@ MonoBehaviour:
   maxStep: 0
   inputManager: {fileID: -9001665551302892106}
   directionsKeyMapper: {fileID: 4867674338094617903}
+  secondaryDirectionsInput: {fileID: 1748835409120148555}
 --- !u!114 &7948682930951353615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6566,9 +6559,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 1
+    vectorObservationSize: 2
     numStackedVectorObservations: 1
-    vectorActionSize: 0500000005000000
+    vectorActionSize: 05000000030000000300000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -6643,6 +6636,18 @@ MonoBehaviour:
   m_Height: 84
   m_Grayscale: 1
   m_Compression: 1
+--- !u!114 &1748835409120148555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193291489664769972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8193371405363711862
 GameObject:
   m_ObjectHideFlags: 0
