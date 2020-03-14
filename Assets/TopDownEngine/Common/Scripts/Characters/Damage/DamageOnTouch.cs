@@ -80,8 +80,6 @@ namespace MoreMountains.TopDownEngine
         protected Vector3 _gizmoOffset;
         protected Transform _gizmoTransform;
         
-        public bool HealingItem = false;
-
         /// <summary>
         /// Initialization
         /// </summary>
