@@ -9,6 +9,13 @@ namespace Research.Scripts
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {
+        protected int turnCounter;
+
+        protected virtual bool ShouldDeleteCharacter()
+        {
+            return turnCounter % 10 == 0;
+        }
+        
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
@@ -26,15 +33,24 @@ namespace Research.Scripts
 
         public virtual void Restart()
         {
-            foreach (var player in Players)
+            if (ShouldDeleteCharacter())
             {
-                player.Reset();
-                Destroy(player.gameObject);
+                foreach (var player in Players)
+                {
+                    player.Reset();
+                    Destroy(player.gameObject);
+                }
             }
 
             Initialization();
-            InstantiatePlayableCharacters();
+            if (ShouldDeleteCharacter())
+            {
+                InstantiatePlayableCharacters();
+            }
+
             SpawnMultipleCharacters();
+            
+            turnCounter++;
             
             MMGameEvent.Trigger("Load");
         }
