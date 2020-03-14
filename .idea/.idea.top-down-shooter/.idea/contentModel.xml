@@ -251,7 +251,6 @@
               <e p="SecondaryDirectionsInput.cs" t="Include" />
               <e p="VectorInput.cs" t="Include" />
             </e>
-            <e p="AgentsCoin.cs" t="Include" />
             <e p="Characters" t="Include">
               <e p="AOE" t="Include">
                 <e p="AOEHeal.cs" t="Include" />
@@ -262,14 +261,19 @@
                 <e p="BreatherTankAbility.cs" t="Include" />
                 <e p="ShieldAbility.cs" t="Include" />
               </e>
+              <e p="TopDownMeleeWeapon.cs" t="Include" />
+            </e>
+            <e p="Environment" t="Include">
+              <e p="AgentsCoin.cs" t="Include" />
+              <e p="MLCheckbox.cs" t="Include" />
+              <e p="MLLevelManager.cs" t="Include" />
+              <e p="TopDownInputManager.cs" t="Include" />
             </e>
             <e p="ml-agents" t="Include">
               <e p="TopDownAgent.cs" t="Include" />
               <e p="TopDownRaySensor.cs" t="Include" />
             </e>
-            <e p="MLLevelManager.cs" t="Include" />
             <e p="TeamDamangeOnTouch.cs" t="Include" />
-            <e p="TopDownInputManager.cs" t="Include" />
           </e>
         </e>
         <e p="TopDownEngine" t="Include">
