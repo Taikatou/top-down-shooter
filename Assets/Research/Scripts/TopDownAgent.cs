@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using MLAgents;
+using MLAgents.Policies;
+using MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.Scripts
@@ -12,7 +14,12 @@ namespace Research.Scripts
 
         public DirectionsKeyMapper directionsKeyMapper;
 
-        private Vector2 _transform;
+        private BehaviorParameters _behaviorParameters;
+
+        public override void Initialize()
+        {
+            _behaviorParameters = GetComponent<BehaviorParameters>();
+        }
 
         public override void OnActionReceived(float[] vectorAction)
         {
@@ -40,9 +47,9 @@ namespace Research.Scripts
             EndEpisode();
         }
 
-        public override void OnEpisodeBegin()
+        public override void CollectObservations(VectorSensor sensor)
         {
-            
+            sensor.AddObservation(_behaviorParameters.TeamId);
         }
     }
 }
