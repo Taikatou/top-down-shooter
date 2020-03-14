@@ -290,13 +290,19 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
-
-            // we apply the damage to the thing we've collided with
-            _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
-            if (DamageTakenEveryTime + DamageTakenDamageable > 0)
+            if (HitDamageableFeedback)
             {
-                SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
+                HitDamageableFeedback.PlayFeedbacks(this.transform.position);
+            }
+
+            if (!isTeam)
+            {
+                // we apply the damage to the thing we've collided with
+                _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
+                if (DamageTakenEveryTime + DamageTakenDamageable > 0)
+                {
+                    SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
+                }
             }
         }
 
@@ -325,7 +331,7 @@ namespace MoreMountains.TopDownEngine
 
                 if ((_health.CurrentHealth <= 0) && PerfectImpact)
                 {
-                    this.transform.position = _collisionPoint;
+                    transform.position = _collisionPoint;
                 }
             }
 

@@ -98,6 +98,13 @@ namespace MoreMountains.TopDownEngine
 		protected string _axisSecondaryVertical;
 		protected string _axisShoot;
         protected string _axisShootSecondary;
+        
+        
+        public virtual MMInput.ButtonStates ReloadButtonState => ReloadButton.State.CurrentState;
+
+        public virtual MMInput.ButtonStates ShootButtonState => ShootButton.State.CurrentState;
+		
+        public virtual MMInput.ButtonStates SecondaryShootButtonState => SecondaryShootButton.State.CurrentState;
 
         /// <summary>
         /// On Start we look for what mode to use, and initialize our axis and buttons
