@@ -6,6 +6,7 @@ namespace Research.Scripts
 {
     public class TeamDamangeOnTouch : DamageOnTouch
     {
+        public bool healingItem;
         private bool _isTeam;
         protected override void Colliding(GameObject collider)
         {
@@ -18,7 +19,7 @@ namespace Research.Scripts
                 {
                     _isTeam = owner.TeamId == character.TeamId;
 
-                    if (!HealingItem && _isTeam)
+                    if (!healingItem && _isTeam)
                     {
                         return;
                     }
