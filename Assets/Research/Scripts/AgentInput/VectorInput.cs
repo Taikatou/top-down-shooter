@@ -7,6 +7,10 @@ namespace Research.Scripts.AgentInput
     {
         protected Dictionary<Directions, KeyCode> Directions;
 
+        protected virtual int NegativeValue => -1;
+
+        protected virtual int PositiveValue => 1;
+
         protected Vector2 GetDirection()
         {
             if (Directions != null)
@@ -25,7 +29,7 @@ namespace Research.Scripts.AgentInput
             var positive = Input.GetKey(positiveKey);
             if (negative ^ positive)
             {
-                return negative ? -1 : 1;
+                return negative ? NegativeValue : PositiveValue;
             }
 
             return 0;

@@ -55,7 +55,7 @@ namespace Research.Scripts
             var secondaryXInput = GetDecision(vectorAction[1]);
             var secondaryYInput = GetDecision(vectorAction[2]);
             var secondary = new Vector2(secondaryXInput, secondaryYInput);
-            
+
             inputManager.SetAiSecondaryMovement(secondary);
             
             // Shoot Button Input
@@ -67,14 +67,15 @@ namespace Research.Scripts
         {
             var shootButtonState = Input.GetKey(KeyCode.X);
             var shootButtonInput = Convert.ToSingle(shootButtonState);
+            var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
             var output = new []
             {
                 (float)directionsKeyMapper.PrimaryDirections,
-                secondaryDirectionsInput.SecondaryDirection.x,
-                secondaryDirectionsInput.SecondaryDirection.y,
+                secondaryDirections.x,
+                secondaryDirections.y,
                 shootButtonInput
             };
-
+            
             return output;
         }
 

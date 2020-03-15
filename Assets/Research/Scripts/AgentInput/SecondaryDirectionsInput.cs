@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Research.Scripts.AgentInput
@@ -6,6 +7,11 @@ namespace Research.Scripts.AgentInput
     public class SecondaryDirectionsInput : VectorInput
     {
         public Vector2 SecondaryDirection => GetDirection();
+        
+        protected override int NegativeValue => 1;
+
+        protected override int PositiveValue => 2;
+        
         void Start()
         {
             Directions = new Dictionary<Directions, KeyCode>
