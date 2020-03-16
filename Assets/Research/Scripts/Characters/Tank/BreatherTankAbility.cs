@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Research.Scripts.Characters.Tank
 {
-    public class BreatherAbility : BaseTankAbility
+    public class BreatherTankAbility : BaseTankAbility
     {
         public float breathTime;
 
