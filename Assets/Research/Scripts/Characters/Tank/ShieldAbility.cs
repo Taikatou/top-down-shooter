@@ -10,7 +10,6 @@ namespace Research.Scripts.Characters.Tank
     {
         protected override void StartAbility()
         {
-            Debug.Log("Start");
             StartCoroutine(StartInvulnerbility());
         }
 

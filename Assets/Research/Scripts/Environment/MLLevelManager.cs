@@ -17,10 +17,6 @@ namespace Research.Scripts.Environment
 
         private System.Random _random;
 
-        public Character[] MLPrefabs;
-
-        public Character[] priorMLPrefabs;
-
         protected override void Start()
         {
             _random = new System.Random();
@@ -49,11 +45,11 @@ namespace Research.Scripts.Environment
 
         public virtual void Restart()
         {
-            if (ShouldDeleteCharacter())
+            foreach (var player in Players)
             {
-                foreach (var player in Players)
+                player.Reset();
+                if (ShouldDeleteCharacter())
                 {
-                    player.Reset();
                     Destroy(player.gameObject);
                 }
             }
@@ -69,20 +65,20 @@ namespace Research.Scripts.Environment
 
         protected override void InstantiatePlayableCharacters()
         {
-            base.InstantiatePlayableCharacters();
+            Players = new List<Character>();
             if (ShouldDeleteCharacter())
             {
                 var blueTeam = _colourSwitch % 2;
                 for (var i = 0; i < teamSize; i++)
                 {
-                    SpawnTeamPlayer(MLPrefabs, blueTeam);
-                    SpawnTeamPlayer(priorMLPrefabs, blueTeam);
+                    SpawnTeamPlayer(PlayerPrefabs, blueTeam, false);
+                    SpawnTeamPlayer(PlayerPrefabs, blueTeam, true);
                 }
                 _colourSwitch++;
             }
         }
 
-        protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam)
+        protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam, bool prior)
         {
             var index = _random.Next(0, PlayerPrefabs.Length);
             var playerPrefab = characterPrefabs[index];
@@ -90,10 +86,14 @@ namespace Research.Scripts.Environment
             var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
             newPlayer.name = playerPrefab.name;
             Players.Add(newPlayer);
+            
+            // Set TeamId
+            var behaviour = newPlayer.GetComponent<BehaviorParameters>();
+            behaviour.TeamId = prior? 0 : 1;
 
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
-            var teamId = newPlayer.GetComponent<BehaviorParameters>().TeamId;
+            var teamId = behaviour.TeamId;
             outline.IsBlue = blueTeam == teamId;
         }
 
@@ -127,7 +127,7 @@ namespace Research.Scripts.Environment
             {
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
                 var reward = GetReward(teamId);
-                agent.SetReward(reward);
+                agent.AddReward(reward);
                 agent.EndEpisode();
 
                 log += reward + ", ";
