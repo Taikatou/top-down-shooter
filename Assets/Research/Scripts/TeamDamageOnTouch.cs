@@ -15,7 +15,7 @@ namespace Research.Scripts
                 var owner = Owner.GetComponent<BehaviorParameters>();
                 var character = collider.GetComponent<BehaviorParameters>();
 
-                if (character)
+                if (character && owner)
                 {
                     _isTeam = owner.TeamId == character.TeamId;
 
