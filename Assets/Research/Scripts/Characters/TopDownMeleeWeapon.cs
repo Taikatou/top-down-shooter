@@ -61,7 +61,7 @@ namespace Research.Scripts.Characters
                 rigidBody.isKinematic = true;
             }
 
-            _damageOnTouch = _damageArea.AddComponent<TeamDamangeOnTouch>();
+            _damageOnTouch = _damageArea.AddComponent<TeamDamageOnTouch>();
             _damageOnTouch.SetGizmoSize(AreaSize);
             _damageOnTouch.SetGizmoOffset(AreaOffset);
             _damageOnTouch.TargetLayerMask = TargetLayerMask;
