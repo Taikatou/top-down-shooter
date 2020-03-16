@@ -17,6 +17,10 @@ namespace Research.Scripts.Environment
 
         private System.Random _random;
 
+        public Character[] MLPrefabs;
+
+        public Character[] priorMLPrefabs;
+
         protected override void Start()
         {
             _random = new System.Random();
@@ -65,33 +69,28 @@ namespace Research.Scripts.Environment
 
         protected override void InstantiatePlayableCharacters()
         {
-            Players = new List<Character> ();
+            base.InstantiatePlayableCharacters();
             if (ShouldDeleteCharacter())
             {
                 var blueTeam = _colourSwitch % 2;
                 for (var i = 0; i < teamSize; i++)
                 {
-                    SpawnTeamPlayer(blueTeam, false);
-                    SpawnTeamPlayer(blueTeam, true);
+                    SpawnTeamPlayer(MLPrefabs, blueTeam);
+                    SpawnTeamPlayer(priorMLPrefabs, blueTeam);
                 }
                 _colourSwitch++;
             }
         }
 
-        protected virtual void SpawnTeamPlayer(int blueTeam, bool team2)
+        protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam)
         {
             var index = _random.Next(0, PlayerPrefabs.Length);
-            var playerPrefab = PlayerPrefabs[index];
+            var playerPrefab = characterPrefabs[index];
             
             var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
             newPlayer.name = playerPrefab.name;
             Players.Add(newPlayer);
 
-            if (team2)
-            {
-                 newPlayer.GetComponent<BehaviorParameters>().TeamId = 1;
-            }
-                    
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
             var teamId = newPlayer.GetComponent<BehaviorParameters>().TeamId;
@@ -134,11 +133,11 @@ namespace Research.Scripts.Environment
                 var winner = IsWinner(agent);
                 if (winner == GameEnding.Win)
                 {
-                    agent.AddReward(1.0f);
+                    agent.AddReward(1);
                 }
                 else if (winner == GameEnding.Loss)
                 {
-                    agent.AddReward(-0.25f);
+                    agent.AddReward(-1);
                 }
 
                 agent.EndEpisode();
