@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Research.Scripts
 {
-    public class TeamDamangeOnTouch : DamageOnTouch
+    public class TeamDamageOnTouch : DamageOnTouch
     {
         public bool healingItem;
         private bool _isTeam;
