@@ -104,46 +104,36 @@ namespace Research.Scripts.Environment
             var gameOver = teamDeaths[0] == 2 || teamDeaths[1] == 2;
             return gameOver;
         }
-
-        private enum GameEnding { Draw, Loss, Win }
-
-        private GameEnding IsWinner(TopDownAgent agent)
+        
+        private int GetReward(int teamId)
         {
-            var behaviour = agent.GetComponent<BehaviorParameters>();
-
             var teamDeaths = GetTeamDeaths();
-            
-            Debug.Log(teamDeaths[0] + "\t" + teamDeaths[1]);
-            if ((teamDeaths[0] > 0 || teamDeaths[1] > 0) && teamDeaths[0] != teamDeaths[1])
+            var draw = teamDeaths[0] == teamDeaths[1];
+            if (!draw)
             {
-                var winningId = teamDeaths[0] > teamDeaths[1] ? 1 : 2;
-                var winner = behaviour.TeamId == winningId;
-                return winner ? GameEnding.Win : GameEnding.Loss;
+                var winningId = teamDeaths[0] > teamDeaths[1] ? 0 : 1;
+                return winningId == teamId? 1: -1;
             }
 
-            return GameEnding.Draw;
+            return 0;
         }
 
         protected override IEnumerator GameOver()
         {
             var agents = FindObjectsOfType<TopDownAgent>();
 
+            var log = "";
             foreach (var agent in agents)
             {
-                var winner = IsWinner(agent);
-                if (winner == GameEnding.Win)
-                {
-                    agent.AddReward(1);
-                }
-                else if (winner == GameEnding.Loss)
-                {
-                    agent.AddReward(-1);
-                }
-
+                var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
+                var reward = GetReward(teamId);
+                agent.SetReward(reward);
                 agent.EndEpisode();
-            }
 
-            Debug.Log("GameOver");
+                log += reward + ", ";
+            }
+            Debug.Log("Reward: " + log);
+            
             Restart();
             yield break;
         }
