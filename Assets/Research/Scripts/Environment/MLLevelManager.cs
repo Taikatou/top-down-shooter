@@ -4,7 +4,6 @@ using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Research.Scripts.Environment
 {
@@ -17,10 +16,6 @@ namespace Research.Scripts.Environment
         public int teamSize = 2;
 
         private System.Random _random;
-
-        public Character[] mlCharacters;
-
-        public Character[] priorMlCharacters;
 
         protected override void Start()
         {
@@ -38,7 +33,7 @@ namespace Research.Scripts.Environment
             var teamDeaths = new[] { 0, 0 };
             foreach (var character in Instance.Players)
             {
-                if (Dead(character))
+                if (MlUtils.Dead(character))
                 {
                     var behaviour = character.GetComponent<BehaviorParameters>();
                     var index = behaviour.TeamId;
@@ -71,28 +66,32 @@ namespace Research.Scripts.Environment
         protected override void InstantiatePlayableCharacters()
         {
             Players = new List<Character> ();
-            
             if (ShouldDeleteCharacter())
             {
                 var blueTeam = _colourSwitch % 2;
                 for (var i = 0; i < teamSize; i++)
                 {
-                    SpawnTeamPlayer(mlCharacters, blueTeam, false);
-                    SpawnTeamPlayer(priorMlCharacters, blueTeam, true);
+                    SpawnTeamPlayer(blueTeam, false);
+                    SpawnTeamPlayer(blueTeam, true);
                 }
                 _colourSwitch++;
             }
         }
 
-        protected virtual void SpawnTeamPlayer(Character [] characters, int blueTeam, bool team2)
+        protected virtual void SpawnTeamPlayer(int blueTeam, bool team2)
         {
             var index = _random.Next(0, PlayerPrefabs.Length);
-            var playerPrefab = characters[index];
+            var playerPrefab = PlayerPrefabs[index];
             
             var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
             newPlayer.name = playerPrefab.name;
             Players.Add(newPlayer);
 
+            if (team2)
+            {
+                 newPlayer.GetComponent<BehaviorParameters>().TeamId = 1;
+            }
+                    
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
             var teamId = newPlayer.GetComponent<BehaviorParameters>().TeamId;

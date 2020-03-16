@@ -7,6 +7,13 @@ using UnityEngine.SceneManagement;
 
 namespace MoreMountains.TopDownEngine
 {
+    public class MlUtils
+    {
+        public static bool Dead(Character character)
+        {
+            return character.ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
+        }
+    }
     /// <summary>
     /// An example class of how you can extend the MultiplayerLevelManager to implement your own specific rules.
     /// This one's rules are as follows :
@@ -86,7 +93,7 @@ namespace MoreMountains.TopDownEngine
 
             foreach (var character in Instance.Players)
             {
-                if (Dead(character))
+                if (MlUtils.Dead(character))
                 {
                     WinnerID = character.PlayerID;
                     aliveCharacters++;
@@ -95,12 +102,6 @@ namespace MoreMountains.TopDownEngine
             }
             return aliveCharacters <= 1;
         }
-
-        public bool Dead(Character character)
-        {
-            return character.ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
-        }
-
 
         /// <summary>
         /// On game over, freezes time and displays the game over screen

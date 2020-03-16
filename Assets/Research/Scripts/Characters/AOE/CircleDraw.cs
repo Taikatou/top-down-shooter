@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 namespace Research.Scripts.Characters.AOE
 {
@@ -8,6 +9,9 @@ namespace Research.Scripts.Characters.AOE
         public int Size; //Total number of points in circle
         public float Radius = 3f;
         public LineRenderer LineRenderer;
+
+        public Character character;
+        
 
         private void Awake()
         {
@@ -21,7 +25,7 @@ namespace Research.Scripts.Characters.AOE
 
         private void Update()
         {
-            if(Time.timeScale <= 1)
+            if(!MlUtils.Dead(character))
             {
                 var theta = 0f;
                 var addition = 2.0f * Mathf.PI * ThetaScale;
