@@ -7,7 +7,7 @@ namespace Research
     public class SpriteOutline : MonoBehaviour
     {
         public bool IsBlue { get; set; }
-        private Color Color => IsBlue ? Color.blue : Color.red;
+        private Color Color => IsBlue ? Color.white : Color.black;
 
         [Range(0, 16)]
         public int outlineSize = 1;
