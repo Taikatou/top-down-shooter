@@ -256,6 +256,7 @@
                 <e p="AOEHeal.cs" t="Include" />
                 <e p="CircleDraw.cs" t="Include" />
               </e>
+              <e p="MLCharacterDash.cs" t="Include" />
               <e p="Tank" t="Include">
                 <e p="BaseTankAbility.cs" t="Include" />
                 <e p="BreatherTankAbility.cs" t="Include" />
@@ -275,6 +276,10 @@
             </e>
             <e p="TeamDamangeOnTouch.cs" t="Include" />
           </e>
+          <e p="SpriteOutline.cs" t="Include" />
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="Sprite-Outline.shader" t="Include" />
         </e>
         <e p="TopDownEngine" t="Include">
           <e p="Common" t="Include">

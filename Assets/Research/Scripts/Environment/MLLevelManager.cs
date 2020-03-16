@@ -1,19 +1,23 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using UnityEditor.UI;
 using UnityEngine;
 
-namespace Research.Scripts
+namespace Research.Scripts.Environment
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {
-        protected int turnCounter;
+        private int _turnCounter = 0;
+
+        private int _colourSwitch = 0;
+
+        public int teamSize = 2;
 
         protected virtual bool ShouldDeleteCharacter()
         {
-            return turnCounter % 10 == 0;
+            return _turnCounter % 10 == 0;
         }
         
         private int[] GetTeamDeaths()
@@ -43,16 +47,48 @@ namespace Research.Scripts
             }
 
             Initialization();
-            if (ShouldDeleteCharacter())
-            {
-                InstantiatePlayableCharacters();
-            }
+            
+            InstantiatePlayableCharacters();
 
             SpawnMultipleCharacters();
-            
-            turnCounter++;
-            
+
             MMGameEvent.Trigger("Load");
+        }
+
+        protected override void InstantiatePlayableCharacters()
+        {
+            Players = new List<Character> ();
+            if (ShouldDeleteCharacter())
+            {
+                var blueTeam = _colourSwitch % 2;
+                for (var i = 0; i < teamSize; i++)
+                {
+                    SpawnTeamPlayer(blueTeam, false);
+                    SpawnTeamPlayer(blueTeam, true);
+                }
+                _colourSwitch++;
+            }
+        }
+
+        protected virtual void SpawnTeamPlayer(int blueTeam, bool team2)
+        {
+            var random = new System.Random();
+            var index = random.Next(0, PlayerPrefabs.Length);
+            var playerPrefab = PlayerPrefabs[index];
+            
+            var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
+            newPlayer.name = playerPrefab.name;
+            Players.Add(newPlayer);
+
+            if (team2)
+            {
+                 newPlayer.GetComponent<BehaviorParameters>().TeamId = 1;
+            }
+                    
+            // Set outline
+            var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
+            var teamId = newPlayer.GetComponent<BehaviorParameters>().TeamId;
+            outline.IsBlue = blueTeam == teamId;
         }
 
         protected override bool GameOverCondition()

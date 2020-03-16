@@ -1,5 +1,6 @@
 ﻿using MLAgents.Policies;
 using MoreMountains.TopDownEngine;
+using Research.Scripts.Environment;
 using UnityEngine;
 
 namespace Research.Scripts
