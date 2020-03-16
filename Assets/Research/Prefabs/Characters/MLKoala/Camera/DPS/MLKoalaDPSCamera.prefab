@@ -42,7 +42,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1498750440386690, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
       propertyPath: m_Name
-      value: DPS
+      value: MLKoalaDPSCamera
       objectReference: {fileID: 0}
     - target: {fileID: 4001341059962208, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
       propertyPath: m_LocalPosition.x
@@ -90,8 +90,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7367128784951955593, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367128784951955593, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
       propertyPath: m_BehaviorName
       value: DPS
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367128784951955593, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[4]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}

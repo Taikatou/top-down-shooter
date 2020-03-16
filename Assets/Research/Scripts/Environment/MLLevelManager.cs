@@ -4,6 +4,7 @@ using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Research.Scripts.Environment
 {
@@ -14,6 +15,18 @@ namespace Research.Scripts.Environment
         private int _colourSwitch = 0;
 
         public int teamSize = 2;
+
+        private System.Random _random;
+
+        public Character[] mlCharacters;
+
+        public Character[] priorMlCharacters;
+
+        protected override void Start()
+        {
+            _random = new System.Random();
+            base.Start();
+        }
 
         protected virtual bool ShouldDeleteCharacter()
         {
@@ -58,33 +71,28 @@ namespace Research.Scripts.Environment
         protected override void InstantiatePlayableCharacters()
         {
             Players = new List<Character> ();
+            
             if (ShouldDeleteCharacter())
             {
                 var blueTeam = _colourSwitch % 2;
                 for (var i = 0; i < teamSize; i++)
                 {
-                    SpawnTeamPlayer(blueTeam, false);
-                    SpawnTeamPlayer(blueTeam, true);
+                    SpawnTeamPlayer(mlCharacters, blueTeam, false);
+                    SpawnTeamPlayer(priorMlCharacters, blueTeam, true);
                 }
                 _colourSwitch++;
             }
         }
 
-        protected virtual void SpawnTeamPlayer(int blueTeam, bool team2)
+        protected virtual void SpawnTeamPlayer(Character [] characters, int blueTeam, bool team2)
         {
-            var random = new System.Random();
-            var index = random.Next(0, PlayerPrefabs.Length);
-            var playerPrefab = PlayerPrefabs[index];
+            var index = _random.Next(0, PlayerPrefabs.Length);
+            var playerPrefab = characters[index];
             
             var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
             newPlayer.name = playerPrefab.name;
             Players.Add(newPlayer);
 
-            if (team2)
-            {
-                 newPlayer.GetComponent<BehaviorParameters>().TeamId = 1;
-            }
-                    
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
             var teamId = newPlayer.GetComponent<BehaviorParameters>().TeamId;
@@ -99,7 +107,7 @@ namespace Research.Scripts.Environment
             return gameOver;
         }
 
-        public enum GameEnding { Draw, Loss, Win }
+        private enum GameEnding { Draw, Loss, Win }
 
         private GameEnding IsWinner(TopDownAgent agent)
         {
