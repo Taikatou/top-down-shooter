@@ -9897,17 +9897,17 @@ MonoBehaviour:
     m_Bits: 9472
   PerfectImpact: 0
   DamageCaused: 15
-  DamageCausedKnockbackType: 1
+  DamageCausedKnockbackType: 0
   DamageCausedKnockbackDirection: 0
-  DamageCausedKnockbackForce: {x: 400, y: 0, z: 0}
-  InvincibilityDuration: 0.1
+  DamageCausedKnockbackForce: {x: 0, y: 0, z: 0}
+  InvincibilityDuration: 0
   DamageTakenEveryTime: 1
   DamageTakenDamageable: 1
   DamageTakenNonDamageable: 1
   DamageTakenKnockbackType: 0
   DamagedTakenKnockbackDirection: 0
   DamageTakenKnockbackForce: {x: 0, y: 0, z: 0}
-  DamageTakenInvincibilityDuration: 0.5
+  DamageTakenInvincibilityDuration: 0
   HitDamageableFeedback: {fileID: 7290944616940831735}
   HitNonDamageableFeedback: {fileID: 5666555167326870288}
   Owner: {fileID: 0}

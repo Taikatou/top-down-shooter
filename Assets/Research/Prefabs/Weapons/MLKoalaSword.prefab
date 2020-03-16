@@ -131,8 +131,8 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 5, y: 2.5, z: 0}
-  AreaOffset: {x: 0.64, y: 0, z: 0}
+  AreaSize: {x: 4.5, y: 2.5, z: 0}
+  AreaOffset: {x: 1, y: 0, z: 0}
   InitialDelay: 0
   ActiveDuration: 0.2
   TargetLayerMask:
