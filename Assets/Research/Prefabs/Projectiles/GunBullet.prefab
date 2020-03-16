@@ -9791,7 +9791,7 @@ GameObject:
   - component: {fileID: 61374952899877022}
   - component: {fileID: 50614525472420450}
   m_Layer: 18
-  m_Name: KoalaGunBullet
+  m_Name: GunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9911,7 +9911,7 @@ MonoBehaviour:
   HitDamageableFeedback: {fileID: 7290944616940831735}
   HitNonDamageableFeedback: {fileID: 5666555167326870288}
   Owner: {fileID: 0}
-  HealingItem: 0
+  healingItem: 0
 --- !u!114 &114971816358891350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9952,7 +9952,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.75, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &50614525472420450
 Rigidbody2D:

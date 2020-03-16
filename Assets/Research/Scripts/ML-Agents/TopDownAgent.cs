@@ -61,19 +61,30 @@ namespace Research.Scripts
             // Shoot Button Input
             var shootButtonDown = Convert.ToBoolean(vectorAction[3]);
             inputManager.SetShootButton(shootButtonDown);
+
+            if (vectorAction.Length >= 5)
+            {
+                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[4]);
+                inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
+            }
         }
 
         public override float[] Heuristic()
         {
             var shootButtonState = Input.GetKey(KeyCode.X);
             var shootButtonInput = Convert.ToSingle(shootButtonState);
+            
+            var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+            var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+            
             var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
             var output = new []
             {
                 (float)directionsKeyMapper.PrimaryDirections,
                 secondaryDirections.x,
                 secondaryDirections.y,
-                shootButtonInput
+                shootButtonInput,
+                secondaryShootButtonInput
             };
             
             return output;
