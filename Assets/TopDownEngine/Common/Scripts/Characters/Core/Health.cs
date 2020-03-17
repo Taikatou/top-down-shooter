@@ -90,7 +90,7 @@ namespace MoreMountains.TopDownEngine
 	    /// <summary>
 	    /// Grabs useful components, enables damage and gets the inital color
 	    /// </summary>
-		protected virtual void Initialization()
+		protected void Initialization()
 		{
 			_character = GetComponent<Character>();
             if (Model != null)

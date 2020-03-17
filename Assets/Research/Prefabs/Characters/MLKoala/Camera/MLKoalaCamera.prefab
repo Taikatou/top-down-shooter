@@ -9680,7 +9680,7 @@ GameObject:
   - component: {fileID: 61514178196617758}
   - component: {fileID: 210286107803106362}
   - component: {fileID: 114923167933730068}
-  - component: {fileID: 114873785417298432}
+  - component: {fileID: 1329957531134654146}
   - component: {fileID: 114265374337090402}
   - component: {fileID: 114184457958384624}
   - component: {fileID: 114079283237680582}
@@ -9690,7 +9690,7 @@ GameObject:
   - component: {fileID: 114863807796539354}
   - component: {fileID: 114644362621734812}
   - component: {fileID: 114104414726605804}
-  - component: {fileID: 114171358364461030}
+  - component: {fileID: -6530813142467327410}
   - component: {fileID: 5983941949060549140}
   - component: {fileID: 7367128784951955593}
   - component: {fileID: 736809353080717413}
@@ -9820,7 +9820,7 @@ MonoBehaviour:
   ObstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &114873785417298432
+--- !u!114 &1329957531134654146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9829,7 +9829,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498750440386690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe81ad80cb743b408fa90b048ad597f, type: 3}
+  m_Script: {fileID: 11500000, guid: 36f96f38692fd22438c5aa0a1991ad7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterDimension: 0
@@ -10059,7 +10059,7 @@ MonoBehaviour:
   MainInventoryName: KoalaMainInventory
   WeaponInventoryName: KoalaWeaponInventory
   HotbarInventoryName: 
---- !u!114 &114171358364461030
+--- !u!114 &-6530813142467327410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10068,7 +10068,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498750440386690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
+  m_Script: {fileID: 11500000, guid: c7dc80b8f637f4142a447409d92d065e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Model: {fileID: 0}
@@ -10078,7 +10078,7 @@ MonoBehaviour:
   MaximumHealth: 30
   ImmuneToKnockback: 0
   DamageMMFeedbacks: {fileID: 5423255612875023378}
-  DestroyOnDeath: 0
+  DestroyOnDeath: 1
   DelayBeforeDestruction: 0
   PointsWhenDestroyed: 0
   RespawnAtInitialLocation: 0
