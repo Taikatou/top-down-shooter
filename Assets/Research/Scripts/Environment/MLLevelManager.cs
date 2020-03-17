@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -43,8 +44,9 @@ namespace Research.Scripts.Environment
             return teamDeaths;
         }
 
-        public virtual void Restart()
+        protected IEnumerator WaitForRestart()
         {
+            yield return new WaitForSeconds(1);
             _turnCounter++;
             
             var shouldDelete = ShouldDeleteCharacter();
@@ -68,6 +70,18 @@ namespace Research.Scripts.Environment
             SpawnMultipleCharacters();
 
             MMGameEvent.Trigger("Load");
+        }
+
+        public virtual void Restart()
+        {
+            foreach (var player in Players)
+            {
+                var requester = player.GetComponent<DecisionRequester>();
+            
+                requester.allowDecisions = false;
+            }
+            
+            StartCoroutine(WaitForRestart());
         }
 
         protected override void InstantiatePlayableCharacters()
