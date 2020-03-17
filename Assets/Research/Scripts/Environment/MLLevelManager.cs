@@ -45,18 +45,25 @@ namespace Research.Scripts.Environment
 
         public virtual void Restart()
         {
+            _turnCounter++;
+            
+            var shouldDelete = ShouldDeleteCharacter();
             foreach (var player in Players)
             {
                 player.Reset();
-                if (ShouldDeleteCharacter())
+                if (shouldDelete)
                 {
                     Destroy(player.gameObject);
                 }
             }
 
             Initialization();
-            
-            InstantiatePlayableCharacters();
+
+            if (shouldDelete)
+            {
+                Debug.Log("Instantiate now");
+                InstantiatePlayableCharacters();
+            }
 
             SpawnMultipleCharacters();
 
@@ -66,16 +73,13 @@ namespace Research.Scripts.Environment
         protected override void InstantiatePlayableCharacters()
         {
             Players = new List<Character>();
-            if (ShouldDeleteCharacter())
+            var blueTeam = _colourSwitch % 2;
+            for (var i = 0; i < teamSize; i++)
             {
-                var blueTeam = _colourSwitch % 2;
-                for (var i = 0; i < teamSize; i++)
-                {
-                    SpawnTeamPlayer(PlayerPrefabs, blueTeam, false);
-                    SpawnTeamPlayer(PlayerPrefabs, blueTeam, true);
-                }
-                _colourSwitch++;
+                SpawnTeamPlayer(PlayerPrefabs, blueTeam, false);
+                SpawnTeamPlayer(PlayerPrefabs, blueTeam, true);
             }
+            _colourSwitch++;
         }
 
         protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam, bool prior)
@@ -104,15 +108,24 @@ namespace Research.Scripts.Environment
             var gameOver = teamDeaths[0] == 2 || teamDeaths[1] == 2;
             return gameOver;
         }
-        
-        private int GetReward(int teamId)
+
+        private int WinningTeam()
         {
             var teamDeaths = GetTeamDeaths();
             var draw = teamDeaths[0] == teamDeaths[1];
             if (!draw)
             {
-                var winningId = teamDeaths[0] > teamDeaths[1] ? 0 : 1;
-                return winningId == teamId? 1: -1;
+                return teamDeaths[0] > teamDeaths[1] ? 0 : 1;
+            }
+
+            return -1;
+        }
+        
+        private int GetReward(int teamId, int winningTeam)
+        {
+            if(winningTeam != -1)
+            {
+                return winningTeam == teamId? 1: -1;
             }
 
             return 0;
@@ -121,18 +134,19 @@ namespace Research.Scripts.Environment
         protected override IEnumerator GameOver()
         {
             var agents = FindObjectsOfType<TopDownAgent>();
-
+            var winningTeamId = WinningTeam();
+            
             var log = "";
             foreach (var agent in agents)
             {
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
-                var reward = GetReward(teamId);
+                var reward = GetReward(teamId, winningTeamId);
                 agent.AddReward(reward);
                 agent.EndEpisode();
 
                 log += reward + ", ";
             }
-            Debug.Log("Reward: " + log);
+            Debug.Log("Winning Team Id: " + winningTeamId + "\tReward: " + log);
             
             Restart();
             yield break;

@@ -226,7 +226,6 @@ namespace MoreMountains.TopDownEngine
             // if what we're colliding with isn't part of the target layers, we do nothing and exit
             if (!MMLayers.LayerInLayerMask(collider.layer, TargetLayerMask))
             {
-
                 return;
             }
 

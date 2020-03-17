@@ -9789,9 +9789,9 @@ GameObject:
   - component: {fileID: -7457751091888451574}
   - component: {fileID: 114971816358891350}
   - component: {fileID: 61374952899877022}
-  - component: {fileID: 50614525472420450}
+  - component: {fileID: 2377584658278724612}
   m_Layer: 18
-  m_Name: GunBullet
+  m_Name: MLGunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9954,7 +9954,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &50614525472420450
+--- !u!50 &2377584658278724612
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
