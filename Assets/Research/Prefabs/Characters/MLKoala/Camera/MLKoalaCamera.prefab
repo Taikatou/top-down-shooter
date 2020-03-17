@@ -9684,7 +9684,6 @@ GameObject:
   - component: {fileID: 114265374337090402}
   - component: {fileID: 114184457958384624}
   - component: {fileID: 114079283237680582}
-  - component: {fileID: 114495819129293066}
   - component: {fileID: 114545434076996454}
   - component: {fileID: 114619658823058744}
   - component: {fileID: 114530058247276760}
@@ -9893,7 +9892,7 @@ MonoBehaviour:
   AbilityStartFeedbacks: {fileID: 0}
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
-  Movement: 0
+  Movement: 3
   InputAuthorized: 1
   WalkSpeed: 6
   ShouldSetMovement: 1
@@ -9927,61 +9926,6 @@ MonoBehaviour:
   RunSpeed: 10
   AutoRun: 0
   AutoRunThreshold: 0.6
---- !u!114 &114495819129293066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde870ae7090b974bb115e88bfbf8320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  DashMode: 1
-  DashDirection: {x: 1, y: 0, z: 0}
-  DashDistance: 6
-  DashDuration: 0.2
-  DashCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  Cooldown:
-    Unlimited: 0
-    ConsumptionDuration: 0.2
-    PauseOnEmptyDuration: 0.1
-    RefillDuration: 0.5
-    CanInterruptRefill: 0
-    CooldownState: 0
-    CurrentDurationLeft: 0
-  DashFeedback: {fileID: 5986297841957823375}
 --- !u!114 &114545434076996454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16250,7 +16194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8793703394104048161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -20}
+  m_LocalPosition: {x: 0, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001341059962208}

@@ -30,7 +30,6 @@ namespace Research.Scripts
 
         protected override void OnCollideWithDamageable(Health health)
         {
-            base.OnCollideWithDamageable(health);
             if (!_isTeam)
             {
                 // we apply the damage to the thing we've collided with

@@ -126,13 +126,13 @@ namespace MoreMountains.TopDownEngine
         {
             base.FixedUpdate();
 
-            ApplyImpact();
+            // ApplyImpact();
 
             if (!FreeMovement)
             {
                 return;
             }
-
+            
             if (Friction > 1)
             {
                 CurrentMovement = CurrentMovement / Friction;
@@ -144,7 +144,12 @@ namespace MoreMountains.TopDownEngine
                 CurrentMovement = Vector3.Lerp(Speed, CurrentMovement, Time.deltaTime * Friction);
             }
             
-            Vector2 newMovement = _rigidBody.position + (Vector2)(CurrentMovement + AddedForce) * Time.fixedDeltaTime;
+            var movement = (Vector2)(CurrentMovement) * Time.fixedDeltaTime;
+            
+            movement = new Vector2(Mathf.Clamp(movement.x, -0.1f, 0.1f),
+                                    Mathf.Clamp(movement.y, -0.1f, 0.1f));
+
+            Vector2 newMovement = _rigidBody.position + movement;
             
             if (OnAMovingPlatform)
             {
