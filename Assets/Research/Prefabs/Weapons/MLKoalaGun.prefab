@@ -14750,8 +14750,8 @@ MonoBehaviour:
   ReplaceMousePointer: 1
   MouseDeadZoneRadius: 0.5
   DisplayReticle: 1
-  MoveCameraTargetTowardsReticle: 1
-  CameraTargetOffset: 0.3
+  MoveCameraTargetTowardsReticle: 0
+  CameraTargetOffset: 0
   CameraTargetMaxDistance: 2
   CameraTargetSpeed: 5
 --- !u!114 &114904966379098586
