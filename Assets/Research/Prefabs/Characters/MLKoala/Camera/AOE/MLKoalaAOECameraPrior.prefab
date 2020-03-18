@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 562972507680120519, guid: 6f96b885623b77c40a114d0706c95f2f,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Prior
+      objectReference: {fileID: 0}
+    - target: {fileID: 562972507680120519, guid: 6f96b885623b77c40a114d0706c95f2f,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3545477069679675474, guid: 6f96b885623b77c40a114d0706c95f2f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,6 +76,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MLKoalaAOECameraPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548683355997793712, guid: 6f96b885623b77c40a114d0706c95f2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Prior
       objectReference: {fileID: 0}
     - target: {fileID: 6271098885818551739, guid: 6f96b885623b77c40a114d0706c95f2f,
         type: 3}

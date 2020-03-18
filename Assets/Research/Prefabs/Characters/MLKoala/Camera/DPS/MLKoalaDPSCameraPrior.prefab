@@ -77,5 +77,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLKoalaDPSCameraPrior
       objectReference: {fileID: 0}
+    - target: {fileID: 6623798214098713317, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_TagString
+      value: Prior
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855145639195904402, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855145639195904402, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Prior
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17e9ef6a7067eb2469fc952bd38ed419, type: 3}

@@ -9698,6 +9698,7 @@ GameObject:
   - component: {fileID: 21462608163288796}
   - component: {fileID: 5874842002941729212}
   - component: {fileID: 4543674137541021889}
+  - component: {fileID: 3957031493978047477}
   m_Layer: 10
   m_Name: MLKoalaCamera
   m_TagString: Player
@@ -10177,6 +10178,7 @@ MonoBehaviour:
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   offsetStep: 0
+  allowDecisions: 1
 --- !u!114 &5874842002941729212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10203,10 +10205,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 7205630121074426567}
   m_SensorName: CameraSensor
-  m_Width: 100
-  m_Height: 100
+  m_Width: 20
+  m_Height: 20
   m_Grayscale: 1
   m_Compression: 1
+--- !u!114 &3957031493978047477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Walls
+  - Player
+  - Prior
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 180
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 3
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  verticalOffSet: 0.6
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0
@@ -16194,7 +16224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8793703394104048161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -10}
+  m_LocalPosition: {x: 0, y: 0.5, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001341059962208}
@@ -16214,9 +16244,9 @@ Camera:
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 84, y: 84}
+  m_SensorSize: {x: 12, y: 12}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 6.367046
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -16224,8 +16254,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 20
-  field of view: 80.060524
+  far clip plane: 2
+  field of view: 86.6
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
