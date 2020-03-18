@@ -91,7 +91,7 @@ namespace MoreMountains.TopDownEngine
             var aliveCharacters = 0;
             var i = 0;
 
-            foreach (var character in Players)
+            foreach (var character in Instance.Players)
             {
                 if (MlUtils.Dead(character))
                 {

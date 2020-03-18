@@ -36,7 +36,7 @@ namespace Research.Scripts.Environment
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
-            foreach (var character in Players)
+            foreach (var character in Instance.Players)
             {
                 if (MlUtils.Dead(character))
                 {
@@ -151,13 +151,12 @@ namespace Research.Scripts.Environment
 
         protected override IEnumerator GameOver()
         {
+            var agents = FindObjectsOfType<TopDownAgent>();
             var winningTeamId = WinningTeam();
             
             var log = "";
-            foreach (var player in Players)
+            foreach (var agent in agents)
             {
-                var agent = player.GetComponent<TopDownAgent>();
-                
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
                 var reward = GetReward(teamId, winningTeamId);
                 agent.AddReward(reward);

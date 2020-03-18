@@ -16,8 +16,6 @@ namespace MoreMountains.TopDownEngine
 
         protected CinemachineTargetGroup _targetGroup;
 
-        public LevelManager levelManagerInsance;
-
         /// <summary>
         /// On Awake we grab our target group component
         /// </summary>
@@ -40,23 +38,20 @@ namespace MoreMountains.TopDownEngine
                 }
 
                 int i = 0;
-                if (levelManagerInsance.Players != null)
+                _targetGroup.m_Targets = new CinemachineTargetGroup.Target[LevelManager.Instance.Players.Count];
+
+                foreach (Character character in LevelManager.Instance.Players)
                 {
-                    _targetGroup.m_Targets = new CinemachineTargetGroup.Target[levelManagerInsance.Players.Count];
+                    CinemachineTargetGroup.Target target = new CinemachineTargetGroup.Target();
+                    target.weight = 1;
+                    target.radius = 0;
+                    target.target = character.transform;
 
-                    foreach (Character character in LevelManager.Instance.Players)
-                    {
-                        CinemachineTargetGroup.Target target = new CinemachineTargetGroup.Target();
-                        target.weight = 1;
-                        target.radius = 0;
-                        target.target = character.transform;
-
-                        _targetGroup.m_Targets[i] = target;
-                        i++;
-                    }
-
-                    TargetCamera.Follow = this.transform;
+                    _targetGroup.m_Targets[i] = target;
+                    i++;
                 }
+
+                TargetCamera.Follow = this.transform;
             }
         }
 
