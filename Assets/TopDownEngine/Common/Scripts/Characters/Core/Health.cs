@@ -310,17 +310,7 @@ namespace MoreMountains.TopDownEngine
             {
                 Model.SetActive(false);
             }
-
-			if (DelayBeforeDestruction > 0f)
-			{
-				Invoke ("DestroyObject", DelayBeforeDestruction);
-			}
-			else
-			{
-				// finally we destroy the object
-				DestroyObject();	
-			}
-		}
+        }
 
 		/// <summary>
 		/// Revive this object.

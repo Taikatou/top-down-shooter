@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLKoalaHealerCameraPrior
       objectReference: {fileID: 0}
+    - target: {fileID: 2244811447472472981, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Prior
+      objectReference: {fileID: 0}
     - target: {fileID: 2246249719058261623, guid: ac090addff0d338429145bb50fd68fee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,6 +71,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010740087833014498, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Prior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010740087833014498, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8727751355832542110, guid: ac090addff0d338429145bb50fd68fee,
         type: 3}

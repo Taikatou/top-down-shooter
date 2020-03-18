@@ -18,6 +18,10 @@ namespace Research.Scripts.Environment
 
         private System.Random _random;
 
+        public Character[] mlCharacters;
+
+        public Character[] priorMlCharacters;
+
         protected override void Start()
         {
             _random = new System.Random();
@@ -90,8 +94,8 @@ namespace Research.Scripts.Environment
             var blueTeam = _colourSwitch % 2;
             for (var i = 0; i < teamSize; i++)
             {
-                SpawnTeamPlayer(PlayerPrefabs, blueTeam, false);
-                SpawnTeamPlayer(PlayerPrefabs, blueTeam, true);
+                SpawnTeamPlayer(mlCharacters, blueTeam, false);
+                SpawnTeamPlayer(priorMlCharacters, blueTeam, true);
             }
             _colourSwitch++;
         }
@@ -107,7 +111,7 @@ namespace Research.Scripts.Environment
             
             // Set TeamId
             var behaviour = newPlayer.GetComponent<BehaviorParameters>();
-            behaviour.TeamId = prior? 0 : 1;
+            // behaviour.TeamId = prior? 0 : 1;
 
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
