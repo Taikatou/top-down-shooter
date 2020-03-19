@@ -12,9 +12,14 @@ PrefabInstance:
       propertyPath: healingItem
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7457751091888451574, guid: eea0f4966d999fa408fcfaa6b22f1b33,
+        type: 3}
+      propertyPath: healCaused
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1579859513670320, guid: eea0f4966d999fa408fcfaa6b22f1b33, type: 3}
       propertyPath: m_Name
-      value: HealingBullet
+      value: MLHealingBullet
       objectReference: {fileID: 0}
     - target: {fileID: 4274961161357988, guid: eea0f4966d999fa408fcfaa6b22f1b33, type: 3}
       propertyPath: m_LocalPosition.x

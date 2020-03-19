@@ -10205,8 +10205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 7205630121074426567}
   m_SensorName: CameraSensor
-  m_Width: 20
-  m_Height: 20
+  m_Width: 70
+  m_Height: 70
   m_Grayscale: 1
   m_Compression: 1
 --- !u!114 &3957031493978047477
@@ -10232,7 +10232,7 @@ MonoBehaviour:
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 9472
   m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
@@ -16244,9 +16244,9 @@ Camera:
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 12, y: 12}
+  m_SensorSize: {x: 70, y: 70}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 6.367046
+  m_FocalLength: 30
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -16255,7 +16255,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2
-  field of view: 86.6
+  field of view: 98.79741
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
