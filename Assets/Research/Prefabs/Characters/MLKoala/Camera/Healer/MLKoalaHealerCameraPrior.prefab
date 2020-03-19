@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2212548837997121649, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 6962864622595736028, guid: 1b4562c1318f5284783566c0050f9342,
+        type: 3}
     - target: {fileID: 2244811447472472981, guid: ac090addff0d338429145bb50fd68fee,
         type: 3}
       propertyPath: m_Name

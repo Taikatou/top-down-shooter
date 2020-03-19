@@ -10177,6 +10177,8 @@ MonoBehaviour:
   - Walls
   - Player
   - Coin
+  - Projectile
+  - ProjectilePrior
   m_RaysPerDirection: 6
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
@@ -10184,7 +10186,7 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 1280
-  m_ObservationStacks: 3
+  m_ObservationStacks: 5
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.35
@@ -10260,6 +10262,7 @@ MonoBehaviour:
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   offsetStep: 0
+  allowDecisions: 1
 --- !u!114 &5874842002941729212
 MonoBehaviour:
   m_ObjectHideFlags: 0

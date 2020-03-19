@@ -8,6 +8,9 @@ namespace Research.Scripts
     {
         public bool healingItem;
         private bool _isTeam;
+
+        public float healCaused;
+        
         protected override void Colliding(GameObject collider)
         {
             if (Owner)
@@ -25,6 +28,7 @@ namespace Research.Scripts
                     }
                 }
             }
+            Debug.Log("Healing: " + healingItem + "\tisTeam: " + _isTeam);
             base.Colliding(collider);
         }
 
@@ -34,10 +38,15 @@ namespace Research.Scripts
             {
                 // we apply the damage to the thing we've collided with
                 _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
-                if (DamageTakenEveryTime + DamageTakenDamageable > 0)
-                {
-                    SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
-                }
+            }
+            else
+            {
+                _colliderHealth.GetHealth(healCaused, gameObject);
+            }
+            
+            if (DamageTakenEveryTime + DamageTakenDamageable > 0)
+            {
+                SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
             }
         }
     }

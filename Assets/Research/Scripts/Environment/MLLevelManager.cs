@@ -102,7 +102,7 @@ namespace Research.Scripts.Environment
 
         protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam, bool prior)
         {
-            var index = _random.Next(0, PlayerPrefabs.Length);
+            var index = _random.Next(0, characterPrefabs.Length);
             var playerPrefab = characterPrefabs[index];
             
             var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3231992314944403051
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5511139934372108357, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: GameObjectToPool
+      value: 
+      objectReference: {fileID: 945884899263367767, guid: e85e5fb21b3f1714c9dd2a060a9989b4,
+        type: 3}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612077709373299377, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613782272504257871, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+      propertyPath: m_Name
+      value: MLKoalaGunHealingPrior
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 019f89f11e3ed11478877a6b0f48a1e9, type: 3}
