@@ -27,9 +27,7 @@ namespace Research.Scripts
                         return;
                     }
                 }
-            }
-            Debug.Log("Healing: " + healingItem + "\tisTeam: " + _isTeam);
-            base.Colliding(collider);
+            } base.Colliding(collider);
         }
 
         protected override void OnCollideWithDamageable(Health health)
