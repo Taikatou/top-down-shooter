@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Prior
       objectReference: {fileID: 0}
+    - target: {fileID: 5996288170155776989, guid: cd4fff746683fcc44a415c53466a4371,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6602670712738985116, guid: cd4fff746683fcc44a415c53466a4371,
         type: 3}
       propertyPath: TeamId

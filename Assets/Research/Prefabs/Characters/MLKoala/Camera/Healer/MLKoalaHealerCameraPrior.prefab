@@ -93,6 +93,11 @@ PrefabInstance:
       propertyPath: m_BehaviorName
       value: HealerPrior
       objectReference: {fileID: 0}
+    - target: {fileID: 8181155719567412447, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727751355832542110, guid: ac090addff0d338429145bb50fd68fee,
         type: 3}
       propertyPath: TeamId
