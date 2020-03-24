@@ -55,25 +55,6 @@ MonoBehaviour:
     CooldownState: 0
     CurrentDurationLeft: 0
   DashFeedback: {fileID: 0}
---- !u!114 &3690309117908904288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407749957775505657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  maxStep: 0
-  inputManager: {fileID: 3122952757066024990}
-  directionsKeyMapper: {fileID: 983446513235592685}
-  secondaryDirectionsInput: {fileID: 8136026932628312519}
 --- !u!1001 &2409241973537933435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +110,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114545434076996454, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 3978408697661250553, guid: ea4d9a1282e7d5748a3393a32892ddbf,
+        type: 3}
+    - target: {fileID: 4773280857398313532, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: secondaryAbilityEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6834581780114078527, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: m_BehaviorName
@@ -154,6 +146,26 @@ PrefabInstance:
       propertyPath: m_InferenceDevice
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: SPRINT
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
 --- !u!1 &2407749957775505657 stripped
@@ -162,39 +174,3 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2409241973537933435}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3122952757066024990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 736809353080717413, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2409241973537933435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407749957775505657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8779c1d16e208fa498429dafc1d111a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &983446513235592685 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3227602827474996630, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2409241973537933435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407749957775505657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02cfb6cb362e624a900d8db164edd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8136026932628312519 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5874842002941729212, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2409241973537933435}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2407749957775505657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

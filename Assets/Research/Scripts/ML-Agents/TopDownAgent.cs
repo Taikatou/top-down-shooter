@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MLAgents;
 using MLAgents.Policies;
 using MLAgents.Sensors;
@@ -21,6 +23,10 @@ namespace Research.Scripts
         private BehaviorParameters _behaviorParameters;
 
         private Health _health;
+
+        public bool secondaryInputEnabled = false;
+        public bool shootEnabled;
+        public bool secondaryAbilityEnabled;
 
         private float HealthInput => _health.CurrentHealth / _health.MaximumHealth;
 
@@ -46,48 +52,64 @@ namespace Research.Scripts
 
         public override void OnActionReceived(float[] vectorAction)
         {
+            var counter = 0;
             // Extrinsic Penalty
             // AddReward(-1f / 3000f);
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter]);
             inputManager.SetAiPrimaryMovement(primaryDirection);
+            counter++;
 
-            // Set secondary input as vector
-            var secondaryXInput = GetDecision(vectorAction[1]);
-            var secondaryYInput = GetDecision(vectorAction[2]);
-            var secondary = new Vector2(secondaryXInput, secondaryYInput);
-
-            inputManager.SetAiSecondaryMovement(secondary);
-            
-            // Shoot Button Input
-            var shootButtonDown = Convert.ToBoolean(vectorAction[3]);
-            inputManager.SetShootButton(shootButtonDown);
-
-            if (vectorAction.Length >= 5)
+            if (shootEnabled)
             {
-                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[4]);
+                // Shoot Button Input
+                var shootButtonDown = Convert.ToBoolean(vectorAction[counter]);
+                inputManager.SetShootButton(shootButtonDown);
+                counter++;
+            }
+
+            if (secondaryInputEnabled)
+            {
+                // Set secondary input as vector
+                var secondaryXInput = GetDecision(vectorAction[counter]);
+                counter++;
+                var secondaryYInput = GetDecision(vectorAction[counter]);
+                var secondary = new Vector2(secondaryXInput, secondaryYInput);
+                inputManager.SetAiSecondaryMovement(secondary);
+                counter++;
+            }
+
+            if (secondaryAbilityEnabled)
+            {
+                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
         }
 
         public override float[] Heuristic()
         {
+            var output = new List<float>{ (float)directionsKeyMapper.PrimaryDirections };
             var shootButtonState = Input.GetKey(KeyCode.X);
-            var shootButtonInput = Convert.ToSingle(shootButtonState);
-            
-            var secondaryShootButtonState = Input.GetKey(KeyCode.C);
-            var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-            
-            var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
-            var output = new []
+            if (shootEnabled)
             {
-                (float)directionsKeyMapper.PrimaryDirections,
-                secondaryDirections.x,
-                secondaryDirections.y,
-                shootButtonInput,
-                secondaryShootButtonInput
-            };
+                var shootButtonInput = Convert.ToSingle(shootButtonState);
+                output.Add(shootButtonInput);
+            }
+
+            if (secondaryInputEnabled)
+            {
+                var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
+                output.Add(secondaryDirections.x);
+                output.Add(secondaryDirections.y);
+            }
             
-            return output;
+            if (secondaryAbilityEnabled)
+            {
+                var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+                var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+                output.Add(secondaryShootButtonInput);
+            }
+            
+            return output.ToArray();
         }
 
         public override void CollectObservations(VectorSensor sensor)
