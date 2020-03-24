@@ -9695,7 +9695,6 @@ GameObject:
   - component: {fileID: 3227602827474996630}
   - component: {fileID: 5874842002941729212}
   - component: {fileID: 21462608163288796}
-  - component: {fileID: 4543674137541021889}
   - component: {fileID: 3957031493978047477}
   - component: {fileID: 7974523422064541640}
   - component: {fileID: 4773280857398313532}
@@ -10148,24 +10147,6 @@ MonoBehaviour:
   TakeActionsBetweenDecisions: 1
   offsetStep: 0
   allowDecisions: 1
---- !u!114 &4543674137541021889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Camera: {fileID: 7205630121074426567}
-  m_SensorName: CameraSensor
-  m_Width: 120
-  m_Height: 120
-  m_Grayscale: 1
-  m_Compression: 1
 --- !u!114 &3957031493978047477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16218,7 +16199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &146832256694298334
 Transform:
   m_ObjectHideFlags: 0

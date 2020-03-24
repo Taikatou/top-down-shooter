@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_BehaviorName
       value: AOE
       objectReference: {fileID: 0}
+    - target: {fileID: 6886308823665844986, guid: 6f96b885623b77c40a114d0706c95f2f,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8062402399610054157, guid: 6f96b885623b77c40a114d0706c95f2f,
         type: 3}
       propertyPath: m_BehaviorName
