@@ -9691,14 +9691,13 @@ GameObject:
   - component: {fileID: 114644362621734812}
   - component: {fileID: 114104414726605804}
   - component: {fileID: -6530813142467327410}
-  - component: {fileID: 5983941949060549140}
-  - component: {fileID: 7367128784951955593}
   - component: {fileID: 736809353080717413}
   - component: {fileID: 3227602827474996630}
-  - component: {fileID: 21462608163288796}
   - component: {fileID: 5874842002941729212}
+  - component: {fileID: 21462608163288796}
   - component: {fileID: 4543674137541021889}
   - component: {fileID: 3957031493978047477}
+  - component: {fileID: 6834581780114078527}
   m_Layer: 10
   m_Name: MLKoalaCamera
   m_TagString: Player
@@ -10087,49 +10086,6 @@ MonoBehaviour:
   DisableModelOnDeath: 1
   DisableCollisionsOnDeath: 0
   DeathMMFeedbacks: {fileID: 4206741978730624185}
---- !u!114 &5983941949060549140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  maxStep: 0
-  inputManager: {fileID: 736809353080717413}
-  directionsKeyMapper: {fileID: 3227602827474996630}
-  secondaryDirectionsInput: {fileID: 5874842002941729212}
---- !u!114 &7367128784951955593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    vectorObservationSize: 2
-    numStackedVectorObservations: 1
-    vectorActionSize: 05000000030000000300000002000000
-    vectorActionDescriptions: []
-    vectorActionSpaceType: 0
-  m_Model: {fileID: 0}
-  m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: TopDownAgent
-  TeamId: 0
-  m_UseChildSensors: 1
 --- !u!114 &736809353080717413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10163,6 +10119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02cfb6cb362e624a900d8db164edd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5874842002941729212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &21462608163288796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10179,18 +10147,6 @@ MonoBehaviour:
   TakeActionsBetweenDecisions: 1
   offsetStep: 0
   allowDecisions: 1
---- !u!114 &5874842002941729212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4543674137541021889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10205,8 +10161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 7205630121074426567}
   m_SensorName: CameraSensor
-  m_Width: 100
-  m_Height: 100
+  m_Width: 120
+  m_Height: 120
   m_Grayscale: 1
   m_Compression: 1
 --- !u!114 &3957031493978047477
@@ -10237,6 +10193,30 @@ MonoBehaviour:
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.6
+--- !u!114 &6834581780114078527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 2
+    numStackedVectorObservations: 1
+    vectorActionSize: 0500000003000000030000000200000002000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0
@@ -16244,9 +16224,9 @@ Camera:
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_SensorSize: {x: 100, y: 100}
+  m_SensorSize: {x: 120, y: 120}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 20
+  m_FocalLength: 30
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -16255,7 +16235,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2
-  field of view: 136.39719
+  field of view: 126.8699
   orthographic: 0
   orthographic size: 5
   m_Depth: 0

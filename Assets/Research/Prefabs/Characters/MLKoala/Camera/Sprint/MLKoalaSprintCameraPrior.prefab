@@ -93,5 +93,10 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9202568338721403716, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: SprintPrior
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac0c88f670c9b69439cf91a93b7853a9, type: 3}

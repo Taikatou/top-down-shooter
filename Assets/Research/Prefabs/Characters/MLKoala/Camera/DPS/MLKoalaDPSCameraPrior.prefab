@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 373914837889921368, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: DPSPrior
+      objectReference: {fileID: 0}
     - target: {fileID: 4455303452305562350, guid: 17e9ef6a7067eb2469fc952bd38ed419,
         type: 3}
       propertyPath: TeamId

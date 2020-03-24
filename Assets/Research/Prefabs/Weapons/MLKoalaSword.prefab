@@ -318,6 +318,8 @@ GameObject:
   - component: {fileID: 4359571763133392}
   - component: {fileID: 212683281439507044}
   - component: {fileID: 95971963482004484}
+  - component: {fileID: 3671328761361393140}
+  - component: {fileID: 2187830967315668396}
   m_Layer: 10
   m_Name: Koala_Sword
   m_TagString: Untagged
@@ -357,7 +359,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2900dbe0877fa164aa591c0540852fa7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -408,6 +410,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3671328761361393140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881930734851166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineSize: 2
+--- !u!114 &2187830967315668396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881930734851166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebaea359d00ea424fa573a502d8dc783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 3671328761361393140}
 --- !u!1 &1128744997918063719
 GameObject:
   m_ObjectHideFlags: 0

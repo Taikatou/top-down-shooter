@@ -87,5 +87,15 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7112734685474020735, guid: cd4fff746683fcc44a415c53466a4371,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: TankPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153235140498235178, guid: cd4fff746683fcc44a415c53466a4371,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: TankPrior
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4fff746683fcc44a415c53466a4371, type: 3}
