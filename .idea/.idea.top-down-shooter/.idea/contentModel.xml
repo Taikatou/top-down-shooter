@@ -246,6 +246,7 @@
         </e>
         <e p="Research" t="Include">
           <e p="BulletOutline.cs" t="Include" />
+          <e p="GunOutline.cs" t="Include" />
           <e p="Scripts" t="Include">
             <e p="AgentInput" t="Include">
               <e p="DirectionsKeyMapper.cs" t="Include" />
@@ -274,6 +275,7 @@
               <e p="TopDownInputManager.cs" t="Include" />
             </e>
             <e p="ml-agents" t="Include">
+              <e p="TankTopDownAgent.cs" t="Include" />
               <e p="TopDownAgent.cs" t="Include" />
               <e p="TopDownRaySensor.cs" t="Include" />
             </e>
@@ -281,9 +283,11 @@
             <e p="TeamDamageOnTouch.cs" t="Include" />
           </e>
           <e p="SpriteOutline.cs" t="Include" />
+          <e p="SwordOutline.cs" t="Include" />
           <e p="TimeScaleChecker.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
+          <e p="Projector.shader" t="Include" />
           <e p="Sprite-Outline.shader" t="Include" />
         </e>
         <e p="TopDownEngine" t="Include">

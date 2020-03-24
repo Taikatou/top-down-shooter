@@ -22,6 +22,8 @@ namespace Research.Scripts.Environment
 
         public Character[] priorMlCharacters;
 
+        public bool shouldDelete;
+
         protected override void Start()
         {
             _random = new System.Random();
@@ -30,7 +32,11 @@ namespace Research.Scripts.Environment
 
         protected virtual bool ShouldDeleteCharacter()
         {
-            return _turnCounter % 10 == 0;
+            if (shouldDelete)
+            {
+                return _turnCounter % 100 == 0;
+            }
+            return shouldDelete;
         }
         
         private int[] GetTeamDeaths()
@@ -141,7 +147,7 @@ namespace Research.Scripts.Environment
         
         private int GetReward(int teamId, int winningTeam)
         {
-            if(winningTeam != -1)
+            if(winningTeam != -1 && shouldDelete)
             {
                 return winningTeam == teamId? 1: -1;
             }
