@@ -9697,7 +9697,8 @@ GameObject:
   - component: {fileID: 21462608163288796}
   - component: {fileID: 4543674137541021889}
   - component: {fileID: 3957031493978047477}
-  - component: {fileID: 6834581780114078527}
+  - component: {fileID: 7974523422064541640}
+  - component: {fileID: 4773280857398313532}
   m_Layer: 10
   m_Name: MLKoalaCamera
   m_TagString: Player
@@ -10193,7 +10194,7 @@ MonoBehaviour:
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.6
---- !u!114 &6834581780114078527
+--- !u!114 &7974523422064541640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10208,15 +10209,37 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 2
     numStackedVectorObservations: 1
-    vectorActionSize: 0500000003000000030000000200000002000000
+    vectorActionSize: 0500000002000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Koala
   TeamId: 0
   m_UseChildSensors: 1
+--- !u!114 &4773280857398313532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498750440386690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  maxStep: 0
+  inputManager: {fileID: 736809353080717413}
+  directionsKeyMapper: {fileID: 3227602827474996630}
+  secondaryDirectionsInput: {fileID: 5874842002941729212}
+  secondaryInputEnabled: 0
+  shootEnabled: 1
+  secondaryAbilityEnabled: 0
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8190028603102143077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244811447472472981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  maxStep: 0
-  inputManager: {fileID: 1521041531677913970}
-  directionsKeyMapper: {fileID: 3740451348156087937}
-  secondaryDirectionsInput: {fileID: 5667180527257004715}
 --- !u!1001 &2243495224737854231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,6 +61,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5511077292446169015, guid: 019f89f11e3ed11478877a6b0f48a1e9,
         type: 3}
+    - target: {fileID: 4773280857398313532, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: secondaryInputEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6834581780114078527, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: m_BehaviorName
@@ -95,47 +81,25 @@ PrefabInstance:
       propertyPath: m_InferenceDevice
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: HEALER
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
---- !u!1 &2244811447472472981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1498750440386690, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2243495224737854231}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1521041531677913970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 736809353080717413, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2243495224737854231}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244811447472472981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8779c1d16e208fa498429dafc1d111a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3740451348156087937 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3227602827474996630, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2243495224737854231}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244811447472472981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02cfb6cb362e624a900d8db164edd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5667180527257004715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5874842002941729212, guid: 22aaacecc7b7f5f41aa0111388b0f142,
-    type: 3}
-  m_PrefabInstance: {fileID: 2243495224737854231}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244811447472472981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
