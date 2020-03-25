@@ -108,5 +108,15 @@ PrefabInstance:
       propertyPath: m_DetectableTags.Array.data[2]
       value: Prior
       objectReference: {fileID: 0}
+    - target: {fileID: 7855145639195904402, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855145639195904402, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: Projectile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17e9ef6a7067eb2469fc952bd38ed419, type: 3}

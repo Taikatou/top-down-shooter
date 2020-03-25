@@ -88,6 +88,16 @@ PrefabInstance:
       propertyPath: m_DetectableTags.Array.data[2]
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3010740087833014498, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010740087833014498, guid: ac090addff0d338429145bb50fd68fee,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: Projectile
+      objectReference: {fileID: 0}
     - target: {fileID: 4754447638127347752, guid: ac090addff0d338429145bb50fd68fee,
         type: 3}
       propertyPath: m_BehaviorName

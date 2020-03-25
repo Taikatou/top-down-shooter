@@ -7,7 +7,7 @@ namespace  MLAgentsExamples
     public class AdjustTrainingTimescale : MonoBehaviour
     {
         // Update is called once per frame
-        /*void Update()
+        void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -49,6 +49,6 @@ namespace  MLAgentsExamples
             {
                 Time.timeScale *= 2f;
             }
-        }*/
+        }
     }
 }

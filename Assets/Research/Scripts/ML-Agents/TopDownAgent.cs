@@ -114,7 +114,7 @@ namespace Research.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            sensor.AddObservation(_behaviorParameters.TeamId);
+            // sensor.AddObservation(_behaviorParameters.TeamId);
             sensor.AddObservation(HealthInput);
         }
     }

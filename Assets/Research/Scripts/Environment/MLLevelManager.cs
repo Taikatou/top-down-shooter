@@ -10,35 +10,12 @@ namespace Research.Scripts.Environment
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {
-        private int _turnCounter = 0;
-
         private int _colourSwitch = 0;
 
         public int teamSize = 2;
 
-        private System.Random _random;
+        public AgentQueue agentQueue;
 
-        public Character[] mlCharacters;
-
-        public Character[] priorMlCharacters;
-
-        public bool shouldDelete;
-
-        protected override void Start()
-        {
-            _random = new System.Random();
-            base.Start();
-        }
-
-        protected virtual bool ShouldDeleteCharacter()
-        {
-            if (shouldDelete)
-            {
-                return _turnCounter % 100 == 0;
-            }
-            return shouldDelete;
-        }
-        
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
@@ -57,25 +34,12 @@ namespace Research.Scripts.Environment
         protected IEnumerator WaitForRestart()
         {
             yield return new WaitForSeconds(1);
-            _turnCounter++;
-            
-            var shouldDelete = ShouldDeleteCharacter();
-            foreach (var player in Players)
-            {
-                player.Reset();
-                if (shouldDelete)
-                {
-                    Destroy(player.gameObject);
-                }
-            }
+
+            agentQueue.ReturnCharacters(Players);
 
             Initialization();
-
-            if (shouldDelete)
-            {
-                Debug.Log("Instantiate now");
-                InstantiatePlayableCharacters();
-            }
+            
+            InstantiatePlayableCharacters();
 
             SpawnMultipleCharacters();
 
@@ -100,19 +64,16 @@ namespace Research.Scripts.Environment
             var blueTeam = _colourSwitch % 2;
             for (var i = 0; i < teamSize; i++)
             {
-                SpawnTeamPlayer(mlCharacters, blueTeam, false);
-                SpawnTeamPlayer(priorMlCharacters, blueTeam, true);
+                var mlCharacter = agentQueue.PopRandomMlCharacter();
+                SpawnTeamPlayer(mlCharacter, blueTeam, false);
+                var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
+                SpawnTeamPlayer(priorMlCharacter, blueTeam, true);
             }
             _colourSwitch++;
         }
 
-        protected virtual void SpawnTeamPlayer(Character [] characterPrefabs, int blueTeam, bool prior)
+        protected virtual void SpawnTeamPlayer(Character newPlayer, int blueTeam, bool prior)
         {
-            var index = _random.Next(0, characterPrefabs.Length);
-            var playerPrefab = characterPrefabs[index];
-            
-            var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
-            newPlayer.name = playerPrefab.name;
             Players.Add(newPlayer);
             
             // Set TeamId
@@ -147,7 +108,7 @@ namespace Research.Scripts.Environment
         
         private int GetReward(int teamId, int winningTeam)
         {
-            if(winningTeam != -1 && shouldDelete)
+            if(winningTeam != -1)
             {
                 return winningTeam == teamId? 1: -1;
             }
