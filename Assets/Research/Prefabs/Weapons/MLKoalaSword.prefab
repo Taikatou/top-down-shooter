@@ -87,7 +87,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.1
+  TimeBetweenUses: 0.4
   TimeBetweenUsesReleaseInterruption: 1
   MagazineBased: 0
   MagazineSize: 30
@@ -233,7 +233,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.1
+  TimeBetweenUses: 0.4
   TimeBetweenUsesReleaseInterruption: 1
   MagazineBased: 0
   MagazineSize: 30

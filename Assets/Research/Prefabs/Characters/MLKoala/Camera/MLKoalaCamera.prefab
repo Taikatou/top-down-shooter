@@ -10084,7 +10084,7 @@ MonoBehaviour:
   RespawnAtInitialLocation: 0
   DisableControllerOnDeath: 1
   DisableModelOnDeath: 1
-  DisableCollisionsOnDeath: 0
+  DisableCollisionsOnDeath: 1
   DeathMMFeedbacks: {fileID: 4206741978730624185}
 --- !u!114 &736809353080717413
 MonoBehaviour:
@@ -10164,14 +10164,16 @@ MonoBehaviour:
   - Walls
   - Player
   - Prior
+  - Projectile
+  - ProjectilePrior
   m_RaysPerDirection: 10
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0.5
+  m_SphereCastRadius: 0
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 271616
-  m_ObservationStacks: 5
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.6
@@ -10188,7 +10190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 2
+    vectorObservationSize: 1
     numStackedVectorObservations: 1
     vectorActionSize: 0500000002000000
     vectorActionDescriptions: []

@@ -10,6 +10,7 @@
       <e p="CameraSensorComponentEditor.cs" t="Include" />
       <e p="DemonstrationDrawer.cs" t="Include" />
       <e p="DemonstrationImporter.cs" t="Include" />
+      <e p="EditorUtilities.cs" t="Include" />
       <e p="RayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
@@ -104,6 +105,7 @@
         <e p="OutgoingMessage.cs" t="Include" />
         <e p="RawBytesChannel.cs" t="Include" />
         <e p="SideChannel.cs" t="Include" />
+        <e p="StatsSideChannel.cs" t="Include" />
       </e>
       <e p="Timer.cs" t="Include" />
       <e p="Unity.ML-Agents.asmdef" t="Include" />
@@ -253,6 +255,8 @@
               <e p="SecondaryDirectionsInput.cs" t="Include" />
               <e p="VectorInput.cs" t="Include" />
             </e>
+            <e p="AgentQueue.cs" t="Include" />
+            <e p="AvailableCharacters.cs" t="Include" />
             <e p="Characters" t="Include">
               <e p="AOE" t="Include">
                 <e p="AOEHeal.cs" t="Include" />
