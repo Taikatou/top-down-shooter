@@ -10,13 +10,13 @@ namespace Research.Scripts
     /// A component for 2D Ray Perception.
     /// </summary>
     [AddComponentMenu("ML Agents/Top Down Ray Perception Sensor 2D", (int) MenuGroup.Sensors)]
-    public class TopDownRaySensor : RayPerceptionSensorComponentBase
+    public class TopDownRaySensorComponent : RayPerceptionSensorComponentBase
     {
         public float verticalOffSet = 100.0f;
         /// <summary>
         /// Initializes the raycast sensor component.
         /// </summary>
-        public TopDownRaySensor()
+        public TopDownRaySensorComponent()
         {
             // Set to the 2D defaults (just in case they ever diverge).
             rayLayerMask = Physics2D.DefaultRaycastLayers;
@@ -36,7 +36,7 @@ namespace Research.Scripts
 
     internal class TopDownRayPerceptionSensorComponentBaseEditor : RayPerceptionSensorComponentBaseEditor
     {
-        [CustomEditor(typeof(TopDownRaySensor))]
+        [CustomEditor(typeof(TopDownRaySensorComponent))]
         [CanEditMultipleObjects]
         internal class TopDownRaySensorComponent2DEditor : RayPerceptionSensorComponentBaseEditor
         {
