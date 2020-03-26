@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4114990656680536831}
   - component: {fileID: 3423304484748621221}
   - component: {fileID: 114049947547974234}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: MLKoalaSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.4
+  TimeBetweenUses: 0.1
   TimeBetweenUsesReleaseInterruption: 1
   MagazineBased: 0
   MagazineSize: 30
@@ -233,7 +233,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.4
+  TimeBetweenUses: 0.1
   TimeBetweenUsesReleaseInterruption: 1
   MagazineBased: 0
   MagazineSize: 30
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 95971963482004484}
   - component: {fileID: 3671328761361393140}
   - component: {fileID: 2187830967315668396}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: Koala_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 1742450673198080081}
   - component: {fileID: 5387519167931082781}
   - component: {fileID: 8830411852509238755}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: WeaponUsedMMFeedback2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 5628216583868159927}
   - component: {fileID: 4643787643886568759}
   - component: {fileID: 5115422185614218882}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: WeaponUsedMMFeedback3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1091,7 +1091,7 @@ GameObject:
   - component: {fileID: 8833998026040116711}
   - component: {fileID: 2057175435906166084}
   - component: {fileID: 7362514042450146844}
-  m_Layer: 10
+  m_Layer: 24
   m_Name: WeaponUsedMMFeedback1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
