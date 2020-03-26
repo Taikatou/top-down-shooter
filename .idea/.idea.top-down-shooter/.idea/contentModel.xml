@@ -279,8 +279,10 @@
               <e p="TopDownInputManager.cs" t="Include" />
             </e>
             <e p="ml-agents" t="Include">
+              <e p="AgentRayPerceptionSensor.cs" t="Include" />
+              <e p="AgentRaySensorComponent.cs" t="Include" />
               <e p="TopDownAgent.cs" t="Include" />
-              <e p="TopDownRaySensor.cs" t="Include" />
+              <e p="TopDownRaySensorComponent.cs" t="Include" />
             </e>
             <e p="SpeedChanger.cs" t="Include" />
             <e p="TeamDamageOnTouch.cs" t="Include" />

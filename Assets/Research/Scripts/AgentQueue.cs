@@ -16,7 +16,7 @@ namespace Research.Scripts
 
         public int numAgents = 4;
 
-        private void Start()
+        private void Awake()
         {
             availableCharacters = new AvailableCharacters();
             availablePriorCharacters = new AvailableCharacters();
