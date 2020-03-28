@@ -9,11 +9,10 @@ namespace Research.Scripts
 
         private readonly List<Character> _allCharacters;
         
-        private System.Random _random;
+        private System.Random Random => new System.Random();
 
         public AvailableCharacters()
         {
-            _random = new System.Random();
             _availableMlCharacters = new List<Character>();
             _allCharacters = new List<Character>();
         }
@@ -26,7 +25,7 @@ namespace Research.Scripts
         
         public Character PopRandomCharacter()
         {
-            var index = _random.Next(0, _availableMlCharacters.Count);
+            var index = Random.Next(0, _availableMlCharacters.Count);
             var character = _availableMlCharacters[index];
             _availableMlCharacters.Remove(character);
             

@@ -272,6 +272,7 @@
               </e>
               <e p="TopDownMeleeWeapon.cs" t="Include" />
             </e>
+            <e p="DataLogger.cs" t="Include" />
             <e p="Environment" t="Include">
               <e p="AgentsCoin.cs" t="Include" />
               <e p="MLCheckbox.cs" t="Include" />
@@ -279,8 +280,6 @@
               <e p="TopDownInputManager.cs" t="Include" />
             </e>
             <e p="ml-agents" t="Include">
-              <e p="AgentRayPerceptionSensor.cs" t="Include" />
-              <e p="AgentRaySensorComponent.cs" t="Include" />
               <e p="TopDownAgent.cs" t="Include" />
               <e p="TopDownRaySensorComponent.cs" t="Include" />
             </e>

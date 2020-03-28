@@ -135,7 +135,7 @@ namespace Research.Scripts.Environment
                 
                 loggedData[teamId] = reward;
                 var agentName = agent.GetComponent<BehaviorParameters>().behaviorName;
-                loggedNames[teamId].Append(agentName);
+                loggedNames[teamId].Add(agentName);
 
                 agent.AddReward(reward);
                 agent.EndEpisode();
@@ -147,10 +147,12 @@ namespace Research.Scripts.Environment
             loggedNames[1].Sort();
             var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
             var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
+            
             dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
             dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
             
-            Debug.Log("Winning Team Id: " + winningTeamId + "\tReward: " + log);
+            Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
+                                "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
             
             Restart();
             yield break;

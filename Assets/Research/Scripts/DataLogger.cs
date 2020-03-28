@@ -121,7 +121,7 @@ namespace Research.Scripts
                 dict.Add(resultName, output);
             }
 
-            // Debug.Log(resultName + "\t" + win + "\t" + loss);
+            Debug.Log(resultName + "\t" + win + "\t" + loss);
         }
 
         public void AddResultTeam(string teamName, int condition)
