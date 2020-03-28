@@ -25,7 +25,7 @@ namespace Research.Scripts.Characters.AOE
 
         private void Update()
         {
-            if(!MlUtils.Dead(character))
+            if(!MlUtils.Dead(character) && Time.timeScale == 1.0f)
             {
                 var theta = 0f;
                 var addition = 2.0f * Mathf.PI * ThetaScale;
