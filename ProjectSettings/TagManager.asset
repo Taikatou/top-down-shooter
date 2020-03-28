@@ -18,6 +18,8 @@ TagManager:
   - Prior
   - Projectile
   - ProjectilePrior
+  - HealingBullet
+  - HealingBulletPrior
   layers:
   - Default
   - TransparentFX
