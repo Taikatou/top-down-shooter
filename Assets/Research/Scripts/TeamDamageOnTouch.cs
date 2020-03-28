@@ -10,7 +10,7 @@ namespace Research.Scripts
         private bool _isTeam;
 
         public float healCaused;
-        
+
         protected override void Colliding(GameObject collider)
         {
             if (Owner)

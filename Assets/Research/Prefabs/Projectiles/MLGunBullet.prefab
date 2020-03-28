@@ -19590,8 +19590,6 @@ GameObject:
   - component: {fileID: 1505407215470314876}
   - component: {fileID: 7290944616940831735}
   - component: {fileID: 3973177057395551238}
-  - component: {fileID: 1146639844324791661}
-  - component: {fileID: 6141438230103812149}
   m_Layer: 18
   m_Name: HitDamageableFeedback
   m_TagString: Untagged
@@ -19627,7 +19625,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Feedbacks:
   - {fileID: 3973177057395551238}
-  - {fileID: 1146639844324791661}
   InitializationMode: 2
   DebugActive: 0
 --- !u!114 &3973177057395551238
@@ -19659,70 +19656,6 @@ MonoBehaviour:
   DebugActive: 0
   BoundParticleSystem: {fileID: 198161342189202992}
   MoveToPosition: 0
---- !u!114 &1146639844324791661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518613789941692666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2ce51367856bd49b72678cc4263225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Active: 1
-  Label: Sound
-  Chance: 100
-  Timing:
-    TimescaleMode: 0
-    InitialDelay: 0
-    CooldownDuration: 0
-    NumberOfRepeats: 0
-    RepeatForever: 0
-    DelayBetweenRepeats: 1
-    Sequence: {fileID: 0}
-    TrackID: 0
-    Quantized: 0
-    TargetBPM: 120
-  DebugActive: 0
-  Sfx: {fileID: 8300000, guid: 84a9746d4ee81e841b689a625e33c590, type: 3}
-  RandomSfx: []
-  PlayMethod: 0
-  PoolSize: 10
-  MinVolume: 1
-  MaxVolume: 1
-  MinPitch: 1
-  MaxPitch: 1
-  SfxAudioMixerGroup: {fileID: 0}
---- !u!114 &6141438230103812149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3518613789941692666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fec89a17b5b2347a82ae1c77aced3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Active: 1
-  Label: Freeze Frame
-  Chance: 100
-  Timing:
-    TimescaleMode: 0
-    InitialDelay: 0
-    CooldownDuration: 0
-    NumberOfRepeats: 0
-    RepeatForever: 0
-    DelayBetweenRepeats: 1
-    Sequence: {fileID: 0}
-    TrackID: 0
-    Quantized: 0
-    TargetBPM: 120
-  DebugActive: 0
-  FreezeFrameDuration: 0.05
 --- !u!1 &5839686357615181372
 GameObject:
   m_ObjectHideFlags: 0
