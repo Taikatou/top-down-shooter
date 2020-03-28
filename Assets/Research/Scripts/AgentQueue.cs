@@ -33,6 +33,7 @@ namespace Research.Scripts
             foreach (var playerPrefab in characters)
             {
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+                newPlayer.transform.parent = gameObject.transform;
                 available.Add(newPlayer);
                 newPlayer.gameObject.SetActive(false);
             }

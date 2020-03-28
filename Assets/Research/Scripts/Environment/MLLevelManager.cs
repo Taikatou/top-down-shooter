@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
@@ -15,6 +17,8 @@ namespace Research.Scripts.Environment
         public int teamSize = 2;
 
         public AgentQueue agentQueue;
+
+        public DataLogger dataLogger;
 
         private int[] GetTeamDeaths()
         {
@@ -121,17 +125,31 @@ namespace Research.Scripts.Environment
             var winningTeamId = WinningTeam();
             
             var log = "";
+            var loggedData = new [] {0, 0};
+            var loggedNames = new[] {new List<string>(), new List<string>(), };
             foreach (var player in Players)
             {
                 var agent = player.GetComponent<TopDownAgent>();
-                
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
                 var reward = GetReward(teamId, winningTeamId);
+                
+                loggedData[teamId] = reward;
+                var agentName = agent.GetComponent<BehaviorParameters>().behaviorName;
+                loggedNames[teamId].Append(agentName);
+
                 agent.AddReward(reward);
                 agent.EndEpisode();
 
                 log += reward + ", ";
             }
+
+            loggedNames[0].Sort();
+            loggedNames[1].Sort();
+            var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
+            var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
+            dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
+            dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
+            
             Debug.Log("Winning Team Id: " + winningTeamId + "\tReward: " + log);
             
             Restart();
