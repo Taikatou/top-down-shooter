@@ -85,7 +85,7 @@ namespace MoreMountains.TopDownEngine
 		/// the secondary movement (usually the right stick on a gamepad), used to aim
 		public Vector2 SecondaryMovement {get { return _secondaryMovement; } }
 
-		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButton.State.CurrentState;
+		public virtual MMInput.ButtonStates ReloadButtonState => ReloadButtonState;
 
 		public virtual MMInput.ButtonStates ShootButtonState => ShootButton.State.CurrentState;
 		

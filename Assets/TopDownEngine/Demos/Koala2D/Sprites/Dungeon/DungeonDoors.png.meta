@@ -1,21 +1,13 @@
 fileFormatVersion: 2
 guid: a4eb8ed9f5b552e43a3fe9fa39136185
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: DungeonDoors_OpenBottom
-  - first:
-      213: 21300002
-    second: DungeonDoors_OpenTop
-  - first:
-      213: 21300004
-    second: DungeonDoors_Closed1
-  - first:
-      213: 21300006
-    second: DungeonDoors_Closed2
+  fileIDToRecycleName:
+    21300000: DungeonDoors_OpenBottom
+    21300002: DungeonDoors_OpenTop
+    21300004: DungeonDoors_Closed1
+    21300006: DungeonDoors_Closed2
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -70,7 +62,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -81,8 +73,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 2
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,8 +84,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 2
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -105,8 +95,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 2
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -117,7 +106,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -137,7 +125,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 68b8a197caaa2c548acdfc1b4542d8f8
-      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -158,7 +145,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 735f5308a65e35d4cb24c50be3e898d6
-      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -179,7 +165,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 2b614619520b7fc45abe752ac297e6a8
-      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -200,7 +185,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fb8f104d27a7f33428ca9b230ebb3b8f
-      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -209,12 +193,10 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 885b283c7aca8ab48ba608b2477740e1
-    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

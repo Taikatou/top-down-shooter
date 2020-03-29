@@ -125,7 +125,7 @@ namespace MoreMountains.TopDownEngine
             if (PlayerPrefabs == null) { return; }
 
 			// player instantiation
-			if (PlayerPrefabs.Length != 0)
+			if (PlayerPrefabs.Count() != 0)
 			{
 				var count = 0;
                 for (var i = 0; i < playerCount; i++)
@@ -146,8 +146,9 @@ namespace MoreMountains.TopDownEngine
 					{
 						var curentTeam = count <= 2;
 						character.PlayerID = "Player"+count;
-                        character.TeamId = curentTeam? 1 : 2;
-						Debug.Log(character.TeamId);
+						
+						character.TeamId = curentTeam? 1 : 2;
+						
 					}
 
 					Players.Add(newPlayer);

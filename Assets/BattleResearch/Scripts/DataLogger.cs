@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using TopDownEngine.Demos.Grasslands.Scripts;
 using UnityEngine;
 
 namespace BattleResearch.Scripts
@@ -26,14 +25,11 @@ namespace BattleResearch.Scripts
 
     public class DataLogger : MonoBehaviour
     {
-        private Dictionary<string, WinResults> winResultsTeams;
-
-        private Dictionary<string, WinResults> winResultsPlayers;
+        private Dictionary<string, WinResults> winResults;
 
         public void Start()
         {
-            winResultsTeams = new Dictionary<string, WinResults>();
-            winResultsPlayers = new Dictionary<string, WinResults>();
+            winResults = new Dictionary<string, WinResults>();
         }
 
         public string GetFileName(string fileName)
@@ -42,7 +38,7 @@ namespace BattleResearch.Scripts
             return fileName + nowStr + ".csv";
         }
 
-        public void OutputCsv(List<string[]> rowData, string filename)
+        public void OutputCsv(List<string[]> rowData)
         {
             string[][] output = new string[rowData.Count][];
 
@@ -60,7 +56,7 @@ namespace BattleResearch.Scripts
                 sb.AppendLine(string.Join(delimiter, output[index]));
 
 
-            string filePath = GetPath(filename);
+            string filePath = GetPath("analysis.csv");
 
             StreamWriter outStream = System.IO.File.CreateText(filePath);
             outStream.WriteLine(sb);
@@ -83,14 +79,8 @@ namespace BattleResearch.Scripts
 
         void OnApplicationQuit()
         {
-            PrintFile(winResultsTeams, "teams");
-            PrintFile(winResultsPlayers, "players");
-        }
-
-        private void PrintFile(Dictionary<string, WinResults> dict, string filename)
-        {
-            var rowData = new List<string[]> { new[] { "Name", "Win Rate", "Loss Rate", "Draw Rate" } };
-            foreach (KeyValuePair<string, WinResults> item in winResultsTeams)
+            var rowData = new List<string[]> {new[] {"Name", "Win Rate", "Loss Rate", "Draw Rate"}};
+            foreach (KeyValuePair<string, WinResults> item in winResults)
             {
                 var row = new[]
                 {
@@ -102,36 +92,23 @@ namespace BattleResearch.Scripts
                 rowData.Add(row);
             }
 
-            OutputCsv(rowData, filename);
+            OutputCsv(rowData);
         }
 
-        private void AddResult(Dictionary<string, WinResults> dict, string name , MLAgentsGrasslandsMultiplayerLevelManager.GameEnding condition)
+        public void AddResult(string name, int win, int loss, int draw)
         {
-            var win = condition == MLAgentsGrasslandsMultiplayerLevelManager.GameEnding.Win ? 1 : 0;
-            var loss = condition == MLAgentsGrasslandsMultiplayerLevelManager.GameEnding.Loss ? 1 : 0;
-            var draw = condition == MLAgentsGrasslandsMultiplayerLevelManager.GameEnding.Draw ? 1 : 0;
-            if (winResultsTeams.ContainsKey(name))
+            if (winResults.ContainsKey(name))
             {
-                winResultsTeams[name].WinNumber += win;
-                winResultsTeams[name].LossNumber += loss;
-                winResultsTeams[name].DrawNumber += draw;
+                winResults[name].WinNumber += win;
+                winResults[name].LossNumber += loss;
+                winResults[name].DrawNumber += draw;
             }
             else
             {
                 var output = new WinResults(win, loss, draw);
-                winResultsTeams.Add(name, output);
+                winResults.Add(name, output);
             }
             Debug.Log(name + "\t" + win + "\t" + loss);
-        }
-
-        public void AddResultTeam(string name, MLAgentsGrasslandsMultiplayerLevelManager.GameEnding condition)
-        {
-            AddResult(winResultsTeams, name, condition);
-        }
-
-        public void AddResultAgent(string name, MLAgentsGrasslandsMultiplayerLevelManager.GameEnding condition)
-        {
-            AddResult(winResultsPlayers, name, condition);
         }
     }
 }

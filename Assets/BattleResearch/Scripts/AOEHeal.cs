@@ -32,7 +32,8 @@ namespace BattleResearch.Scripts
         public void HealUnit(GameObject unitToHeal, float healthBack)
         {
             var health = unitToHeal.GetComponent<Health>();
-            if (health != null && health.CurrentHealth > 0)
+
+            if (health != null)
             {
                 healedCharachters++;
                 healthRecovered += health.GetHealth(healthBack, gameObject);
