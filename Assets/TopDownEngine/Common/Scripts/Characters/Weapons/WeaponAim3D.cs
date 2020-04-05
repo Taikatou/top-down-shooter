@@ -13,7 +13,7 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Weapons/Weapon Aim 3D")]
 	public class WeaponAim3D : WeaponAim
     {
-        protected Vector2 _lastNonNullMovement;
+
         protected Vector2 _inputMovement;
         protected Camera _mainCamera;
 
@@ -21,7 +21,7 @@ namespace MoreMountains.TopDownEngine
         {
             base.Initialization();
             _mainCamera = Camera.main;
-            _lastNonNullMovement = new Vector2(0f, 1f);
+
         }
 
         /// <summary>
@@ -53,20 +53,26 @@ namespace MoreMountains.TopDownEngine
 					break;
 
 				case AimControls.PrimaryMovement:
-					if (_weapon.Owner == null)
-					{
-						return;
+                    if ((_weapon.Owner == null) || (_weapon.Owner.LinkedInputManager == null))
+                    {
+                        return;
                     }
                     GetPrimaryMovementAim();
                     break;
 
                 case AimControls.SecondaryMovement:
-                    if (_weapon.Owner == null) { return; }
+                    if ((_weapon.Owner == null) || (_weapon.Owner.LinkedInputManager == null))
+                    {
+                        return;
+                    }
                     GetSecondaryMovementAim();
                     break;
 
                 case AimControls.SecondaryThenPrimaryMovement:
-                    if (_weapon.Owner == null) { return; }
+                    if ((_weapon.Owner == null) || (_weapon.Owner.LinkedInputManager == null))
+                    {
+                        return;
+                    }
 
                     if (_weapon.Owner.LinkedInputManager.SecondaryMovement.magnitude > MinimumMagnitude)
                     {
@@ -79,7 +85,10 @@ namespace MoreMountains.TopDownEngine
                     break;
 
                 case AimControls.PrimaryThenSecondaryMovement:
-                    if (_weapon.Owner == null) { return; }
+                    if ((_weapon.Owner == null) || (_weapon.Owner.LinkedInputManager == null))
+                    {
+                        return;
+                    }
 
                     if (_weapon.Owner.LinkedInputManager.PrimaryMovement.magnitude > MinimumMagnitude)
                     {
@@ -109,6 +118,11 @@ namespace MoreMountains.TopDownEngine
 
         public virtual void GetPrimaryMovementAim()
         {
+            if (_lastNonNullMovement == Vector2.zero)
+            {
+                _lastNonNullMovement = _weapon.Owner.LinkedInputManager.LastNonNullPrimaryMovement;
+            }
+
             _inputMovement = _weapon.Owner.LinkedInputManager.PrimaryMovement;
             _inputMovement = _inputMovement.magnitude > MinimumMagnitude ? _inputMovement : _lastNonNullMovement;
 
@@ -122,6 +136,11 @@ namespace MoreMountains.TopDownEngine
 
         public virtual void GetSecondaryMovementAim()
         {
+            if (_lastNonNullMovement == Vector2.zero)
+            {
+                _lastNonNullMovement = _weapon.Owner.LinkedInputManager.LastNonNullSecondaryMovement;
+            }
+
             _inputMovement = _weapon.Owner.LinkedInputManager.SecondaryMovement;
             _inputMovement = _inputMovement.magnitude > MinimumMagnitude ? _inputMovement : _lastNonNullMovement;
 
@@ -168,11 +187,12 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// Every frame, we compute the aim direction and rotate the weapon accordingly
 		/// </summary>
-		private void FixedUpdate()
+		protected override void Update()
 		{
 			GetCurrentAim ();
 			DetermineWeaponRotation ();
-			MoveReticle();
+            MoveTarget();
+            MoveReticle();
 			HideMousePointer ();
 			UpdatePlane ();
 		}
@@ -193,19 +213,20 @@ namespace MoreMountains.TopDownEngine
 				{
 					CurrentAngle = Mathf.Atan2 (_currentAim.z, _currentAim.x) * Mathf.Rad2Deg;
 					if (RotationMode == RotationModes.Strict4Directions || RotationMode == RotationModes.Strict8Directions)
-                    {
-                        CurrentAngle = MMMaths.RoundToClosest (CurrentAngle, _possibleAngleValues);
-                    }
+					{
+						CurrentAngle = MMMaths.RoundToClosest (CurrentAngle, _possibleAngleValues);
+					}
 
-                    // we add our additional angle
-                    CurrentAngle += _additionalAngle;
+					// we add our additional angle
+					CurrentAngle += _additionalAngle;
 
 					// we clamp the angle to the min/max values set in the inspector
+
 					CurrentAngle = Mathf.Clamp (CurrentAngle, MinimumAngle, MaximumAngle);	
 					CurrentAngle = -CurrentAngle + 90f;
 
 					_lookRotation = Quaternion.Euler (CurrentAngle * Vector3.up);
-                    RotateWeapon(_lookRotation);
+					RotateWeapon(_lookRotation);
 				}
 			}
 			else
@@ -249,7 +270,7 @@ namespace MoreMountains.TopDownEngine
                 }
             }
         }
-        
+
         /// <summary>
         /// Every frame, moves the reticle if it's been told to follow the pointer
         /// </summary>
@@ -279,39 +300,50 @@ namespace MoreMountains.TopDownEngine
 				{
 					_reticle.transform.position = _reticlePosition;
                 }
-
-                if (MoveCameraTargetTowardsReticle && (_weapon.Owner != null))
-                {
-                    _newCamTargetPosition = Vector3.Lerp(_weapon.Owner.CameraTarget.transform.position, Vector3.Lerp(this.transform.position, _reticlePosition, CameraTargetOffset), Time.deltaTime * CameraTargetSpeed);
-                    _newCamTargetDirection = _newCamTargetPosition - this.transform.position;
-                    if (_newCamTargetDirection.magnitude > CameraTargetMaxDistance)
-                    {
-                        _newCamTargetDirection = _newCamTargetDirection.normalized * CameraTargetMaxDistance;
-                    }
-                    _newCamTargetPosition = this.transform.position + _newCamTargetDirection;
-                    _weapon.Owner.CameraTarget.transform.position = _newCamTargetPosition;
-                }
             }
-		}
+            _reticlePosition = _reticle.transform.position;
+        }
+
+        protected override void MoveTarget()
+        {
+            if (MoveCameraTargetTowardsReticle && (_weapon.Owner != null))
+            {
+                _newCamTargetPosition = _reticlePosition;
+                _newCamTargetDirection = _newCamTargetPosition - this.transform.position;
+                if (_newCamTargetDirection.magnitude > CameraTargetMaxDistance)
+                {
+                    _newCamTargetDirection = _newCamTargetDirection.normalized * CameraTargetMaxDistance;
+                }
+                _newCamTargetPosition = this.transform.position + _newCamTargetDirection;
+
+                _newCamTargetPosition = Vector3.Lerp(_weapon.Owner.CameraTarget.transform.position, Vector3.Lerp(this.transform.position, _newCamTargetPosition, CameraTargetOffset), Time.deltaTime * CameraTargetSpeed);
+
+                _weapon.Owner.CameraTarget.transform.position = _newCamTargetPosition;
+            }
+        }
 
         /// <summary>
         /// Hides or show the mouse pointer based on the settings
         /// </summary>
 		protected virtual void HideMousePointer()
 		{
-			if (GameManager.Instance.Paused)
+            if (AimControl != AimControls.Mouse)
+            {
+                return;
+            }
+            if (GameManager.Instance.Paused)
 			{
 				Cursor.visible = true;
 				return;
 			}
-			if (ReplaceMousePointer)
-			{
-				Cursor.visible = false;
-			}
-			else
-			{
-				Cursor.visible = true;
-			}
+            if (ReplaceMousePointer)
+            {
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.visible = true;
+            }            		
 		}
 	}
 }

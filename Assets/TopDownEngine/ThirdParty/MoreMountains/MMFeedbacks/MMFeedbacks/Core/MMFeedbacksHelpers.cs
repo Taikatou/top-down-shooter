@@ -73,7 +73,7 @@ namespace MoreMountains.Feedbacks
         {
             MMFInspectorButtonAttribute inspectorButtonAttribute = (MMFInspectorButtonAttribute)attribute;
 
-            float buttonLength = 50 + inspectorButtonAttribute.MethodName.Length * 6;
+            float buttonLength = position.width;
             Rect buttonRect = new Rect(position.x + (position.width - buttonLength) * 0.5f, position.y, buttonLength, position.height);
 
             if (GUI.Button(buttonRect, inspectorButtonAttribute.MethodName))

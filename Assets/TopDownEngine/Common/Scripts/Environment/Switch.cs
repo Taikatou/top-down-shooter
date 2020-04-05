@@ -40,13 +40,13 @@ namespace MoreMountains.TopDownEngine
         /// a feedback to play when the switch changes state
         public MMFeedbacks ToggleFeedback;
 
-        [InspectorButton("TurnSwitchOn")]
+        [MMInspectorButton("TurnSwitchOn")]
         /// a test button to turn the switch on
         public bool SwitchOnButton;
-        [InspectorButton("TurnSwitchOff")]
+        [MMInspectorButton("TurnSwitchOff")]
         /// a test button to turn the switch off
         public bool SwitchOffButton;
-        [InspectorButton("ToggleSwitch")]
+        [MMInspectorButton("ToggleSwitch")]
         /// a test button to change the switch's state
         public bool ToggleSwitchButton;
 

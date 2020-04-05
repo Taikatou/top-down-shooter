@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
-using MoreMountains.MMInterface;
 
 namespace MoreMountains.TopDownEngine
 {	
@@ -25,19 +24,19 @@ namespace MoreMountains.TopDownEngine
 		/// if this is true, a fade to black will occur when teleporting
 		public bool FadeToBlack = false;
         /// the curve to use to fade to black
-        [Condition("FadeToBlack")]
+        [MMCondition("FadeToBlack")]
         public MMTween.MMTweenCurve FaderCurve;
         /// the ID of the fader to use 
-        [Condition("FadeToBlack")]
+        [MMCondition("FadeToBlack")]
         public int FaderID = 0;
         /// the duration (in seconds) of the fade to black  
-        [Condition("FadeToBlack")]
+        [MMCondition("FadeToBlack")]
         public float FadeDuration = 0f;
         /// the duration (in seconds) between the fade in and the fade out
-        [Condition("FadeToBlack", true)]
+        [MMCondition("FadeToBlack", true)]
         public float BetweenFadeDuration = 0.5f;
         /// whether or not the character should be frozen during the fade
-        [Condition("FadeToBlack", true)]
+        [MMCondition("FadeToBlack", true)]
         public bool FreezeDuringFade = true;
 
         protected Character _player;
@@ -115,9 +114,13 @@ namespace MoreMountains.TopDownEngine
 
             if (FadeToBlack)
             {
-                MMFadeInEvent.Trigger(FadeDuration, FaderCurve, FaderID, false, LevelManager.Instance.Players[0].transform.position);
+                MMFadeInEvent.Trigger(FadeDuration, FaderCurve, FaderID, false, collider.transform.position);
                 FadeInComplete(collider);
                 yield return new WaitForSeconds(FadeDuration);
+            }
+            else
+            {
+                FadeInComplete(collider);
             }
 
 
@@ -130,7 +133,7 @@ namespace MoreMountains.TopDownEngine
 
             if (FadeToBlack)
             {
-                MMFadeOutEvent.Trigger(FadeDuration, FaderCurve, FaderID, false, LevelManager.Instance.Players[0].transform.position);
+                MMFadeOutEvent.Trigger(FadeDuration, FaderCurve, FaderID, false, collider.transform.position);
             }
 
             AfterFadeOut(collider);

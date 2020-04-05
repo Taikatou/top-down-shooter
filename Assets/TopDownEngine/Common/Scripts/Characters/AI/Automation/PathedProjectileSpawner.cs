@@ -10,7 +10,7 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Character/AI/Pathed Projectile Spawner")] 
 	public class PathedProjectileSpawner : MonoBehaviour 
 	{
-		[Information("A GameObject with this component will spawn projectiles at the specified fire rate.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("A GameObject with this component will spawn projectiles at the specified fire rate.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the pathed projectile's destination
 		public Transform Destination;
 		/// the projectiles to spawn

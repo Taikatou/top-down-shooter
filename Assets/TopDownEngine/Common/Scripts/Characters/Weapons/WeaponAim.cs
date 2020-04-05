@@ -16,12 +16,12 @@ namespace MoreMountains.TopDownEngine
         public enum ReticleTypes { None, Scene, UI }
 
         [Header("Control Mode")]
-        [Information("Add this component to a Weapon and you'll be able to aim (rotate) it. It supports three different control modes : mouse (the weapon aims towards the pointer), primary movement (you'll aim towards the current input direction), or secondary movement (aims towards a second input axis, think twin stick shooters).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Add this component to a Weapon and you'll be able to aim (rotate) it. It supports three different control modes : mouse (the weapon aims towards the pointer), primary movement (you'll aim towards the current input direction), or secondary movement (aims towards a second input axis, think twin stick shooters).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// the aim control mode
         public AimControls AimControl = AimControls.SecondaryMovement;
 
         [Header("Weapon Rotation")]
-        [Information("Here you can define whether the rotation is free, strict in 4 directions (top, bottom, left, right), or 8 directions (same + diagonals). You can also define a rotation speed, and a min and max angle. For example, if you don't want your character to be able to aim in its back, set min angle to -90 and max angle to 90.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can define whether the rotation is free, strict in 4 directions (top, bottom, left, right), or 8 directions (same + diagonals). You can also define a rotation speed, and a min and max angle. For example, if you don't want your character to be able to aim in its back, set min angle to -90 and max angle to 90.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// the rotation mode
         public RotationModes RotationMode = RotationModes.Free;
         /// the the speed at which the weapon reaches its new position. Set it to zero if you want movement to directly follow input
@@ -36,38 +36,40 @@ namespace MoreMountains.TopDownEngine
         public float MinimumMagnitude = 0.2f;
 
         [Header("Reticle")]
-        [Information("You can also display a reticle on screen to check where you're aiming at. Leave it blank if you don't want to use one. If you set the reticle distance to 0, it'll follow the cursor, otherwise it'll be on a circle centered on the weapon. You can also ask it to follow the mouse, even replace the mouse pointer. You can also decide if the pointer should rotate to reflect aim angle or remain stable.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("You can also display a reticle on screen to check where you're aiming at. Leave it blank if you don't want to use one. If you set the reticle distance to 0, it'll follow the cursor, otherwise it'll be on a circle centered on the weapon. You can also ask it to follow the mouse, even replace the mouse pointer. You can also decide if the pointer should rotate to reflect aim angle or remain stable.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// Defines whether the reticle is placed in the scene or in the UI
         public ReticleTypes ReticleType = ReticleTypes.None;
         /// the gameobject to display as the aim's reticle/crosshair. Leave it blank if you don't want a reticle
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public GameObject Reticle;
         /// the distance at which the reticle will be from the weapon
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public float ReticleDistance;
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        public float ReticleHeight;
         /// if set to true, the reticle will be placed at the mouse's position (like a pointer)
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public bool ReticleAtMousePosition;
         /// if set to true, the reticle will rotate on itself to reflect the weapon's rotation. If not it'll remain stable.
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public bool RotateReticle = false;
         /// if set to true, the reticle will replace the mouse pointer
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public bool ReplaceMousePointer = true;
         /// the radius around the weapon rotation centre where the mouse will be ignored, to avoid glitches
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public float MouseDeadZoneRadius = 0.5f;
         /// if set to false, the reticle won't be added and displayed
-        [EnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
         public bool DisplayReticle = true;
 
         [Header("CameraTarget")]
         public bool MoveCameraTargetTowardsReticle = false;
         [Range(0f, 1f)]
         public float CameraTargetOffset = 0.3f;
-        [Condition("MoveCameraTargetTowardsReticle", true)]
+        [MMCondition("MoveCameraTargetTowardsReticle", true)]
         public float CameraTargetMaxDistance = 10f;
-        [Condition("MoveCameraTargetTowardsReticle", true)]
+        [MMCondition("MoveCameraTargetTowardsReticle", true)]
         public float CameraTargetSpeed = 5f;
 
         public float CurrentAngleAbsolute { get; protected set; }
@@ -94,7 +96,8 @@ namespace MoreMountains.TopDownEngine
                 return 0;
             }
         }
-
+        
+        protected Vector2 _lastNonNullMovement;
         protected Weapon _weapon;
         protected Vector3 _currentAim = Vector3.zero;
         protected Vector3 _currentAimAbsolute = Vector3.zero;
@@ -169,6 +172,14 @@ namespace MoreMountains.TopDownEngine
         }
 
         /// <summary>
+        /// Every frame, we compute the aim direction and rotate the weapon accordingly
+        /// </summary>
+        protected virtual void Update()
+        {
+
+        }
+
+        /// <summary>
         /// On LateUpdate, resets any additional angle
         /// </summary>
         protected virtual void LateUpdate()
@@ -220,6 +231,14 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void InitializeReticle()
         {
            
+        }
+
+        /// <summary>
+        /// This method defines how the character's camera target should move
+        /// </summary>
+        protected virtual void MoveTarget()
+        {
+
         }
 
         /// <summary>

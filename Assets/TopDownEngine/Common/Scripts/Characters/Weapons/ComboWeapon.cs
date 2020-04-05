@@ -20,13 +20,13 @@ namespace MoreMountains.TopDownEngine
         public string ComboInProgressAnimationParameter = "ComboInProgress";
 
         [Header("Debug")]
-        [ReadOnly]
+        [MMReadOnly]
         /// the list of weapons, set automatically by the class
         public Weapon[] Weapons;
-        [ReadOnly]
+        [MMReadOnly]
         /// the reference to the weapon's Owner
         public CharacterHandleWeapon OwnerCharacterHandleWeapon;
-        [ReadOnly]
+        [MMReadOnly]
         /// the time spent since the last weapon stopped
         public float TimeSinceLastWeaponStopped;
 
@@ -73,7 +73,7 @@ namespace MoreMountains.TopDownEngine
         /// <summary>
         /// On Update we reset our combo if needed
         /// </summary>
-        protected void Update()
+        protected virtual void Update()
         {
             ResetCombo();
         }

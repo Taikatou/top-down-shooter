@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
-using System.Linq;
-using Random = UnityEngine.Random;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -17,46 +15,46 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Character/Core/Character")] 
 	public class Character : MonoBehaviour
     {
-        public int TeamId { get; set; }
-
         /// the possible initial facing direction for your character
         public enum FacingDirections { West, East, North, South }
         /// the possible directions you can force your character to look at after its spawn
         public enum SpawnFacingDirections { Default, Left, Right, Up, Down }
 
         public enum CharacterDimensions { Type2D, Type3D }
-        [ReadOnly]
+        [MMReadOnly]
         public CharacterDimensions CharacterDimension;
 
         /// the possible character types : player controller or AI (controlled by the computer)
         public enum CharacterTypes { Player, AI }
 
-		[Information("The Character script is the mandatory basis for all Character abilities. Your character can either be a Non Player Character, controlled by an AI, or a Player character, controlled by the player. In this case, you'll need to specify a PlayerID, which must match the one specified in your InputManager. Usually 'Player1', 'Player2', etc.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The Character script is the mandatory basis for all Character abilities. Your character can either be a Non Player Character, controlled by an AI, or a Player character, controlled by the player. In this case, you'll need to specify a PlayerID, which must match the one specified in your InputManager. Usually 'Player1', 'Player2', etc.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// Is the character player-controlled or controlled by an AI ?
 		public CharacterTypes CharacterType = CharacterTypes.AI;
+
 		/// Only used if the character is player-controlled. The PlayerID must match an input manager's PlayerID. It's also used to match Unity's input settings. So you'll be safe if you keep to Player1, Player2, Player3 or Player4
-		public string PlayerID = "";				
-		/// the various states of the character
+		public string PlayerID;
+
+        /// the various states of the character
 		public CharacterStates CharacterState { get; protected set; }
 	
 		/// the direction the character will face on spawn
-		[Information("Here you can force a direction the character should face when spawning. If set to default, it'll match your model's initial facing direction.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can force a direction the character should face when spawning. If set to default, it'll match your model's initial facing direction.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		public SpawnFacingDirections DirectionOnSpawn = SpawnFacingDirections.Default;
 
 		[Header("Animator")]
-		[Information("The engine will try and find an animator for this character. If it's on the same gameobject it should have found it. If it's nested somewhere, you'll need to bind it below. You can also decide to get rid of it altogether, in that case, just uncheck 'use mecanim'.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The engine will try and find an animator for this character. If it's on the same gameobject it should have found it. If it's nested somewhere, you'll need to bind it below. You can also decide to get rid of it altogether, in that case, just uncheck 'use mecanim'.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the character animator
 		public Animator CharacterAnimator;
 		/// Set this to false if you want to implement your own animation system
 		public bool UseDefaultMecanim = true;
 
 		[Header("Model")]
-		[Information("Leave this unbound if this is a regular, sprite-based character, and if the SpriteRenderer and the Character are on the same GameObject. If not, you'll want to parent the actual model to the Character object, and bind it below. See the 3D demo characters for an example of that. The idea behind that is that the model may move, flip, but the collider will remain unchanged.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Leave this unbound if this is a regular, sprite-based character, and if the SpriteRenderer and the Character are on the same GameObject. If not, you'll want to parent the actual model to the Character object, and bind it below. See the 3D demo characters for an example of that. The idea behind that is that the model may move, flip, but the collider will remain unchanged.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
         /// the 'model' (can be any gameobject) used to manipulate the character. Ideally it's separated (and nested) from the collider/TopDown controller/abilities, to avoid messing with collisions.
         public GameObject CharacterModel;
         
         [Header("Events")]
-		[Information("Here you can define whether or not you want to have that character trigger events when changing state. See the MMTools' State Machine doc for more info.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define whether or not you want to have that character trigger events when changing state. See the MMTools' State Machine doc for more info.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// If this is true, the Character's state machine will emit events when entering/exiting a state
 		public bool SendStateChangeEvents = true;
 		/// If this is true, a state machine processor component will be added and it'll emit events on updates (see state machine processor's doc for more details)
@@ -104,19 +102,18 @@ namespace MoreMountains.TopDownEngine
         protected int _zSpeedAnimationParameter;
         protected int _idleAnimationParameter;
         protected int _randomAnimationParameter;
-
-        public bool Dead => ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
+        protected bool _animatorInitialized = false;
 
 
         /// <summary>
         /// Initializes this instance of the character
         /// </summary>
         protected virtual void Awake()
-		{		
-			Initialization();
+        {
+	        Initialization();
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Gets and stores input manager, camera and components
 		/// </summary>
 		protected virtual void Initialization()
@@ -175,6 +172,13 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual void AssignAnimator()
         {
+            if (_animatorInitialized)
+            {
+                return;
+            }
+            
+            _animatorParameters = new List<int>();
+
             if (CharacterAnimator != null)
             {
                 _animator = CharacterAnimator;
@@ -188,6 +192,8 @@ namespace MoreMountains.TopDownEngine
             {
                 InitializeAnimatorParameters();
             }
+
+            _animatorInitialized = true;
         }
 
         /// <summary>
@@ -196,9 +202,6 @@ namespace MoreMountains.TopDownEngine
         protected virtual void InitializeAnimatorParameters()
 		{
 			if (_animator == null) { return; }
-
-			_animatorParameters = new List<int>();
-
             MMAnimatorExtensions.AddAnimatorParameterIfExists(_animator, _groundedAnimationParameterName, out _groundedAnimationParameter, AnimatorControllerParameterType.Bool, _animatorParameters);
             MMAnimatorExtensions.AddAnimatorParameterIfExists(_animator, _currentSpeedAnimationParameterName, out _currentSpeedAnimationParameter, AnimatorControllerParameterType.Float, _animatorParameters);
             MMAnimatorExtensions.AddAnimatorParameterIfExists(_animator, _xSpeedAnimationParameterName, out _xSpeedAnimationParameter, AnimatorControllerParameterType.Float, _animatorParameters);
@@ -220,18 +223,9 @@ namespace MoreMountains.TopDownEngine
                 UpdateInputManagersInAbilities();
                 return;
             }
-
-            // we get the corresponding input manager
-            if (!string.IsNullOrEmpty(PlayerID))
-            {
-                LinkedInputManager = null;
-                var foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
-
-                var inputManager = foundInputManagers?.Single(manager => manager.PlayerID == PlayerID);
-                SetInputManager(inputManager);
-                SetInputManager(inputManager);
-            }
-            UpdateInputManagersInAbilities();
+            
+	        LinkedInputManager = GetComponent<InputManager>();
+	        UpdateInputManagersInAbilities();
         }
 
         /// <summary>
@@ -240,11 +234,8 @@ namespace MoreMountains.TopDownEngine
         /// <param name="inputManager"></param>
         public virtual void SetInputManager(InputManager inputManager)
         {
-	        if (inputManager)
-	        {
-		        LinkedInputManager = inputManager;
-		        UpdateInputManagersInAbilities();   
-	        }
+            LinkedInputManager = inputManager;
+            UpdateInputManagersInAbilities();
         }
 
         /// <summary>
@@ -290,10 +281,10 @@ namespace MoreMountains.TopDownEngine
 		/// <summary>
 		/// This is called every frame.
 		/// </summary>
-		private void FixedUpdate()
+		protected virtual void Update()
 		{		
 			EveryFrame();
-			
+				
 		}
 
 		/// <summary>
@@ -305,19 +296,7 @@ namespace MoreMountains.TopDownEngine
 			EarlyProcessAbilities();
 			ProcessAbilities();
 			LateProcessAbilities();
-		}
 
-		private void Update()
-		{
-			//Debug.Log(LinkedInputManager.PlayerID +"\t" + PlayerID + "\t" + gameObject);
-			if (LinkedInputManager)
-			{
-				if (LinkedInputManager.PlayerID != PlayerID)
-				{
-					SetInputManager();
-				}	
-			}
-			
 			// we send our various states to the animator.		 
 			UpdateAnimators ();
 		}

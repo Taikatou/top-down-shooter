@@ -20,7 +20,7 @@ namespace MoreMountains.TopDownEngine
 		/// the object pooler associated to this spawner
 		public MMObjectPooler ObjectPooler { get; set; }
 
-        [InspectorButton("ToggleSpawn")]
+        [MMInspectorButton("ToggleSpawn")]
         /// a test button to spawn an object
         public bool CanSpawnButton;
 

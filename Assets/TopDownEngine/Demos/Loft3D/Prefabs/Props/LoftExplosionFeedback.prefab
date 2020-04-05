@@ -70,16 +70,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
+  Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
-  Sfx: {fileID: 8300000, guid: 5766c794b2b71bb4291d607bfb46831e, type: 3}
+  Sfx: {fileID: 8300000, guid: f6580294a0cfc5f47a743ac2553f8f67, type: 3}
   RandomSfx: []
   PlayMethod: 0
+  PoolSize: 10
   MinVolume: 0.8
   MaxVolume: 1
   MinPitch: 0.9
@@ -99,12 +106,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Cinemachine Impulse
+  Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
@@ -150,13 +163,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Bloom
+  Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
+  Channel: 0
   ShakeDuration: 0.2
   RelativeIntensity: 1
   ShakeIntensity:
@@ -241,13 +261,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Lens Distortion
+  Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
+  Channel: 0
   RelativeIntensity: 0
   Intensity:
     serializedVersion: 2
@@ -361,13 +388,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Particles Instantiation
+  Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
+  Mode: 0
+  CachedRecycle: 1
   ParticlesPrefab: {fileID: 7415344032298132670, guid: a6ad62dfbb7ea824b97d73e42c9b769e,
     type: 3}
   InstantiateParticlesPosition: {fileID: 0}

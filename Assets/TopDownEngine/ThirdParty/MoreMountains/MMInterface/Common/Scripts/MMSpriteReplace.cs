@@ -13,7 +13,7 @@ namespace MoreMountains.MMInterface
 	{
 
         [Header("Sprites")]
-        [Information("Add this to an Image or a SpriteRenderer to be able to swap between two sprites.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Add this to an Image or a SpriteRenderer to be able to swap between two sprites.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
 
         /// the sprite to use when in the "on" state
         public Sprite OnSprite;
@@ -25,11 +25,11 @@ namespace MoreMountains.MMInterface
 		public bool StartsOn = true;
 
         [Header("Debug")]
-        [InspectorButton("Swap")]
+        [MMInspectorButton("Swap")]
         public bool SwapButton;
-        [InspectorButton("SwitchToOffSprite")]
+        [MMInspectorButton("SwitchToOffSprite")]
         public bool SwitchToOffSpriteButton;
-        [InspectorButton("SwitchToOnSprite")]
+        [MMInspectorButton("SwitchToOnSprite")]
         public bool SwitchToOnSpriteButton;
 
         /// the current state of the button

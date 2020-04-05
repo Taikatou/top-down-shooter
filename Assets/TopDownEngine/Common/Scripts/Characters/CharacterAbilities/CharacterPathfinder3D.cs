@@ -22,19 +22,19 @@ namespace MoreMountains.TopDownEngine
         /// whether or not we should draw a debug line to show the current path of the character
         public bool DebugDrawPath;
 
-        [ReadOnly]
+        [MMReadOnly]
         /// the current path
         public NavMeshPath AgentPath;
-        [ReadOnly]
+        [MMReadOnly]
         /// a list of waypoints the character will go through
         public Vector3[] Waypoints;
-        [ReadOnly]
+        [MMReadOnly]
         /// the index of the next waypoint
         public int NextWaypointIndex;
-        [ReadOnly]
+        [MMReadOnly]
         /// the direction of the next waypoint
         public Vector3 NextWaypointDirection;
-        [ReadOnly]
+        [MMReadOnly]
         /// the distance to the next waypoint
         public float DistanceToNextWaypoint;
 

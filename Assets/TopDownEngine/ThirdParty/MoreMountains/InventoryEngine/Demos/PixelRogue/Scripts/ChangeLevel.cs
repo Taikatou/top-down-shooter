@@ -13,7 +13,7 @@ namespace MoreMountains.InventoryEngine
 		/// <summary>
 		/// The name of the level to go to when entering the ChangeLevel zone
 		/// </summary>
-		[Information("This demo component, when added to a BoxCollider2D, will change the scene to the one specified in the field below when the character enters the collider.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("This demo component, when added to a BoxCollider2D, will change the scene to the one specified in the field below when the character enters the collider.", MMInformationAttribute.InformationType.Info,false)]
 		public string Destination;
 
 		/// <summary>

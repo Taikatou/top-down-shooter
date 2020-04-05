@@ -8,15 +8,18 @@ TagManager:
   - FX
   - Enemy
   - World
-  - walls
-  - RedCharacter
-  - BlueCharacter
-  - GreenCharacter
-  - YellowCharacter
-  - Team1
-  - Team2
-  - healing
-  - projectile
+  - Walls
+  - ball
+  - purpleAgent
+  - blueAgent
+  - purpleGoal
+  - blueGoal
+  - Coin
+  - Prior
+  - Projectile
+  - ProjectilePrior
+  - HealingBullet
+  - HealingBulletPrior
   layers:
   - Default
   - TransparentFX
@@ -41,8 +44,8 @@ TagManager:
   - Camera2
   - Camera3
   - Camera4
-  - TeamA
-  - TeamB
+  - CollisionBox
+  - Sword
   - 
   - 
   - 

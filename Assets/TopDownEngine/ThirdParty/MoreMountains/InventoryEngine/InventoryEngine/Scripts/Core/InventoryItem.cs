@@ -15,14 +15,14 @@ namespace MoreMountains.InventoryEngine
 	{
 		[Header("ID and Target")]
 		/// the (unique) ID of the item
-		[Information("The unique name of your object.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The unique name of your object.",MMInformationAttribute.InformationType.Info,false)]
 		public string ItemID;
 		/// the inventory name into which this item will be stored
 		public string TargetInventoryName = "MainInventory";
 
 		[Header("Methods")]
 		/// whether or not this item can be "used" (via the Use method) - important, this is only the INITIAL state of this object, IsUsable is to be used anytime after that
-		[Information("Here you can determine whether your object is Usable, Equippable, or both. Usable objects are typically bombs, potions, stuff like that. Equippables are usually weapons or armor.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can determine whether your object is Usable, Equippable, or both. Usable objects are typically bombs, potions, stuff like that. Equippables are usually weapons or armor.",MMInformationAttribute.InformationType.Info,false)]
 		public bool Usable = false;
         /// whether or not this item can be equipped - important, this is only the INITIAL state of this object, IsEquippable is to be used anytime after that
         public bool Equippable = false;
@@ -38,10 +38,10 @@ namespace MoreMountains.InventoryEngine
 
 		[Header("Basic info")]
 		/// the name of the item - will be displayed in the details panel
-		[Information("The name of the item as you want it to appear in the display panel",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The name of the item as you want it to appear in the display panel",MMInformationAttribute.InformationType.Info,false)]
 		public string ItemName;
 		[TextArea]
-		[Information("The Short and 'long' descriptions will be used to display in the InventoryDetails panel.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The Short and 'long' descriptions will be used to display in the InventoryDetails panel.",MMInformationAttribute.InformationType.Info,false)]
 		/// the item's short description
 		public string ShortDescription;
 		[TextArea]
@@ -49,7 +49,7 @@ namespace MoreMountains.InventoryEngine
 		public string Description;
 
 		[Header("Permissions")]
-		[Information("Here you can define whether this item can be moved by the player in the inventory, and/or swapped with another object (by moving an object in its slot).",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define whether this item can be moved by the player in the inventory, and/or swapped with another object (by moving an object in its slot).",MMInformationAttribute.InformationType.Info,false)]
 		/// if this is true, objects can be moved
 		public bool CanMoveObject=true;
 		/// if this is true, objects can be swapped with another object
@@ -57,11 +57,11 @@ namespace MoreMountains.InventoryEngine
 
 		[Header("Image")]
 		/// the icon that will be shown on the inventory's slot
-		[Information("The image that will be displayed inside InventoryDisplay panels and InventoryDetails.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The image that will be displayed inside InventoryDisplay panels and InventoryDetails.",MMInformationAttribute.InformationType.Info,false)]
 		public Sprite Icon;
 
 		[Header("Prefab Drop")]
-		[Information("The prefab that will be spawned in the scene should the item be dropped from its inventory. Here you can also specify the min and max distance at which the prefab should be spawned.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The prefab that will be spawned in the scene should the item be dropped from its inventory. Here you can also specify the min and max distance at which the prefab should be spawned.",MMInformationAttribute.InformationType.Info,false)]
 		/// the prefab to instantiate when the item is dropped
 		public GameObject Prefab;
 
@@ -74,26 +74,26 @@ namespace MoreMountains.InventoryEngine
 		public Vector3 PrefabDropMaxDistance = new Vector3(3,3,0);
 
 		[Header("Inventory Properties")]
-		[Information("If this object can be stacked (multiple instances in a single inventory slot), you can specify here the maximum size of that stack. You can also specify the item class (useful for equipment items mostly)",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If this object can be stacked (multiple instances in a single inventory slot), you can specify here the maximum size of that stack. You can also specify the item class (useful for equipment items mostly)",MMInformationAttribute.InformationType.Info,false)]
 		/// the maximum number of items you can stack in one slot
 		public int MaximumStack = 1;
 		/// the class of the item
 		public ItemClasses ItemClass;
 
 		[Header("Equippable")]
-		[Information("If this item is equippable, you can set here its target inventory name (for example ArmorInventory). Of course you'll need an inventory with a matching name in your scene. You can also specify a sound to play when this item is equipped. If you don't, a default sound will be played.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If this item is equippable, you can set here its target inventory name (for example ArmorInventory). Of course you'll need an inventory with a matching name in your scene. You can also specify a sound to play when this item is equipped. If you don't, a default sound will be played.",MMInformationAttribute.InformationType.Info,false)]
 		/// if the item is equippable, specify here the name of the inventory the item should go to when equipped
 		public string TargetEquipmentInventoryName;
 		/// the sound the item should play when equipped (optional)
 		public AudioClip EquippedSound;
 
 		[Header("Usable")]
-		[Information("If this item can be used, you can set here a sound to play when it gets used, if you don't a default sound will be played.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("If this item can be used, you can set here a sound to play when it gets used, if you don't a default sound will be played.",MMInformationAttribute.InformationType.Info,false)]
 		/// the sound the item should play when used (optional)
 		public AudioClip UsedSound;
 
 		[Header("Sounds")]
-		[Information("Here you can override the default sounds for move and drop events.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can override the default sounds for move and drop events.",MMInformationAttribute.InformationType.Info,false)]
 		/// the sound the item should play when moved (optional)
 		public AudioClip MovedSound;
 		/// the sound the item should play when dropped (optional)

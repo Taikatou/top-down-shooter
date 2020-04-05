@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this ability to a character, and it'll be able to rotate to face the movement's direction or the weapon's rotation
     /// </summary>
-    [HiddenProperties("AbilityStartFeedbacks", "AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStartFeedbacks", "AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Orientation 3D")]
     public class CharacterOrientation3D : CharacterAbility
     {
@@ -27,21 +27,21 @@ namespace MoreMountains.TopDownEngine
         /// If this is true, we'll rotate our model towards the direction
         public bool ShouldRotateToFaceMovementDirection = true;
         /// the current rotation mode
-        [Condition("ShouldRotateToFaceMovementDirection", true)]
+        [MMCondition("ShouldRotateToFaceMovementDirection", true)]
         public RotationSpeeds MovementRotationSpeed = RotationSpeeds.Instant;
         /// the object we want to rotate towards direction. If left empty, we'll use the Character's model
-        [Condition("ShouldRotateToFaceMovementDirection", true)]
+        [MMCondition("ShouldRotateToFaceMovementDirection", true)]
         public GameObject MovementRotatingModel;
         /// the speed at which to rotate towards direction (smooth and absolute only)
-        [Condition("ShouldRotateToFaceMovementDirection", true)]
+        [MMCondition("ShouldRotateToFaceMovementDirection", true)]
         public float RotateToFaceMovementDirectionSpeed = 10f;
         /// the threshold after which we start rotating (absolute mode only)
-        [Condition("ShouldRotateToFaceMovementDirection", true)]
+        [MMCondition("ShouldRotateToFaceMovementDirection", true)]
         public float AbsoluteThresholdMovement = 0.5f;
-        [ReadOnly]
+        [MMReadOnly]
         /// the direction of the model
         public Vector3 ModelDirection;
-        [ReadOnly]
+        [MMReadOnly]
         /// the direction of the model in angle values
         public Vector3 ModelAngles;
 
@@ -49,16 +49,16 @@ namespace MoreMountains.TopDownEngine
         /// If this is true, we'll rotate our model towards the weapon's direction
         public bool ShouldRotateToFaceWeaponDirection = true;
         /// the current rotation mode
-        [Condition("ShouldRotateToFaceWeaponDirection", true)]
+        [MMCondition("ShouldRotateToFaceWeaponDirection", true)]
         public RotationSpeeds WeaponRotationSpeed = RotationSpeeds.Instant;
         /// the object we want to rotate towards direction. If left empty, we'll use the Character's model
-        [Condition("ShouldRotateToFaceWeaponDirection", true)]
+        [MMCondition("ShouldRotateToFaceWeaponDirection", true)]
         public GameObject WeaponRotatingModel;
         /// the speed at which to rotate towards direction (smooth and absolute only)
-        [Condition("ShouldRotateToFaceWeaponDirection", true)]
+        [MMCondition("ShouldRotateToFaceWeaponDirection", true)]
         public float RotateToFaceWeaponDirectionSpeed = 10f;
         /// the threshold after which we start rotating (absolute mode only)
-        [Condition("ShouldRotateToFaceWeaponDirection", true)]
+        [MMCondition("ShouldRotateToFaceWeaponDirection", true)]
         public float AbsoluteThresholdWeapon = 0.5f;
 
         [Header("Animation")]
@@ -69,7 +69,7 @@ namespace MoreMountains.TopDownEngine
         /// whether the character is being applied a forced rotation
         public bool ForcedRotation = false;
         /// the forced rotation applied by an external script
-        [Condition("ForcedRotation", true)]
+        [MMCondition("ForcedRotation", true)]
         public Vector3 ForcedRotationDirection;
 
         protected CharacterHandleWeapon _characterHandleWeapon;
@@ -132,6 +132,10 @@ namespace MoreMountains.TopDownEngine
         public override void ProcessAbility()
         {
             base.ProcessAbility();
+            if (GameManager.Instance.Paused)
+            {
+                return;
+            }
             if (CharacterRotationAuthorized)
             {
                 RotateToFaceMovementDirection();
@@ -314,7 +318,7 @@ namespace MoreMountains.TopDownEngine
             switch(direction)
             {
                 case Character.FacingDirections.East:
-                    _newMovementQuaternion = Quaternion.LookRotation(Vector3.left);
+                    _newMovementQuaternion = Quaternion.LookRotation(Vector3.right);
                     break;
                 case Character.FacingDirections.North:
                     _newMovementQuaternion = Quaternion.LookRotation(Vector3.forward);
@@ -323,7 +327,7 @@ namespace MoreMountains.TopDownEngine
                     _newMovementQuaternion = Quaternion.LookRotation(Vector3.back);
                     break;
                 case Character.FacingDirections.West:
-                    _newMovementQuaternion = Quaternion.LookRotation(Vector3.right);
+                    _newMovementQuaternion = Quaternion.LookRotation(Vector3.left);
                     break;
             }
         }

@@ -31,7 +31,7 @@ namespace MoreMountains.TopDownEngine
 	public class CheckPoint : MonoBehaviour 
 	{
         [Header("Spawn")]
-		[Information("Add this script to a (preferrably empty) GameObject and it'll be added to the level's checkpoint list, allowing you to respawn from there. If you bind it to the LevelManager's starting point, that's where your character will spawn at the start of the level. And here you can decide whether the character should spawn facing left or right.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Add this script to a (preferrably empty) GameObject and it'll be added to the level's checkpoint list, allowing you to respawn from there. If you bind it to the LevelManager's starting point, that's where your character will spawn at the start of the level. And here you can decide whether the character should spawn facing left or right.",MMInformationAttribute.InformationType.Info,false)]
         /// the facing direction the character should face when spawning from this checkpoint
         public Character.FacingDirections FacingDirection = Character.FacingDirections.East ;
         /// whether or not this checkpoint should override any order and assign itself on entry

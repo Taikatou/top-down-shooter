@@ -81,7 +81,7 @@ namespace MoreMountains.TopDownEngine
             else
             {
                 // we cast a ray to make sure there's no obstacle
-                _boxcastDirection = (Vector2)(_detectionCollider.gameObject.transform.position - _collider.bounds.center);
+                _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);
                 RaycastHit2D hit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, _boxcastDirection.normalized, _boxcastDirection.magnitude, ObstacleMask);
                 if (!hit)
                 {

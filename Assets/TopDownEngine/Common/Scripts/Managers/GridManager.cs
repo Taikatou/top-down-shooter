@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A manager required in your scenes that use CharacterGridMovement.
     /// </summary>
-    public class GridManager : Singleton<GridManager>
+    public class GridManager : MMSingleton<GridManager>
     {
         /// the possible types of debug modes
         public enum DebugDrawModes { TwoD, ThreeD }
@@ -23,16 +23,16 @@ namespace MoreMountains.TopDownEngine
         /// whether or not to draw the debug grid
         public bool DrawDebugGrid = true;
         /// the mode in which to draw the debug grid
-        [Condition("DrawDebugGrid", true)]
+        [MMCondition("DrawDebugGrid", true)]
         public DebugDrawModes DebugDrawMode = DebugDrawModes.TwoD;
         /// the size (in squares of the debug grid)
-        [Condition("DrawDebugGrid", true)]
+        [MMCondition("DrawDebugGrid", true)]
         public int DebugGridSize = 30;
         /// the color to use to draw the debug grid lines
-        [Condition("DrawDebugGrid", true)]
+        [MMCondition("DrawDebugGrid", true)]
         public Color CellBorderColor = new Color(60f, 221f, 255f, 1f);
         /// the color to use to draw the debug grid cells backgrounds
-        [Condition("DrawDebugGrid", true)]
+        [MMCondition("DrawDebugGrid", true)]
         public Color InnerColor = new Color(60f, 221f, 255f, 0.3f);
 
         /// a list of all cells currently occupied

@@ -31,7 +31,7 @@ namespace MoreMountains.FeedbacksForThirdParty
         {
             if (Active)
             {
-                MMDepthOfFieldShakeEvent.Trigger(ShakeDuration, ShakeFocusDistance, ShakeFocusDistanceAmplitude, ShakeAperture, ShakeApertureAmplitude, ShakeFocalLength, ShakeFocalLengthAmplitude, attenuation, Channel);
+                MMDepthOfFieldShakeEvent.Trigger(ShakeDuration, ShakeFocusDistance, ShakeFocusDistanceAmplitude, ShakeAperture, ShakeApertureAmplitude, ShakeFocalLength, ShakeFocalLengthAmplitude, attenuation, Channel, RelativeIntensities);
             }
         }
     }

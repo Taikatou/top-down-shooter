@@ -4693,7 +4693,7 @@ ParticleSystem:
 --- !u!199 &199417063065338264
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4717,7 +4717,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9486,7 +9485,7 @@ ParticleSystem:
 --- !u!199 &199630857930723226
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9510,7 +9509,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9557,7 +9555,6 @@ GameObject:
   - component: {fileID: 4330552656303096}
   - component: {fileID: 212479530728563738}
   - component: {fileID: 95179347267985190}
-  - component: {fileID: 8630999849055733176}
   m_Layer: 10
   m_Name: KoalaModel
   m_TagString: Untagged
@@ -9608,7 +9605,6 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9651,18 +9647,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8630999849055733176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1358283918792732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a9c4378bb2a40c49eb7a248c52fbf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1498750440386690
 GameObject:
   m_ObjectHideFlags: 0
@@ -9689,9 +9673,6 @@ GameObject:
   - component: {fileID: 114104414726605804}
   - component: {fileID: 114171358364461030}
   - component: {fileID: 114499223069276626}
-  - component: {fileID: 7526697671933341368}
-  - component: {fileID: 7993286593346662179}
-  - component: {fileID: 5146985213592197525}
   m_Layer: 10
   m_Name: Koala
   m_TagString: Player
@@ -9811,9 +9792,6 @@ MonoBehaviour:
   HoleLayerMask:
     serializedVersion: 2
     m_Bits: 32768
-  ObstaclesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &114873785417298432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9851,8 +9829,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   FacingMode: 3
   ModelShouldFlip: 0
@@ -9883,17 +9859,12 @@ MonoBehaviour:
   AbilityInProgressSfx: {fileID: 8300000, guid: 655425dccf77546449f89eb978aeabd1,
     type: 3}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
-  Movement: 0
-  InputAuthorized: 1
   WalkSpeed: 6
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
   Deceleration: 10
-  InterpolateMovementSpeed: 0
   WalkParticles:
   - {fileID: 198815970869915398}
   TouchTheGroundParticles: []
@@ -9914,12 +9885,8 @@ MonoBehaviour:
   AbilityInProgressSfx: {fileID: 8300000, guid: 0e68e10d6bc130d438acd7a709a28f5b,
     type: 3}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RunSpeed: 10
-  AutoRun: 0
-  AutoRunThreshold: 0.6
 --- !u!114 &114495819129293066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9935,8 +9902,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   DashMode: 1
   DashDirection: {x: 1, y: 0, z: 0}
@@ -9990,23 +9955,16 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
-  InitialWeapon: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
-    type: 3}
+  InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
-  WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 4515663194721164}
-  ProjectileSpawn: {fileID: 0}
   AutomaticallyBindAnimator: 1
-  AutoIK: 1
   ContinuousPress: 0
   GettingHitInterruptsAttack: 0
   BufferInput: 1
   NewInputExtendsBuffer: 0
   MaximumBufferDuration: 0.25
-  RequiresPerfectTile: 0
   CurrentWeapon: {fileID: 0}
 --- !u!114 &114619658823058744
 MonoBehaviour:
@@ -10023,8 +9981,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   ButtonActivatedZone: {fileID: 0}
 --- !u!114 &114530058247276760
@@ -10042,8 +9998,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   FallingFeedback: {fileID: 4241640356283784650}
 --- !u!114 &114863807796539354
@@ -10061,8 +10015,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   JumpDuration: 0.5
   JumpProportionalToPress: 1
@@ -10084,8 +10036,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
 --- !u!114 &114104414726605804
 MonoBehaviour:
@@ -10102,8 +10052,6 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   MainInventoryName: KoalaMainInventory
   WeaponInventoryName: KoalaWeaponInventory
@@ -10164,60 +10112,6 @@ MonoBehaviour:
   EdgePrecision: 3
   EdgeThreshold: 0.5
   VisionMeshFilter: {fileID: 33599144827507420}
---- !u!114 &7526697671933341368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31cea8b4bce9e4a479aad78264d90fd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7993286593346662179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    vectorObservationSize: 112
-    numStackedVectorObservations: 1
-    vectorActionSize: 0300000003000000030000000300000002000000
-    vectorActionDescriptions: []
-    vectorActionSpaceType: 0
-  m_Model: {fileID: 0}
-  m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: Koala Agent
-  m_TeamID: 0
-  m_useChildSensors: 1
---- !u!114 &5146985213592197525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498750440386690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e4b9d6c6b9700b49ab9d862b83d8a2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxStep: 0
-  useVectorObs: 1
-  rayPerception: {fileID: 8630999849055733176}
-  otherMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0
@@ -15041,7 +14935,7 @@ ParticleSystem:
 --- !u!199 &199924805280406376
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -15065,7 +14959,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -15158,7 +15051,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -15273,7 +15165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15284,7 +15175,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: 38340c610ade4ab49bc7fbeade4db6ad, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -15304,7 +15194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15417,7 +15306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Camera Shake
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15425,7 +15313,6 @@ MonoBehaviour:
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
-  RepeatUntilStopped: 0
   Channel: 0
   CameraShakeProperties:
     Duration: 0.1
@@ -15445,7 +15332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15504,7 +15390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Particles
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15513,7 +15398,6 @@ MonoBehaviour:
     DelayBetweenRepeats: 1
   DebugActive: 0
   BoundParticleSystem: {fileID: 198002379943107208}
-  MoveToPosition: 0
 --- !u!114 &5838705067317168372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15528,7 +15412,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15539,7 +15422,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: d4f963e1fb34c6441b5188289f973106, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -15617,7 +15499,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15628,7 +15509,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: 6f10d771e7aa4234c90db4da16c32b0d, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -15648,7 +15528,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flicker
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15674,7 +15553,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flash
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15701,7 +15579,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Camera Shake
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15709,7 +15586,6 @@ MonoBehaviour:
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
-  RepeatUntilStopped: 0
   Channel: 0
   CameraShakeProperties:
     Duration: 0.1
@@ -15729,7 +15605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Freeze Frame
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15752,7 +15627,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Color Grading
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15963,7 +15837,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -15974,7 +15847,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: 3d355044b7a83174dbed50bf25b44913, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -15994,7 +15866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Color Grading
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0

@@ -5016,9 +5016,9 @@ MonoBehaviour:
   DelayBeforeUseReleaseInterruption: 1
   TimeBetweenUses: 0.1
   TimeBetweenUsesReleaseInterruption: 1
-  MagazineBased: 1
+  MagazineBased: 0
   MagazineSize: 30
-  AutoReload: 1
+  AutoReload: 0
   ReloadTime: 2
   AmmoConsumedPerShot: 1
   AutoDestroyWhenEmpty: 0
@@ -5094,14 +5094,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba85f5b87cb8cf84f9e09dcca90cd372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AimControl: 2
+  AimControl: 3
   RotationMode: 0
   WeaponRotationSpeed: 0
   MinimumAngle: -180
   MaximumAngle: 180
   MinimumMagnitude: 0.2
-  ReticleType: 0
-  Reticle: {fileID: 1000010525066036, guid: f08bfeb16a6183b4386f121ccf51b56e, type: 3}
+  ReticleType: 2
+  Reticle: {fileID: 1373789777524232, guid: f31b518c2b50cc2479370c46d4485485, type: 3}
   ReticleDistance: 5
   ReticleAtMousePosition: 1
   RotateReticle: 0

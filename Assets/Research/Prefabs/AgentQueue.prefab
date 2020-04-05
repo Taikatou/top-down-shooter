@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3644290879213326371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3644290879213326397}
+  - component: {fileID: 3644290879213326370}
+  m_Layer: 0
+  m_Name: AgentQueue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3644290879213326397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644290879213326371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3644290879213326370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644290879213326371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51ef5f718dae6f40a64248c997b9d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mlCharacters:
+  - {fileID: 2544202814464142320, guid: 6f96b885623b77c40a114d0706c95f2f, type: 3}
+  - {fileID: 5304628133201296549, guid: 17e9ef6a7067eb2469fc952bd38ed419, type: 3}
+  - {fileID: 961107651866527189, guid: ac090addff0d338429145bb50fd68fee, type: 3}
+  - {fileID: 3682728003333422777, guid: ac0c88f670c9b69439cf91a93b7853a9, type: 3}
+  - {fileID: 3452255177377157847, guid: cd4fff746683fcc44a415c53466a4371, type: 3}
+  priorMlCharacters:
+  - {fileID: 643244967630268271, guid: b1150336814683b4a92dd9b9e1fae4af, type: 3}
+  - {fileID: 4740794389653712349, guid: bb65ffbb7e3a6a94299fef7526cc15be, type: 3}
+  - {fileID: 2513860392421422566, guid: 3b92088f8af6a2141ae6f0f780af7da0, type: 3}
+  - {fileID: 1559127610766110420, guid: 092e3a4e5370c7244b2851dafeea601b, type: 3}
+  - {fileID: 1657781025188952165, guid: 5cd9348f0e6dc464792ac63040b6d08c, type: 3}
+  numAgents: 4

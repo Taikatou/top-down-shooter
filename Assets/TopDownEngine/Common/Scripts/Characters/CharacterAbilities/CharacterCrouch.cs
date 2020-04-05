@@ -13,7 +13,10 @@ namespace MoreMountains.TopDownEngine
 	{
 		/// This method is only used to display a helpbox text at the beginning of the ability's inspector
 		public override string HelpBoxText() { return "This component handles crouch and crawl behaviours. Here you can determine the crouch speed, and whether or not the collider should resize when crouched (to crawl into tunnels for example). If it should, please setup its new size here."; }
-        
+
+        [MMReadOnly]
+        public bool ForcedCrouch = false;
+
 		[Header("Crawl")]
 		/// if this is set to false, the character won't be able to crawl, just to crouch
 		public bool CrawlAuthorized = true;
@@ -39,14 +42,11 @@ namespace MoreMountains.TopDownEngine
         /// the speed at which to offset objects
 		public float OffsetSpeed = 5f;
 
+		[MMReadOnly]
         /// whether or not the character is in a tunnel right now and can't get up
-        [ReadOnly]
 		public bool InATunnel;
-        /// whether or not the character is in forced crouch mode (being forced to crouch by another object
-        [ReadOnly]
-        public bool ForcedCrouch = false;
 
-        protected List<Vector3> _objectsToOffsetOriginalPositions;
+		protected List<Vector3> _objectsToOffsetOriginalPositions;
 
         protected const string _crouchingAnimationParameterName = "Crouching";
         protected const string _crawlingAnimationParameterName = "Crawling";
@@ -81,10 +81,22 @@ namespace MoreMountains.TopDownEngine
 		public override void ProcessAbility()
 		{
 			base.ProcessAbility();
-			DetermineState ();
+            HandleForcedCrouch();
+            DetermineState ();
 			CheckExitCrouch();
 			OffsetObjects ();
 		}
+
+        /// <summary>
+        /// If we're in forced crouch state, we crouch
+        /// </summary>
+        protected virtual void HandleForcedCrouch()
+        {
+            if (ForcedCrouch && (_movement.CurrentState != CharacterStates.MovementStates.Crouching) && (_movement.CurrentState != CharacterStates.MovementStates.Crawling))
+            {
+                Crouch();
+            }
+        }
 
 		/// <summary>
 		/// At the start of the ability's cycle, we check if we're pressing down. If yes, we call Crouch()
@@ -98,15 +110,10 @@ namespace MoreMountains.TopDownEngine
 			{
 				Crouch();
 			}
-
-            if (ForcedCrouch && (_movement.CurrentState != CharacterStates.MovementStates.Crouching) && (_movement.CurrentState != CharacterStates.MovementStates.Crawling))
-            {
-                Crouch();
-            }
 		}
 
         /// <summary>
-        /// Forces the character to crouch
+        /// Starts a forced crouch
         /// </summary>
         public virtual void StartForcedCrouch()
         {
@@ -114,7 +121,7 @@ namespace MoreMountains.TopDownEngine
         }
 
         /// <summary>
-        /// Stops any forced crouch state the character could be in
+        /// Stops a forced crouch
         /// </summary>
         public virtual void StopForcedCrouch()
         {
@@ -140,8 +147,7 @@ namespace MoreMountains.TopDownEngine
 				// we play the crouch start sound 
 				PlayAbilityStartSfx();
 				PlayAbilityUsedSfx();
-                PlayAbilityStartFeedbacks();
-            }
+			}
 
 			// we set the character's state to Crouching and if it's also moving we set it to Crawling
 			_movement.ChangeState(CharacterStates.MovementStates.Crouching);
@@ -220,6 +226,15 @@ namespace MoreMountains.TopDownEngine
 			if ( (_movement.CurrentState == CharacterStates.MovementStates.Crouching)
 				|| (_movement.CurrentState == CharacterStates.MovementStates.Crawling))
 			{	
+                if (_inputManager == null)
+                {
+                    if (!ForcedCrouch)
+                    {
+                        ExitCrouch();
+                    }
+                    return;
+                }
+
 				// but we're not pressing down anymore, or we're not grounded anymore
 				if ( (!_controller.Grounded)
 					|| ((_inputManager.CrouchButton.State.CurrentState == MMInput.ButtonStates.Off) && (!ForcedCrouch)))
@@ -230,27 +245,31 @@ namespace MoreMountains.TopDownEngine
 					// if the character is not in a tunnel, we can go back to normal size
 					if (!InATunnel)
 					{
-						// we return to normal walking speed
-						if (_characterMovement != null)
-						{
-							_characterMovement.ResetSpeed ();
-						}
-
-						// we play our exit sound
-						StopAbilityUsedSfx();
-						PlayAbilityStopSfx();
-
-                        // exit feedbacks
-                        StopStartFeedbacks();
-                        PlayAbilityStopFeedbacks();
-
-                        // we go back to Idle state and reset our collider's size
-                        _movement.ChangeState(CharacterStates.MovementStates.Idle);
-						_controller.ResetColliderSize();
-					}
+                        ExitCrouch();
+                    }
 				}
 			}
 		}
+
+        /// <summary>
+        /// Returns the character to normal stance
+        /// </summary>
+        protected virtual void ExitCrouch()
+        {
+            // we return to normal walking speed
+            if (_characterMovement != null)
+            {
+                _characterMovement.ResetSpeed();
+            }
+
+            // we play our exit sound
+            StopAbilityUsedSfx();
+            PlayAbilityStopSfx();
+
+            // we go back to Idle state and reset our collider's size
+            _movement.ChangeState(CharacterStates.MovementStates.Idle);
+            _controller.ResetColliderSize();
+        }
 
 		/// <summary>
 		/// Adds required animator parameters to the animator parameters list if they exist

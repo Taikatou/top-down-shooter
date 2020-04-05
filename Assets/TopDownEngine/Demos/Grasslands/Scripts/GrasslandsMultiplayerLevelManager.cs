@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ using UnityEngine.SceneManagement;
 
 namespace MoreMountains.TopDownEngine
 {
+    public class MlUtils
+    {
+        public static bool Dead(Character character)
+        {
+            return character.ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead;
+        }
+    }
     /// <summary>
     /// An example class of how you can extend the MultiplayerLevelManager to implement your own specific rules.
     /// This one's rules are as follows :
@@ -37,9 +45,8 @@ namespace MoreMountains.TopDownEngine
         /// the ID of the winner
         public string WinnerID { get; set; }
         protected string _playerID;
-        protected bool _gameOver;
-
-
+        protected bool _gameOver = false;
+        
         /// <summary>
         /// On init, we initialize our points and countdowns
         /// </summary>
@@ -49,15 +56,15 @@ namespace MoreMountains.TopDownEngine
             WinnerID = "";
             Points = new GrasslandPoints[Players.Count];
             _gameOver = false;
-            
+
             var i = 0;
-            foreach(Character player in Players)
+            foreach (Character player in Players)
             {
                 Points[i].PlayerID = player.PlayerID;
                 Points[i].Points = 0;
                 i++;
             }
-            foreach(MMCountdown countdown in Countdowns)
+            foreach (var countdown in Countdowns)
             {
                 countdown.CountdownFrom = GameDuration;
                 countdown.ResetCountdown();
@@ -83,10 +90,10 @@ namespace MoreMountains.TopDownEngine
         {
             var aliveCharacters = 0;
             var i = 0;
-            
-            foreach(var character in Instance.Players)
+
+            foreach (var character in Players)
             {
-                if (!character.Dead)
+                if (MlUtils.Dead(character))
                 {
                     WinnerID = character.PlayerID;
                     aliveCharacters++;
@@ -107,16 +114,15 @@ namespace MoreMountains.TopDownEngine
             {
                 WinnerID = "Player1";
             }
-
-            //MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
-            //_gameOver = true;
+            // MMTimeScaleEvent.Trigger(MMTimeScaleMethods.For, 0f, 0f, false, 0f, true);
+            _gameOver = true;
             TopDownEngineEvent.Trigger(TopDownEngineEventTypes.GameOver, null);
         }
 
         /// <summary>
         /// On update, we update our countdowns and check for input if we're in game over state
         /// </summary>
-        private void Update()
+        public override void Update()
         {
             base.Update();
             UpdateCountdown();

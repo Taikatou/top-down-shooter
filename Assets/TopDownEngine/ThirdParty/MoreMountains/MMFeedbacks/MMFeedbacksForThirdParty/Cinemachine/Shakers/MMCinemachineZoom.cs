@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using Cinemachine;
 using MoreMountains.Feedbacks;
 
 namespace MoreMountains.FeedbacksForThirdParty
@@ -51,7 +52,7 @@ namespace MoreMountains.FeedbacksForThirdParty
         /// </summary>
         protected virtual void Awake()
         {
-            _virtualCamera = GameObject.FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
+            _virtualCamera = this.gameObject.GetComponent<Cinemachine.CinemachineVirtualCamera>();
             _initialFieldOfView = _virtualCamera.m_Lens.FieldOfView;
         }	
         
