@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Research.LevelDesign.Global_Scripts
+namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 {
 	/// <summary>
 	/// Contains all the important functions for generating maps with tilemaps. 

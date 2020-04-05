@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Research.LevelDesign.Global_Scripts;
+using Research.LevelDesign.UnityProcedural.Global_Scripts;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
 #if UNITY_EDITOR
-using UnityEditor;
+
 #endif
 
-namespace Research.LevelDesign.Scripts
+namespace Research.LevelDesign.UnityProcedural.Scripts
 {
 	public class LevelGeneratorStack : MonoBehaviour
 	{

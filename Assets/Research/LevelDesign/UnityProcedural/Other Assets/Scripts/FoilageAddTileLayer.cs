@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Research.LevelDesign.Other_Assets.Scripts
+namespace Research.LevelDesign.UnityProcedural.Other_Assets.Scripts
 {
     [ExecuteAlways]
     [RequireComponent(typeof(Tilemap))]

@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
-namespace Research.LevelDesign.Global_Scripts
+namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 {
 #if UNITY_EDITOR
-    using UnityEditor;
 #endif
     ///<summary>
     ///This script makes the MapLayer class a scriptable object

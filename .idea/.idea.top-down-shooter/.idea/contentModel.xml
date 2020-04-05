@@ -296,29 +296,31 @@
             <e p="TimeScaleChecker.cs" t="Include" />
           </e>
           <e p="LevelDesign" t="Include">
-            <e p="Global Scripts" t="Include">
-              <e p="LevelGenerator.cs" t="Include" />
-              <e p="MapFunctions.cs" t="Include" />
-              <e p="MapSettings.cs" t="Include" />
-            </e>
-            <e p="Multi-Generation Example" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="LevelGeneratorStack.cs" t="Include" />
+            <e p="UnityProcedural" t="Include">
+              <e p="Global Scripts" t="Include">
+                <e p="LevelGenerator.cs" t="Include" />
+                <e p="MapFunctions.cs" t="Include" />
+                <e p="MapSettings.cs" t="Include" />
               </e>
-            </e>
-            <e p="Other Assets" t="Include">
-              <e p="Player" t="Include">
-                <e p="PennyPixel" t="Include">
-                  <e p="Scripts" t="Include">
-                    <e p="PhysicsObject.cs" t="Include" />
-                    <e p="PlayerAdditionalController.cs" t="Include" />
-                    <e p="PlayerPlatformerController.cs" t="Include" />
-                  </e>
+              <e p="Multi-Generation Example" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="LevelGeneratorStack.cs" t="Include" />
                 </e>
               </e>
-              <e p="Scripts" t="Include">
-                <e p="FoilageAddTileLayer.cs" t="Include" />
-                <e p="PaintOnLayerRuleTile.cs" t="Include" />
+              <e p="Other Assets" t="Include">
+                <e p="Player" t="Include">
+                  <e p="PennyPixel" t="Include">
+                    <e p="Scripts" t="Include">
+                      <e p="PhysicsObject.cs" t="Include" />
+                      <e p="PlayerAdditionalController.cs" t="Include" />
+                      <e p="PlayerPlatformerController.cs" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="Scripts" t="Include">
+                  <e p="FoilageAddTileLayer.cs" t="Include" />
+                  <e p="PaintOnLayerRuleTile.cs" t="Include" />
+                </e>
               </e>
             </e>
           </e>
