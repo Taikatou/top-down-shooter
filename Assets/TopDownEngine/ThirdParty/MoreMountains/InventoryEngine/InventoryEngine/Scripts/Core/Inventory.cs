@@ -21,25 +21,25 @@ namespace MoreMountains.InventoryEngine
 
         [Header("Debug")]
         /// If true, will draw the contents of the inventory in its inspector
-        [Information("The Inventory component is like the database and controller part of your inventory. It won't show anything on screen, you'll need also an InventoryDisplay for that. Here you can decide whether or not you want to output a debug content in the inspector (useful for debugging).", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("The Inventory component is like the database and controller part of your inventory. It won't show anything on screen, you'll need also an InventoryDisplay for that. Here you can decide whether or not you want to output a debug content in the inspector (useful for debugging).", MMInformationAttribute.InformationType.Info, false)]
         public bool DrawContentInInspector = false;
 
         /// the complete list of inventory items in this inventory
-        [Information("This is a realtime view of your Inventory's contents. Don't modify this list via the inspector, it's visible for control purposes only.", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("This is a realtime view of your Inventory's contents. Don't modify this list via the inspector, it's visible for control purposes only.", MMInformationAttribute.InformationType.Info, false)]
         public InventoryItem[] Content;
 
         [Header("Inventory Type")]
         /// whether this inventory is a main inventory or equipment one
-        [Information("Here you can define your inventory's type. Main are 'regular' inventories. Equipment inventories will be bound to a certain item class and have dedicated options.", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can define your inventory's type. Main are 'regular' inventories. Equipment inventories will be bound to a certain item class and have dedicated options.", MMInformationAttribute.InformationType.Info, false)]
         public InventoryTypes InventoryType = InventoryTypes.Main;
 
         [Header("Target Transform")]
-        [Information("The TargetTransform is any transform in your scene at which objects dropped from the inventory will spawn.", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("The TargetTransform is any transform in your scene at which objects dropped from the inventory will spawn.", MMInformationAttribute.InformationType.Info, false)]
         /// the transform at which objects will be spawned when dropped
         public Transform TargetTransform;
 
         [Header("Persistency")]
-        [Information("Here you can define whether or not this inventory should respond to Load and Save events. If you don't want to have your inventory saved to disk, set this to false. You can also have it reset on start, to make sure it's always empty at the start of this level.", InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can define whether or not this inventory should respond to Load and Save events. If you don't want to have your inventory saved to disk, set this to false. You can also have it reset on start, to make sure it's always empty at the start of this level.", MMInformationAttribute.InformationType.Info, false)]
         /// whether this inventory will be saved and loaded
         public bool Persistent = true;
         /// whether or not this inventory should be reset on start
@@ -391,7 +391,7 @@ namespace MoreMountains.InventoryEngine
         {
             SerializedInventory serializedInventory = new SerializedInventory();
             FillSerializedInventory(serializedInventory);
-            SaveLoadManager.Save(serializedInventory, gameObject.name + _saveFileExtension, _saveFolderName);
+            MMSaveLoadManager.Save(serializedInventory, gameObject.name + _saveFileExtension, _saveFolderName);
         }
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace MoreMountains.InventoryEngine
         /// </summary>
         public virtual void LoadSavedInventory()
         {
-            SerializedInventory serializedInventory = (SerializedInventory)SaveLoadManager.Load(gameObject.name + _saveFileExtension, _saveFolderName);
+            SerializedInventory serializedInventory = (SerializedInventory)MMSaveLoadManager.Load(typeof(SerializedInventory), gameObject.name + _saveFileExtension, _saveFolderName);
             ExtractSerializedInventory(serializedInventory);
             MMInventoryEvent.Trigger(MMInventoryEventType.InventoryLoaded, null, this.name, null, 0, 0);
         }
@@ -445,7 +445,7 @@ namespace MoreMountains.InventoryEngine
             Content = new InventoryItem[serializedInventory.ContentType.Length];
             for (int i = 0; i < serializedInventory.ContentType.Length; i++)
             {
-                if (serializedInventory.ContentType[i] != null)
+                if ((serializedInventory.ContentType[i] != null) && (serializedInventory.ContentType[i] != ""))
                 {
                     Content[i] = Resources.Load<InventoryItem>(_resourceItemPath + serializedInventory.ContentType[i]).Copy();
                     Content[i].Quantity = serializedInventory.ContentQuantity[i];
@@ -462,7 +462,7 @@ namespace MoreMountains.InventoryEngine
         /// </summary>
         public virtual void ResetSavedInventory()
         {
-            SaveLoadManager.DeleteSave(gameObject.name + _saveFileExtension, _saveFolderName);
+            MMSaveLoadManager.DeleteSave(gameObject.name + _saveFileExtension, _saveFolderName);
             Debug.LogFormat("save file deleted");
         }
 

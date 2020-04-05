@@ -21,13 +21,13 @@ namespace MoreMountains.TopDownEngine
         /// the acceleration of the character
         public float Acceleration = 5;
         /// the current speed at which the character is going
-        [ReadOnly]
+        [MMReadOnly]
         public float CurrentSpeed;
         /// a multiplier to apply to the maximum speed
-        [ReadOnly]
+        [MMReadOnly]
         public float MaximumSpeedMultiplier = 1f;
         /// a multiplier to apply to the acceleration, letting you modify it safely from outside
-        [ReadOnly]
+        [MMReadOnly]
         public float AccelerationMultiplier = 1f;
 
         [Header("Input Settings")]
@@ -48,7 +48,7 @@ namespace MoreMountains.TopDownEngine
         /// the position the object will be at when it reaches its next perfect tile
         public Vector3 TargetGridPosition { get; protected set; }
 
-        [ReadOnly]
+        [MMReadOnly]
         /// this is true everytime a character is at the exact position of a tile
         public bool PerfectTile;
 

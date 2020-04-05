@@ -13,7 +13,7 @@ namespace MoreMountains.InventoryEngine
 		public enum HotbarPossibleAction { Use, Equip }
 		[Header("Hotbar")]
 
-		[Information("Here you can define the keys your hotbar will listen to to activate the hotbar's action.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define the keys your hotbar will listen to to activate the hotbar's action.",MMInformationAttribute.InformationType.Info,false)]
 		/// the key associated to the hotbar, that will trigger the action when pressed
 		public string HotbarKey;
 		/// the alt key associated to the hotbar

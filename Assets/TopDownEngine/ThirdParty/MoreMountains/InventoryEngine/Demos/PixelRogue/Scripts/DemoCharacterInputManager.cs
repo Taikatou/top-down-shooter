@@ -12,7 +12,7 @@ namespace MoreMountains.InventoryEngine
 	public class DemoCharacterInputManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
 	{
 		/// The character that'll move through the level
-		[Information("This component is a very simple input manager that handles the demo character's input and makes it move. If you remove it from the scene your character won't move anymore.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("This component is a very simple input manager that handles the demo character's input and makes it move. If you remove it from the scene your character won't move anymore.", MMInformationAttribute.InformationType.Info,false)]
 		public InventoryDemoCharacter DemoCharacter ;
 
 		protected bool _pause = false;

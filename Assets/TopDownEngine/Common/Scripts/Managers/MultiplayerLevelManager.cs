@@ -70,7 +70,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void SpawnMultipleCharacters()
         {
-            for (int i = 0; i < Players.Count; i++)
+            for (var i = 0; i < Players.Count; i++)
             {
                 SpawnPoints[i].SpawnPlayer(Players[i]);
             }

@@ -10,7 +10,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this component to a character and it'll be able to control an inventory
     /// Animator parameters : none
     /// </summary>
-    [HiddenProperties("AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Inventory")] 
 	public class CharacterInventory : CharacterAbility, MMEventListener<MMInventoryEvent>
 	{

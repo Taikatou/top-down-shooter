@@ -17,7 +17,7 @@ namespace MoreMountains.TopDownEngine
         public Vector3 MaxForce;
 
         /// a test button
-        [InspectorButton("Jump")]        
+        [MMInspectorButton("Jump")]        
         public bool JumpButton;
 
         protected Rigidbody _rigidbody;

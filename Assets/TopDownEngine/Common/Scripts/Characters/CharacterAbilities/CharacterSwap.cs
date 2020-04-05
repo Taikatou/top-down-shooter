@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this ability to a Character and it'll be part of a pool of characters in a scene to swap from. 
     /// You'll need a CharacterSwapManager in your scene for this to work.
     /// </summary>
-    [HiddenProperties("AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Swap")]
     public class CharacterSwap : CharacterAbility
     {

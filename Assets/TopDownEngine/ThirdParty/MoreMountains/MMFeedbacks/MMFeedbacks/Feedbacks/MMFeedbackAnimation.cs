@@ -18,14 +18,14 @@ namespace MoreMountains.Feedbacks
         
         [Header("Trigger")]
         /// if this is true, will update the specified trigger parameter
-        public bool UpdateTrigger = true;        
+        public bool UpdateTrigger = false;        
         /// the trigger animator parameter to, well, trigger when the feedback is played
         [MMFCondition("UpdateTrigger", true)]
         public string TriggerParameterName;
 
         [Header("Trigger")]
         /// if this is true, will update the specified bool parameter
-        public bool UpdateBool = true;
+        public bool UpdateBool = false;
         /// the bool parameter to turn true when the feedback gets played
         [MMFCondition("UpdateBool", true)]
         public string BoolParameterName;
@@ -40,7 +40,6 @@ namespace MoreMountains.Feedbacks
         protected override void CustomInitialization(GameObject owner)
         {
             base.CustomInitialization(owner);
-            Debug.Log("custom init");
             _triggerParameter = Animator.StringToHash(TriggerParameterName);
             _boolParameter = Animator.StringToHash(BoolParameterName);
         }

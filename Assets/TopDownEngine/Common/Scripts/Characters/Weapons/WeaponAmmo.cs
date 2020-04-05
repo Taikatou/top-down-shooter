@@ -17,7 +17,7 @@ namespace MoreMountains.TopDownEngine
 		/// if this is true, everytime you equip this weapon, it'll auto fill with ammo
 		public bool ShouldLoadOnStart = true;
 
-		[ReadOnly]
+		[MMReadOnly]
 		/// the current amount of ammo available in the inventory
 		public int CurrentAmmoAvailable;
         /// the inventory where ammo for this weapon is stored

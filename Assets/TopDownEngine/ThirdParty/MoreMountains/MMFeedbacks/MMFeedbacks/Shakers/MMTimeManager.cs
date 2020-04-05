@@ -124,6 +124,7 @@ namespace MoreMountains.Feedbacks
             _timeScaleProperties = new Stack<TimeScaleProperties>();
             _initialFixedDeltaTime = Time.fixedDeltaTime;
             _initialMaximumDeltaTime = Time.maximumDeltaTime;
+            ApplyTimeScale(NormalTimescale);
         }
 
 		/// <summary>
@@ -171,15 +172,12 @@ namespace MoreMountains.Feedbacks
         /// <param name="newValue"></param>
         protected virtual void ApplyTimeScale(float newValue)
         {
-	        if (false)
-	        {
-		        Time.timeScale = newValue;
+            //Time.timeScale = newValue;
 
-		        Time.fixedDeltaTime = _initialFixedDeltaTime * newValue;
-		        Time.maximumDeltaTime = _initialMaximumDeltaTime * newValue;
+            //Time.fixedDeltaTime = _initialFixedDeltaTime * newValue;
+            //Time.maximumDeltaTime = _initialMaximumDeltaTime * newValue;
 
-		        CurrentTimeScale = Time.timeScale;
-	        }
+            //CurrentTimeScale = Time.timeScale;
         }
 
 		/// <summary>

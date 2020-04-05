@@ -1,8 +1,5 @@
-using System;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using BattleResearch.Scripts;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
 
@@ -15,7 +12,7 @@ namespace MoreMountains.TopDownEngine
     /// Animator parameters : defined from the Weapon's inspector
     /// </summary>
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Handle Weapon")]
-    public class CharacterHandleWeapon : CharacterAbility, ISense
+    public class CharacterHandleWeapon : CharacterAbility
     {
         /// This method is only used to display a helpbox text at the beginning of the ability's inspector
         public override string HelpBoxText() { return "This component will allow your character to pickup and use weapons. What the weapon will do is defined in the Weapon classes. This just describes the behaviour of the 'hand' holding the weapon, not the weapon itself. Here you can set an initial weapon for your character to start with, allow weapon pickup, and specify a weapon attachment (a transform inside of your character, could be just an empty child gameobject, or a subpart of your model."; }
@@ -49,19 +46,19 @@ namespace MoreMountains.TopDownEngine
         [Header("Buffering")]
         /// whether or not attack input should be buffered, letting you prepare an attack while another is being performed, making it easier to chain them
         public bool BufferInput;
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         /// if this is true, every new input will prolong the buffer
         public bool NewInputExtendsBuffer;
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         /// the maximum duration for the buffer, in seconds
         public float MaximumBufferDuration = 0.25f;
         /// if this is true, and if this character is using GridMovement, then input will only be triggered when on a perfect tile
-        [Condition("BufferInput", true)]
+        [MMCondition("BufferInput", true)]
         public bool RequiresPerfectTile = false;
         
         /// returns the currently equipped weapon
         [Header("Debug")]
-        [ReadOnly]
+        [MMReadOnly]
         public Weapon CurrentWeapon;
 
         /// an animator to update when the weapon is used
@@ -91,6 +88,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void PreInitialization()
         {
+            base.PreInitialization();
             // filler if the WeaponAttachment has not been set
             if (WeaponAttachment == null)
             {
@@ -102,7 +100,6 @@ namespace MoreMountains.TopDownEngine
         protected override void Initialization()
         {
             base.Initialization();
-
             Setup();
         }
 
@@ -160,34 +157,34 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void HandleInput()
         {
-            if (!AbilityPermitted || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
+            if (!AbilityPermitted
+                || (_condition.CurrentState != CharacterStates.CharacterConditions.Normal))
             {
                 return;
             }
-            
-            // Debug.Log(_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown);
-            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown || _inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown)
+            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                var triggerMode = CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto;
-                var shootButton = _inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed;
-                var shootAxis = _inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed;
-                if (ContinuousPress && triggerMode && (shootButton || shootAxis))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed))
+                {
+                    ShootStart();
+                }
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
             }
             
-            if (_inputManager.ReloadButtonState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.ReloadButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
             {
                 Reload();
             }
 
-            if (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp)
+            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -356,7 +353,6 @@ namespace MoreMountains.TopDownEngine
                 CurrentWeapon.SetOwner(_character, this);
                 CurrentWeapon.WeaponID = weaponID;
                 _weaponAim = CurrentWeapon.gameObject.MMGetComponentNoAlloc<WeaponAim>();
-                _weaponAim.AimControl = WeaponAim.AimControls.SecondaryMovement;
                 // we handle (optional) inverse kinematics (IK) 
                 if (_weaponIK != null)
                 {
@@ -474,31 +470,5 @@ namespace MoreMountains.TopDownEngine
             base.OnRespawn();
             Setup();
         }
-
-        public Dictionary<string, float> GetObservations()
-        {
-            // Add weapon state
-            var state = CurrentWeapon ?
-                (int) CurrentWeapon.WeaponState.CurrentState
-                : -1;
-
-            var ammo = CurrentWeapon ? 
-                (float)CurrentWeapon.CurrentAmmoLoaded / (float)CurrentWeapon.MagazineSize : 0.0f;
-            
-            var reload = CurrentWeapon && CurrentWeapon.Reloading;
-            var reloadFloat = Convert.ToSingle(reload);
-
-            var senses = new Dictionary<string, float>()
-            {
-                { "WeaponState",  state },
-                { "Ammo", ammo },
-                { "ReloadFloat", reloadFloat } 
-            };
-
-
-            return senses;
-        }
-
-        public string SenseName => "HandleWeapon";
     }
 }

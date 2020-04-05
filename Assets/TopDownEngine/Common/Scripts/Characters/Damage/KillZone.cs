@@ -12,7 +12,7 @@ namespace MoreMountains.TopDownEngine
     public class KillZone : MonoBehaviour
     {
         [Header("Targets")]
-        [Information("This component will make your object kill objects that collide with it. Here you can define what layers will be killed.", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("This component will make your object kill objects that collide with it. Here you can define what layers will be killed.", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         // the layers that will be damaged by this object
         public LayerMask TargetLayerMask;
 

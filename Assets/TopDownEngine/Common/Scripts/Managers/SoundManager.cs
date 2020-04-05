@@ -22,7 +22,7 @@ namespace MoreMountains.TopDownEngine
     /// This persistent singleton handles sound playing
     /// </summary>
     [AddComponentMenu("TopDown Engine/Managers/Sound Manager")]
-    public class SoundManager : PersistentSingleton<SoundManager>, MMEventListener<TopDownEngineEvent>, MMEventListener<MMGameEvent>
+    public class SoundManager : MMPersistentSingleton<SoundManager>, MMEventListener<TopDownEngineEvent>, MMEventListener<MMGameEvent>
     {
         [Header("Settings")]
         /// the current sound settings 
@@ -84,9 +84,6 @@ namespace MoreMountains.TopDownEngine
         {
             if (!Settings.SfxOn)
                 return null;
-            if (Time.time > 1)
-                return null;
-
             // we create a temporary game object to host our audio source
             GameObject temporaryAudioHost = new GameObject("TempAudio");
             // we set the temp audio's position
@@ -257,7 +254,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
 		protected virtual void SaveSoundSettings()
         {
-            SaveLoadManager.Save(Settings, _saveFileName, _saveFolderName);
+            MMSaveLoadManager.Save(Settings, _saveFileName, _saveFolderName);
         }
 
         /// <summary>
@@ -265,7 +262,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
 		protected virtual void LoadSoundSettings()
         {
-            SoundSettings settings = (SoundSettings)SaveLoadManager.Load(_saveFileName, _saveFolderName);
+            SoundSettings settings = (SoundSettings)MMSaveLoadManager.Load(typeof(SoundSettings), _saveFileName, _saveFolderName);
             if (settings != null)
             {
                 Settings = settings;
@@ -277,7 +274,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
 		protected virtual void ResetSoundSettings()
         {
-            SaveLoadManager.DeleteSave(_saveFileName, _saveFolderName);
+            MMSaveLoadManager.DeleteSave(_saveFileName, _saveFolderName);
         }
 
         /// <summary>

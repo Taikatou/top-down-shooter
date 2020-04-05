@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.Rendering.PostProcessing;
 using MoreMountains.Feedbacks;
 
 namespace MoreMountains.FeedbacksForThirdParty

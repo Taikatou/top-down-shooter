@@ -72,7 +72,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167761570092420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.047153, y: 0, z: -29.587881}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4586608631069042}
@@ -239,8 +239,11 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RotationMode: 3
+  CharacterRotationAuthorized: 1
   ShouldRotateToFaceMovementDirection: 1
   MovementRotationSpeed: 0
   MovementRotatingModel: {fileID: 0}
@@ -253,6 +256,9 @@ MonoBehaviour:
   WeaponRotatingModel: {fileID: 0}
   RotateToFaceWeaponDirectionSpeed: 10
   AbsoluteThresholdWeapon: 0.5
+  RotationSpeedResetSpeed: 2
+  ForcedRotation: 0
+  ForcedRotationDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &114524877107183236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,12 +274,17 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
+  Movement: 0
+  InputAuthorized: 1
   WalkSpeed: 4
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
   Deceleration: 10
+  InterpolateMovementSpeed: 0
   WalkParticles:
   - {fileID: 0}
   TouchTheGroundParticles:
@@ -294,8 +305,12 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RunSpeed: 8
+  AutoRun: 0
+  AutoRunThreshold: 0.6
 --- !u!114 &114197187313776202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,10 +326,12 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   JumpProportionalToPress: 1
   MinimumPressTime: 0.4
-  JumpForce: 6
+  JumpForce: 800
   JumpHeight: 4
   NumberOfJumps: 1
   NumberOfJumpsLeft: 0
@@ -335,6 +352,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   ButtonActivatedZone: {fileID: 0}
 --- !u!114 &114393537147240656
@@ -352,6 +371,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   DashMode: 1
   DashDirection: {x: 0, y: 0, z: 1}
@@ -405,6 +426,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
 --- !u!114 &114065509660881824
 MonoBehaviour:
@@ -421,6 +444,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   TimeScale: 0.5
   Duration: 1
@@ -449,16 +474,22 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
+  WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 4564073364419608}
+  ProjectileSpawn: {fileID: 0}
   AutomaticallyBindAnimator: 1
+  AutoIK: 1
   ContinuousPress: 0
   GettingHitInterruptsAttack: 0
   BufferInput: 0
   NewInputExtendsBuffer: 0
   MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
   CurrentWeapon: {fileID: 0}
 --- !u!114 &114072752581488692
 MonoBehaviour:
@@ -502,6 +533,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   MainInventoryName: SuitMainInventory
   WeaponInventoryName: SuitWeaponInventory
@@ -571,6 +604,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -649,6 +683,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

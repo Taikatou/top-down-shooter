@@ -39,7 +39,15 @@ namespace MoreMountains.TopDownEngine
         {
             if (_change < 1)
             {
-                _characterHandleWeapon.ChangeWeapon(NewWeapon, NewWeapon.name);
+                if (NewWeapon == null)
+                {
+                    _characterHandleWeapon.ChangeWeapon(NewWeapon, "");
+                }
+                else
+                {
+                    _characterHandleWeapon.ChangeWeapon(NewWeapon, NewWeapon.name);
+                }
+                
                 _change++;
             }
         }

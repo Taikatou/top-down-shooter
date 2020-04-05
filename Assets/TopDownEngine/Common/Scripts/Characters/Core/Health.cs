@@ -16,28 +16,28 @@ namespace MoreMountains.TopDownEngine
         public GameObject Model;
 
 		/// the current health of the character
-		[ReadOnly]
-		public float CurrentHealth;
+		[MMReadOnly]
+		public float CurrentHealth ;
 		/// If this is true, this object can't take damage
-		[ReadOnly]
+		[MMReadOnly]
 		public bool Invulnerable = false;	
 
 		[Header("Health")]
-		[Information("Add this component to an object and it'll have health, will be able to get damaged and potentially die.",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Add this component to an object and it'll have health, will be able to get damaged and potentially die.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the initial amount of health of the object
 	    public int InitialHealth = 10;
 	    /// the maximum amount of health of the object
 	    public int MaximumHealth = 10;
 
         [Header("Damage")]
-        [Information("Here you can specify an effect and a sound FX to instantiate when the object gets damaged, and also how long the object should flicker when hit (only works for sprites).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can specify an effect and a sound FX to instantiate when the object gets damaged, and also how long the object should flicker when hit (only works for sprites).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         /// whether or not this object is immune to damage knockback
         public bool ImmuneToKnockback = false;
         /// the feedback to play when getting damage
         public MMFeedbacks DamageMMFeedbacks;
 
         [Header("Death")]
-        [Information("Here you can set an effect to instantiate when the object dies, a force to apply to it (topdown controller required), how many points to add to the game score, if the device should vibrate (only works on iOS and Android), and where the character should respawn (for non-player characters only).", MoreMountains.Tools.InformationAttribute.InformationType.Info, false)]
+        [MMInformation("Here you can set an effect to instantiate when the object dies, a force to apply to it (topdown controller required), how many points to add to the game score, if the device should vibrate (only works on iOS and Android), and where the character should respawn (for non-player characters only).", MoreMountains.Tools.MMInformationAttribute.InformationType.Info, false)]
         public bool DestroyOnDeath = true;
 		/// the time (in seconds) before the character is destroyed or disabled
 		public float DelayBeforeDestruction = 0f;
@@ -68,7 +68,8 @@ namespace MoreMountains.TopDownEngine
 
 		protected Vector3 _initialPosition;
 		protected Renderer _renderer;
-        protected TopDownController _controller;
+		protected Character _character;
+		protected TopDownController _controller;
 	    protected MMHealthBar _healthBar;
 	    protected Collider2D _collider2D;
         protected Collider _collider3D;
@@ -78,12 +79,10 @@ namespace MoreMountains.TopDownEngine
         protected AutoRespawn _autoRespawn;
         protected Animator _animator;
 
-        protected Character _character => GetComponent<Character>();
-
-		/// <summary>
-		/// On Start, we initialize our health
-		/// </summary>
-		protected virtual void Start()
+        /// <summary>
+        /// On Start, we initialize our health
+        /// </summary>
+        protected virtual void Start()
 	    {
 			Initialization();
 	    }
@@ -91,8 +90,9 @@ namespace MoreMountains.TopDownEngine
 	    /// <summary>
 	    /// Grabs useful components, enables damage and gets the inital color
 	    /// </summary>
-		protected virtual void Initialization()
+		protected void Initialization()
 		{
+			_character = GetComponent<Character>();
             if (Model != null)
             {
                 Model.SetActive(true);
@@ -182,18 +182,18 @@ namespace MoreMountains.TopDownEngine
 		/// <param name="instigator">The object that caused the damage.</param>
 		/// <param name="flickerDuration">The time (in seconds) the object should flicker after taking the damage.</param>
 		/// <param name="invincibilityDuration">The duration of the short invincibility following the hit.</param>
-		public virtual float Damage(int damage,GameObject instigator, float flickerDuration, float invincibilityDuration)
+		public virtual void Damage(int damage, GameObject instigator, float flickerDuration, float invincibilityDuration)
 		{
 			// if the object is invulnerable, we do nothing and exit
 			if (Invulnerable)
 			{
-				return 0.0f;
+				return;
 			}
 
 			// if we're already below zero, we do nothing and exit
 			if ((CurrentHealth <= 0) && (InitialHealth != 0))
 			{
-				return 0.0f;
+				return;
 			}
 
 			// we decrease the character's health by the damage
@@ -210,32 +210,24 @@ namespace MoreMountains.TopDownEngine
                 CurrentHealth = 0;
             }
 
-            else if (CurrentHealth > MaximumHealth)
-            {
-	            CurrentHealth = MaximumHealth;
-            }
-
             // we prevent the character from colliding with Projectiles, Player and Enemies
             if (invincibilityDuration > 0)
 			{
 				DamageDisabled();
 				StartCoroutine(DamageEnabled(invincibilityDuration));	
 			}
+            
+			// we trigger a damage taken event
+			MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
 
-            if (damage > 0)
+            if (_animator != null)
             {
-	            // we trigger a damage taken event
-	            MMDamageTakenEvent.Trigger(_character, instigator, CurrentHealth, damage, previousHealth);
-
-	            if ( _animator != null)
-	            {
-		            _animator.SetTrigger("Damage");
-	            }
-
-	            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
+                _animator.SetTrigger("Damage");
             }
 
-            // we update the health bar
+            DamageMMFeedbacks?.PlayFeedbacks(this.transform.position);
+            
+			// we update the health bar
 			UpdateHealthBar(true);
 
 			// if health has reached zero
@@ -243,11 +235,9 @@ namespace MoreMountains.TopDownEngine
 			{
 				// we set its health to zero (useful for the healthbar)
 				CurrentHealth = 0;
-
+				
 				Kill();
 			}
-
-			return previousHealth - CurrentHealth;
 		}
 
 		/// <summary>
@@ -255,7 +245,7 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		public virtual void Kill()
         {
-            if (_character != null)
+	        if (_character != null)
             {
                 // we set its dead state to true
                 _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
@@ -320,17 +310,7 @@ namespace MoreMountains.TopDownEngine
             {
                 Model.SetActive(false);
             }
-
-			if (DelayBeforeDestruction > 0f)
-			{
-				Invoke ("DestroyObject", DelayBeforeDestruction);
-			}
-			else
-			{
-				// finally we destroy the object
-				DestroyObject();	
-			}
-		}
+        }
 
 		/// <summary>
 		/// Revive this object.
@@ -415,8 +395,8 @@ namespace MoreMountains.TopDownEngine
 		/// <param name="instigator">The thing that gives the character health.</param>
 		public virtual float GetHealth(float health,GameObject instigator)
 		{
-			// this function adds health to the character's Health and prevents it to go above MaxHealth.
 			var previousHealth = CurrentHealth;
+			// this function adds health to the character's Health and prevents it to go above MaxHealth.
 			CurrentHealth = Mathf.Min (CurrentHealth + health,MaximumHealth);
 			UpdateHealthBar(true);
 			return CurrentHealth - previousHealth;
@@ -428,7 +408,7 @@ namespace MoreMountains.TopDownEngine
 	    public virtual void ResetHealthToMaxHealth()
 	    {
 			CurrentHealth = MaximumHealth;
-			UpdateHealthBar (true);
+			UpdateHealthBar (false);
 	    }	
 
 	    /// <summary>
@@ -440,7 +420,7 @@ namespace MoreMountains.TopDownEngine
 	    	{
 				_healthBar.UpdateBar(CurrentHealth, 0f, MaximumHealth, show);
 	    	}
-			
+
 	    	if (_character != null)
 	    	{
 	    		if (_character.CharacterType == Character.CharacterTypes.Player)

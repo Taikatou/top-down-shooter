@@ -11,7 +11,7 @@ namespace MoreMountains.InventoryEngine
 	/// </summary>
 	public class InventorySelectionMarker : MonoBehaviour 
 	{
-		[Information("The selection marker will highlight the current selection. Here you can define its transition speed and minimal distance threshold (it's usually ok to leave it to default).",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("The selection marker will highlight the current selection. Here you can define its transition speed and minimal distance threshold (it's usually ok to leave it to default).",MMInformationAttribute.InformationType.Info,false)]
 		/// the speed at which the selection marker will move from one slot to the other
 		public float TransitionSpeed=5f;
 		/// the threshold distance at which the marker will stop moving

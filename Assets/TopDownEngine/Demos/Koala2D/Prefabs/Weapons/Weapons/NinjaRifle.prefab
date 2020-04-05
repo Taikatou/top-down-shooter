@@ -4850,7 +4850,7 @@ ParticleSystem:
 --- !u!199 &199223044668829694
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4874,7 +4874,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -5094,13 +5093,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba85f5b87cb8cf84f9e09dcca90cd372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AimControl: 2
+  AimControl: 4
   RotationMode: 0
   WeaponRotationSpeed: 0
   MinimumAngle: -180
   MaximumAngle: 180
   MinimumMagnitude: 0.2
-  ReticleType: 0
+  ReticleType: 1
   Reticle: {fileID: 1000010525066036, guid: f08bfeb16a6183b4386f121ccf51b56e, type: 3}
   ReticleDistance: 5
   ReticleAtMousePosition: 1
@@ -5185,7 +5184,6 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9972,7 +9970,7 @@ ParticleSystem:
 --- !u!199 &199282671691671708
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9996,7 +9994,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -14734,7 +14731,7 @@ ParticleSystem:
 --- !u!199 &199641244418259880
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -14758,7 +14755,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -19603,7 +19599,7 @@ ParticleSystem:
 --- !u!199 &199121392646810776
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -19627,7 +19623,6 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -19735,7 +19730,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Particles
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19744,7 +19738,6 @@ MonoBehaviour:
     DelayBetweenRepeats: 1
   DebugActive: 0
   BoundParticleSystem: {fileID: 198651910794900294}
-  MoveToPosition: 0
 --- !u!114 &638921160832067259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19759,7 +19752,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Bloom
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19852,7 +19844,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19911,7 +19902,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flash
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19938,7 +19928,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19949,7 +19938,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: 3da2b314bd1a97343bae14188dcc5f30, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -19969,7 +19957,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Camera Shake
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -19977,7 +19964,6 @@ MonoBehaviour:
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
-  RepeatUntilStopped: 0
   Channel: 0
   CameraShakeProperties:
     Duration: 0.1

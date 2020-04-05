@@ -12,7 +12,7 @@ namespace MoreMountains.InventoryEngine
 	/// </summary>
 	public class InventorySlot : Button 
 	{
-		[Information("Inventory slots are used inside an InventoryDisplay to present the content of each inventory slot. It's best to not touch these directly but rather make changes from the InventoryDisplay's inspector.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Inventory slots are used inside an InventoryDisplay to present the content of each inventory slot. It's best to not touch these directly but rather make changes from the InventoryDisplay's inspector.",MMInformationAttribute.InformationType.Info,false)]
 		/// the sprite used as a background for the slot while an item is being moved
 		public Sprite MovedSprite;
 		/// the inventory display this slot belongs to

@@ -14,7 +14,7 @@ namespace MoreMountains.TopDownEngine
     /// </summary>
     public class TopDownController3D : TopDownController
     {
-        [ReadOnly]
+        [MMReadOnly]
         /// the current input sent to this character
         public Vector3 InputMoveDirection = Vector3.zero;
 
@@ -88,6 +88,7 @@ namespace MoreMountains.TopDownEngine
         protected Vector3 _pushDirection;
         protected Vector3 _groundNormal = Vector3.zero;
         protected Vector3 _lastGroundNormal = Vector3.zero;
+        protected WaitForFixedUpdate _waitForFixedUpdate = new WaitForFixedUpdate();
 
         // moving platforms
         protected Transform _movingPlatformHitCollider;
@@ -526,8 +527,7 @@ namespace MoreMountains.TopDownEngine
                 if (_newMovingPlatform)
                 {
                     Transform platform = _movingPlatformCurrentHitCollider;
-                    yield return new WaitForFixedUpdate();
-                    yield return new WaitForFixedUpdate();
+                    yield return _waitForFixedUpdate;
                     if (Grounded && platform == _movingPlatformCurrentHitCollider)
                     {
                         yield return 1;

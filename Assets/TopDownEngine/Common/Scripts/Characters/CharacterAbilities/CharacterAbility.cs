@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
 
@@ -36,7 +37,7 @@ namespace MoreMountains.TopDownEngine
 	    protected Health _health;
 		protected CharacterMovement _characterMovement;
 		protected InputManager _inputManager;
-		protected Animator _animator;
+		protected Animator _animator = null;
 		protected CharacterStates _state;
 		protected SpriteRenderer _spriteRenderer;
 		protected MMStateMachine<CharacterStates.MovementStates> _movement;
@@ -70,16 +71,17 @@ namespace MoreMountains.TopDownEngine
         /// A method you can override to have an initialization before the actual initialization
         /// </summary>
 		protected virtual void PreInitialization()
-		{
-
-		}
+        {
+            _character = GetComponent<Character>();
+            BindAnimator();
+        }
 
 		/// <summary>
 		/// Gets and stores components for further use
 		/// </summary>
 		protected virtual void Initialization()
-		{
-			_character = GetComponent<Character>();
+        {
+            BindAnimator();
             _controller = GetComponent<TopDownController>();
             _controller2D = GetComponent<TopDownController2D>();
             _controller3D = GetComponent<TopDownController3D>();
@@ -92,7 +94,6 @@ namespace MoreMountains.TopDownEngine
 			_movement = _character.MovementState;
 			_condition = _character.ConditionState;
 			_abilityInitialized = true;
-            BindAnimator();
         }
 
         /// <summary>
@@ -100,7 +101,13 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected virtual void BindAnimator()
         {
+            if (_character._animator == null)
+            {
+                _character.AssignAnimator();
+            }
+
             _animator = _character._animator;
+
             if (_animator != null)
             {
                 InitializeAnimatorParameters();

@@ -13,7 +13,7 @@ namespace MoreMountains.TopDownEngine
         /// the possible states for the falling platform
         public enum FallingPlatformStates { Idle, Shaking, Falling, ColliderOff }
 
-        [ReadOnly]
+        [MMReadOnly]
         /// the current state of the falling platform
         public FallingPlatformStates State;
 

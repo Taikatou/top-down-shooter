@@ -102,9 +102,9 @@ namespace MoreMountains.Feedbacks
                 yield break;
             }
 
-            float flickerStop = Time.time + flickerDuration;
+            float flickerStop = FeedbackTime + flickerDuration;
 
-            while (Time.time < flickerStop)
+            while (FeedbackTime < flickerStop)
             {
                 renderer.material.color = flickerColor;
                 yield return new WaitForSeconds(flickerSpeed);

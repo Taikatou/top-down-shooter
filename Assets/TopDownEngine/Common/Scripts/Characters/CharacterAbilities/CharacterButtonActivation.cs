@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this component to a character and it'll be able to activate button zones
     /// Animator parameters : Activating (bool)
     /// </summary>
-    [HiddenProperties("AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Button Activation")] 
 	public class CharacterButtonActivation : CharacterAbility 
 	{
@@ -17,7 +17,7 @@ namespace MoreMountains.TopDownEngine
 		/// true if the character is in a dialogue zone
 		public bool InButtonActivatedZone {get;set;}
 		/// the current button activated zone
-		[ReadOnly]
+		[MMReadOnly]
 		public ButtonActivated ButtonActivatedZone;
 
 		protected bool _activating = false;

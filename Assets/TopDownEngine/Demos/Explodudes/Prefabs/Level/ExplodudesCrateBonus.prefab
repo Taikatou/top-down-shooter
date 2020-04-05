@@ -16,11 +16,16 @@ MonoBehaviour:
   Label: Instantiate Object
   Chance: 100
   Timing:
+    TimescaleMode: 0
     InitialDelay: 0
     CooldownDuration: 0
     NumberOfRepeats: 0
     RepeatForever: 0
     DelayBetweenRepeats: 1
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
   DebugActive: 0
   VfxToInstantiate: {fileID: 1778809740724351082, guid: 185fbf237f705f04dbea423da39187bc,
     type: 3}
@@ -42,7 +47,7 @@ PrefabInstance:
     - target: {fileID: 8840901993768902852, guid: f25b317c1dce3a74cb71f3744fa3097b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5100002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8840901993768902852, guid: f25b317c1dce3a74cb71f3744fa3097b,
         type: 3}
@@ -52,7 +57,7 @@ PrefabInstance:
     - target: {fileID: 8840901993768902852, guid: f25b317c1dce3a74cb71f3744fa3097b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8840901993768902852, guid: f25b317c1dce3a74cb71f3744fa3097b,
         type: 3}

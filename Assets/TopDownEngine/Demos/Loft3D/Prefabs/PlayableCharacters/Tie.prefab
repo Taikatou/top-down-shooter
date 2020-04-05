@@ -385,6 +385,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -468,7 +469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210366466818188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.816308, y: 0, z: 1.8085384}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4716281689117214}
@@ -635,8 +636,11 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RotationMode: 1
+  CharacterRotationAuthorized: 1
   ShouldRotateToFaceMovementDirection: 1
   MovementRotationSpeed: 0
   MovementRotatingModel: {fileID: 0}
@@ -649,6 +653,9 @@ MonoBehaviour:
   WeaponRotatingModel: {fileID: 0}
   RotateToFaceWeaponDirectionSpeed: 10
   AbsoluteThresholdWeapon: 0.5
+  RotationSpeedResetSpeed: 2
+  ForcedRotation: 0
+  ForcedRotationDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &114440265014744728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,12 +672,17 @@ MonoBehaviour:
   AbilityInProgressSfx: {fileID: 8300000, guid: 985a67d634a47482b80dc3c840fe69f8,
     type: 3}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
+  Movement: 0
+  InputAuthorized: 1
   WalkSpeed: 4
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
   Deceleration: 10
+  InterpolateMovementSpeed: 0
   WalkParticles:
   - {fileID: 198287085556891114}
   TouchTheGroundParticles:
@@ -691,7 +703,10 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
+  ForcedCrouch: 0
   CrawlAuthorized: 1
   CrawlSpeed: 2
   ResizeColliderWhenCrouched: 1
@@ -718,8 +733,12 @@ MonoBehaviour:
   AbilityInProgressSfx: {fileID: 8300000, guid: 1dfd0d0accf2a41efb6943f416c44e8a,
     type: 3}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RunSpeed: 8
+  AutoRun: 0
+  AutoRunThreshold: 0.6
 --- !u!114 &114173041945044244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,10 +754,12 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   JumpProportionalToPress: 1
   MinimumPressTime: 0.4
-  JumpForce: 10
+  JumpForce: 800
   JumpHeight: 2
   NumberOfJumps: 1
   NumberOfJumpsLeft: 0
@@ -759,6 +780,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   ButtonActivatedZone: {fileID: 0}
 --- !u!114 &114177134313586336
@@ -776,6 +799,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   DashMode: 1
   DashDirection: {x: 0, y: 0, z: 1}
@@ -829,6 +854,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   MainInventoryName: SuitMainInventory
   WeaponInventoryName: SuitWeaponInventory
@@ -848,14 +875,24 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   InitialWeapon: {fileID: 114594623923584052, guid: db7e5543bef0ee944bef12d989bf8ffc,
     type: 3}
-  WeaponAttachment: {fileID: 4857833514120636}
   CanPickupWeapons: 1
-  ContinuousPress: 0
+  WeaponUseFeedback: {fileID: 0}
+  WeaponAttachment: {fileID: 4857833514120636}
+  ProjectileSpawn: {fileID: 0}
   AutomaticallyBindAnimator: 1
+  AutoIK: 1
+  ContinuousPress: 0
   GettingHitInterruptsAttack: 0
+  BufferInput: 0
+  NewInputExtendsBuffer: 0
+  MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
+  CurrentWeapon: {fileID: 0}
 --- !u!114 &114969408098699218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +908,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
 --- !u!114 &114608139852508186
 MonoBehaviour:
@@ -887,6 +926,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   TimeScale: 0.5
   Duration: 1
@@ -1168,6 +1209,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1392,6 +1434,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -6275,7 +6318,7 @@ ParticleSystem:
 --- !u!199 &199997915362593104
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -6299,6 +6342,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -6463,6 +6507,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -11168,7 +11213,7 @@ ParticleSystem:
 --- !u!199 &199408003835692304
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -11192,6 +11237,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -11329,6 +11375,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e070f8d39696f4ea2d559622f8babb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftHandTarget: {fileID: 0}
+  RightHandTarget: {fileID: 0}
+  AttachLeftHand: 1
+  AttachRightHand: 1
 --- !u!1 &1652609160089826
 GameObject:
   m_ObjectHideFlags: 0
@@ -11447,6 +11497,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -11535,6 +11586,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -16408,7 +16460,7 @@ ParticleSystem:
 --- !u!199 &199931667294976248
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -16432,6 +16484,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -16554,6 +16607,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -16815,6 +16869,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -17038,6 +17093,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

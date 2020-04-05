@@ -16,8 +16,6 @@ namespace MoreMountains.TopDownEngine
         public CanvasGroup DeadMask;
         public CanvasGroup WinnerScreen;
 
-        private bool _usingAi = true;
-        
         protected virtual void Start()
         {
             CoinCounter.text = "0";
@@ -32,41 +30,26 @@ namespace MoreMountains.TopDownEngine
                 case TopDownEngineEventTypes.PlayerDeath:
                     if (tdEvent.OriginCharacter.PlayerID == PlayerID)
                     {
-                        if (!_usingAi)
-                        {
-                            DeadMask.gameObject.SetActive(true);
-                            DeadMask.alpha = 0f;
-                            StartCoroutine(MMFade.FadeCanvasGroup(DeadMask, 0.5f, 0.8f, true));
-                        }
+                        DeadMask.gameObject.SetActive(true);
+                        DeadMask.alpha = 0f;
+                        StartCoroutine(MMFade.FadeCanvasGroup(DeadMask, 0.5f, 0.8f, true));
                     }
                     break;
                 case TopDownEngineEventTypes.Repaint:
-                    var grasslandPoints = (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.Points;
-                    if (grasslandPoints != null)
-                        foreach (GrasslandsMultiplayerLevelManager.GrasslandPoints points in
-                            grasslandPoints)
-                        {
-                            if (points.PlayerID == PlayerID)
-                            {
-                                CoinCounter.text = points.Points.ToString();
-                            }
-                        }
-
-                    break;
-                case 
-                TopDownEngineEventTypes.GameOver:
-                    if (!_usingAi)
+                    foreach (GrasslandsMultiplayerLevelManager.GrasslandPoints points in (LevelManager.Instance as GrasslandsMultiplayerLevelManager).Points)
                     {
-                        if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager)?.WinnerID)
+                        if (points.PlayerID == PlayerID)
                         {
-                            WinnerScreen.gameObject.SetActive(true);
-                            WinnerScreen.alpha = 0f;
-                            StartCoroutine(MMFade.FadeCanvasGroup(WinnerScreen, 0.5f, 0.8f, true));
+                            CoinCounter.text = points.Points.ToString();
                         }
                     }
-                    else
+                    break;
+                case TopDownEngineEventTypes.GameOver:
+                    if (PlayerID == (LevelManager.Instance as GrasslandsMultiplayerLevelManager).WinnerID)
                     {
-                        Start();
+                        // WinnerScreen.gameObject.SetActive(true);
+                        // WinnerScreen.alpha = 0f;
+                        StartCoroutine(MMFade.FadeCanvasGroup(WinnerScreen, 0.5f, 0.8f, true));
                     }
                     break;
             }

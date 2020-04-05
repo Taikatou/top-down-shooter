@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1831551693771866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.38, y: -1.41, z: -0.04543307}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4359571763133392}
   - {fileID: 4933920765886181543}
@@ -51,13 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba85f5b87cb8cf84f9e09dcca90cd372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AimControl: 2
+  AimControl: 1
   RotationMode: 1
   WeaponRotationSpeed: 0
   MinimumAngle: -180
   MaximumAngle: 180
   MinimumMagnitude: 0.2
-  ReticleType: 0
+  ReticleType: 1
   Reticle: {fileID: 1000010525066036, guid: f08bfeb16a6183b4386f121ccf51b56e, type: 3}
   ReticleDistance: 5
   ReticleAtMousePosition: 1
@@ -106,7 +106,6 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
-  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0
@@ -131,15 +130,15 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 5, y: 2.5, z: 0}
+  AreaSize: {x: 4, y: 2, z: 0}
   AreaOffset: {x: 0.64, y: 0, z: 0}
   InitialDelay: 0
-  ActiveDuration: 0.3
+  ActiveDuration: 0.2
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 9472
+    m_Bits: 8448
   DamageCaused: 10
-  Knockback: 0
+  Knockback: 1
   KnockbackForce: {x: 500, y: 0}
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
@@ -160,7 +159,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0.4
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 0.2
+  TimeBetweenUses: 0.4
   TimeBetweenUsesReleaseInterruption: 0
   MagazineBased: 0
   MagazineSize: 30
@@ -180,7 +179,6 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
-  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0
@@ -205,15 +203,15 @@ MonoBehaviour:
   Interruptable: 0
   Flipped: 0
   DamageAreaShape: 0
-  AreaSize: {x: 3, y: 4, z: 0}
-  AreaOffset: {x: 0.57, y: 0, z: 0}
+  AreaSize: {x: 3, y: 3, z: 0}
+  AreaOffset: {x: 0.57, y: 0.2, z: 0}
   InitialDelay: 0
   ActiveDuration: 0.2
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 8448
   DamageCaused: 10
-  Knockback: 0
+  Knockback: 1
   KnockbackForce: {x: 500, y: 0}
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
@@ -254,7 +252,6 @@ MonoBehaviour:
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 1
   RecoilForce: 0
-  ApplyRecoil: 0
   Animators:
   - {fileID: 95971963482004484}
   WeaponAnimationID: 0
@@ -280,14 +277,14 @@ MonoBehaviour:
   Flipped: 0
   DamageAreaShape: 0
   AreaSize: {x: 4, y: 3, z: 0}
-  AreaOffset: {x: 1.5, y: 0, z: 0}
+  AreaOffset: {x: 1.5, y: 0.5, z: 0}
   InitialDelay: 0
   ActiveDuration: 0.2
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 8448
   DamageCaused: 10
-  Knockback: 0
+  Knockback: 1
   KnockbackForce: {x: 500, y: 0}
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
@@ -305,7 +302,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DroppableCombo: 1
   DropComboDelay: 0.5
-  ComboInProgressAnimationParameter: ComboInProgress
   Weapons: []
   OwnerCharacterHandleWeapon: {fileID: 0}
   TimeSinceLastWeaponStopped: 0
@@ -366,7 +362,6 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -477,7 +472,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Bloom
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -570,7 +564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -629,7 +622,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flash
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -656,7 +648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -667,7 +658,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: 73b62a73edfa18342812e7c891904e97, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -745,7 +735,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Bloom
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -838,7 +827,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -897,7 +885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flash
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -924,7 +911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -935,7 +921,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: c362bfad4e2260d49bb067e318f77369, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -955,7 +940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Camera Shake
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -963,7 +947,6 @@ MonoBehaviour:
     RepeatForever: 0
     DelayBetweenRepeats: 1
   DebugActive: 0
-  RepeatUntilStopped: 0
   Channel: 0
   CameraShakeProperties:
     Duration: 0.1
@@ -983,7 +966,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -994,7 +976,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: b34e4aabd474c45c2945fc9c6eec8381, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1
@@ -1068,7 +1049,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Bloom
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -1161,7 +1141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Chromatic Aberration
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -1220,7 +1199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Flash
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -1247,7 +1225,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   Label: Sound
-  Chance: 100
   Timing:
     InitialDelay: 0
     CooldownDuration: 0
@@ -1258,7 +1235,6 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: c4fe2906b4101d946a6f4e3bcb52bff5, type: 3}
   RandomSfx: []
   PlayMethod: 0
-  PoolSize: 10
   MinVolume: 1
   MaxVolume: 1
   MinPitch: 1

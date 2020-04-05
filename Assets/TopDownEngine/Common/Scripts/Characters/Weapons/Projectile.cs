@@ -27,7 +27,7 @@ namespace MoreMountains.TopDownEngine
 		public bool ProjectileIsFacingRight = true;
 
 		[Header("Spawn")]
-		[Information("Here you can define an initial delay (in seconds) during which this object won't take or cause damage. This delay starts when the object gets enabled. You can also define whether the projectiles should damage their owner (think rockets and the likes) or not",MoreMountains.Tools.InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define an initial delay (in seconds) during which this object won't take or cause damage. This delay starts when the object gets enabled. You can also define whether the projectiles should damage their owner (think rockets and the likes) or not",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the initial delay during which the projectile can't be destroyed
 		public float InitialInvulnerabilityDuration=0f;
 		/// should the projectile damage its owner ?

@@ -13,7 +13,7 @@ namespace MoreMountains.TopDownEngine
         [Header("General Settings")]
         /// if this is false, raycasts won't be computed for this laser sight
         public bool PerformRaycast = true;
-        [Condition("PerformRaycast")]
+        [MMCondition("PerformRaycast")]
         /// if this is false, the laser won't be drawn
         public bool DrawLaser = true;
 
@@ -36,6 +36,7 @@ namespace MoreMountains.TopDownEngine
 		public LineRenderer _line { get; protected set; }
         public RaycastHit _hit { get; protected set; }
         public Vector3 _origin { get; protected set; }
+        public Vector3 _raycastOrigin { get; protected set; }
         public Vector3 _destination { get; protected set; }
         public Vector3 _laserOffset { get; protected set; }
 
@@ -82,12 +83,13 @@ namespace MoreMountains.TopDownEngine
             }
 
 			_laserOffset = LaserOriginOffset;
-		
-			// our laser will be shot from the weapon's laser origin
-			_origin = MMMaths.RotatePointAroundPivot (this.transform.position + _laserOffset, this.transform.position, this.transform.rotation);
 
-			// we cast a ray in front of the weapon to detect an obstacle
-			_hit = MMDebug.Raycast3D(_origin, this.transform.forward, LaserMaxDistance, LaserCollisionMask, Color.red, true);
+            // our laser will be shot from the weapon's laser origin
+            _origin = MMMaths.RotatePointAroundPivot(this.transform.position + _laserOffset, this.transform.position, this.transform.rotation);
+            _raycastOrigin = MMMaths.RotatePointAroundPivot(this.transform.position + RaycastOriginOffset, this.transform.position, this.transform.rotation);
+
+            // we cast a ray in front of the weapon to detect an obstacle
+            _hit = MMDebug.Raycast3D(_raycastOrigin, this.transform.forward, LaserMaxDistance, LaserCollisionMask, Color.red, true);
 
 			// if we've hit something, our destination is the raycast hit
 			if (_hit.transform != null)

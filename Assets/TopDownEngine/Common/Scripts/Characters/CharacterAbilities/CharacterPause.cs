@@ -7,7 +7,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this component to a character and it'll be able to activate/desactivate the pause
     /// </summary>
-    [HiddenProperties("AbilityStopFeedbacks")]
+    [MMHiddenProperties("AbilityStopFeedbacks")]
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Pause")]
     public class CharacterPause : CharacterAbility
     {

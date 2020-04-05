@@ -9,7 +9,7 @@ namespace MoreMountains.TopDownEngine
 	/// <summary>
 	/// Handles all GUI effects and changes
 	/// </summary>
-	public class GUIManager : Singleton<GUIManager> 
+	public class GUIManager : MMSingleton<GUIManager> 
 	{
 		/// the main canvas
 		public Canvas MainCanvas;
@@ -249,7 +249,7 @@ namespace MoreMountains.TopDownEngine
 				if (healthBar == null) { continue; }
 				if (healthBar.PlayerID == playerID)
 				{
-					healthBar.UpdateBar(currentHealth, minHealth, maxHealth);
+					healthBar.UpdateBar(currentHealth,minHealth,maxHealth);
 				}
 	    	}
 

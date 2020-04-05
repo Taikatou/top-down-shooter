@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2790138119719342189
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Prior
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[5]
+      value: HealingBulletPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694879456824970126, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[6]
+      value: HealingBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376117986982226717, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 4767032738106823320, guid: b581b7d0b85ee0948bd1483b6dfc652d,
+        type: 3}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405326811533778203, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2407749957775505657, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_Name
+      value: MLKoalaSprintCameraPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 2407749957775505657, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Prior
+      objectReference: {fileID: 0}
+    - target: {fileID: 5139192491012872434, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747835582789253043, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202568338721403716, guid: ac0c88f670c9b69439cf91a93b7853a9,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: SprintPrior
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac0c88f670c9b69439cf91a93b7853a9, type: 3}

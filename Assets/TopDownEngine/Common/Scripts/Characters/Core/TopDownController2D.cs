@@ -10,7 +10,7 @@ namespace MoreMountains.TopDownEngine
     /// </summary>
 	public class TopDownController2D : TopDownController 
 	{
-        [ReadOnly]
+        [MMReadOnly]
         /// whether or not the character is above a hole right now
         public bool OverHole = false;
         /// the collider's center position   
@@ -76,6 +76,16 @@ namespace MoreMountains.TopDownEngine
         }
 
         /// <summary>
+        /// On update we determine our acceleration
+        /// </summary>
+        protected override void Update()
+        {
+            base.Update();
+            Velocity = _rigidBody.velocity;
+            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
+        }
+
+        /// <summary>
         /// On late update, we apply an impact
         /// </summary>
         protected override void LateUpdate()
@@ -109,13 +119,6 @@ namespace MoreMountains.TopDownEngine
             }
         }
 
-        protected override void Update()
-        {
-            base.Update();
-            Velocity = _rigidBody.velocity;
-            Acceleration = (_rigidBody.velocity - (Vector2)VelocityLastFrame) / Time.fixedDeltaTime;
-        }
-
         /// <summary>
         /// On fixed update, we move our rigidbody 
         /// </summary>
@@ -123,13 +126,13 @@ namespace MoreMountains.TopDownEngine
         {
             base.FixedUpdate();
 
-            ApplyImpact();
+            // ApplyImpact();
 
             if (!FreeMovement)
             {
                 return;
             }
-
+            
             if (Friction > 1)
             {
                 CurrentMovement = CurrentMovement / Friction;
@@ -141,7 +144,12 @@ namespace MoreMountains.TopDownEngine
                 CurrentMovement = Vector3.Lerp(Speed, CurrentMovement, Time.deltaTime * Friction);
             }
             
-            Vector2 newMovement = _rigidBody.position + (Vector2)(CurrentMovement + AddedForce) * Time.fixedDeltaTime;
+            var movement = (Vector2)(CurrentMovement) * Time.fixedDeltaTime;
+            
+            movement = new Vector2(Mathf.Clamp(movement.x, -0.1f, 0.1f),
+                                    Mathf.Clamp(movement.y, -0.1f, 0.1f));
+
+            Vector2 newMovement = _rigidBody.position + movement;
             
             if (OnAMovingPlatform)
             {

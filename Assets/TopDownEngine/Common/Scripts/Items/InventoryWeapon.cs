@@ -17,7 +17,7 @@ namespace MoreMountains.TopDownEngine
         public enum AutoEquipModes { NoAutoEquip, AutoEquip, AutoEquipIfEmptyHanded }
         
         [Header("Weapon")]
-		[Information("Here you need to bind the weapon you want to equip when picking that item.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you need to bind the weapon you want to equip when picking that item.",MMInformationAttribute.InformationType.Info,false)]
         /// the weapon to equip
         public Weapon EquippableWeapon;
         /// how to equip this weapon when picked : not equip it, automatically equip it, or only equip it if no weapon is currently equipped

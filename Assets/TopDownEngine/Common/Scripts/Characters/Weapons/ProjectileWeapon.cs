@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using MoreMountains.Tools;
 using System;
 
@@ -22,7 +23,7 @@ namespace MoreMountains.TopDownEngine
         /// whether or not the spread should be random (if not it'll be equally distributed)
         public bool RandomSpread = true;
 
-        [ReadOnly]
+        [MMReadOnly]
         /// the projectile's spawn position
         public Vector3 SpawnPosition = Vector3.zero;
         /// the object pooler used to spawn projectiles
@@ -33,7 +34,7 @@ namespace MoreMountains.TopDownEngine
         protected bool _poolInitialized = false;
         protected Transform _projectileSpawnTransform;
 
-        [InspectorButton("TestShoot")]
+        [MMInspectorButton("TestShoot")]
         /// a button to test the shoot method
 		public bool TestShootButton;
         
@@ -104,14 +105,11 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         public virtual GameObject SpawnProjectile(Vector3 spawnPosition, int projectileIndex, int totalProjectiles, bool triggerObjectActivation = true)
         {
-            Debug.Log("Spawn Weapon");
             /// we get the next object in the pool and make sure it's not null
             GameObject nextGameObject = ObjectPooler.GetPooledGameObject();
+
             // mandatory checks
-            if (nextGameObject == null)
-            {
-                return null;
-            }
+            if (nextGameObject == null) { return null; }
             if (nextGameObject.GetComponent<MMPoolableObject>() == null)
             {
                 throw new Exception(gameObject.name + " is trying to spawn objects that don't have a PoolableObject component.");
@@ -173,7 +171,14 @@ namespace MoreMountains.TopDownEngine
                     else
                     {
                         Vector3 newDirection = (spread * transform.right) * (Flipped ? -1 : 1);
-                        projectile.SetDirection(newDirection, transform.rotation, Owner.Orientation2D.IsFacingRight);
+                        if (Owner.Orientation2D != null)
+                        {
+                            projectile.SetDirection(newDirection, transform.rotation, Owner.Orientation2D.IsFacingRight);
+                        }
+                        else
+                        {
+                            projectile.SetDirection(newDirection, transform.rotation, true);
+                        }
                     }
                 }                
 

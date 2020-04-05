@@ -27,13 +27,13 @@ namespace MoreMountains.TopDownEngine
         public DoorStates DoorState = DoorStates.Open;
 
         /// a test button to toggle the door open or closed
-        [InspectorButton("ToggleDoor")]
+        [MMInspectorButton("ToggleDoor")]
         public bool ToogleDoorButton;
         /// a test button to open the door 
-        [InspectorButton("OpenDoor")]
+        [MMInspectorButton("OpenDoor")]
         public bool OpenDoorButton;
         /// a test button to close the door
-        [InspectorButton("CloseDoor")]
+        [MMInspectorButton("CloseDoor")]
         public bool CloseDoorButton;
 
         /// <summary>

@@ -100,7 +100,8 @@ namespace MoreMountains.FeedbacksForThirdParty
         public virtual void OnDepthOfFieldShakeEvent(float duration, AnimationCurve focusDistanceIntensity, float focusDistanceAmplitude,
                                                         AnimationCurve apertureIntensity, float apertureAmplitude,
                                                         AnimationCurve focalLengthIntensity, float focalLengthAmplitude, float attenuation = 1.0f,
-                                                        int channel = 0)
+                                                        int channel = 0,
+                                                        bool relativeIntensities = false)
         {
             if ((channel != Channel) && (channel != -1) && (Channel != -1))
             {
@@ -114,6 +115,7 @@ namespace MoreMountains.FeedbacksForThirdParty
             ShakeApertureAmplitude = apertureAmplitude;
             ShakeFocalLength = focalLengthIntensity;
             ShakeFocalLengthAmplitude = focalLengthAmplitude;
+            RelativeIntensities = relativeIntensities;
             this.StartShaking();
         }
 
@@ -132,7 +134,8 @@ namespace MoreMountains.FeedbacksForThirdParty
     {
         public delegate void Delegate(float duration, AnimationCurve focusDistanceIntensity, float focusDistanceAmplitude,
                                                         AnimationCurve apertureIntensity, float apertureAmplitude,
-                                                        AnimationCurve focalLengthIntensity, float focalLengthAmplitude, float attenuation = 1.0f, int channel = 0);
+                                                        AnimationCurve focalLengthIntensity, float focalLengthAmplitude, float attenuation = 1.0f, int channel = 0,
+                                                        bool relativeIntensities = false);
         static private event Delegate OnEvent;
 
         static public void Register(Delegate callback)
@@ -147,9 +150,10 @@ namespace MoreMountains.FeedbacksForThirdParty
 
         static public void Trigger(float duration, AnimationCurve focusDistanceIntensity, float focusDistanceAmplitude,
                                                         AnimationCurve apertureIntensity, float apertureAmplitude,
-                                                        AnimationCurve focalLengthIntensity, float focalLengthAmplitude, float attenuation = 1.0f, int channel = 0)
+                                                        AnimationCurve focalLengthIntensity, float focalLengthAmplitude, float attenuation = 1.0f, int channel = 0,
+                                                        bool relativeIntensities = false)
         {
-            OnEvent?.Invoke(duration, focusDistanceIntensity, focusDistanceAmplitude, apertureIntensity, apertureAmplitude, focalLengthIntensity, focalLengthAmplitude, attenuation, channel);
+            OnEvent?.Invoke(duration, focusDistanceIntensity, focusDistanceAmplitude, apertureIntensity, apertureAmplitude, focalLengthIntensity, focalLengthAmplitude, attenuation, channel, relativeIntensities);
         }
     }
 }

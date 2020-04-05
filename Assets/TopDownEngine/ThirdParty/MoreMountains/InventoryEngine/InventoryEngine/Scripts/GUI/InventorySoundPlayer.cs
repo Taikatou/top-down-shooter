@@ -16,7 +16,7 @@ namespace MoreMountains.InventoryEngine
 	public class InventorySoundPlayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
 	{
 		[Header("Sounds")]
-		[Information("Here you can define the default sounds that will get played when interacting with this inventory.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("Here you can define the default sounds that will get played when interacting with this inventory.",MMInformationAttribute.InformationType.Info,false)]
 		/// the audioclip to play when the inventory opens
 		public AudioClip OpenFx;
 		/// the audioclip to play when the inventory closes

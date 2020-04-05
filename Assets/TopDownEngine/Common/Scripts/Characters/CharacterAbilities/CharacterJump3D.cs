@@ -23,7 +23,7 @@ namespace MoreMountains.TopDownEngine
         /// the maximum number of jumps allowed (0 : no jump, 1 : normal jump, 2 : double jump, etc...)
 		public int NumberOfJumps = 1;
         /// the number of jumps left to the character
-        [ReadOnly]
+        [MMReadOnly]
         public int NumberOfJumpsLeft;
 
         [Header("Feedbacks")]
@@ -111,7 +111,7 @@ namespace MoreMountains.TopDownEngine
                     }
                     else
                     {
-                        _jumpForce = Vector3.up * JumpForce;
+                        _jumpForce = Vector3.up * JumpForce * Time.deltaTime;
                         _controller.AddForce(_jumpForce);
 
                     }

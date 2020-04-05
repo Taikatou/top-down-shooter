@@ -26,7 +26,7 @@ namespace MoreMountains.TopDownEngine
         public int MaximumAmountOfBombsAtOnce = 3;
         /// the delay before the bomb explodes
         public float BombDelayBeforeExplosion = 3f;
-        [ReadOnly]
+        [MMReadOnly]
         /// the amount of bombs remaining
         public int RemainingBombs = 0;
 

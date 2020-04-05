@@ -35,7 +35,6 @@ namespace MoreMountains.FeedbacksForThirdParty
 
         void Update()
         {
-
             // Set variables
             // Get distance from camera and target
             float distance = Vector3.Distance(transform.position, FocusTargets[Mathf.FloorToInt(FocusTargetID)].position);

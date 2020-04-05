@@ -11,7 +11,7 @@ namespace MoreMountains.InventoryEngine
 	/// </summary>
 	public class InventoryDemoCharacter : MonoBehaviour, MMEventListener<MMInventoryEvent>
 	{
-		[Information("A very basic demo character controller, that makes the character move around on the xy axis. Here you can change its speed and bind sprites and equipment inventories.",InformationAttribute.InformationType.Info,false)]
+		[MMInformation("A very basic demo character controller, that makes the character move around on the xy axis. Here you can change its speed and bind sprites and equipment inventories.",MMInformationAttribute.InformationType.Info,false)]
 
 		/// the character speed
 	    public float CharacterSpeed = 10f;
@@ -116,8 +116,8 @@ namespace MoreMountains.InventoryEngine
 	    {
 	        if (_animator != null)
 	        {
-	            MMAnimatorExtensions.UpdateAnimatorFloat(_animator, "Speed", _rigidBody2D.velocity.magnitude);
-	            MMAnimatorExtensions.UpdateAnimatorInteger(_animator, "Armor", _currentArmor);
+	            _animator.SetFloat("Speed", _rigidBody2D.velocity.magnitude);
+                _animator.SetFloat("Armor", _currentArmor);
 	        }
 	    }
 

@@ -54,7 +54,7 @@ namespace MoreMountains.TopDownEngine
 
         [Header("Owner")]
         /// the owner of the bomb
-        [ReadOnly]
+        [MMReadOnly]
         public GameObject Owner;
         
         protected BoxCollider _boxCollider;

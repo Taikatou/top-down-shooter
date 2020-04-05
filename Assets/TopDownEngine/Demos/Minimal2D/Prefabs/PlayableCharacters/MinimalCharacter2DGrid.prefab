@@ -144,7 +144,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: 0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -155,7 +155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.5}
+  m_Size: {x: 0.6, y: 0.4}
   m_EdgeRadius: 0
 --- !u!114 &114186989754477336
 MonoBehaviour:
@@ -190,6 +190,9 @@ MonoBehaviour:
   HoleLayerMask:
     serializedVersion: 2
     m_Bits: 32768
+  ObstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &-2781520411994144434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,16 +208,20 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   MaximumSpeed: 16
   Acceleration: 20
   CurrentSpeed: 0
-  MaxSpeedMultiplier: 1
+  MaximumSpeedMultiplier: 1
   AccelerationMultiplier: 1
-  UsePreorderTolerance: 1
-  PreorderTolerance: 2
-  FastUTurn: 1
-  ObstacleDetectionOffset: {x: 0, y: 0.5, z: 0}
+  UseInputBuffer: 1
+  BufferSize: 2
+  FastDirectionChanges: 1
+  IdleThreshold: 0.05
+  ObstacleDetectionOffset: {x: 0, y: 0, z: 0}
+  PerfectTile: 0
 --- !u!114 &114419516946932276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +237,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   FacingMode: 1
   ModelShouldFlip: 1
@@ -259,6 +268,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   JumpDuration: 1
   JumpProportionalToPress: 1
@@ -280,8 +291,12 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   RunSpeed: 16
+  AutoRun: 0
+  AutoRunThreshold: 0.6
 --- !u!114 &114547587046617724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +312,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   ButtonActivatedZone: {fileID: 0}
 --- !u!114 &114042670615466288
@@ -314,6 +331,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
 --- !u!114 &114450207927170996
 MonoBehaviour:
@@ -330,6 +349,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   TimeScale: 0.5
   Duration: 1
@@ -385,16 +406,22 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
+  WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 4539632890920534}
+  ProjectileSpawn: {fileID: 0}
   AutomaticallyBindAnimator: 1
+  AutoIK: 1
   ContinuousPress: 0
   GettingHitInterruptsAttack: 0
   BufferInput: 0
   NewInputExtendsBuffer: 0
   MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
   CurrentWeapon: {fileID: 0}
 --- !u!114 &114704504716019314
 MonoBehaviour:
@@ -411,6 +438,8 @@ MonoBehaviour:
   AbilityStartSfx: {fileID: 0}
   AbilityInProgressSfx: {fileID: 0}
   AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   MainInventoryName: KoalaMainInventory
   WeaponInventoryName: KoalaWeaponInventory
@@ -471,6 +500,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

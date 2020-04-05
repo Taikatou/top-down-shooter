@@ -16,6 +16,8 @@ namespace MoreMountains.TopDownEngine
         public bool AimAtTarget = false;
         /// an offset to apply to the aim (useful to aim at the head/torso/etc automatically)
         public Vector3 ShootOffset;
+        /// if this is set to true, vertical aim will be locked to remain horizontal
+        public bool LockVerticalAim = false;
 
         protected CharacterOrientation3D _orientation3D;
         protected Character _character;
@@ -68,6 +70,10 @@ namespace MoreMountains.TopDownEngine
                 {
                     if (_shooting)
                     {
+                        if (LockVerticalAim)
+                        {
+                            _weaponAimDirection.y = 0;
+                        }
                         _weaponAim.SetCurrentAim(_weaponAimDirection);
                     }
                 }

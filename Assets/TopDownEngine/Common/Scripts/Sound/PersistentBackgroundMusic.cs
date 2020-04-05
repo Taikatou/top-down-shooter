@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this class to a GameObject to have it play a background music when instanciated.
     /// Careful : only one background music will be played at a time.
     /// </summary>
-    public class PersistentBackgroundMusic : PersistentHumbleSingleton<PersistentBackgroundMusic>
+    public class PersistentBackgroundMusic : MMPersistentHumbleSingleton<PersistentBackgroundMusic>
     {
         /// the background music
         public AudioClip SoundClip;
