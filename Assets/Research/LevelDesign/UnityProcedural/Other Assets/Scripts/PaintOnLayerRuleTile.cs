@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Research.LevelDesign.Other_Assets.Scripts
+namespace Research.LevelDesign.UnityProcedural.Other_Assets.Scripts
 {
     [CreateAssetMenu]
     public class PaintOnLayerRuleTile : RuleTile<PaintOnLayerRuleTile.Neighbor>

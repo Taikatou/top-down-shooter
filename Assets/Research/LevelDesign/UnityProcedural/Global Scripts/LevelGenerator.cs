@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Research.LevelDesign.Global_Scripts
+namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 {
 	#if UNITY_EDITOR
-	using UnityEditor;
-	#endif
+#endif
 
 	public class LevelGenerator : MonoBehaviour {
 		[Tooltip("The Tilemap to draw onto")]
