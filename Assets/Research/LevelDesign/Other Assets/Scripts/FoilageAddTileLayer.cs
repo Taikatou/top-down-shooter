@@ -2,38 +2,41 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[ExecuteAlways]
-[RequireComponent(typeof(Tilemap))]
-public class FoilageAddTileLayer : MonoBehaviour
+namespace Research.LevelDesign.Other_Assets.Scripts
 {
-    private List<Vector3Int> positionList;
-    private Tilemap tilemap;
-
-    void Start()
+    [ExecuteAlways]
+    [RequireComponent(typeof(Tilemap))]
+    public class FoilageAddTileLayer : MonoBehaviour
     {
-        positionList = new List<Vector3Int>();
-        tilemap = GetComponent<Tilemap>();
-    }
+        private List<Vector3Int> positionList;
+        private Tilemap tilemap;
 
-    public void AddUpdate(Vector3Int position)
-    {
-        positionList.Add(position);
-    }
-
-    public void LateUpdate()
-    {
-        foreach (var position in positionList)
+        void Start()
         {
-            var tile = tilemap.GetTile<PaintOnLayerRuleTile>(position);
-            if (tile != null)
+            positionList = new List<Vector3Int>();
+            tilemap = GetComponent<Tilemap>();
+        }
+
+        public void AddUpdate(Vector3Int position)
+        {
+            positionList.Add(position);
+        }
+
+        public void LateUpdate()
+        {
+            foreach (var position in positionList)
             {
-                foreach (var paintTile in tile.paintTileList)
+                var tile = tilemap.GetTile<PaintOnLayerRuleTile>(position);
+                if (tile != null)
                 {
-                    if (!tilemap.HasTile(position + paintTile.offset))
-                        tilemap.SetTile(position + paintTile.offset, paintTile.paintTile);
+                    foreach (var paintTile in tile.paintTileList)
+                    {
+                        if (!tilemap.HasTile(position + paintTile.offset))
+                            tilemap.SetTile(position + paintTile.offset, paintTile.paintTile);
+                    }
                 }
             }
+            positionList.Clear();
         }
-        positionList.Clear();
     }
 }

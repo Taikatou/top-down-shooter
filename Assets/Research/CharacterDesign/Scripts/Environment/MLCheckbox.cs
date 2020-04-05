@@ -1,6 +1,6 @@
 ﻿using MoreMountains.TopDownEngine;
 
-namespace Research.Scripts.Environment
+namespace Research.CharacterDesign.Scripts.Environment
 {
     public class MLCheckbox : CheckPoint
     {

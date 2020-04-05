@@ -1,7 +1,7 @@
 ﻿using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.Scripts.Characters.Tank
+namespace Research.CharacterDesign.Scripts.Characters.Tank
 {
     public class BreatherTankAbility : BaseTankAbility
     {

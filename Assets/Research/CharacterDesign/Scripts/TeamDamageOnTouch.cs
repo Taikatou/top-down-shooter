@@ -2,7 +2,7 @@
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.Scripts
+namespace Research.CharacterDesign.Scripts
 {
     public class TeamDamageOnTouch : DamageOnTouch
     {
