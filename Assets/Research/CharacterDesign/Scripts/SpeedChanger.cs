@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Research.Scripts
+namespace Research.CharacterDesign.Scripts
 {
     public class SpeedChanger : MonoBehaviour
     {

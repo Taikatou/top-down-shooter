@@ -1,7 +1,7 @@
 ﻿using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.Scripts.Characters.AOE
+namespace Research.CharacterDesign.Scripts.Characters.AOE
 {
     public class CircleDraw : MonoBehaviour
     {

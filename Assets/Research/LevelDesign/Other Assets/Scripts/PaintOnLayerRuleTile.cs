@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu]
-public class PaintOnLayerRuleTile : RuleTile<PaintOnLayerRuleTile.Neighbor>
+namespace Research.LevelDesign.Other_Assets.Scripts
 {
-    [Serializable]
-    public struct PaintTile
+    [CreateAssetMenu]
+    public class PaintOnLayerRuleTile : RuleTile<PaintOnLayerRuleTile.Neighbor>
     {
-        public Vector3Int offset;
-        public TileBase paintTile;
-    }
-    public List<PaintTile> paintTileList = new List<PaintTile>();
+        [Serializable]
+        public struct PaintTile
+        {
+            public Vector3Int offset;
+            public TileBase paintTile;
+        }
+        public List<PaintTile> paintTileList = new List<PaintTile>();
 
-    public class Neighbor : RuleTile.TilingRule.Neighbor 
-    {
-    }
+        public class Neighbor : RuleTile.TilingRule.Neighbor 
+        {
+        }
 
-    public override void RefreshTile(Vector3Int location, ITilemap tilemap)
-    {
-        base.RefreshTile(location, tilemap);
-        var foilageLayer = tilemap.GetComponent<FoilageAddTileLayer>();
-        if (foilageLayer != null)
-            foilageLayer.AddUpdate(location);
+        public override void RefreshTile(Vector3Int location, ITilemap tilemap)
+        {
+            base.RefreshTile(location, tilemap);
+            var foilageLayer = tilemap.GetComponent<FoilageAddTileLayer>();
+            if (foilageLayer != null)
+                foilageLayer.AddUpdate(location);
+        }
     }
 }

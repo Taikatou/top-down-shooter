@@ -1,4 +1,4 @@
-﻿using Research.Scripts;
+﻿using Research.CharacterDesign.Scripts;
 using UnityEngine;
 
 namespace Research

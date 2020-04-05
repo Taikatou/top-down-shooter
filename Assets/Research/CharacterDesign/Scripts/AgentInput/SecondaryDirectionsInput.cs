@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Research.Scripts.AgentInput
+namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class SecondaryDirectionsInput : VectorInput
     {
@@ -16,10 +16,10 @@ namespace Research.Scripts.AgentInput
         {
             Directions = new Dictionary<Directions, KeyCode>
             {
-                {Research.Scripts.Directions.Left, KeyCode.LeftArrow},
-                {Research.Scripts.Directions.Right, KeyCode.RightArrow },
-                {Research.Scripts.Directions.Down, KeyCode.DownArrow },
-                {Research.Scripts.Directions.Up, KeyCode.UpArrow }
+                {Research.CharacterDesign.Scripts.Directions.Left, KeyCode.LeftArrow},
+                {Research.CharacterDesign.Scripts.Directions.Right, KeyCode.RightArrow },
+                {Research.CharacterDesign.Scripts.Directions.Down, KeyCode.DownArrow },
+                {Research.CharacterDesign.Scripts.Directions.Up, KeyCode.UpArrow }
             };
         }
     }

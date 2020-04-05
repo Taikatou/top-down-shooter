@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Research.Scripts.AgentInput
+namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class VectorInput : MonoBehaviour
     {

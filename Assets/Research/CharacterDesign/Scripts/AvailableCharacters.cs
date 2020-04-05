@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 
-namespace Research.Scripts
+namespace Research.CharacterDesign.Scripts
 {
     public class AvailableCharacters
     {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_top-down-shooter.258482776.00" t="ExcludeRecursive" />
-    <e p="C:\Users\conor\Documents\GitHub\top-down-shooter\ml-agents\com.unity.ml-agents\Editor" t="Include">
+    <e p="C:\Users\conor\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.-567513877.00" t="ExcludeRecursive" />
+    <e p="C:\Users\conor\Documents\GitHub\ml-agents\com.unity.ml-agents\Editor" t="Include">
       <e p="AgentEditor.cs" t="Include" />
       <e p="BehaviorParametersEditor.cs" t="Include" />
       <e p="BrainParametersDrawer.cs" t="Include" />
@@ -15,7 +15,7 @@
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
-    <e p="C:\Users\conor\Documents\GitHub\top-down-shooter\ml-agents\com.unity.ml-agents\Runtime" t="Include">
+    <e p="C:\Users\conor\Documents\GitHub\ml-agents\com.unity.ml-agents\Runtime" t="Include">
       <e p="Academy.cs" t="Include" />
       <e p="Agent.cs" t="Include" />
       <e p="AssemblyInfo.cs" t="Include" />
@@ -112,7 +112,7 @@
       <e p="UnityAgentsException.cs" t="Include" />
       <e p="Utilities.cs" t="Include" />
     </e>
-    <e p="C:\Users\conor\Documents\GitHub\top-down-shooter\top-down-shooter" t="IncludeRecursive">
+    <e p="C:\Users\conor\Documents\GitHub\top-down-shooter" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -247,52 +247,81 @@
           </e>
         </e>
         <e p="Research" t="Include">
-          <e p="BulletOutline.cs" t="Include" />
-          <e p="GunOutline.cs" t="Include" />
-          <e p="Scripts" t="Include">
-            <e p="AgentInput" t="Include">
-              <e p="DirectionsKeyMapper.cs" t="Include" />
-              <e p="SecondaryDirectionsInput.cs" t="Include" />
-              <e p="VectorInput.cs" t="Include" />
-            </e>
-            <e p="AgentQueue.cs" t="Include" />
-            <e p="AvailableCharacters.cs" t="Include" />
-            <e p="Characters" t="Include">
-              <e p="AOE" t="Include">
-                <e p="AOEHeal.cs" t="Include" />
-                <e p="CircleDraw.cs" t="Include" />
+          <e p="CharacterDesign" t="Include">
+            <e p="BulletOutline.cs" t="Include" />
+            <e p="GunOutline.cs" t="Include" />
+            <e p="Scripts" t="Include">
+              <e p="AgentInput" t="Include">
+                <e p="DirectionsKeyMapper.cs" t="Include" />
+                <e p="SecondaryDirectionsInput.cs" t="Include" />
+                <e p="VectorInput.cs" t="Include" />
               </e>
-              <e p="MLCharacter.cs" t="Include" />
-              <e p="MLCharacterDash.cs" t="Include" />
-              <e p="MLHealth.cs" t="Include" />
-              <e p="Tank" t="Include">
-                <e p="BaseTankAbility.cs" t="Include" />
-                <e p="BreatherTankAbility.cs" t="Include" />
-                <e p="ShieldAbility.cs" t="Include" />
+              <e p="AgentQueue.cs" t="Include" />
+              <e p="AvailableCharacters.cs" t="Include" />
+              <e p="Characters" t="Include">
+                <e p="AOE" t="Include">
+                  <e p="AOEHeal.cs" t="Include" />
+                  <e p="CircleDraw.cs" t="Include" />
+                </e>
+                <e p="MLCharacter.cs" t="Include" />
+                <e p="MLCharacterDash.cs" t="Include" />
+                <e p="MLHealth.cs" t="Include" />
+                <e p="Tank" t="Include">
+                  <e p="BaseTankAbility.cs" t="Include" />
+                  <e p="BreatherTankAbility.cs" t="Include" />
+                  <e p="ShieldAbility.cs" t="Include" />
+                </e>
+                <e p="TopDownMeleeWeapon.cs" t="Include" />
               </e>
-              <e p="TopDownMeleeWeapon.cs" t="Include" />
+              <e p="DataLogger.cs" t="Include" />
+              <e p="Environment" t="Include">
+                <e p="AgentsCoin.cs" t="Include" />
+                <e p="MLCheckbox.cs" t="Include" />
+                <e p="MLLevelManager.cs" t="Include" />
+                <e p="TopDownInputManager.cs" t="Include" />
+              </e>
+              <e p="ml-agents" t="Include">
+                <e p="TopDownAgent.cs" t="Include" />
+                <e p="TopDownRaySensorComponent.cs" t="Include" />
+              </e>
+              <e p="SpeedChanger.cs" t="Include" />
+              <e p="TeamDamageOnTouch.cs" t="Include" />
             </e>
-            <e p="DataLogger.cs" t="Include" />
-            <e p="Environment" t="Include">
-              <e p="AgentsCoin.cs" t="Include" />
-              <e p="MLCheckbox.cs" t="Include" />
-              <e p="MLLevelManager.cs" t="Include" />
-              <e p="TopDownInputManager.cs" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="Projector.shader" t="Include" />
+              <e p="Sprite-Outline.shader" t="Include" />
             </e>
-            <e p="ml-agents" t="Include">
-              <e p="TopDownAgent.cs" t="Include" />
-              <e p="TopDownRaySensorComponent.cs" t="Include" />
-            </e>
-            <e p="SpeedChanger.cs" t="Include" />
-            <e p="TeamDamageOnTouch.cs" t="Include" />
+            <e p="SpriteOutline.cs" t="Include" />
+            <e p="SwordOutline.cs" t="Include" />
+            <e p="TimeScaleChecker.cs" t="Include" />
           </e>
-          <e p="SpriteOutline.cs" t="Include" />
-          <e p="SwordOutline.cs" t="Include" />
-          <e p="TimeScaleChecker.cs" t="Include" />
-        </e>
-        <e p="Shaders" t="Include">
-          <e p="Projector.shader" t="Include" />
-          <e p="Sprite-Outline.shader" t="Include" />
+          <e p="LevelDesign" t="Include">
+            <e p="Global Scripts" t="Include">
+              <e p="LevelGenerator.cs" t="Include" />
+              <e p="MapFunctions.cs" t="Include" />
+              <e p="MapSettings.cs" t="Include" />
+            </e>
+            <e p="Multi-Generation Example" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="LevelGeneratorStack.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Other Assets" t="Include">
+              <e p="Player" t="Include">
+                <e p="PennyPixel" t="Include">
+                  <e p="Scripts" t="Include">
+                    <e p="PhysicsObject.cs" t="Include" />
+                    <e p="PlayerAdditionalController.cs" t="Include" />
+                    <e p="PlayerPlatformerController.cs" t="Include" />
+                  </e>
+                </e>
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="FoilageAddTileLayer.cs" t="Include" />
+                <e p="PaintOnLayerRuleTile.cs" t="Include" />
+              </e>
+            </e>
+          </e>
         </e>
         <e p="TopDownEngine" t="Include">
           <e p="Common" t="Include">

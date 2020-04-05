@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Research.Scripts;
-using Research.Scripts.AgentInput;
+using Research.CharacterDesign.Scripts;
+using Research.CharacterDesign.Scripts.AgentInput;
 using UnityEngine;
 
 public class DirectionsKeyMapper : VectorInput
@@ -17,25 +17,25 @@ public class DirectionsKeyMapper : VectorInput
     {
         Directions = new Dictionary<Directions, KeyCode>
         {
-            {Research.Scripts.Directions.Left, KeyCode.A},
-            {Research.Scripts.Directions.Right, KeyCode.D },
-            {Research.Scripts.Directions.Down, KeyCode.S},
-            {Research.Scripts.Directions.Up, KeyCode.W }
+            {Research.CharacterDesign.Scripts.Directions.Left, KeyCode.A},
+            {Research.CharacterDesign.Scripts.Directions.Right, KeyCode.D },
+            {Research.CharacterDesign.Scripts.Directions.Down, KeyCode.S},
+            {Research.CharacterDesign.Scripts.Directions.Up, KeyCode.W }
         };
         _directionsVectorMap = new Dictionary<Vector2, Directions>
         {
-            { new Vector2(-1, 0), Research.Scripts.Directions.Left },
-            { new Vector2(1, 0), Research.Scripts.Directions.Right },
-            { new Vector2(0, 1), Research.Scripts.Directions.Up },
-            { new Vector2(0, -1), Research.Scripts.Directions.Down },
+            { new Vector2(-1, 0), Research.CharacterDesign.Scripts.Directions.Left },
+            { new Vector2(1, 0), Research.CharacterDesign.Scripts.Directions.Right },
+            { new Vector2(0, 1), Research.CharacterDesign.Scripts.Directions.Up },
+            { new Vector2(0, -1), Research.CharacterDesign.Scripts.Directions.Down },
         };
         _vectorDirectionsMap = new Dictionary<Directions, Vector2>
         {
-            { Research.Scripts.Directions.Left, new Vector2(-1, 0)  },
-            { Research.Scripts.Directions.Right, new Vector2(1, 0) },
-            { Research.Scripts.Directions.Up,  new Vector2(0, 1)},
-            { Research.Scripts.Directions.Down, new Vector2(0, -1) },
-            { Research.Scripts.Directions.None, new Vector2(0, 0) }
+            { Research.CharacterDesign.Scripts.Directions.Left, new Vector2(-1, 0)  },
+            { Research.CharacterDesign.Scripts.Directions.Right, new Vector2(1, 0) },
+            { Research.CharacterDesign.Scripts.Directions.Up,  new Vector2(0, 1)},
+            { Research.CharacterDesign.Scripts.Directions.Down, new Vector2(0, -1) },
+            { Research.CharacterDesign.Scripts.Directions.None, new Vector2(0, 0) }
         };
     }
 
@@ -45,7 +45,7 @@ public class DirectionsKeyMapper : VectorInput
         {
             return _directionsVectorMap[input];
         }
-        return Research.Scripts.Directions.None;
+        return Research.CharacterDesign.Scripts.Directions.None;
     }
 
     public Vector2 GetVectorDirection(Directions direction)
@@ -70,6 +70,6 @@ public class DirectionsKeyMapper : VectorInput
             return GetDirectionVector(input);
         }
 
-        return Research.Scripts.Directions.None;
+        return Research.CharacterDesign.Scripts.Directions.None;
     }
 }

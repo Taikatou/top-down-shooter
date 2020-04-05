@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Research.Scripts.Environment;
+using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
-namespace Research.Scripts
+namespace Research.CharacterDesign.Scripts
 {
     public class WinResults
     {

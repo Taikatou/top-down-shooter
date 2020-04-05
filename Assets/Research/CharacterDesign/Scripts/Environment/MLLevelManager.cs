@@ -6,9 +6,10 @@ using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts;
 using UnityEngine;
 
-namespace Research.Scripts.Environment
+namespace Research.CharacterDesign.Scripts.Environment
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {

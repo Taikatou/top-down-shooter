@@ -1,7 +1,7 @@
 ﻿using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 
-namespace Research.Scripts.Characters
+namespace Research.CharacterDesign.Scripts.Characters
 {
     public class MLCharacterDash : CharacterDash2D
     {

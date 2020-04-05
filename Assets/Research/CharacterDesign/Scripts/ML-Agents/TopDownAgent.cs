@@ -5,10 +5,10 @@ using MLAgents;
 using MLAgents.Policies;
 using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
-using Research.Scripts.AgentInput;
+using Research.CharacterDesign.Scripts.AgentInput;
 using UnityEngine;
 
-namespace Research.Scripts
+namespace Research.CharacterDesign.Scripts
 {
     public enum Directions { None, Left, Right, Up, Down }
 
