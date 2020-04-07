@@ -222,8 +222,4 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 0}
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality:
-    Android: 0
-    Standalone: 5
-    WebGL: 5
-    iPhone: 1
+  m_PerPlatformDefaultQuality: {}

@@ -300,12 +300,10 @@
               <e p="READ ME.txt" t="Include" />
               <e p="Scripts" t="Include">
                 <e p="LevelGenerator.cs" t="Include" />
+                <e p="NuclearThroneLevelGenerator.cs" t="Include" />
                 <e p="Restarter.cs" t="Include" />
                 <e p="SlowGenerator.cs" t="Include" />
               </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="NuclearThrone.cs" t="Include" />
             </e>
             <e p="UnityProcedural" t="Include">
               <e p="Global Scripts" t="Include">
