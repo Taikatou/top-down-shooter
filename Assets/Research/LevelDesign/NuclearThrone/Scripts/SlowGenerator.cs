@@ -216,6 +216,27 @@ public class SlowGenerator : MonoBehaviour {
 				}
 			}
 		}
+
+		PrintMap();
+	}
+	
+	private void PrintMap()
+	{
+		var rowCount = grid.GetLength(0);
+		var colCount = grid.GetLength(1);
+		var output = "";
+		for (var row = 0; row < rowCount; row++)
+		{
+			output += "[";
+			for (var col = 0; col < colCount; col++)
+			{
+				var cell = (int) grid[row, col];
+				output += $"{cell},\t";	
+			}
+
+			output += "],\n";
+		} 
+		Debug.Log(output);
 	}
 
 
@@ -227,6 +248,4 @@ public class SlowGenerator : MonoBehaviour {
 		GameObject obj = Instantiate(toSpawn, spawnPos, Quaternion.identity);
 		gridObjects[(int)x,(int)y] = obj;
 	}
-
-
 }

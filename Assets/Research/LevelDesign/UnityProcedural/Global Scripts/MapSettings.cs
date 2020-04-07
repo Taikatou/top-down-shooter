@@ -21,7 +21,8 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
         RandomWalkCaveCustom,
         CellularAutomataVonNeuman,
         CellularAutomataMoore,
-        DirectionalTunnel
+        DirectionalTunnel,
+        NuclearThrone
     }
 
     [System.Serializable]
@@ -109,6 +110,9 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
                         new GUIContent("Roughness",
                             "This is checked against a random number to determine if we can change the width of the tunnel"),
                         mapLayer.roughness, 0, 100);
+                    break;
+                case Algorithm.NuclearThrone:
+                    mapLayer.fillAmount = EditorGUILayout.IntSlider("Fill Percentage", mapLayer.fillAmount, 0, 100);
                     break;
             }
 

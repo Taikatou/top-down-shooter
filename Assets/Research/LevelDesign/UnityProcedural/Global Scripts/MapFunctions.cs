@@ -65,17 +65,23 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 		/// </summary>
 		/// <param name="map">The map to draw</param>
 		/// <param name="tilemap">The tilemap to draw on</param>
-		/// <param name="tile">The tile to draw with</param>
+		/// <param name="tileWalls">The tile to draw walls with</param>
+		/// <param name="tileGround">The tile to draw grounsd with</param>
 		/// <param name="offset">The offset to apply</param>
-		public static void RenderMapWithOffset(int[,] map, Tilemap tilemap, TileBase tile, Vector2Int offset)
+		public static void RenderMapWithOffset(int[,] map, Tilemap tilemap, TileBase tileWalls, TileBase tileGround,
+			Vector2Int offset)
 		{
-			for (int x = 0; x < map.GetUpperBound(0); x++)
+			for (var x = 0; x < map.GetUpperBound(0); x++)
 			{
-				for (int y = 0; y < map.GetUpperBound(1); y++)
+				for (var y = 0; y < map.GetUpperBound(1); y++)
 				{
 					if(map[x,y] == 1)
 					{
-						tilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y ,0), tile);
+						tilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y ,0), tileWalls);
+					}
+					if(map[x,y] == 2)
+					{
+						tilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y ,0), tileGround);
 					}
 				}
 			}
@@ -142,7 +148,7 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 			{
 				newPoint = Mathf.FloorToInt((Mathf.PerlinNoise(x, seed) - reduction) * map.GetUpperBound(1));
 
-				//Make sure the noise starts near the halfway point of the height
+				//Make sure the noise starts near the halfway point of the heig
 				newPoint += (map.GetUpperBound(1) / 2); 
 				for (int y = newPoint; y >= 0; y--)
 				{

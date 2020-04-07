@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System;
+using Research.LevelDesign.NuclearThrone.Scripts;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -108,6 +110,13 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 					//Next generate the tunnel through the array
 					map = MapFunctions.DirectionalTunnel(map, mapSetting.minPathWidth, mapSetting.maxPathWidth, mapSetting.maxPathChange, mapSetting.roughness, mapSetting.windyness);
 					break;
+				case Algorithm.NuclearThrone:
+					map = MapFunctions.GenerateArray(width, height, true);
+					var floatPercent = (mapSetting.fillAmount / 100.0f);
+					map = NuclearThroneLevelGenerator.GenerateMap(map, seed, floatPercent);
+					PrintArray(map);
+					break;
+				
 			}
 			//Render the result
 			MapFunctions.RenderMap(map, tilemap, tile);
@@ -116,6 +125,21 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 		public void ClearMap()
 		{
 			tilemap.ClearAllTiles();
+		}
+
+		private void PrintArray(int[,] map)
+		{
+			var rowCount = map.GetLength(0);
+			var colCount = map.GetLength(1);
+			for (var row = 0; row < rowCount; row++)
+			{
+				var output = "";
+				for (var col = 0; col < colCount; col++)
+				{
+					output += $"{map[row, col]}\t";	
+				}
+				Debug.Log(output);
+			} 
 		}
 	}
 

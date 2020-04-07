@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 	public class LevelGeneratorStack : MonoBehaviour
 	{
 		public Tilemap tilemap;
-		public TileBase tile;
+		public TileBase tileWalls;
+		public TileBase tileGround;
 
 		[Tooltip("The width of each layer of the stack")]
 		public int width;
@@ -122,6 +124,12 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 							mapSettings[i].maxPathWidth, mapSettings[i].maxPathChange, mapSettings[i].roughness,
 							mapSettings[i].windyness);
 						break;
+					case Algorithm.NuclearThrone:
+						map = MapFunctions.GenerateArray(width, height, true);
+						var floatPercent = (mapSettings[i].fillAmount / 100.0f);
+						map = NuclearThroneLevelGenerator.GenerateMap(map, seed, floatPercent);
+						// PrintArray(map);
+						break;
 				}
 
 				//Add the map to the list
@@ -131,12 +139,12 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 
 
 			//Allows for all of the maps to be on the same tilemap without overlaying
-			Vector2Int offset = new Vector2Int(-width / 2, (-height / 2) - 1);
+			var offset = new Vector2Int(-width / 2, (-height / 2) - 1);
 
 			//Work through the list to generate all maps
 			foreach (int[,] map in mapList)
 			{
-				MapFunctions.RenderMapWithOffset(map, tilemap, tile, offset);
+				MapFunctions.RenderMapWithOffset(map, tilemap, tileWalls, tileGround, offset);
 				offset.y += -height + 1;
 			}
 		}
@@ -144,6 +152,21 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 		public void ClearMap()
 		{
 			tilemap.ClearAllTiles();
+		}
+
+		private void PrintArray(int[,] map)
+		{
+			var rowCount = map.GetLength(0);
+			var colCount = map.GetLength(1);
+			for (var row = 0; row < rowCount; row++)
+			{
+				var output = "";
+				for (var col = 0; col < colCount; col++)
+				{
+					output += $"{map[row, col]}\t";	
+				}
+				Debug.Log(output);
+			} 
 		}
 	}
 
