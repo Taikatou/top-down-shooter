@@ -7,6 +7,7 @@ using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
+using Research.CharacterDesign.Scripts.SpawnPoints;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -20,6 +21,20 @@ namespace Research.CharacterDesign.Scripts.Environment
         public AgentQueue agentQueue;
 
         public DataLogger dataLogger;
+
+        public IGetSpawnPoints spawnPoints;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (spawnPoints != null)
+            {
+                foreach (var point in spawnPoints.Points)
+                {
+                    SpawnPoints.Add(point);
+                }
+            }
+        }
 
         private int[] GetTeamDeaths()
         {
@@ -36,10 +51,8 @@ namespace Research.CharacterDesign.Scripts.Environment
             return teamDeaths;
         }
 
-        protected IEnumerator WaitForRestart()
+        private void WaitForRestart()
         {
-            yield return new WaitForSeconds(1);
-
             agentQueue.ReturnCharacters(Players);
 
             Initialization();
@@ -60,7 +73,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 requester.allowDecisions = false;
             }
             
-            StartCoroutine(WaitForRestart());
+            WaitForRestart();
         }
 
         protected override void InstantiatePlayableCharacters()

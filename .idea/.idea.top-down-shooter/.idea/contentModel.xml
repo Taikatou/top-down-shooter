@@ -284,6 +284,10 @@
                 <e p="TopDownAgent.cs" t="Include" />
                 <e p="TopDownRaySensorComponent.cs" t="Include" />
               </e>
+              <e p="SpawnPoints" t="Include">
+                <e p="BaseGetSpawnPoints.cs" t="Include" />
+                <e p="IGetSpawnPoints.cs" t="Include" />
+              </e>
               <e p="SpeedChanger.cs" t="Include" />
               <e p="TeamDamageOnTouch.cs" t="Include" />
             </e>
@@ -297,10 +301,13 @@
           </e>
           <e p="LevelDesign" t="Include">
             <e p="NuclearThrone" t="Include">
+              <e p="CheckpointSpawner.cs" t="Include" />
+              <e p="NuclearThroneLevelGenerator.cs" t="Include" />
+              <e p="NuclearThroneMapFunctions.cs" t="Include" />
               <e p="READ ME.txt" t="Include" />
               <e p="Scripts" t="Include">
                 <e p="LevelGenerator.cs" t="Include" />
-                <e p="NuclearThroneLevelGenerator.cs" t="Include" />
+                <e p="NuclearThroneMapGenerator.cs" t="Include" />
                 <e p="Restarter.cs" t="Include" />
                 <e p="SlowGenerator.cs" t="Include" />
               </e>
