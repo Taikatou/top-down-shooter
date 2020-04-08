@@ -124,12 +124,6 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 							mapSettings[i].maxPathWidth, mapSettings[i].maxPathChange, mapSettings[i].roughness,
 							mapSettings[i].windyness);
 						break;
-					case Algorithm.NuclearThrone:
-						map = MapFunctions.GenerateArray(width, height, true);
-						var floatPercent = (mapSettings[i].fillAmount / 100.0f);
-						map = NuclearThroneLevelGenerator.GenerateMap(map, seed, floatPercent);
-						// PrintArray(map);
-						break;
 				}
 
 				//Add the map to the list
