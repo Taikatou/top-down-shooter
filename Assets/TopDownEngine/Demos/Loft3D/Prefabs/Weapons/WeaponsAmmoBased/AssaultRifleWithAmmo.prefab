@@ -39,8 +39,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044366880225218}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 0.99264705, g: 0.9317392, b: 0.59120893, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -145,6 +146,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -223,6 +225,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -4995,6 +4998,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -5201,6 +5205,11 @@ MonoBehaviour:
   CameraTargetOffset: 0.3
   CameraTargetMaxDistance: 5
   CameraTargetSpeed: 5
+  ReticleMovesWithSlopes: 0
+  ReticleObstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  MaximumSlopeElevation: 50
 --- !u!114 &114599354629761864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5213,6 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aaf62627f364a7d92d307729fe738d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Mode: 1
   PerformRaycast: 1
   DrawLaser: 1
   RaycastOriginOffset: {x: 0, y: 0, z: 0}
@@ -5330,6 +5340,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -10241,6 +10252,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -10343,6 +10355,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -10421,6 +10434,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -15247,6 +15261,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -20073,6 +20088,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -20175,6 +20191,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -20245,7 +20262,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -25087,6 +25104,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -25196,6 +25214,7 @@ MonoBehaviour:
   - {fileID: 4263039892622304146}
   - {fileID: 2107886402}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &1446297137977899851
 MonoBehaviour:
@@ -25344,7 +25363,9 @@ MonoBehaviour:
   DebugActive: 0
   Channel: 0
   ShakeDuration: 0.2
-  RelativeIntensity: 1
+  ResetShakerValuesAfterShake: 1
+  ResetTargetValuesAfterShake: 1
+  RelativeValues: 1
   ShakeIntensity:
     serializedVersion: 2
     m_Curve:
@@ -25378,7 +25399,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ShakeIntensityAmplitude: 1
+  RemapIntensityZero: 0
+  RemapIntensityOne: 1
   ShakeThreshold:
     serializedVersion: 2
     m_Curve:
@@ -25412,7 +25434,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ShakeThresholdAmplitude: -0.2
+  RemapThresholdZero: 0
+  RemapThresholdOne: 0
 --- !u!114 &3851644019903792999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25441,6 +25464,11 @@ MonoBehaviour:
     TargetBPM: 120
   DebugActive: 0
   Channel: 0
+  Duration: 0.1
+  ResetShakerValuesAfterShake: 1
+  ResetTargetValuesAfterShake: 1
+  RemapIntensityZero: 0
+  RemapIntensityOne: 1
   Intensity:
     serializedVersion: 2
     m_Curve:
@@ -25474,7 +25502,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Duration: 0.2
   Amplitude: 1
   RelativeIntensity: 0
 --- !u!114 &3598220904394497545
@@ -25505,6 +25532,9 @@ MonoBehaviour:
     TargetBPM: 120
   DebugActive: 0
   Channel: 0
+  Duration: 0.1
+  ResetShakerValuesAfterShake: 1
+  ResetTargetValuesAfterShake: 1
   Intensity:
     serializedVersion: 2
     m_Curve:
@@ -25538,8 +25568,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Duration: 0.2
-  Amplitude: 0.02
+  RemapIntensityZero: 0
+  RemapIntensityOne: 0.1
   RelativeIntensity: 1
 --- !u!114 &4263039892622304146
 MonoBehaviour:
@@ -25570,6 +25600,7 @@ MonoBehaviour:
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: efeea8a63ea57f64183ae9ff6767f678, type: 3}
   RandomSfx: []
+  TestButton: 0
   PlayMethod: 0
   PoolSize: 10
   MinVolume: 1
@@ -25718,6 +25749,7 @@ MonoBehaviour:
   Feedbacks:
   - {fileID: 7169975305967717441}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &7169975305967717441
 MonoBehaviour:
@@ -25748,6 +25780,7 @@ MonoBehaviour:
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: d8ea448bae39d4146b98a9953a270f1b, type: 3}
   RandomSfx: []
+  TestButton: 0
   PlayMethod: 0
   PoolSize: 10
   MinVolume: 1
@@ -25802,6 +25835,7 @@ MonoBehaviour:
   Feedbacks:
   - {fileID: 5967945855364483990}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &5967945855364483990
 MonoBehaviour:
@@ -25832,6 +25866,7 @@ MonoBehaviour:
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: bbefda97fc1ed234686fff2f8dedf1cf, type: 3}
   RandomSfx: []
+  TestButton: 0
   PlayMethod: 0
   PoolSize: 10
   MinVolume: 1
@@ -30602,6 +30637,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:

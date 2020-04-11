@@ -18,7 +18,8 @@ namespace MoreMountains.Tools
 	/// </summary>
 	[RequireComponent(typeof(Rect))]
 	[RequireComponent(typeof(CanvasGroup))]
-	public class MMTouchJoystick : MonoBehaviour, IDragHandler, IEndDragHandler
+    [AddComponentMenu("More Mountains/Tools/Controls/MMTouchJoystick")]
+    public class MMTouchJoystick : MonoBehaviour, IDragHandler, IEndDragHandler
 	{
 		[Header("Camera")]
 		public Camera TargetCamera;

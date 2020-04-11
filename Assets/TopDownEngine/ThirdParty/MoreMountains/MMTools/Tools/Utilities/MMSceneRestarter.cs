@@ -10,6 +10,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// This component lets you restart a scene by pressing a key
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Utilities/MMSceneRestarter")]
     public class MMSceneRestarter : MonoBehaviour
     {
         /// the possible restart modes

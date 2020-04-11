@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	[AddComponentMenu("TopDown Engine/Environment/Teleporter")]
-	/// <summary>
-	/// Add this script to a trigger collider2D to teleport objects from that object to its destination
-	/// </summary>
-	[SelectionBase]
+{
+    /// <summary>
+    /// Add this script to a trigger collider2D to teleport objects from that object to its destination
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Environment/Teleporter")]
+    [SelectionBase]
 	public class Teleporter : ButtonActivated 
 	{
 		[Header("Teleporter")]
@@ -25,7 +25,7 @@ namespace MoreMountains.TopDownEngine
 		public bool FadeToBlack = false;
         /// the curve to use to fade to black
         [MMCondition("FadeToBlack")]
-        public MMTween.MMTweenCurve FaderCurve;
+        public MMTweenType FaderCurve = new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic);
         /// the ID of the fader to use 
         [MMCondition("FadeToBlack")]
         public int FaderID = 0;

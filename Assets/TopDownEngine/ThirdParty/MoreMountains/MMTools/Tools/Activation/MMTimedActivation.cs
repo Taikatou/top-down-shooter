@@ -8,6 +8,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// Add this component to an object and it'll be auto destroyed X seconds after its Start()
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Activation/MMTimedActivation")]
     public class MMTimedActivation : MonoBehaviour
     {
         /// the possible activation modes
@@ -153,7 +154,7 @@ namespace MoreMountains.Tools
                         return false;
                     }
                 case TriggerModes.Tag:
-                    return (target.tag == TargetTriggerTag);                    
+                    return (target.CompareTag(TargetTriggerTag));                    
             }
             return false;
         }

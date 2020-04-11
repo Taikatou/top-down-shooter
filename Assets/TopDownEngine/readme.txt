@@ -39,4 +39,4 @@ DOCUMENTATION
 
 A complete documentation is available for this asset, go to https://topdown-engine-docs.moremountains.com/API/ for a complete API documentation, or https://topdown-engine-docs.moremountains.com/ for a functional one
 
-v1.6.1
+v1.7

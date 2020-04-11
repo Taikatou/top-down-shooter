@@ -28,11 +28,11 @@ namespace MoreMountains.Tools
 
             if (displayHours && displayMinutes && displaySeconds && displayMilliseconds)
             {
-                return string.Format("{0:00}:{1:00}:{2:00}.{3:00}", hours, minutes, seconds, milliseconds);
+                return string.Format("{0:00}:{1:00}:{2:00}.{3:000}", hours, minutes, seconds, milliseconds);
             }
             if (!displayHours && displayMinutes && displaySeconds && displayMilliseconds)
             {
-                return string.Format("{0:00}:{1:00}.{2:00}", minutes, seconds, milliseconds);
+                return string.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, milliseconds);
             }
             if (!displayHours && !displayMinutes && displaySeconds && displayMilliseconds)
             {

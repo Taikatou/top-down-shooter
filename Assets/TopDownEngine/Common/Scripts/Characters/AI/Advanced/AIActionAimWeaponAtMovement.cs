@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Aims the weapon at the current movement when not shooting
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionAimWeaponAtMovement")]
     public class AIActionAimWeaponAtMovement : AIAction
     {
         protected TopDownController _controller;

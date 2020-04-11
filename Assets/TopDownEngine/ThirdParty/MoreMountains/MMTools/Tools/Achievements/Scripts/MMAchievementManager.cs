@@ -178,8 +178,8 @@ namespace MoreMountains.Tools
 		/// </summary>
 		private static void DeterminePath(string specifiedFileName = "")
 		{
-			string tempFileName = (_listID != "") ? _listID : _defaultFileName;
-			if (specifiedFileName != "")
+			string tempFileName = (!string.IsNullOrEmpty(_listID)) ? _listID : _defaultFileName;
+			if (!string.IsNullOrEmpty(specifiedFileName))
 			{
 				tempFileName = specifiedFileName;
 			}

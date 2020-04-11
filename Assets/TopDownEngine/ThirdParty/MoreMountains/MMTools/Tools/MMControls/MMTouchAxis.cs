@@ -9,14 +9,15 @@ namespace MoreMountains.Tools
 	[System.Serializable]
 	public class AxisEvent : UnityEvent<float> {}
 
+    /// <summary>
+    /// Add this component to a GUI Image to have it act as an axis. 
+    /// Bind pressed down, pressed continually and released actions to it from the inspector
+    /// Handles mouse and multi touch
+    /// </summary>
 	[RequireComponent(typeof(Rect))]
-	[RequireComponent(typeof(CanvasGroup))]
-	/// <summary>
-	/// Add this component to a GUI Image to have it act as an axis. 
-	/// Bind pressed down, pressed continually and released actions to it from the inspector
-	/// Handles mouse and multi touch
-	/// </summary>
-	public class MMTouchAxis : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
+    [RequireComponent(typeof(CanvasGroup))]
+    [AddComponentMenu("More Mountains/Tools/Controls/MMTouchAxis")]
+    public class MMTouchAxis : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
 	{
 		public enum ButtonStates { Off, ButtonDown, ButtonPressed, ButtonUp }
 		[Header("Binding")]

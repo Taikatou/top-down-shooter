@@ -204,7 +204,7 @@ namespace MoreMountains.Tools
                             break;
 
                         case 1:
-                            if (_searchedMonoBehaviourName != "")
+                            if (!string.IsNullOrEmpty(_searchedMonoBehaviourName))
                             {
                                 GUILayout.Label("No prefabs use component " + _searchedMonoBehaviourName, EditorStyles.boldLabel);
                             }                            

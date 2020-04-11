@@ -7,6 +7,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A class to handle a platform that moves in 2D along a set of nodes
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Environment/Moving Platform 2D")]
     public class MovingPlatform2D : MMPathMovement
     {
         [Header("Safe Distance")]

@@ -91,6 +91,7 @@ namespace MoreMountains.TopDownEngine
         protected float _rotationSpeed;
         protected float _modelAnglesYLastFrame;
         protected Vector3 _currentDirection;
+        protected Vector3 _weaponRotationDirection;
 
         protected const string _relativeForwardSpeedAnimationParameterName = "RelativeForwardSpeed";
         protected const string _relativeLateralSpeedAnimationParameterName = "RelativeLateralSpeed";
@@ -145,7 +146,7 @@ namespace MoreMountains.TopDownEngine
         }
 
 
-        protected virtual void LateUpdate()
+        protected virtual void FixedUpdate()
         {
             ComputeRelativeSpeeds();
         }
@@ -205,6 +206,7 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void RotateToFaceWeaponDirection()
         {
             _newWeaponQuaternion = Quaternion.identity;
+            _weaponRotationDirection = Vector3.zero;
             _shouldRotateTowardsWeapon = false;
 
             // if we're not supposed to face our direction, we do nothing and exit
@@ -216,7 +218,8 @@ namespace MoreMountains.TopDownEngine
             _shouldRotateTowardsWeapon = true;
 
             _rotationDirection = _characterHandleWeapon.WeaponAimComponent.CurrentAim.normalized;
-                        
+            _weaponRotationDirection = _rotationDirection;
+
             MMDebug.DebugDrawArrow(this.transform.position, _rotationDirection, Color.red);
 
             // if the rotation mode is instant, we simply rotate to face our direction
@@ -260,25 +263,30 @@ namespace MoreMountains.TopDownEngine
         {
             MovementRotatingModel.transform.rotation = _newMovementQuaternion;
             
-            if (_shouldRotateTowardsWeapon)
+            if (_shouldRotateTowardsWeapon && (_weaponRotationDirection != Vector3.zero))
             {
                 WeaponRotatingModel.transform.rotation = _newWeaponQuaternion;
             }
         }
+
+        protected Vector3 _positionLastFrame;
+        protected Vector3 _newSpeed;
 
         /// <summary>
         /// Computes the relative speeds
         /// </summary>
         protected virtual void ComputeRelativeSpeeds()
         {
+            _newSpeed = (this.transform.position - _positionLastFrame) / Time.deltaTime;
+
             // relative speed
             if (_characterHandleWeapon == null)
             {
-                _relativeSpeed = MovementRotatingModel.transform.InverseTransformVector(_controller.CurrentMovement);
+                _relativeSpeed = MovementRotatingModel.transform.InverseTransformVector(_newSpeed);
             }
             else
             {
-                _relativeSpeed = WeaponRotatingModel.transform.InverseTransformVector(_controller.CurrentMovement);
+                _relativeSpeed = WeaponRotatingModel.transform.InverseTransformVector(_newSpeed);
             }
 
             // remapped speed
@@ -287,8 +295,8 @@ namespace MoreMountains.TopDownEngine
                 _remappedSpeed.x = MMMaths.Remap(_relativeSpeed.x, 0f, _characterRun.RunSpeed, 0f, 1f);
                 _remappedSpeed.y = MMMaths.Remap(_relativeSpeed.y, 0f, _characterRun.RunSpeed, 0f, 1f);
                 _remappedSpeed.z = MMMaths.Remap(_relativeSpeed.z, 0f, _characterRun.RunSpeed, 0f, 1f);
-            }            
-
+            }
+            
             // relative speed normalized
             _relativeSpeedNormalized = _relativeSpeed.normalized;
 
@@ -307,6 +315,7 @@ namespace MoreMountains.TopDownEngine
             }
 
             _modelAnglesYLastFrame = ModelAngles.y;
+            _positionLastFrame = this.transform.position;
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This Action will make the Character patrol along the defined path (see the MMPath inspector for that) until it hits a wall or a hole while following a path.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionMovePatrol2D")]
     [RequireComponent(typeof(MMPath))]
     public class AIActionMovePatrol2D : AIAction
     {        

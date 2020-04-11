@@ -9,112 +9,157 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// Add this class to a Camera with a vignette post processing and it'll be able to "shake" its values by getting events
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMVignetteShaker")]
     [RequireComponent(typeof(PostProcessVolume))]
-    public class MMVignetteShaker : MonoBehaviour
+    public class MMVignetteShaker : MMShaker
     {
-        public int Channel = 0;
+        [Header("Intensity")]
+        /// whether or not to add to the initial value
         public bool RelativeIntensity = false;
+        /// the curve used to animate the intensity value on
         public AnimationCurve ShakeIntensity = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeDuration = 0.2f;
-        public float ShakeAmplitude = 1.0f;
-
-        [MMFReadOnly]
-        public bool Shaking = false;
-
-        [MMFInspectorButton("StartShaking")]
-        public bool TestShakeButton;
-
-        protected Vignette _vignette;
+        /// the value to remap the curve's 0 to
+        [Range(0f, 1f)]
+        public float RemapIntensityZero = 0f;
+        /// the value to remap the curve's 1 to
+        [Range(0f, 1f)]
+        public float RemapIntensityOne = 1f;
+        
         protected PostProcessVolume _volume;
-        protected float _shakeStartedTimestamp;
-        protected float _remappedTimeSinceStart;
+        protected Vignette _vignette;
         protected float _initialIntensity;
-
-        protected virtual void Awake()
+        protected float _originalShakeDuration;
+        protected AnimationCurve _originalShakeIntensity;
+        protected float _originalRemapIntensityZero;
+        protected float _originalRemapIntensityOne;
+        protected bool _originalRelativeIntensity;
+        
+        /// <summary>
+        /// On init we initialize our values
+        /// </summary>
+        protected override void Initialization()
         {
+            base.Initialization();
             _volume = this.gameObject.GetComponent<PostProcessVolume>();
             _volume.profile.TryGetSettings(out _vignette);
+        }
+
+        /// <summary>
+        /// Shakes values over time
+        /// </summary>
+        protected override void Shake()
+        {
+            float newValue = ShakeFloat(ShakeIntensity, RemapIntensityZero, RemapIntensityOne, RelativeIntensity, _initialIntensity);
+            _vignette.intensity.Override(newValue);
+        }
+
+        /// <summary>
+        /// Collects initial values on the target
+        /// </summary>
+        protected override void GrabInitialValues()
+        {
             _initialIntensity = _vignette.intensity;
-            Shaking = false;
         }
 
-        public virtual void StartShaking()
+        /// <summary>
+        /// When we get the appropriate event, we trigger a shake
+        /// </summary>
+        /// <param name="intensity"></param>
+        /// <param name="duration"></param>
+        /// <param name="amplitude"></param>
+        /// <param name="relativeIntensity"></param>
+        /// <param name="attenuation"></param>
+        /// <param name="channel"></param>
+        public virtual void OnVignetteShakeEvent(AnimationCurve intensity, float duration, float remapMin, float remapMax, bool relativeIntensity = false, 
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            if (Shaking)
+            if (!CheckEventAllowed(channel) || Shaking)
             {
                 return;
             }
-            else
+            
+            _resetShakerValuesAfterShake = resetShakerValuesAfterShake;
+            _resetTargetValuesAfterShake = resetTargetValuesAfterShake;
+
+            if (resetShakerValuesAfterShake)
             {
-                _shakeStartedTimestamp = Time.time;
-                Shaking = true;
-            }
-        }
+                _originalShakeDuration = ShakeDuration;
+                _originalShakeIntensity = ShakeIntensity;
+                _originalRemapIntensityZero = RemapIntensityZero;
+                _originalRemapIntensityOne = RemapIntensityOne;
+                _originalRelativeIntensity = RelativeIntensity;
+            }            
 
-        protected virtual void Update()
-        {
-            if (Shaking)
-            {
-                Shake();
-            }
-
-            if (Shaking && (Time.time - _shakeStartedTimestamp > ShakeDuration))
-            {
-                Shaking = false;
-                _vignette.intensity.Override(_initialIntensity);
-            }
-        }
-
-        protected virtual void Shake()
-        {
-            _remappedTimeSinceStart = MMFeedbacksHelpers.Remap(Time.time - _shakeStartedTimestamp, 0f, ShakeDuration, 0f, 1f);
-            _vignette.intensity.Override(ShakeIntensity.Evaluate(_remappedTimeSinceStart) * ShakeAmplitude);
-            if (RelativeIntensity) { _vignette.intensity.Override(_vignette.intensity + _initialIntensity); }
-        }
-
-
-        public virtual void OnVignetteShakeEvent(AnimationCurve intensity, float duration, float amplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
-        {
-            if ((channel != Channel) && (channel != -1) && (Channel != -1))
-            {
-                return;
-            }
             ShakeDuration = duration;
             ShakeIntensity = intensity;
-            ShakeAmplitude = amplitude * attenuation;
+            RemapIntensityZero = remapMin * attenuation;
+            RemapIntensityOne = remapMax * attenuation;
             RelativeIntensity = relativeIntensity;
-            this.StartShaking();
+
+            Play();
         }
 
-        protected virtual void OnEnable()
+        /// <summary>
+        /// Resets the target's values
+        /// </summary>
+        protected override void ResetTargetValues()
         {
+            base.ResetTargetValues();
+            _vignette.intensity.Override(_initialIntensity);
+        }
+
+        /// <summary>
+        /// Resets the shaker's values
+        /// </summary>
+        protected override void ResetShakerValues()
+        {
+            base.ResetShakerValues();
+            ShakeDuration = _originalShakeDuration;
+            ShakeIntensity = _originalShakeIntensity;
+            RemapIntensityZero = _originalRemapIntensityZero;
+            RemapIntensityOne = _originalRemapIntensityOne;
+            RelativeIntensity = _originalRelativeIntensity;
+        }
+
+        /// <summary>
+        /// Starts listening for events
+        /// </summary>
+        public override void StartListening()
+        {
+            base.StartListening();
             MMVignetteShakeEvent.Register(OnVignetteShakeEvent);
         }
 
-        protected virtual void OnDisable()
+        /// <summary>
+        /// Stops listening for events
+        /// </summary>
+        public override void StopListening()
         {
+            base.StopListening();
             MMVignetteShakeEvent.Unregister(OnVignetteShakeEvent);
         }
     }
 
+    /// <summary>
+    /// An event used to trigger vignette shakes
+    /// </summary>
     public struct MMVignetteShakeEvent
     {
-        public delegate void Delegate(AnimationCurve intensity, float duration, float amplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0);
+        public delegate void Delegate(AnimationCurve intensity, float duration, float remapMin, float remapMax, bool relativeIntensity = false, 
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true);
         static private event Delegate OnEvent;
-
         static public void Register(Delegate callback)
         {
             OnEvent += callback;
         }
-
         static public void Unregister(Delegate callback)
         {
             OnEvent -= callback;
         }
-
-        static public void Trigger(AnimationCurve intensity, float duration, float amplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
+        static public void Trigger(AnimationCurve intensity, float duration, float remapMin, float remapMax, bool relativeIntensity = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            OnEvent?.Invoke(intensity, duration, amplitude, relativeIntensity, attenuation, channel);
+            OnEvent?.Invoke(intensity, duration, remapMin, remapMax, relativeIntensity, attenuation, channel, resetShakerValuesAfterShake, resetTargetValuesAfterShake);
         }
     }
 }

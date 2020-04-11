@@ -54,6 +54,7 @@ namespace MoreMountains.TopDownEngine
             if (!FollowsAPlayer) { return; }
             FollowsPlayer = true;
             _virtualCamera.Follow = TargetCharacter.CameraTarget.transform;
+            _virtualCamera.enabled = true;
         }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace MoreMountains.TopDownEngine
             if (!FollowsAPlayer) { return; }
             FollowsPlayer = false;
             _virtualCamera.Follow = null;
+            _virtualCamera.enabled = false;
         }
 
         public virtual void OnMMEvent(MMCameraEvent cameraEvent)
@@ -73,12 +75,14 @@ namespace MoreMountains.TopDownEngine
                 case MMCameraEventTypes.SetTargetCharacter:
                     SetTarget(cameraEvent.TargetCharacter);
                     break;
+
                 case MMCameraEventTypes.SetConfiner:                    
                     if (_confiner != null)
                     {
                         _confiner.m_BoundingVolume = cameraEvent.Bounds;
                     }
                     break;
+
                 case MMCameraEventTypes.StartFollowing:
                     if (cameraEvent.TargetCharacter != null)
                     {
@@ -100,7 +104,18 @@ namespace MoreMountains.TopDownEngine
                     }
                     StopFollowing();
                     break;
+
+                case MMCameraEventTypes.RefreshPosition:
+                    StartCoroutine(RefreshPosition());
+                    break;
             }
+        }
+
+        protected virtual IEnumerator RefreshPosition()
+        {
+            _virtualCamera.enabled = false;
+            yield return null;
+            StartFollowing();
         }
 
         public virtual void OnMMEvent(TopDownEngineEvent topdownEngineEvent)
@@ -114,7 +129,7 @@ namespace MoreMountains.TopDownEngine
             if (topdownEngineEvent.EventType == TopDownEngineEventTypes.CharacterSwap)
             {
                 SetTarget(LevelManager.Instance.Players[0]);
-                StartFollowing();
+                MMCameraEvent.Trigger(MMCameraEventTypes.RefreshPosition);
             }
         }
 

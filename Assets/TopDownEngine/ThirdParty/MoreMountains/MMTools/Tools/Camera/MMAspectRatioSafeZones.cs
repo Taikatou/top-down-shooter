@@ -29,6 +29,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// A class to handle the automatic display of safe zones for the different ratios setup in the inspector
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMAspectRatioSafeZones")]
     public class MMAspectRatioSafeZones : MonoBehaviour
     {
         [Header("Center")]
@@ -58,7 +59,6 @@ namespace MoreMountains.Tools
             Ratios.Add(new Ratio(true, new Vector2(16, 9), MMColors.DeepSkyBlue));
             Ratios.Add(new Ratio(true, new Vector2(16, 10), MMColors.GreenYellow));
             Ratios.Add(new Ratio(true, new Vector2(4, 3), MMColors.HotPink));
-
         }
     }
 }

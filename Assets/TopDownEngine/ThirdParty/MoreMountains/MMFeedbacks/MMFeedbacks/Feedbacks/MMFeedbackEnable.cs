@@ -13,6 +13,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("GameObject/Enable Behaviour")]
     public class MMFeedbackEnable : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.GameObjectColor; } }
+
         /// the possible effects the feedback can have on the target object's status 
         public enum PossibleStates { Enabled, Disabled, Toggle }
 

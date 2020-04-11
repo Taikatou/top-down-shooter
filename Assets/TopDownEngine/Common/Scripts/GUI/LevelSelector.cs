@@ -5,10 +5,11 @@ using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
 {
-	/// <summary>
-	/// This component allows the definition of a level that can then be accessed and loaded. Used mostly in the level map scene.
-	/// </summary>
-	public class LevelSelector : MonoBehaviour
+    /// <summary>
+    /// This component allows the definition of a level that can then be accessed and loaded. Used mostly in the level map scene.
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/GUI/LevelSelector")]
+    public class LevelSelector : MonoBehaviour
 	{
 		/// the exact name of the target level
 	    public string LevelName;

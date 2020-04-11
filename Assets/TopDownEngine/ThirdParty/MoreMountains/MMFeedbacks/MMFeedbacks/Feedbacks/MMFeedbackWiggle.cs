@@ -9,9 +9,12 @@ namespace MoreMountains.Feedbacks
     /// </summary>
     [AddComponentMenu("")]
     [FeedbackHelp("This feedback lets you trigger position, rotation and/or scale wiggles on an object equipped with a MMWiggle component, for the specified durations.")]
-    [FeedbackPath("GameObject/Wiggle")]
+    [FeedbackPath("Transform/Wiggle")]
     public class MMFeedbackWiggle : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.TransformColor; } }
+
         public MMWiggle TargetWiggle;
         [Header("Position")]
         public bool WigglePosition = true;
@@ -25,7 +28,10 @@ namespace MoreMountains.Feedbacks
         public bool WiggleScale;
         public float WiggleScaleDuration;
 
-        
+
+        /// the duration of this feedback is the duration of the clip being played
+        public override float FeedbackDuration { get { return Mathf.Max(WigglePositionDuration, WiggleRotationDuration, WiggleScaleDuration); } }
+
         /// <summary>
         /// On Play we trigger the desired wiggles
         /// </summary>

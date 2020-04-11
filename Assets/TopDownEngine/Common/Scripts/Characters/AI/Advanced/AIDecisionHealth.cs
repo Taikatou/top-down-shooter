@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true if the specified Health conditions are met. You can have it be lower, strictly lower, equal, higher or strictly higher than the specified value.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionHealth")]
     public class AIDecisionHealth : AIDecision
     {
         /// the different comparison modes

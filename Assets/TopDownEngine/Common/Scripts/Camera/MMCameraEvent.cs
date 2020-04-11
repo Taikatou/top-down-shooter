@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MoreMountains.TopDownEngine
 {
-    public enum MMCameraEventTypes { SetTargetCharacter, SetConfiner, StartFollowing, StopFollowing }
+    public enum MMCameraEventTypes { SetTargetCharacter, SetConfiner, StartFollowing, StopFollowing, RefreshPosition }
 
     public struct MMCameraEvent
     {

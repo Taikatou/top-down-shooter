@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace MoreMountains.Tools
 {
     [RequireComponent(typeof(LineRenderer))]
+    [AddComponentMenu("More Mountains/Tools/Sprites/MMBezierLineRenderer")]
     public class MMBezierLineRenderer : MonoBehaviour
     {
         public Transform[] AdjustmentHandles;

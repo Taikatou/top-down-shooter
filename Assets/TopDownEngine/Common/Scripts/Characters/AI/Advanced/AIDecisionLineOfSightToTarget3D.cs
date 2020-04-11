@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision returns true if there's no obstacle in a straight line between the agent and the brain's target, in 3D
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionLineOfSightToTarget3D")]
     public class AIDecisionLineOfSightToTarget3D : AIDecision
     {
         /// the layermask to consider as obstacles when trying to determine whether a line of sight is present

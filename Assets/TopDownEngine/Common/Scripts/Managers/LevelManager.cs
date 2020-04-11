@@ -48,7 +48,7 @@ namespace MoreMountains.TopDownEngine
         /// the ID to use when triggering the event (should match the ID on the fader you want to use)
         public int FaderID = 0;
         /// the curve to use for in and out fades
-        public MMTween.MMTweenCurve FadeCurve = MMTween.MMTweenCurve.EaseInCubic;
+        public MMTweenType FadeCurve = new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic);
         /// duration between a death of the main character and its respawn
         public float RespawnDelay = 2f;
 
@@ -154,9 +154,9 @@ namespace MoreMountains.TopDownEngine
 			// player instantiation
 			if (PlayerPrefabs.Count() != 0)
 			{ 
-				foreach (var playerPrefab in PlayerPrefabs)
+				foreach (Character playerPrefab in PlayerPrefabs)
 				{
-					var newPlayer = Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
+					Character newPlayer = (Character)Instantiate (playerPrefab, _initialSpawnPointPosition, Quaternion.identity);
 					newPlayer.name = playerPrefab.name;
 					Players.Add(newPlayer);
 
@@ -283,7 +283,7 @@ namespace MoreMountains.TopDownEngine
 				}	    		
 	        }
 
-            MMFadeInEvent.Trigger(OutroFadeDuration);
+            MMFadeInEvent.Trigger(OutroFadeDuration, FadeCurve);
             if (Time.timeScale > 0.0f)
 	        { 
 	            yield return new WaitForSeconds(OutroFadeDuration);

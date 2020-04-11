@@ -8,6 +8,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// Add this class to an empty game object in your scene and it'll let you take screenshots (meant to be used in Editor)
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Utilities/MMScreenshot")]
     public class MMScreenshot : MonoBehaviour
     {
         /// the name of the folder (relative to the project's root) to save screenshots to

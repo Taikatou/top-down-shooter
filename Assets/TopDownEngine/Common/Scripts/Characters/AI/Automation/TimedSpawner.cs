@@ -4,12 +4,13 @@ using MoreMountains.Tools;
 using System;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// A class meant to be used in conjunction with an object pool (simple or multiple)
-	/// to spawn objects regularly, at a frequency randomly chosen between the min and max values set in its inspector
-	/// </summary>
-	public class TimedSpawner : MonoBehaviour 
+{
+    /// <summary>
+    /// A class meant to be used in conjunction with an object pool (simple or multiple)
+    /// to spawn objects regularly, at a frequency randomly chosen between the min and max values set in its inspector
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Automation/TimedSpawner")]
+    public class TimedSpawner : MonoBehaviour 
 	{
         /// whether or not this spawner can spawn
         public bool CanSpawn = true;

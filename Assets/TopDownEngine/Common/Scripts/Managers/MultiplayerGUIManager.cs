@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace MoreMountains.TopDownEngine
 {
+    [AddComponentMenu("TopDown Engine/Managers/Multiplayer GUIManager")]
     public class MultiplayerGUIManager : GUIManager
     {
         [Header("Multiplayer GUI")]

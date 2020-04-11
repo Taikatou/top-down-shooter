@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this to a character and it'll trigger its MMRagdoller to ragdoll on death
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/Abilities/Character Ragdoll on Death")]
     public class CharacterRagdollOnDeath : MonoBehaviour
     {
         [Header("Binding")]

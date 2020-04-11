@@ -19,8 +19,10 @@ namespace MoreMountains.MMInterface
 		public float FaderOpenDuration = 0.2f;
 		public float FaderCloseDuration = 0.2f;
 		public float FaderOpacity = 0.8f;
+        public MMTweenType Tween = new MMTweenType(MMTween.MMTweenCurve.EaseInCubic);
 
-		protected Animator _animator;
+        protected Animator _animator;
+        
 
 		/// <summary>
 		/// On Start, we initialize our popup
@@ -59,7 +61,7 @@ namespace MoreMountains.MMInterface
 				return;
 			}
 
-			MMFadeEvent.Trigger(FaderOpenDuration, FaderOpacity);
+			MMFadeEvent.Trigger(FaderOpenDuration, FaderOpacity, Tween);
 			_animator.SetTrigger ("Open");
 			CurrentlyOpen = true;
 		}
@@ -74,7 +76,7 @@ namespace MoreMountains.MMInterface
 				return;
 			}
 
-			MMFadeEvent.Trigger(FaderCloseDuration, 0f);
+			MMFadeEvent.Trigger(FaderCloseDuration, 0f, Tween);
 			_animator.SetTrigger ("Close");
 			CurrentlyOpen = false;
 		}

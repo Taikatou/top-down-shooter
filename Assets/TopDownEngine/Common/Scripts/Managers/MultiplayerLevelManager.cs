@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -7,6 +11,7 @@ namespace MoreMountains.TopDownEngine
     /// A generic level manager meant to handle multiplayer scenes (specifically spawn and camera modes
     /// It's recommended to extend it to implement your own specific gameplay rules
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Managers/MultiplayerLevelManager")]
     public class MultiplayerLevelManager : LevelManager
     {
         [Header("Multiplayer spawn")]
@@ -70,7 +75,7 @@ namespace MoreMountains.TopDownEngine
         /// </summary>
         protected override void SpawnMultipleCharacters()
         {
-            for (var i = 0; i < Players.Count; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
                 SpawnPoints[i].SpawnPlayer(Players[i]);
             }

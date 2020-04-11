@@ -13,6 +13,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Particles/Particles Play")]
     public class MMFeedbackParticles : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.ParticlesColor; } }
+
         [Header("Bound Particles")]
         /// the particle system to play with this feedback
         public ParticleSystem BoundParticleSystem;

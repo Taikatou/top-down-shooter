@@ -10,9 +10,12 @@ namespace MoreMountains.Feedbacks
     /// </summary>
     [AddComponentMenu("")]
     [FeedbackHelp("This feedback lets you trigger a blink on an MMBlink object.")]
-    [FeedbackPath("GameObject/MMBlink")]
+    [FeedbackPath("Renderer/MMBlink")]
     public class MMFeedbackBlink : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.RendererColor; } }
+
         /// the possible modes for this feedback, that correspond to MMBlink's public methods
         public enum BlinkModes { Toggle, Start, Stop }
         /// the target object to blink

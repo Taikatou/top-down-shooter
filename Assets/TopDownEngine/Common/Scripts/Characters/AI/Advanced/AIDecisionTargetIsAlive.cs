@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true if the Brain's current target is alive, false otherwise
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionTargetIsAlive")]
     public class AIDecisionTargetIsAlive : AIDecision
     {
         protected Character _character;

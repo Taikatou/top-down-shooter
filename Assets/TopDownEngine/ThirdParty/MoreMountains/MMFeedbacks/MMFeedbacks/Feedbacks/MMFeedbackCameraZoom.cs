@@ -12,6 +12,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Camera/Camera Zoom")]
     public class MMFeedbackCameraZoom : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.CameraColor; } }
+
         [Header("Camera Zoom")]
         /// the channel to broadcast that zoom event on
         public int Channel = 0;
@@ -23,6 +26,10 @@ namespace MoreMountains.Feedbacks
         public float ZoomTransitionDuration = 0.05f;
         /// the duration for which the zoom is at max zoom
         public float ZoomDuration = 0.1f;
+
+
+        /// the duration of this feedback is the duration of the zoom
+        public override float FeedbackDuration { get { return ZoomDuration; } }
 
         /// <summary>
         /// On Play, triggers a zoom event

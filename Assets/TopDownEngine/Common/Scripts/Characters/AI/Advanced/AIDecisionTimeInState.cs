@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true after the specified duration, picked randomly between the min and max values (in seconds) has passed since the Brain has been in the state this decision is in. Use it to do something X seconds after having done something else.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionTimeInState")]
     public class AIDecisionTimeInState : AIDecision
     {
 

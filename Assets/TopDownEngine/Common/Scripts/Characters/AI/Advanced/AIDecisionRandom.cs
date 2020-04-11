@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will roll a dice and return true if the result is below or equal the Odds value
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionRandom")]
     public class AIDecisionRandom : AIDecision
     {
         public int TotalChance = 10;

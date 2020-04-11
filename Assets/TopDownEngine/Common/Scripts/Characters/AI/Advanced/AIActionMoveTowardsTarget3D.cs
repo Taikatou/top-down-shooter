@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Requires a CharacterMovement ability. Makes the character move up to the specified MinimumDistance in the direction of the target. 
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionMoveTowardsTarget3D")]
     [RequireComponent(typeof(CharacterMovement))]
     public class AIActionMoveTowardsTarget3D : AIAction
     {

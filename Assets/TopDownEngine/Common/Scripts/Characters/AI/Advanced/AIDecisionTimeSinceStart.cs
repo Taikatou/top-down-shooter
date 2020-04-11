@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true after the specified duration (in seconds) has passed since the level was loaded.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionTimeSinceStart")]
     public class AIDecisionTimeSinceStart : AIDecision
     {
         /// The duration (in seconds) after which to return true

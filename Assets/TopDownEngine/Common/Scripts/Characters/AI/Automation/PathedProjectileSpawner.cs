@@ -3,12 +3,12 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// Spawns pathed projectiles
-	/// </summary>
-	[AddComponentMenu("TopDown Engine/Character/AI/Pathed Projectile Spawner")] 
-	public class PathedProjectileSpawner : MonoBehaviour 
+{
+    /// <summary>
+    /// Spawns pathed projectiles
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Automation/PathedProjectileSpawner")]
+    public class PathedProjectileSpawner : MonoBehaviour 
 	{
 		[MMInformation("A GameObject with this component will spawn projectiles at the specified fire rate.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// the pathed projectile's destination

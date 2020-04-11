@@ -12,6 +12,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Light")]
     public class MMFeedbackLight : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.LightColor; } }
+
         /// the possible modes for this feedback
         public enum Modes { OverTime, Instant}
 
@@ -33,6 +36,10 @@ namespace MoreMountains.Feedbacks
         public float IntensityMultiplier = 1.0f;
         /// whether or not that light should be turned off on start
         public bool StartsOff = true;
+
+
+        /// the duration of this feedback is the duration of the light, or 0 if instant
+        public override float FeedbackDuration { get { return (Mode == Modes.Instant) ? 0f : Duration; } }
 
         /// <summary>
         /// On init we turn the light off if needed

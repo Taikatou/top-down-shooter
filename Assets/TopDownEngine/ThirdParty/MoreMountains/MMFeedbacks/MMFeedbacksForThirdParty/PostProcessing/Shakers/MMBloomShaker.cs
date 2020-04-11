@@ -9,111 +9,174 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// Add this class to a Camera with a bloom post processing and it'll be able to "shake" its values by getting events
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMBloomShaker")]
     [RequireComponent(typeof(PostProcessVolume))]
-    public class MMBloomShaker : MonoBehaviour
+    public class MMBloomShaker : MMShaker
     {
-        public int Channel = 0;
-        public float ShakeDuration = 0.2f;
-        public bool RelativeIntensity = false;
+        /// whether or not to add to the initial value
+        public bool RelativeValues = true;
+
+        [Header("Intensity")]
+        /// the curve used to animate the intensity value on
         public AnimationCurve ShakeIntensity = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeIntensityAmplitude = 1.0f;
+        /// the value to remap the curve's 0 to
+        public float RemapIntensityZero = 0f;
+        /// the value to remap the curve's 1 to
+        public float RemapIntensityOne = 1f;
+
+        [Header("Threshold")]
+        /// the curve used to animate the threshold value on
         public AnimationCurve ShakeThreshold = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeThresholdAmplitude = 1.0f;
+        /// the value to remap the curve's 0 to
+        public float RemapThresholdZero = 0f;
+        /// the value to remap the curve's 1 to
+        public float RemapThresholdOne = 0f;
 
-        [MMFReadOnly]
-        public bool Shaking = false;
-
-        [MMFInspectorButton("StartShaking")]
-        public bool TestShakeButton;
-
-        protected Bloom _bloom;
         protected PostProcessVolume _volume;
-
-        protected float _shakeStartedTimestamp;
-        protected float _remappedTimeSinceStart;
+        protected Bloom _bloom;
 
         protected float _initialIntensity;
         protected float _initialThreshold;
 
-        protected virtual void Awake()
+        protected float _originalShakeDuration;
+
+        protected bool _originalRelativeIntensity;
+        protected AnimationCurve _originalShakeIntensity;
+        protected float _originalRemapIntensityZero;
+        protected float _originalRemapIntensityOne;
+
+        protected AnimationCurve _originalShakeThreshold;
+        protected float _originalRemapThresholdZero;
+        protected float _originalRemapThresholdOne;
+        
+        /// <summary>
+        /// On init we initialize our values
+        /// </summary>
+        protected override void Initialization()
         {
+            base.Initialization();
             _volume = this.gameObject.GetComponent<PostProcessVolume>();
             _volume.profile.TryGetSettings(out _bloom);
+        }
+
+        /// <summary>
+        /// Shakes values over time
+        /// </summary>
+        protected override void Shake()
+        {
+            float newIntensity = ShakeFloat(ShakeIntensity, RemapIntensityZero, RemapIntensityOne, RelativeValues, _initialIntensity);
+            _bloom.intensity.Override(newIntensity);
+            float newThreshold = ShakeFloat(ShakeThreshold, RemapThresholdZero, RemapThresholdOne, RelativeValues, _initialThreshold);
+            _bloom.threshold.Override(newThreshold);
+        }
+
+        /// <summary>
+        /// Collects initial values on the target
+        /// </summary>
+        protected override void GrabInitialValues()
+        {
             _initialIntensity = _bloom.intensity;
             _initialThreshold = _bloom.threshold;
-            Shaking = false;
         }
 
-        public virtual void StartShaking()
+        /// <summary>
+        /// When we get the appropriate event, we trigger a shake
+        /// </summary>
+        /// <param name="intensity"></param>
+        /// <param name="duration"></param>
+        /// <param name="amplitude"></param>
+        /// <param name="relativeIntensity"></param>
+        /// <param name="attenuation"></param>
+        /// <param name="channel"></param>
+        public virtual void OnBloomShakeEvent(AnimationCurve intensity, float duration, float remapMin, float remapMax, 
+            AnimationCurve threshold, float remapThresholdMin, float remapThresholdMax, bool relativeIntensity = false,            
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            if (Shaking)
+            if (!CheckEventAllowed(channel) || Shaking)
             {
                 return;
             }
-            else
+
+            _resetShakerValuesAfterShake = resetShakerValuesAfterShake;
+            _resetTargetValuesAfterShake = resetTargetValuesAfterShake;
+
+            if (resetShakerValuesAfterShake)
             {
-                _shakeStartedTimestamp = Time.time;
-                Shaking = true;
-            }
-        }
-
-        protected virtual void Update()
-        {
-            if (Shaking)
-            {
-                Shake();
-            }
-
-            if (Shaking && (Time.time - _shakeStartedTimestamp > ShakeDuration))
-            {
-                Shaking = false;
-
-                _bloom.intensity.Override(_initialIntensity);
-                _bloom.threshold.Override(_initialThreshold);
-            }
-        }
-
-        protected virtual void Shake()
-        {
-            _remappedTimeSinceStart = MMFeedbacksHelpers.Remap(Time.time - _shakeStartedTimestamp, 0f, ShakeDuration, 0f, 1f);
-
-            _bloom.intensity.Override(ShakeIntensity.Evaluate(_remappedTimeSinceStart) * ShakeIntensityAmplitude);
-            _bloom.threshold.Override(ShakeThreshold.Evaluate(_remappedTimeSinceStart) * ShakeThresholdAmplitude);
-            if (RelativeIntensity) { _bloom.intensity.Override(_bloom.intensity + _initialIntensity); }
-            if (RelativeIntensity) { _bloom.threshold.Override(_bloom.threshold + _initialThreshold); }
-        }
-
-
-        public virtual void OnBloomShakeEvent(float duration, AnimationCurve intensity, float intensityAmplitude, AnimationCurve threshold, float thresholdAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
-        {
-            if ((channel != Channel) && (channel != -1) && (Channel != -1))
-            {
-                return;
+                _originalShakeDuration = ShakeDuration;
+                _originalShakeIntensity = ShakeIntensity;
+                _originalRemapIntensityZero = RemapIntensityZero;
+                _originalRemapIntensityOne = RemapIntensityOne;
+                _originalRelativeIntensity = RelativeValues;
+                _originalShakeThreshold = ShakeThreshold;
+                _originalRemapThresholdZero = RemapThresholdZero;
+                _originalRemapThresholdOne = RemapThresholdOne;
             }
 
             ShakeDuration = duration;
             ShakeIntensity = intensity;
-            ShakeIntensityAmplitude = intensityAmplitude * attenuation;
+            RemapIntensityZero = remapMin * attenuation;
+            RemapIntensityOne = remapMax * attenuation;
+            RelativeValues = relativeIntensity;
             ShakeThreshold = threshold;
-            ShakeThresholdAmplitude = thresholdAmplitude * attenuation;
-            RelativeIntensity = relativeIntensity;
-            this.StartShaking();
+            RemapThresholdZero = remapThresholdMin;
+            RemapThresholdOne = remapThresholdMax;
+
+            Play();
         }
 
-        protected virtual void OnEnable()
+        /// <summary>
+        /// Resets the target's values
+        /// </summary>
+        protected override void ResetTargetValues()
         {
+            base.ResetTargetValues();
+            _bloom.intensity.Override(_initialIntensity);
+            _bloom.threshold.Override(_initialThreshold);
+        }
+
+        /// <summary>
+        /// Resets the shaker's values
+        /// </summary>
+        protected override void ResetShakerValues()
+        {
+            base.ResetShakerValues();
+            ShakeDuration = _originalShakeDuration;
+            ShakeIntensity = _originalShakeIntensity;
+            RemapIntensityZero = _originalRemapIntensityZero;
+            RemapIntensityOne = _originalRemapIntensityOne;
+            RelativeValues = _originalRelativeIntensity;
+            ShakeThreshold = _originalShakeThreshold;
+            RemapThresholdZero = _originalRemapThresholdZero;
+            RemapThresholdOne = _originalRemapThresholdOne;
+        }
+
+        /// <summary>
+        /// Starts listening for events
+        /// </summary>
+        public override void StartListening()
+        {
+            base.StartListening();
             MMBloomShakeEvent.Register(OnBloomShakeEvent);
         }
 
-        protected virtual void OnDisable()
+        /// <summary>
+        /// Stops listening for events
+        /// </summary>
+        public override void StopListening()
         {
+            base.StopListening();
             MMBloomShakeEvent.Unregister(OnBloomShakeEvent);
         }
     }
 
+    /// <summary>
+    /// An event used to trigger vignette shakes
+    /// </summary>
     public struct MMBloomShakeEvent
     {
-        public delegate void Delegate(float duration, AnimationCurve intensity, float intensityAmplitude, AnimationCurve threshold, float thresholdAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0);
+        public delegate void Delegate(AnimationCurve intensity, float duration, float remapMin, float remapMax,
+            AnimationCurve threshold, float remapThresholdMin, float remapThresholdMax, bool relativeIntensity = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true);
         static private event Delegate OnEvent;
 
         static public void Register(Delegate callback)
@@ -126,9 +189,12 @@ namespace MoreMountains.FeedbacksForThirdParty
             OnEvent -= callback;
         }
 
-        static public void Trigger(float duration, AnimationCurve intensity, float intensityAmplitude, AnimationCurve threshold, float thresholdAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
+        static public void Trigger(AnimationCurve intensity, float duration, float remapMin, float remapMax,
+            AnimationCurve threshold, float remapThresholdMin, float remapThresholdMax, bool relativeIntensity = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            OnEvent?.Invoke(duration, intensity, intensityAmplitude, threshold, thresholdAmplitude, relativeIntensity, attenuation, channel);
+            OnEvent?.Invoke(intensity, duration, remapMin, remapMax, threshold, remapThresholdMin, remapThresholdMax, relativeIntensity, 
+                attenuation, channel, resetShakerValuesAfterShake, resetTargetValuesAfterShake);
         }
     }
 }

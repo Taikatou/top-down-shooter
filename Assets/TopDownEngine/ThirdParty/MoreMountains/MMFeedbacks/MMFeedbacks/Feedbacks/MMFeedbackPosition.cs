@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MoreMountains.Feedbacks
 {
@@ -9,11 +10,14 @@ namespace MoreMountains.Feedbacks
     /// </summary>
     [AddComponentMenu("")]
     [FeedbackHelp("This feedback will animate the target object's position over time, for the specified duration, from the chosen initial position to the chosen destination. These can either be relative Vector3 offsets from the Feedback's position, or Transforms. If you specify transforms, the Vector3 values will be ignored.")]
-    [FeedbackPath("GameObject/Position")]
+    [FeedbackPath("Transform/Position")]
     public class MMFeedbackPosition : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.TransformColor; } }
+
         public enum Spaces { World, Local, RectTransform }
-        public enum Modes { AtoB, AlongCurve }
+        public enum Modes { AtoB, AlongCurve, ToDestination }
         public enum TimeScales { Scaled, Unscaled }
 
         [Header("Position Target")]
@@ -30,11 +34,15 @@ namespace MoreMountains.Feedbacks
         /// the duration of the animation on play
         public float AnimatePositionDuration = 0.2f;
         /// the acceleration of the movement
-        [MMFEnumCondition("Mode", (int)Modes.AtoB)]
+        [MMFEnumCondition("Mode", (int)Modes.AtoB, (int)Modes.ToDestination)]
         public AnimationCurve AnimatePositionCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.1f, 0.05f), new Keyframe(0.9f, 0.95f), new Keyframe(1, 1));
-        /// the multiplier to apply to the curve
         [MMFEnumCondition("Mode", (int)Modes.AlongCurve)]
-        public float CurveMultiplier = 1f;
+        /// the value to remap the curve's 0 value to
+        public float RemapCurveZero = 0f;
+        /// the value to remap the curve's 1 value to
+        [MMFEnumCondition("Mode", (int)Modes.AlongCurve)]
+        [FormerlySerializedAs("CurveMultiplier")]
+        public float RemapCurveOne = 1f;
         /// if this is true, the x position will be animated
         [MMFEnumCondition("Mode", (int)Modes.AlongCurve)]
         public bool AnimateX;
@@ -58,18 +66,24 @@ namespace MoreMountains.Feedbacks
         /// if this is true, the initial position won't be added to init and destination
         public bool RelativePosition = true;
         /// the initial position
-        public Vector3 InitialPosition;
+        [MMFEnumCondition("Mode", (int)Modes.AtoB, (int)Modes.AlongCurve)]
+        public Vector3 InitialPosition = Vector3.zero;
         /// the destination position
-        [MMFEnumCondition("Mode", (int)Modes.AtoB)]
-        public Vector3 DestinationPosition;
+        [MMFEnumCondition("Mode", (int)Modes.AtoB, (int)Modes.ToDestination)]
+        public Vector3 DestinationPosition = Vector3.one;
         /// the initial transform - if set, takes precedence over the Vector3 above
+        [MMFEnumCondition("Mode", (int)Modes.AtoB, (int)Modes.AlongCurve)]
         public Transform InitialPositionTransform;
         /// the destination transform - if set, takes precedence over the Vector3 above
-        [MMFEnumCondition("Mode", (int)Modes.AtoB)]
+        [MMFEnumCondition("Mode", (int)Modes.AtoB, (int)Modes.ToDestination)]
         public Transform DestinationPositionTransform;
+        /// the duration of this feedback is the duration of its animation
+        public override float FeedbackDuration { get { return AnimatePositionDuration; } }
 
         protected Vector3 _newPosition;
         protected RectTransform _rectTransform;
+        protected Vector3 _initialPosition;
+        protected Vector3 _destinationPosition;
 
         /// <summary>
         /// On init, we set our initial and destination positions (transform will take precedence over vector3s)
@@ -91,15 +105,22 @@ namespace MoreMountains.Feedbacks
                     _rectTransform = AnimatePositionTarget.GetComponent<RectTransform>();
                 }
 
-                if (InitialPositionTransform != null) 
+                DeterminePositions();
+            }
+        }
+
+        protected virtual void DeterminePositions()
+        {
+            if (Mode != Modes.ToDestination)
+            {
+                if (InitialPositionTransform != null)
                 {
-                    InitialPosition = GetPosition(InitialPositionTransform);                    
+                    InitialPosition = GetPosition(InitialPositionTransform);
                 }
                 else
                 {
                     InitialPosition = RelativePosition ? GetPosition(AnimatePositionTarget.transform) + InitialPosition : InitialPosition;
                 }
-
                 if (DestinationPositionTransform != null)
                 {
                     DestinationPosition = GetPosition(DestinationPositionTransform);
@@ -108,7 +129,7 @@ namespace MoreMountains.Feedbacks
                 {
                     DestinationPosition = RelativePosition ? GetPosition(AnimatePositionTarget.transform) + DestinationPosition : DestinationPosition;
                 }
-            }
+            }  
         }
 
         /// <summary>
@@ -122,16 +143,24 @@ namespace MoreMountains.Feedbacks
             {
                 if (isActiveAndEnabled)
                 {
-                    switch(Mode)
+                    switch (Mode)
                     {
+                        case Modes.ToDestination:
+                            _initialPosition = GetPosition(AnimatePositionTarget.transform);
+                            _destinationPosition = RelativePosition ? _initialPosition + DestinationPosition : DestinationPosition;
+                            if (DestinationPositionTransform != null)
+                            {
+                                _destinationPosition = GetPosition(DestinationPositionTransform);
+                            }
+                            StartCoroutine(MoveFromTo(AnimatePositionTarget, _initialPosition, _destinationPosition, AnimatePositionDuration, AnimatePositionCurve));
+                            break;
                         case Modes.AtoB:
                             StartCoroutine(MoveFromTo(AnimatePositionTarget, InitialPosition, DestinationPosition, AnimatePositionDuration, AnimatePositionCurve));
                             break;
                         case Modes.AlongCurve:
                             StartCoroutine(MoveAlongCurve(AnimatePositionTarget, InitialPosition, AnimatePositionDuration));
                             break;
-                    }
-                    
+                    }                    
                 }
             }
         }
@@ -164,9 +193,13 @@ namespace MoreMountains.Feedbacks
 
         protected virtual void ComputeNewCurvePosition(GameObject movingObject, Vector3 initialPosition, float percent)
         {
-            float newValueX = CurveMultiplier * AnimatePositionCurveX.Evaluate(percent);
-            float newValueY = CurveMultiplier * AnimatePositionCurveY.Evaluate(percent);
-            float newValueZ = CurveMultiplier * AnimatePositionCurveZ.Evaluate(percent);
+            float newValueX = AnimatePositionCurveX.Evaluate(percent);
+            float newValueY = AnimatePositionCurveY.Evaluate(percent);
+            float newValueZ = AnimatePositionCurveZ.Evaluate(percent);
+
+            newValueX = MMFeedbacksHelpers.Remap(newValueX, 0f, 1f, RemapCurveZero, RemapCurveOne);
+            newValueY = MMFeedbacksHelpers.Remap(newValueY, 0f, 1f, RemapCurveZero, RemapCurveOne);
+            newValueZ = MMFeedbacksHelpers.Remap(newValueZ, 0f, 1f, RemapCurveZero, RemapCurveOne);
 
             _newPosition = initialPosition;
 
@@ -212,8 +245,7 @@ namespace MoreMountains.Feedbacks
 
             // set final position
             SetPosition(movingObject.transform, pointB);
-
-            yield break;
+             yield break;
         }
 
         protected virtual Vector3 GetPosition(Transform target)

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace MoreMountains.TopDownEngine
 {
+    [AddComponentMenu("TopDown Engine/GUI/ButtonPrompt")]
     public class ButtonPrompt : MonoBehaviour
     {
         [Header("Bindings")]
@@ -47,23 +48,29 @@ namespace MoreMountains.TopDownEngine
 
         public virtual void Show()
         {
+            this.gameObject.SetActive(true);
             if (_hideCoroutine != null)
             {
                 StopCoroutine(_hideCoroutine);
             }
-            
+            ContainerCanvasGroup.alpha = 0f;
             StartCoroutine(MMFade.FadeCanvasGroup(ContainerCanvasGroup, FadeInDuration, 1f, true));
         }
 
         public virtual void Hide()
         {
+            if (!this.gameObject.activeInHierarchy)
+            {
+                return;
+            }
             _hideCoroutine = StartCoroutine(HideCo());
         }
 
         protected virtual IEnumerator HideCo()
         {
+            ContainerCanvasGroup.alpha = 1f;
             StartCoroutine(MMFade.FadeCanvasGroup(ContainerCanvasGroup, FadeOutDuration, 0f, true));
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(FadeOutDuration);
             this.gameObject.SetActive(false);
         }
     }

@@ -120,6 +120,7 @@ namespace MoreMountains.Feedbacks
     /// <summary>
     /// Add this class to a GameObject to be able to control its position/rotation/scale individually and periodically, allowing it to "wiggle" (or just move however you want on a periodic basis)
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Various/MMWiggle")]
     public class MMWiggle : MonoBehaviour 
     {
         /// whether or not position wiggle is active

@@ -9,6 +9,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// Add this class to an object and it'll make sure that the cursor is either visible or invisible
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/GUI/MMCursorVisible")]
     public class MMCursorVisible : MonoBehaviour
     {
         /// The possible states of the cursor

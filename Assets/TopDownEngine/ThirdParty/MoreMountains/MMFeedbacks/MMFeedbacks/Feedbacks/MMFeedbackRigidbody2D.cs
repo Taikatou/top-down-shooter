@@ -12,6 +12,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("GameObject/Rigidbody2D")]
     public class MMFeedbackRigidbody2D : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.GameObjectColor; } }
+
         public enum Modes { AddForce, AddRelativeForce, AddTorque}
 
         [Header("Rigidbody")]

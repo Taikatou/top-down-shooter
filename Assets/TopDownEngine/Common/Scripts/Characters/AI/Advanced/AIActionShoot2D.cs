@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// An Action that shoots using the currently equipped weapon. If your weapon is in auto mode, will shoot until you exit the state, and will only shoot once in SemiAuto mode. You can optionnally have the character face (left/right) the target, and aim at it (if the weapon has a WeaponAim component).
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionShoot2D")]
     public class AIActionShoot2D : AIAction
     {
         /// if true, the Character will face the target (left/right) when shooting

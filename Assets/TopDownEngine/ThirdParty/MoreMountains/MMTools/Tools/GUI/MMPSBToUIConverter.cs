@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace MoreMountains.Tools
 {
+    [AddComponentMenu("More Mountains/Tools/GUI/MMPSBToUIConverter")]
     public class MMPSBToUIConverter : MonoBehaviour
     {
         [Header("Target")]

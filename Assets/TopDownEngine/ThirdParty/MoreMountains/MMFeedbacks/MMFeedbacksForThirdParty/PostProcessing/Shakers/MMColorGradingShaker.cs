@@ -9,141 +9,242 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// Add this class to a Camera with a color grading post processing and it'll be able to "shake" its values by getting events
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMColorGradingShaker")]
     [RequireComponent(typeof(PostProcessVolume))]
-    public class MMColorGradingShaker : MonoBehaviour
+    public class MMColorGradingShaker : MMShaker
     {
-        public int Channel = 0;
+        /// whether or not to add to the initial value
+        public bool RelativeValues = true;
 
-        public float ShakeDuration = 1f;
-        public bool RelativeIntensity = true;
-
+        [Header("Post Exposure")]
+        /// the curve used to animate the focus distance value on
         public AnimationCurve ShakePostExposure = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakePostExposureAmplitude = 0.2f;
+        /// the value to remap the curve's 0 to
+        public float RemapPostExposureZero = 0f;
+        /// the value to remap the curve's 1 to
+        public float RemapPostExposureOne = 1f;
 
+        [Header("Hue Shift")]
+        /// the curve used to animate the aperture value on
         public AnimationCurve ShakeHueShift = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeHueShiftAmplitude = -50f;
+        /// the value to remap the curve's 0 to
+        [Range(-180f, 180f)]
+        public float RemapHueShiftZero = 0f;
+        /// the value to remap the curve's 1 to
+        [Range(-180f, 180f)]
+        public float RemapHueShiftOne = 180f;
 
+        [Header("Saturation")]
+        /// the curve used to animate the focal length value on
         public AnimationCurve ShakeSaturation = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeSaturationAmplitude = 200f;
+        /// the value to remap the curve's 0 to
+        [Range(-100f, 100f)]
+        public float RemapSaturationZero = 0f;
+        /// the value to remap the curve's 1 to
+        [Range(-100f, 100f)]
+        public float RemapSaturationOne = 100f;
 
+        [Header("Contrast")]
+        /// the curve used to animate the focal length value on
         public AnimationCurve ShakeContrast = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
-        public float ShakeContrastAmplitude = 100f;
+        /// the value to remap the curve's 0 to
+        [Range(-100f, 100f)]
+        public float RemapContrastZero = 0f;
+        /// the value to remap the curve's 1 to
+        [Range(-100f, 100f)]
+        public float RemapContrastOne = 100f;
 
-        [MMFReadOnly]
-        public bool Shaking = false;
-
-        [MMFInspectorButton("StartShaking")]
-        public bool TestShakeButton;
-
-        protected ColorGrading _colorGrading;
         protected PostProcessVolume _volume;
-        protected float _shakeStartedTimestamp;
-        protected float _remappedTimeSinceStart;
+        protected ColorGrading _colorGrading;
 
         protected float _initialPostExposure;
         protected float _initialHueShift;
         protected float _initialSaturation;
         protected float _initialContrast;
 
-        protected virtual void Awake()
+        protected float _originalShakeDuration;
+        protected bool _originalRelativeValues;
+        protected AnimationCurve _originalShakePostExposure;
+        protected float _originalRemapPostExposureZero;
+        protected float _originalRemapPostExposureOne;
+        protected AnimationCurve _originalShakeHueShift;
+        protected float _originalRemapHueShiftZero;
+        protected float _originalRemapHueShiftOne;
+        protected AnimationCurve _originalShakeSaturation;
+        protected float _originalRemapSaturationZero;
+        protected float _originalRemapSaturationOne;
+        protected AnimationCurve _originalShakeContrast;
+        protected float _originalRemapContrastZero;
+        protected float _originalRemapContrastOne;
+
+        /// <summary>
+        /// On init we initialize our values
+        /// </summary>
+        protected override void Initialization()
         {
+            base.Initialization();
             _volume = this.gameObject.GetComponent<PostProcessVolume>();
             _volume.profile.TryGetSettings(out _colorGrading);
+        }
+
+        /// <summary>
+        /// When that shaker gets added, we initialize its shake duration
+        /// </summary>
+        protected virtual void Reset()
+        {
+            ShakeDuration = 0.8f;
+        }
+
+        /// <summary>
+        /// Shakes values over time
+        /// </summary>
+        protected override void Shake()
+        {
+            float newPostExposure = ShakeFloat(ShakePostExposure, RemapPostExposureZero, RemapPostExposureOne, RelativeValues, _initialPostExposure);
+            _colorGrading.postExposure.Override(newPostExposure);
+            float newHueShift = ShakeFloat(ShakeHueShift, RemapHueShiftZero, RemapHueShiftOne, RelativeValues, _initialHueShift);
+            _colorGrading.hueShift.Override(newHueShift);
+            float newSaturation = ShakeFloat(ShakeSaturation, RemapSaturationZero, RemapSaturationOne, RelativeValues, _initialSaturation);
+            _colorGrading.saturation.Override(newSaturation);
+            float newContrast = ShakeFloat(ShakeContrast, RemapContrastZero, RemapContrastOne, RelativeValues, _initialSaturation);
+            _colorGrading.contrast.Override(newContrast);
+        }
+
+        /// <summary>
+        /// Collects initial values on the target
+        /// </summary>
+        protected override void GrabInitialValues()
+        {
             _initialPostExposure = _colorGrading.postExposure;
             _initialHueShift = _colorGrading.hueShift;
             _initialSaturation = _colorGrading.saturation;
             _initialContrast = _colorGrading.contrast;
-            Shaking = false;
         }
 
-        public virtual void StartShaking()
+        /// <summary>
+        /// When we get the appropriate event, we trigger a shake
+        /// </summary>
+        /// <param name="intensity"></param>
+        /// <param name="duration"></param>
+        /// <param name="amplitude"></param>
+        /// <param name="relativeIntensity"></param>
+        /// <param name="attenuation"></param>
+        /// <param name="channel"></param>
+        public virtual void OnMMColorGradingShakeEvent(AnimationCurve shakePostExposure, float remapPostExposureZero, float remapPostExposureOne,
+            AnimationCurve shakeHueShift, float remapHueShiftZero, float remapHueShiftOne,
+            AnimationCurve shakeSaturation, float remapSaturationZero, float remapSaturationOne,
+            AnimationCurve shakeContrast, float remapContrastZero, float remapContrastOne,
+            float duration, bool relativeValues = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            if (Shaking)
+            if (!CheckEventAllowed(channel) || Shaking)
             {
                 return;
             }
-            else
+
+            _resetShakerValuesAfterShake = resetShakerValuesAfterShake;
+            _resetTargetValuesAfterShake = resetTargetValuesAfterShake;
+
+            if (resetShakerValuesAfterShake)
             {
-                _shakeStartedTimestamp = Time.time;
-                Shaking = true;
-            }
-        }
-
-        protected virtual void Update()
-        {
-            if (Shaking)
-            {
-                Shake();
-            }
-
-            if (Shaking && (Time.time - _shakeStartedTimestamp > ShakeDuration))
-            {
-                Shaking = false;
-
-                _colorGrading.postExposure.Override(_initialPostExposure);
-                _colorGrading.hueShift.Override(_initialHueShift);
-                _colorGrading.saturation.Override(_initialSaturation);
-                _colorGrading.contrast.Override(_initialContrast);
-            }
-        }
-
-        protected virtual void Shake()
-        {
-            _remappedTimeSinceStart = MMFeedbacksHelpers.Remap(Time.time - _shakeStartedTimestamp, 0f, ShakeDuration, 0f, 1f);
-
-            _colorGrading.postExposure.Override(ShakePostExposure.Evaluate(_remappedTimeSinceStart) * ShakePostExposureAmplitude);
-            _colorGrading.hueShift.Override(ShakeHueShift.Evaluate(_remappedTimeSinceStart) * ShakeHueShiftAmplitude);
-            _colorGrading.saturation.Override(ShakeSaturation.Evaluate(_remappedTimeSinceStart) * ShakeSaturationAmplitude);
-            _colorGrading.contrast.Override(ShakeContrast.Evaluate(_remappedTimeSinceStart) * ShakeContrastAmplitude);
-
-            if (RelativeIntensity) { _colorGrading.postExposure.Override(_colorGrading.postExposure + _initialPostExposure); }
-            if (RelativeIntensity) { _colorGrading.hueShift.Override(_colorGrading.hueShift + _initialHueShift); }
-            if (RelativeIntensity) { _colorGrading.saturation.Override(_colorGrading.saturation + _initialSaturation); }
-            if (RelativeIntensity) { _colorGrading.contrast.Override(_colorGrading.contrast + _initialContrast); }
-        }
-
-
-        public virtual void OnMMColorGradingShakeEvent(float duration, AnimationCurve postExposure, float postExposureAmplitude, AnimationCurve hueShift, float hueShiftAmplitude,
-            AnimationCurve saturation, float saturationAmplitude, AnimationCurve contrast, float contrastAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
-        {
-            if ((channel != Channel) && (channel != -1) && (Channel != -1))
-            {
-                return;
+                _originalShakeDuration = ShakeDuration;
+                _originalRelativeValues = RelativeValues;
+                _originalShakePostExposure = ShakePostExposure;
+                _originalRemapPostExposureZero = RemapPostExposureZero;
+                _originalRemapPostExposureOne = RemapPostExposureOne;
+                _originalShakeHueShift = ShakeHueShift;
+                _originalRemapHueShiftZero = RemapHueShiftZero;
+                _originalRemapHueShiftOne = RemapHueShiftOne;
+                _originalShakeSaturation = ShakeSaturation;
+                _originalRemapSaturationZero = RemapSaturationZero;
+                _originalRemapSaturationOne = RemapSaturationOne;
+                _originalShakeContrast = ShakeContrast;
+                _originalRemapContrastZero = RemapContrastZero;
+                _originalRemapContrastOne = RemapContrastOne;
             }
 
             ShakeDuration = duration;
-            RelativeIntensity = relativeIntensity;
+            RelativeValues = relativeValues;
+            ShakePostExposure = shakePostExposure;
+            RemapPostExposureZero = remapPostExposureZero;
+            RemapPostExposureOne = remapPostExposureOne;
+            ShakeHueShift = shakeHueShift;
+            RemapHueShiftZero = remapHueShiftZero;
+            RemapHueShiftOne  = remapHueShiftOne;
+            ShakeSaturation = shakeSaturation;
+            RemapSaturationZero = remapSaturationZero;
+            RemapSaturationOne = remapSaturationOne;
+            ShakeContrast = shakeContrast;
+            RemapContrastZero = remapContrastZero;
+            RemapContrastOne = remapContrastOne;
 
-            ShakePostExposure = postExposure;
-            ShakePostExposureAmplitude = postExposureAmplitude * attenuation;
-
-            ShakeHueShift = hueShift;
-            ShakeHueShiftAmplitude = hueShiftAmplitude * attenuation;
-
-            ShakeSaturation = saturation;
-            ShakeSaturationAmplitude = saturationAmplitude * attenuation;
-
-            ShakeContrast = contrast;
-            ShakeContrastAmplitude = contrastAmplitude * attenuation;
-            
-            this.StartShaking();
+            Play();
         }
 
-        protected virtual void OnEnable()
+        /// <summary>
+        /// Resets the target's values
+        /// </summary>
+        protected override void ResetTargetValues()
         {
+            base.ResetTargetValues();
+            _colorGrading.postExposure.Override(_initialPostExposure);
+            _colorGrading.hueShift.Override(_initialHueShift);
+            _colorGrading.saturation.Override(_initialSaturation);
+            _colorGrading.contrast.Override(_initialContrast);
+        }
+
+        /// <summary>
+        /// Resets the shaker's values
+        /// </summary>
+        protected override void ResetShakerValues()
+        {
+            base.ResetShakerValues();
+            ShakeDuration = _originalShakeDuration;
+            RelativeValues = _originalRelativeValues;
+            ShakePostExposure = _originalShakePostExposure;
+            RemapPostExposureZero = _originalRemapPostExposureZero;
+            RemapPostExposureOne = _originalRemapPostExposureOne;
+            ShakeHueShift = _originalShakeHueShift;
+            RemapHueShiftZero = _originalRemapHueShiftZero;
+            RemapHueShiftOne = _originalRemapHueShiftOne;
+            ShakeSaturation = _originalShakeSaturation;
+            RemapSaturationZero = _originalRemapSaturationZero;
+            RemapSaturationOne = _originalRemapSaturationOne;
+            ShakeContrast = _originalShakeContrast;
+            RemapContrastZero = _originalRemapContrastZero;
+            RemapContrastOne = _originalRemapContrastOne;
+        }
+
+        /// <summary>
+        /// Starts listening for events
+        /// </summary>
+        public override void StartListening()
+        {
+            base.StartListening();
             MMColorGradingShakeEvent.Register(OnMMColorGradingShakeEvent);
         }
 
-        protected virtual void OnDisable()
+        /// <summary>
+        /// Stops listening for events
+        /// </summary>
+        public override void StopListening()
         {
+            base.StopListening();
             MMColorGradingShakeEvent.Unregister(OnMMColorGradingShakeEvent);
         }
     }
 
+    /// <summary>
+    /// An event used to trigger vignette shakes
+    /// </summary>
     public struct MMColorGradingShakeEvent
     {
-        public delegate void Delegate(float duration, AnimationCurve postExposure, float postExposureAmplitude, AnimationCurve hueShift, float hueShiftAmplitude,
-            AnimationCurve saturation, float saturationAmplitude, AnimationCurve contrast, float contrastAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0);
+        public delegate void Delegate(AnimationCurve shakePostExposure, float remapPostExposureZero, float remapPostExposureOne,
+            AnimationCurve shakeHueShift, float remapHueShiftZero, float remapHueShiftOne,
+            AnimationCurve shakeSaturation, float remapSaturationZero, float remapSaturationOne,
+            AnimationCurve shakeContrast, float remapContrastZero, float remapContrastOne,
+            float duration, bool relativeValues = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true);
         static private event Delegate OnEvent;
 
         static public void Register(Delegate callback)
@@ -156,11 +257,18 @@ namespace MoreMountains.FeedbacksForThirdParty
             OnEvent -= callback;
         }
 
-        static public void Trigger(float duration, AnimationCurve postExposure, float postExposureAmplitude, AnimationCurve hueShift, float hueShiftAmplitude,
-            AnimationCurve saturation, float saturationAmplitude, AnimationCurve contrast, float contrastAmplitude, bool relativeIntensity = false, float attenuation = 1.0f, int channel = 0)
+        static public void Trigger(AnimationCurve shakePostExposure, float remapPostExposureZero, float remapPostExposureOne,
+            AnimationCurve shakeHueShift, float remapHueShiftZero, float remapHueShiftOne,
+            AnimationCurve shakeSaturation, float remapSaturationZero, float remapSaturationOne,
+            AnimationCurve shakeContrast, float remapContrastZero, float remapContrastOne,
+            float duration, bool relativeValues = false,
+            float attenuation = 1.0f, int channel = 0, bool resetShakerValuesAfterShake = true, bool resetTargetValuesAfterShake = true)
         {
-            OnEvent?.Invoke(duration, postExposure, postExposureAmplitude, hueShift, hueShiftAmplitude,
-            saturation, saturationAmplitude, contrast, contrastAmplitude, relativeIntensity, attenuation, channel);
+            OnEvent?.Invoke(shakePostExposure, remapPostExposureZero, remapPostExposureOne,
+                shakeHueShift, remapHueShiftZero, remapHueShiftOne,
+                shakeSaturation, remapSaturationZero, remapSaturationOne,
+                shakeContrast, remapContrastZero, remapContrastOne,
+                duration, relativeValues, attenuation, channel, resetShakerValuesAfterShake, resetTargetValuesAfterShake);
         }
     }
 }

@@ -117,7 +117,7 @@ namespace MoreMountains.InventoryEngine
 	        if (_animator != null)
 	        {
 	            _animator.SetFloat("Speed", _rigidBody2D.velocity.magnitude);
-                _animator.SetFloat("Armor", _currentArmor);
+                _animator.SetInteger("Armor", _currentArmor);
 	        }
 	    }
 

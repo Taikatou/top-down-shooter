@@ -4,12 +4,12 @@ using MoreMountains.Tools;
 using System;
 
 namespace MoreMountains.TopDownEngine
-{		
-	[AddComponentMenu("TopDown Engine/Weapons/Projectile Weapon")]
-	/// <summary>
-	/// A weapon class aimed specifically at allowing the creation of various projectile weapons, from shotgun to machine gun, via plasma gun or rocket launcher
-	/// </summary>
-	public class ProjectileWeapon : Weapon 
+{
+    /// <summary>
+    /// A weapon class aimed specifically at allowing the creation of various projectile weapons, from shotgun to machine gun, via plasma gun or rocket launcher
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Weapons/Projectile Weapon")]
+    public class ProjectileWeapon : Weapon 
 	{
         [Header("Spawn")]
         /// the offset position at which the projectile will spawn

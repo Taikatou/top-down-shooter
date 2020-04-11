@@ -9,6 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this zone to a trigger collider and it'll automatically trigger a dash on your 3D character on entry
     /// </summary>
     [RequireComponent(typeof(Collider))]
+    [AddComponentMenu("TopDown Engine/Environment/Dash Zone 3D")]
     public class DashZone3D : MonoBehaviour
     {
         [Header("Bindings")]

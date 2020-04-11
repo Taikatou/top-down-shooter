@@ -9,7 +9,8 @@ namespace MoreMountains.TopDownEngine
     /// This class will modify the sprite associated with it's sorting order based on the current rotation of the weapon.
     /// Useful to get the weapon get in front or behind your character based on this angle on 2D weapons
     /// </summary>
-    [RequireComponent(typeof(WeaponAim2D))]    
+    [RequireComponent(typeof(WeaponAim2D))]
+    [AddComponentMenu("TopDown Engine/Weapons/Weapon Sprite Sorting Order Threshold")]
     public class WeaponSpriteSortingOrderThreshold : MonoBehaviour
     {
         /// the angle threshold at which to switch the sorting order

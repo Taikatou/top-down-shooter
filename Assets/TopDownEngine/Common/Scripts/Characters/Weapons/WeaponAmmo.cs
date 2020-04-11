@@ -6,7 +6,8 @@ using MoreMountains.InventoryEngine;
 namespace MoreMountains.TopDownEngine
 {	
 	[RequireComponent(typeof(Weapon))]
-	public class WeaponAmmo : MonoBehaviour, MMEventListener<MMStateChangeEvent<MoreMountains.TopDownEngine.Weapon.WeaponStates>>, MMEventListener<MMInventoryEvent>
+    [AddComponentMenu("TopDown Engine/Weapons/Weapon Ammo")]
+    public class WeaponAmmo : MonoBehaviour, MMEventListener<MMStateChangeEvent<MoreMountains.TopDownEngine.Weapon.WeaponStates>>, MMEventListener<MMInventoryEvent>
 	{
 		[Header("Ammo")]
 		public string AmmoID;

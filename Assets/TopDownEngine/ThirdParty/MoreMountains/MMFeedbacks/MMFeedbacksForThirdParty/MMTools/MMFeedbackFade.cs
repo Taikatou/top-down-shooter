@@ -13,8 +13,16 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Camera/Fade")]
     public class MMFeedbackFade : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.CameraColor; } }
         /// the different possible types of fades
         public enum FadeTypes { FadeIn, FadeOut, Custom }
+        /// the different ways to send the position to the fader :
+        /// - FeedbackPosition : fade at the position of the feedback, plus an optional offset
+        /// - Transform : fade at the specified Transform's position, plus an optional offset
+        /// - WorldPosition : fade at the specified world position vector, plus an optional offset
+        /// - Script : the position passed in parameters when calling the feedback
+        public enum PositionModes { FeedbackPosition, Transform, WorldPosition, Script }
 
         [Header("Fade")]
         /// the type of fade we want to use when this feedback gets played
@@ -24,14 +32,31 @@ namespace MoreMountains.Feedbacks
         /// the duration (in seconds) of the fade
         public float Duration = 1f;
         /// the curve to use for this fade
-        public MMTween.MMTweenCurve Curve = MMTween.MMTweenCurve.EaseOutCubic;
+        public MMTweenType Curve = new MMTweenType(MMTween.MMTweenCurve.EaseInCubic);
         /// whether or not this fade should ignore timescale
         public bool IgnoreTimeScale = true;
 
         [Header("Custom")]
         /// the target alpha we're aiming for with this fade
         public float TargetAlpha;
-        
+
+        [Header("Position")]
+        /// the chosen way to position the object 
+        public PositionModes PositionMode = PositionModes.FeedbackPosition;
+        /// the transform at which to instantiate the object
+        [MMFEnumCondition("PositionMode", (int)PositionModes.Transform)]
+        public Transform TargetTransform;
+        /// the transform at which to instantiate the object
+        [MMFEnumCondition("PositionMode", (int)PositionModes.WorldPosition)]
+        public Vector3 TargetPosition;
+        /// the position offset at which to instantiate the vfx object
+        public Vector3 PositionOffset;
+
+        /// the duration of this feedback is the duration of the fade
+        public override float FeedbackDuration { get { return Duration; } }
+
+        protected Vector3 _position;
+
         /// <summary>
         /// On play we trigger the selected fade event
         /// </summary>
@@ -41,18 +66,41 @@ namespace MoreMountains.Feedbacks
         {
             if (Active)
             {
+                _position = GetPosition(position);
                 switch (FadeType)
                 {
                     case FadeTypes.Custom:
-                        MMFadeEvent.Trigger(Duration, TargetAlpha, Curve, ID, IgnoreTimeScale);
+                        MMFadeEvent.Trigger(Duration, TargetAlpha, Curve, ID, IgnoreTimeScale, _position);
                         break;
                     case FadeTypes.FadeIn:
-                        MMFadeInEvent.Trigger(Duration, Curve, ID, IgnoreTimeScale);
+                        MMFadeInEvent.Trigger(Duration, Curve, ID, IgnoreTimeScale, _position);
                         break;
                     case FadeTypes.FadeOut:
-                        MMFadeOutEvent.Trigger(Duration, Curve, ID, IgnoreTimeScale);
+                        MMFadeOutEvent.Trigger(Duration, Curve, ID, IgnoreTimeScale, _position);
                         break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Computes the proper position for this fade
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        protected virtual Vector3 GetPosition(Vector3 position)
+        {
+            switch (PositionMode)
+            {
+                case PositionModes.FeedbackPosition:
+                    return this.transform.position + PositionOffset;
+                case PositionModes.Transform:
+                    return TargetTransform.position + PositionOffset;
+                case PositionModes.WorldPosition:
+                    return TargetPosition + PositionOffset;
+                case PositionModes.Script:
+                    return position + PositionOffset;
+                default:
+                    return position + PositionOffset;
             }
         }
     }

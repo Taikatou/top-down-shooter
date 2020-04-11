@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true if the Brain's current target is null, false otherwise
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionTargetIsNull")]
     public class AIDecisionTargetIsNull : AIDecision
     {
         

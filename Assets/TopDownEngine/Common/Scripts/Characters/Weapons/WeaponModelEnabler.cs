@@ -16,6 +16,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This class is responsible for enabling/disabling the visual representation of weapons, if they're separated from the actual weapon object
     /// </summary>
+	[AddComponentMenu("TopDown Engine/Weapons/Weapon Model Enabler")]
     public class WeaponModelEnabler : MonoBehaviour
     {
         /// a list of model bindings. A binding is made of a gameobject, already present on the character, that will act as the visual representation of the weapon, and a name, that has to match the WeaponAnimationID of the actual Weapon

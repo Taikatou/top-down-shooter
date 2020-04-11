@@ -4,10 +4,11 @@ using System.Collections;
 namespace MoreMountains.Tools
 {
 	[RequireComponent(typeof(SpriteRenderer))]
-	/// <summary>
-	/// Add this component to an object to have it pick a new order in layer on start, useful to have unique sorting layer numbers
-	/// </summary>
-	public class MMAutoOrderInLayer : MonoBehaviour 
+    /// <summary>
+    /// Add this component to an object to have it pick a new order in layer on start, useful to have unique sorting layer numbers
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Sprites/MMAutoOrderInLayer")]
+    public class MMAutoOrderInLayer : MonoBehaviour 
 	{
 		static int CurrentMaxCharacterOrderInLayer = 0;
 

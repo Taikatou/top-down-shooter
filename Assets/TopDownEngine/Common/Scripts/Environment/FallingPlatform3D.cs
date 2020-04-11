@@ -3,12 +3,13 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// Add this script to a platform and it'll fall down when walked upon by a playable character
-	/// Add an AutoRespawn component to your platform and it'll get reset when your character dies
-	/// </summary>
-	public class FallingPlatform3D : MonoBehaviour 
+{
+    /// <summary>
+    /// Add this script to a platform and it'll fall down when walked upon by a playable character
+    /// Add an AutoRespawn component to your platform and it'll get reset when your character dies
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Environment/Falling Platform 3D")]
+    public class FallingPlatform3D : MonoBehaviour 
 	{
         /// the possible states for the platform
         public enum FallingPlatformStates { Idle, Shaking, Falling }

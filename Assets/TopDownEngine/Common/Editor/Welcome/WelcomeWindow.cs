@@ -9,6 +9,8 @@ namespace MoreMountains.TopDownEngine
 {
     public class WelcomeWindow : EditorWindow
     {
+        public Texture2D WelcomeBanner;
+
         public const string PostProcessingPackageID = "com.unity.postprocessing";
         public static string PostProcessingPackageVersionID = "com.unity.postprocessing@2.1.3";
         public static string CinemachinePackageID = "com.unity.cinemachine";
@@ -115,9 +117,8 @@ namespace MoreMountains.TopDownEngine
                 RelativePath = welcomeWindowScriptFullPath.Substring(0, welcomeWindowScriptFullPathIndex);
             }            
 
-            Texture2D welcomeImage = (Texture2D)AssetDatabase.LoadAssetAtPath(RelativePath + "Common/Scripts/Welcome/welcome-banner.png", typeof(Texture2D));
             Rect welcomeImageRect = new Rect(0, 0, 500, 200);
-            UnityEngine.GUI.DrawTexture(welcomeImageRect, welcomeImage);
+            UnityEngine.GUI.DrawTexture(welcomeImageRect, WelcomeBanner);
             GUILayout.Space(220);
             
             GUILayout.BeginArea(new Rect(EditorGUILayout.GetControlRect().x + 10, 220, WelcomeWindowWidth - 20, WelcomeWindowHeight));

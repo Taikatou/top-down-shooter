@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace MoreMountains.Tools
-{	
-
-	public class MMSimpleObjectPooler : MMObjectPooler 
+{
+    /// <summary>
+    /// A simple object pool outputting a single type of objects
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Object Pool/MMSimpleObjectPooler")]
+    public class MMSimpleObjectPooler : MMObjectPooler 
 	{
 	    /// the game object we'll instantiate 
 		public GameObject GameObjectToPool;

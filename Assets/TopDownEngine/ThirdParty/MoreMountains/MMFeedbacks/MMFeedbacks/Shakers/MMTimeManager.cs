@@ -71,10 +71,11 @@ namespace MoreMountains.Feedbacks
         }
     }
 
-	/// <summary>
-	/// Put this component in your scene and it'll catch MMFreezeFrameEvents and MMTimeScaleEvents, allowing you to control the flow of time.
-	/// </summary>
-	public class MMTimeManager : MonoBehaviour
+    /// <summary>
+    /// Put this component in your scene and it'll catch MMFreezeFrameEvents and MMTimeScaleEvents, allowing you to control the flow of time.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Various/MMTimeManager")]
+    public class MMTimeManager : MonoBehaviour
 	{		
 		[MMFInformationAttribute("Put this component in your scene and it'll catch MMFreezeFrameEvents and MMTimeScaleEvents, allowing you to control the flow of time.", MMFInformationAttribute.InformationType.Info, false)]
 		/// The reference timescale, to which the system will go back to after all time is changed
@@ -172,12 +173,12 @@ namespace MoreMountains.Feedbacks
         /// <param name="newValue"></param>
         protected virtual void ApplyTimeScale(float newValue)
         {
-            //Time.timeScale = newValue;
+            Time.timeScale = newValue;
 
-            //Time.fixedDeltaTime = _initialFixedDeltaTime * newValue;
-            //Time.maximumDeltaTime = _initialMaximumDeltaTime * newValue;
+            Time.fixedDeltaTime = _initialFixedDeltaTime * newValue;
+            Time.maximumDeltaTime = _initialMaximumDeltaTime * newValue;
 
-            //CurrentTimeScale = Time.timeScale;
+            CurrentTimeScale = Time.timeScale;
         }
 
 		/// <summary>

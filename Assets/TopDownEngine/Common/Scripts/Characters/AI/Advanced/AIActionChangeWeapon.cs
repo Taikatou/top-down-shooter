@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This action is used to force your character to switch to another weapon. Just drag a weapon prefab into its NewWeapon slot and you're good to go.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionChangeWeapon")]
     public class AIActionChangeWeapon : AIAction
     {
         /// the new weapon to equip

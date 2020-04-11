@@ -4,11 +4,12 @@ using MoreMountains.Tools;
 using System.Collections.Generic;
 
 namespace MoreMountains.TopDownEngine
-{	
+{
     /// <summary>
     /// a controller to move a rigidbody2D and collider2D around in top down view
     /// </summary>
-	public class TopDownController2D : TopDownController 
+    [AddComponentMenu("TopDown Engine/Character/Core/TopDown Controller 2D")]
+    public class TopDownController2D : TopDownController 
 	{
         [MMReadOnly]
         /// whether or not the character is above a hole right now
@@ -126,13 +127,13 @@ namespace MoreMountains.TopDownEngine
         {
             base.FixedUpdate();
 
-            // ApplyImpact();
+            ApplyImpact();
 
             if (!FreeMovement)
             {
                 return;
             }
-            
+
             if (Friction > 1)
             {
                 CurrentMovement = CurrentMovement / Friction;
@@ -144,12 +145,7 @@ namespace MoreMountains.TopDownEngine
                 CurrentMovement = Vector3.Lerp(Speed, CurrentMovement, Time.deltaTime * Friction);
             }
             
-            var movement = (Vector2)(CurrentMovement) * Time.fixedDeltaTime;
-            
-            movement = new Vector2(Mathf.Clamp(movement.x, -0.1f, 0.1f),
-                                    Mathf.Clamp(movement.y, -0.1f, 0.1f));
-
-            Vector2 newMovement = _rigidBody.position + movement;
+            Vector2 newMovement = _rigidBody.position + (Vector2)(CurrentMovement + AddedForce) * Time.fixedDeltaTime;
             
             if (OnAMovingPlatform)
             {

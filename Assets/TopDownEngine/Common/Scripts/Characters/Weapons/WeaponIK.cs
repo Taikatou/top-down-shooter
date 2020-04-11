@@ -3,15 +3,16 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// This class allows for a 3D character to grab its current weapon's handles, and look wherever it's aiming.
-	/// There's a bit of setup involved. You need to have a CharacterHandleWeapon component on your character, it needs an animator with IKPass active (this is set in the Layers tab of the animator)
-	/// the animator's avatar MUST be set as humanoid
-	/// And you need to put that script on the same gameobject as the animator (otherwise it won't work). 
-	/// Finally, you need to set left and right handles (or only one of these) on your weapon(s). 
-	/// </summary>
-	public class WeaponIK : MonoBehaviour
+{
+    /// <summary>
+    /// This class allows for a 3D character to grab its current weapon's handles, and look wherever it's aiming.
+    /// There's a bit of setup involved. You need to have a CharacterHandleWeapon component on your character, it needs an animator with IKPass active (this is set in the Layers tab of the animator)
+    /// the animator's avatar MUST be set as humanoid
+    /// And you need to put that script on the same gameobject as the animator (otherwise it won't work). 
+    /// Finally, you need to set left and right handles (or only one of these) on your weapon(s). 
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Weapons/Weapon IK")]
+    public class WeaponIK : MonoBehaviour
     {
         [Header("Bindings")]
         public Transform LeftHandTarget = null;

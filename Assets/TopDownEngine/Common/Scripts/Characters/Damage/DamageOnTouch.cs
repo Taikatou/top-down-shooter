@@ -1,6 +1,8 @@
 using UnityEngine;
+using System.Collections;
 using MoreMountains.Tools;
 using System.Collections.Generic;
+using System;
 using MoreMountains.Feedbacks;
 
 namespace MoreMountains.TopDownEngine
@@ -79,7 +81,7 @@ namespace MoreMountains.TopDownEngine
         protected Vector3 _gizmoSize;
         protected Vector3 _gizmoOffset;
         protected Transform _gizmoTransform;
-        
+
         /// <summary>
         /// Initialization
         /// </summary>
@@ -226,6 +228,7 @@ namespace MoreMountains.TopDownEngine
             // if what we're colliding with isn't part of the target layers, we do nothing and exit
             if (!MMLayers.LayerInLayerMask(collider.layer, TargetLayerMask))
             {
+
                 return;
             }
 
@@ -287,9 +290,13 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            if (HitDamageableFeedback)
+            HitDamageableFeedback?.PlayFeedbacks(this.transform.position);
+
+            // we apply the damage to the thing we've collided with
+            _colliderHealth.Damage(DamageCaused, gameObject, InvincibilityDuration, InvincibilityDuration);
+            if (DamageTakenEveryTime + DamageTakenDamageable > 0)
             {
-                HitDamageableFeedback.PlayFeedbacks(this.transform.position);
+                SelfDamage(DamageTakenEveryTime + DamageTakenDamageable);
             }
         }
 
@@ -318,7 +325,7 @@ namespace MoreMountains.TopDownEngine
 
                 if ((_health.CurrentHealth <= 0) && PerfectImpact)
                 {
-                    transform.position = _collisionPoint;
+                    this.transform.position = _collisionPoint;
                 }
             }
 

@@ -225,6 +225,13 @@ namespace MoreMountains.TopDownEngine
             }
         }
 
+        protected Vector3 _aimAtDirection;
+        protected Quaternion _aimAtQuaternion;
+        
+        protected virtual void AimAt(Vector3 target)
+        {
+        }
+
         /// <summary>
 		/// If a reticle has been set, instantiates the reticle and positions it
 		/// </summary>

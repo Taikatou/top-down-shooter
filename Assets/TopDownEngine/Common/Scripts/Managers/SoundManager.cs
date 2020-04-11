@@ -304,6 +304,20 @@ namespace MoreMountains.TopDownEngine
                 }
             }
         }
+
+        /// <summary>
+        /// Stops all currently looping sounds
+        /// </summary>
+        public virtual void StopAllLoopingSounds()
+        {
+            foreach (AudioSource source in _loopingSounds)
+            {
+                if (source != null)
+                {
+                    source.Stop();
+                }
+            }
+        }
         
         /// <summary>
         /// Mutes all sfx currently playing

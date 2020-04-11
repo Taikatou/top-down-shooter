@@ -7,6 +7,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// A class used to pilot a MMPlaylist
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Audio/MMPlaylistRemote")]
     public class MMPlaylistRemote : MonoBehaviour
     {
         /// The track to play when calling PlaySelectedTrack

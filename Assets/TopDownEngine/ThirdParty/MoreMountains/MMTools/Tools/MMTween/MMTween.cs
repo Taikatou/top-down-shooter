@@ -28,92 +28,10 @@ namespace MoreMountains.Tools
             EaseInExponential,  EaseOutExponential, EaseInOutExponential,
             EaseInElastic,      EaseOutElastic,     EaseInOutElastic,
             EaseInCircular,     EaseOutCircular,    EaseInOutCircular,
+            AntiLinearTween
         }
 
-        public static Coroutine MoveTransform(MonoBehaviour mono, Transform targetTransform, Transform origin, Transform destination, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve, bool updatePosition = true, bool updateRotation = true)
-        {
-            return mono.StartCoroutine(MoveTransformCo(targetTransform, origin, destination, delay, delayDuration, duration, curve, updatePosition, updateRotation));
-        }
-
-        protected static IEnumerator MoveTransformCo(Transform targetTransform, Transform origin, Transform destination, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve, bool updatePosition = true, bool updateRotation = true)
-        {
-            if (delayDuration > 0f)
-            {
-                yield return delay;
-            }
-            float timeLeft = duration;
-            while (timeLeft > 0f)
-            {
-                if (updatePosition)
-                {
-                    targetTransform.transform.position = MMTween.Tween(duration - timeLeft, 0f, duration, origin.position, destination.position, curve);
-                }
-                if (updateRotation)
-                {
-                    targetTransform.transform.rotation = MMTween.Tween(duration - timeLeft, 0f, duration, origin.rotation, destination.rotation, curve);
-                }
-                timeLeft -= Time.deltaTime;
-                yield return null;
-            }
-            if (updatePosition) { targetTransform.transform.position = destination.position; }
-            if (updateRotation) { targetTransform.transform.localEulerAngles = destination.localEulerAngles; }
-        }
-
-        public static Coroutine RotateTransformAround(MonoBehaviour mono, Transform targetTransform, Transform center, Transform destination, float angle, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve)
-        {
-            return mono.StartCoroutine(RotateTransformAroundCo(targetTransform, center, destination, angle, delay, delayDuration, duration, curve));
-        }
-
-        protected static IEnumerator RotateTransformAroundCo(Transform targetTransform, Transform center, Transform destination, float angle, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve)
-        {
-            if (delayDuration > 0f)
-            {
-                yield return delay;
-            }
-
-            Vector3 initialRotationPosition = targetTransform.transform.position;
-            Quaternion initialRotationRotation = targetTransform.transform.rotation;
-
-            float rate = 1f / duration;
-
-            float timeSpent = 0f;
-            while (timeSpent < duration)
-            {
-
-                float newAngle = MMTween.Tween(timeSpent, 0f, duration, 0f, angle, curve);
-
-                targetTransform.transform.position = initialRotationPosition;
-                initialRotationRotation = targetTransform.transform.rotation;
-                targetTransform.RotateAround(center.transform.position, center.transform.up, newAngle);
-                targetTransform.transform.rotation = initialRotationRotation;
-
-                timeSpent += Time.deltaTime;
-                yield return null;
-            }
-            targetTransform.transform.position = destination.position;
-        }
-
-        public static Vector2 Tween(float currentTime, float initialTime, float endTime, Vector2 startValue, Vector2 endValue, MMTweenCurve curve)
-        {
-            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
-            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
-            return startValue;
-        }
-
-        public static Vector3 Tween(float currentTime, float initialTime, float endTime, Vector3 startValue, Vector3 endValue, MMTweenCurve curve)
-        {
-            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
-            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
-            startValue.z = Tween(currentTime, initialTime, endTime, startValue.z, endValue.z, curve);
-            return startValue;
-        }
-
-        public static Quaternion Tween(float currentTime, float initialTime, float endTime, Quaternion startValue, Quaternion endValue, MMTweenCurve curve)
-        {
-            float turningRate = Tween(currentTime, initialTime, endTime, 0f, 1f, curve);
-            startValue = Quaternion.Slerp(startValue, endValue, turningRate);
-            return startValue;
-        }
+        // Core methods ---------------------------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Moves a value between a startValue and an endValue based on a currentTime, along the specified tween curve
@@ -126,15 +44,16 @@ namespace MoreMountains.Tools
         /// <param name="curve"></param>
         /// <returns></returns>
         public static float Tween(float currentTime, float initialTime, float endTime, float startValue, float endValue, MMTweenCurve curve)
-        {            
+        {
             currentTime = MMMaths.Remap(currentTime, initialTime, endTime, 0f, 1f);
             switch (curve)
             {
                 case MMTweenCurve.LinearTween: currentTime = MMTweenDefinitions.Linear_Tween(currentTime); break;
+                case MMTweenCurve.AntiLinearTween: currentTime = MMTweenDefinitions.LinearAnti_Tween(currentTime); break;
 
-                case MMTweenCurve.EaseInQuadratic:      currentTime = MMTweenDefinitions.EaseIn_Quadratic(currentTime); break;
-                case MMTweenCurve.EaseOutQuadratic:     currentTime = MMTweenDefinitions.EaseOut_Quadratic(currentTime); break;
-                case MMTweenCurve.EaseInOutQuadratic:   currentTime = MMTweenDefinitions.EaseInOut_Quadratic(currentTime); break;
+                case MMTweenCurve.EaseInQuadratic: currentTime = MMTweenDefinitions.EaseIn_Quadratic(currentTime); break;
+                case MMTweenCurve.EaseOutQuadratic: currentTime = MMTweenDefinitions.EaseOut_Quadratic(currentTime); break;
+                case MMTweenCurve.EaseInOutQuadratic: currentTime = MMTweenDefinitions.EaseInOut_Quadratic(currentTime); break;
 
                 case MMTweenCurve.EaseInCubic: currentTime = MMTweenDefinitions.EaseIn_Cubic(currentTime); break;
                 case MMTweenCurve.EaseOutCubic: currentTime = MMTweenDefinitions.EaseOut_Cubic(currentTime); break;
@@ -175,265 +94,174 @@ namespace MoreMountains.Tools
             }
             return startValue + currentTime * (endValue - startValue);
         }
-    }
 
-    public class MMTweenDefinitions
-    {
-        // Linear       ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float Linear_Tween(float t)
+        public static Vector2 Tween(float currentTime, float initialTime, float endTime, Vector2 startValue, Vector2 endValue, MMTweenCurve curve)
         {
-            return t;
+            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
+            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
+            return startValue;
         }
 
-        public static float LinearAnti_Tween(float t)
+        public static Vector3 Tween(float currentTime, float initialTime, float endTime, Vector3 startValue, Vector3 endValue, MMTweenCurve curve)
         {
-            return 1-t;
+            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
+            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
+            startValue.z = Tween(currentTime, initialTime, endTime, startValue.z, endValue.z, curve);
+            return startValue;
         }
 
-        // Quadratic    ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Quadratic(float t)
+        public static Quaternion Tween(float currentTime, float initialTime, float endTime, Quaternion startValue, Quaternion endValue, MMTweenCurve curve)
         {
-            return t * t;
+            float turningRate = Tween(currentTime, initialTime, endTime, 0f, 1f, curve);
+            startValue = Quaternion.Slerp(startValue, endValue, turningRate);
+            return startValue;
         }
 
-        public static float EaseOut_Quadratic(float t)
+        // Animation curve methods --------------------------------------------------------------------------------------------------------------
+
+        public static float Tween(float currentTime, float initialTime, float endTime, float startValue, float endValue, AnimationCurve curve)
         {
-            return 1 - EaseIn_Quadratic(1-t);
+            currentTime = MMMaths.Remap(currentTime, initialTime, endTime, 0f, 1f);
+            currentTime = curve.Evaluate(currentTime);
+            return startValue + currentTime * (endValue - startValue);
         }
 
-        public static float EaseInOut_Quadratic(float t)
+        public static Vector2 Tween(float currentTime, float initialTime, float endTime, Vector2 startValue, Vector2 endValue, AnimationCurve curve)
         {
-            if (t < 0.5f)
+            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
+            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
+            return startValue;
+        }
+
+        public static Vector3 Tween(float currentTime, float initialTime, float endTime, Vector3 startValue, Vector3 endValue, AnimationCurve curve)
+        {
+            startValue.x = Tween(currentTime, initialTime, endTime, startValue.x, endValue.x, curve);
+            startValue.y = Tween(currentTime, initialTime, endTime, startValue.y, endValue.y, curve);
+            startValue.z = Tween(currentTime, initialTime, endTime, startValue.z, endValue.z, curve);
+            return startValue;
+        }
+
+        public static Quaternion Tween(float currentTime, float initialTime, float endTime, Quaternion startValue, Quaternion endValue, AnimationCurve curve)
+        {
+            float turningRate = Tween(currentTime, initialTime, endTime, 0f, 1f, curve);
+            startValue = Quaternion.Slerp(startValue, endValue, turningRate);
+            return startValue;
+        }
+
+        // Tween type methods ------------------------------------------------------------------------------------------------------------------------
+
+        public static float Tween(float currentTime, float initialTime, float endTime, float startValue, float endValue, MMTweenType tweenType)
+        {
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.MMTween)
             {
-                return EaseIn_Quadratic(t*2f)/2f;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.MMTweenCurve);
             }
-            else
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.AnimationCurve)
             {
-                return 1 - EaseIn_Quadratic((1f-t)*2f)/2;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.Curve);
             }
+            return 0f;
         }
-
-        // Cubic        ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Cubic(float t)
+        public static Vector2 Tween(float currentTime, float initialTime, float endTime, Vector2 startValue, Vector2 endValue, MMTweenType tweenType)
         {
-            return t * t * t;
-        }
-
-        public static float EaseOut_Cubic(float t)
-        {
-            return 1 - EaseIn_Cubic(1 - t);
-        }
-
-        public static float EaseInOut_Cubic(float t)
-        {
-            if (t < 0.5f)
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.MMTween)
             {
-                return EaseIn_Cubic(t * 2f) / 2f;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.MMTweenCurve);
             }
-            else
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.AnimationCurve)
             {
-                return 1 - EaseIn_Cubic((1f - t) * 2f) / 2;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.Curve);
             }
+            return Vector2.zero;
         }
-
-        // Quartic      ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Quartic(float t)
+        public static Vector3 Tween(float currentTime, float initialTime, float endTime, Vector3 startValue, Vector3 endValue, MMTweenType tweenType)
         {
-            return Mathf.Pow(t, 4f);
-        }
-
-        public static float EaseOut_Quartic(float t)
-        {
-            return 1 - EaseIn_Quartic(1 - t);
-        }
-
-        public static float EaseInOut_Quartic(float t)
-        {
-            if (t < 0.5f)
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.MMTween)
             {
-                return EaseIn_Quartic(t * 2f) / 2f;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.MMTweenCurve);
             }
-            else
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.AnimationCurve)
             {
-                return 1 - EaseIn_Quartic((1f - t) * 2f) / 2;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.Curve);
             }
+            return Vector3.zero;
         }
-
-        // Quintic      ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Quintic(float t)
+        public static Quaternion Tween(float currentTime, float initialTime, float endTime, Quaternion startValue, Quaternion endValue, MMTweenType tweenType)
         {
-            return Mathf.Pow(t, 5f);
-        }
-
-        public static float EaseOut_Quintic(float t)
-        {
-            return 1 - EaseIn_Quintic(1 - t);
-        }
-
-        public static float EaseInOut_Quintic(float t)
-        {
-            if (t < 0.5f)
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.MMTween)
             {
-                return EaseIn_Quintic(t * 2f) / 2f;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.MMTweenCurve);
             }
-            else
+            if (tweenType.MMTweenDefinitionType == MMTweenDefinitionTypes.AnimationCurve)
             {
-                return 1 - EaseIn_Quintic((1f - t) * 2f) / 2;
+                return Tween(currentTime, initialTime, endTime, startValue, endValue, tweenType.Curve);
             }
+            return Quaternion.identity;
         }
 
-        // Bounce       ---------------------------------------------------------------------------------------------------------------------------
+        // MOVE METHODS ---------------------------------------------------------------------------------------------------------
 
-        public static float EaseIn_Bounce(float t)
+        public static Coroutine MoveTransform(MonoBehaviour mono, Transform targetTransform, Transform origin, Transform destination, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve, bool updatePosition = true, bool updateRotation = true)
         {
-            float p = 0.3f;
-            return Mathf.Pow(2, -10 * t) * Mathf.Sin((t - p / 4) * (2 * Mathf.PI) / p) + 1;
+            return mono.StartCoroutine(MoveTransformCo(targetTransform, origin, destination, delay, delayDuration, duration, curve, updatePosition, updateRotation));
         }
 
-        public static float EaseOut_Bounce(float t)
+        public static Coroutine RotateTransformAround(MonoBehaviour mono, Transform targetTransform, Transform center, Transform destination, float angle, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve)
         {
-            return 1 - EaseIn_Bounce(1 - t);
+            return mono.StartCoroutine(RotateTransformAroundCo(targetTransform, center, destination, angle, delay, delayDuration, duration, curve));
         }
 
-        public static float EaseInOut_Bounce(float t)
+        protected static IEnumerator MoveTransformCo(Transform targetTransform, Transform origin, Transform destination, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve, bool updatePosition = true, bool updateRotation = true)
         {
-            if (t < 0.5f)
+            if (delayDuration > 0f)
             {
-                return EaseIn_Bounce(t * 2f) / 2f;
+                yield return delay;
             }
-            else
+            float timeLeft = duration;
+            while (timeLeft > 0f)
             {
-                return 1 - EaseIn_Bounce((1f - t) * 2f) / 2;
+                if (updatePosition)
+                {
+                    targetTransform.transform.position = MMTween.Tween(duration - timeLeft, 0f, duration, origin.position, destination.position, curve);
+                }
+                if (updateRotation)
+                {
+                    targetTransform.transform.rotation = MMTween.Tween(duration - timeLeft, 0f, duration, origin.rotation, destination.rotation, curve);
+                }
+                timeLeft -= Time.deltaTime;
+                yield return null;
             }
+            if (updatePosition) { targetTransform.transform.position = destination.position; }
+            if (updateRotation) { targetTransform.transform.localEulerAngles = destination.localEulerAngles; }
         }
 
-        // Sinusoidal   ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Sinusoidal(float t)
+        protected static IEnumerator RotateTransformAroundCo(Transform targetTransform, Transform center, Transform destination, float angle, WaitForSeconds delay, float delayDuration, float duration, MMTween.MMTweenCurve curve)
         {
-            return 1 + Mathf.Sin(Mathf.PI / 2f * t - Mathf.PI / 2f);
-        }
-
-        public static float EaseOut_Sinusoidal(float t)
-        {
-            return 1 - EaseIn_Sinusoidal(1 - t);
-        }
-
-        public static float EaseInOut_Sinusoidal(float t)
-        {
-            if (t < 0.5f)
+            if (delayDuration > 0f)
             {
-                return EaseIn_Sinusoidal(t * 2f) / 2f;
+                yield return delay;
             }
-            else
+
+            Vector3 initialRotationPosition = targetTransform.transform.position;
+            Quaternion initialRotationRotation = targetTransform.transform.rotation;
+
+            float rate = 1f / duration;
+
+            float timeSpent = 0f;
+            while (timeSpent < duration)
             {
-                return 1 - EaseIn_Sinusoidal((1f - t) * 2f) / 2;
+
+                float newAngle = MMTween.Tween(timeSpent, 0f, duration, 0f, angle, curve);
+
+                targetTransform.transform.position = initialRotationPosition;
+                initialRotationRotation = targetTransform.transform.rotation;
+                targetTransform.RotateAround(center.transform.position, center.transform.up, newAngle);
+                targetTransform.transform.rotation = initialRotationRotation;
+
+                timeSpent += Time.deltaTime;
+                yield return null;
             }
+            targetTransform.transform.position = destination.position;
         }
-
-        // Overhead     ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Overhead(float t)
-        {
-            float back = 1.6f;
-            return t * t * ((back + 1f) * t - back);
-        }
-
-        public static float EaseOut_Overhead(float t)
-        {
-            return 1 - EaseIn_Overhead(1 - t);
-        }
-
-        public static float EaseInOut_Overhead(float t)
-        {
-            if (t < 0.5f)
-            {
-                return EaseIn_Overhead(t * 2f) / 2f;
-            }
-            else
-            {
-                return 1 - EaseIn_Overhead((1f - t) * 2f) / 2;
-            }
-        }
-
-        // Exponential  ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Exponential(float t)
-        {
-            return t == 0f ? 0f : Mathf.Pow(1024f, t - 1f);
-        }
-
-        public static float EaseOut_Exponential(float t)
-        {
-            return 1 - EaseIn_Exponential(1 - t);
-        }
-
-        public static float EaseInOut_Exponential(float t)
-        {
-            if (t < 0.5f)
-            {
-                return EaseIn_Exponential(t * 2f) / 2f;
-            }
-            else
-            {
-                return 1 - EaseIn_Exponential((1f - t) * 2f) / 2;
-            }
-        }
-
-        // Elastic      ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Elastic(float t)
-        {
-            if (t == 0f) { return 0f; }
-            if (t == 1f) { return 1f; }
-            return -Mathf.Pow(2f, 10f * (t -= 1f)) * Mathf.Sin((t - 0.1f) * (2f * Mathf.PI) / 0.4f);
-        }
-
-        public static float EaseOut_Elastic(float t)
-        {
-            return 1 - EaseIn_Elastic(1 - t);
-        }
-
-        public static float EaseInOut_Elastic(float t)
-        {
-            if (t < 0.5f)
-            {
-                return EaseIn_Elastic(t * 2f) / 2f;
-            }
-            else
-            {
-                return 1 - EaseIn_Elastic((1f - t) * 2f) / 2;
-            }
-        }
-
-        // Circular     ---------------------------------------------------------------------------------------------------------------------------
-
-        public static float EaseIn_Circular(float t)
-        {
-            return 1f - Mathf.Sqrt(1f - t * t);
-        }
-
-        public static float EaseOut_Circular(float t)
-        {
-            return 1 - EaseIn_Circular(1 - t);
-        }
-
-        public static float EaseInOut_Circular(float t)
-        {
-            if (t < 0.5f)
-            {
-                return EaseIn_Circular(t * 2f) / 2f;
-            }
-            else
-            {
-                return 1 - EaseIn_Circular((1f - t) * 2f) / 2;
-            }
-        }
-
     }
 }

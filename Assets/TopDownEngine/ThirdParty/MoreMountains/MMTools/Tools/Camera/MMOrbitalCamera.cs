@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace MoreMountains.Tools
 {
-    [RequireComponent(typeof(Camera))]
+    [AddComponentMenu("More Mountains/Tools/Camera/MMOrbitalCamera")]
     public class MMOrbitalCamera : MonoBehaviour
     {
         public enum Modes { Mouse, Touch }

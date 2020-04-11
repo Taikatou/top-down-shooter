@@ -13,6 +13,7 @@ namespace MoreMountains.TopDownEngine
     /// If you're just after a visual change, look at the CharacterSwitchModel ability.
     /// If you want to swap characters between a bunch of characters within a scene, look at the CharacterSwap ability and CharacterSwapManager
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Managers/CharacterSwitchManager")]
     public class CharacterSwitchManager : MonoBehaviour
     {
         /// the possible orders the next character can be selected from

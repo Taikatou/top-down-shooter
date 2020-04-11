@@ -4,12 +4,13 @@ using System.Collections;
 using UnityEngine.UI;
 
 namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Add this component to an object and it will show a healthbar above it
-	/// You can either use a prefab for it, or have the component draw one at the start
-	/// </summary>
-	public class MMHealthBar : MonoBehaviour 
+{
+    /// <summary>
+    /// Add this component to an object and it will show a healthbar above it
+    /// You can either use a prefab for it, or have the component draw one at the start
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/GUI/MMHealthBar")]
+    public class MMHealthBar : MonoBehaviour 
 	{
 		/// the possible health bar types
 		public enum HealthBarTypes { Prefab, Drawn }
@@ -158,7 +159,7 @@ namespace MoreMountains.Tools
 			newCanvas.renderMode = RenderMode.WorldSpace;
 			newCanvas.transform.localScale = Vector3.one;
 			newCanvas.GetComponent<RectTransform>().sizeDelta = Size;
-            if (SortingLayerName != "")
+            if (!string.IsNullOrEmpty(SortingLayerName))
             {
                 newCanvas.sortingLayerName = SortingLayerName;
             }

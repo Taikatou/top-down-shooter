@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision returns true if the Character got hit this frame, or after the specified number of hits has been reached.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionHit")]
     [RequireComponent(typeof(Health))]
     public class AIDecisionHit : AIDecision
     {

@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A class used to force a model to aim at a Weapon's target
     /// </summary>
+	[AddComponentMenu("TopDown Engine/Weapons/Weapon Model")]
     public class WeaponModel : MonoBehaviour
     {
         /// if this is true, the model will aim at the parent weapon's target

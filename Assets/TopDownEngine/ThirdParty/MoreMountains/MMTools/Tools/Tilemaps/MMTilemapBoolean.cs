@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 
 namespace MoreMountains.Tools
 {
+    [AddComponentMenu("More Mountains/Tools/Tilemaps/MMTilemapBoolean")]
     public class MMTilemapBoolean : MonoBehaviour
     {
         public Tilemap TilemapToClean;

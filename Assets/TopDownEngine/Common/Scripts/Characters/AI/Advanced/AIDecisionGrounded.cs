@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This decision will return true if the character is grounded, false otherwise.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionGrounded")]
     public class AIDecisionGrounded : AIDecision
     {
         /// The duration, in seconds, after entering the state this Decision is in during which we'll ignore being grounded

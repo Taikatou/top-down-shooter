@@ -5,10 +5,11 @@ using UnityEngine;
 namespace MoreMountains.Tools
 {
 	[ExecuteAlways]
-	/// <summary>
-	/// MM delay particles.
-	/// </summary>
-	public class MMDelayParticles : MonoBehaviour 
+    /// <summary>
+    /// MM delay particles.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Particles/MMDelayParticles")]
+    public class MMDelayParticles : MonoBehaviour 
 	{
 		[Header("Delay")]
 		/// the duration of the delay, in seconds

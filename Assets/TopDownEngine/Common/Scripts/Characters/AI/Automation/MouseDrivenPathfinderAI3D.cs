@@ -3,12 +3,13 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
+{
     /// <summary>
     /// A class to add on a CharacterPathfinder3D equipped character.
     /// It will allow you to click anywhere on screen, which will determine a new target and the character will pathfind its way to it
     /// </summary>
-	public class MouseDrivenPathfinderAI3D : MonoBehaviour 
+    [AddComponentMenu("TopDown Engine/Character/AI/Automation/MouseDrivenPathfinderAI3D")]
+    public class MouseDrivenPathfinderAI3D : MonoBehaviour 
 	{
         [Header("Testing")]
         /// the camera we'll use to determine the destination from

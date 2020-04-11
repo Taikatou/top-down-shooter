@@ -6,10 +6,11 @@ using MoreMountains.MMInterface;
 
 namespace MoreMountains.TopDownEngine
 {
-	/// <summary>
-	/// Simple start screen class.
-	/// </summary>
-	public class StartScreen : MonoBehaviour
+    /// <summary>
+    /// Simple start screen class.
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/GUI/StartScreen")]
+    public class StartScreen : MonoBehaviour
 	{
 		/// the level to load after the start screen
 		public string NextLevel;
@@ -21,6 +22,7 @@ namespace MoreMountains.TopDownEngine
 		public float FadeInDuration = 1f;
         /// the duration of the fade to black at the end of the level
 		public float FadeOutDuration = 1f;
+        public MMTweenType Tween = new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic);
 
 		[Header("Sound Settings Bindings")]
         /// the switch used to turn the music on or off
@@ -34,7 +36,7 @@ namespace MoreMountains.TopDownEngine
 		protected virtual void Awake()
 		{	
 			GUIManager.Instance.SetHUDActive (false);
-			MMFadeOutEvent.Trigger(FadeInDuration);
+			MMFadeOutEvent.Trigger(FadeInDuration, Tween);
             Cursor.visible = true;
 			if (AutoSkipDelay > 1f)
 			{
@@ -77,7 +79,7 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		public virtual void ButtonPressed()
 		{
-			MMFadeInEvent.Trigger(FadeOutDuration);
+			MMFadeInEvent.Trigger(FadeOutDuration, Tween);
 			// if the user presses the "Jump" button, we start the first level.
 			StartCoroutine (LoadFirstLevel ());
 		}

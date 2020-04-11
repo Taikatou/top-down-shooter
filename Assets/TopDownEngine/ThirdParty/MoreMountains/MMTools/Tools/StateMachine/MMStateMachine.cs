@@ -58,12 +58,29 @@ namespace MoreMountains.Tools
 		/// the character's movement state before entering the current one
 		public T PreviousState { get; protected set; }
 
-		/// <summary>
-		/// Creates a new StateMachine, with a targetName (used for events, usually use GetInstanceID()), and whether you want to use events with it or not
-		/// </summary>
-		/// <param name="targetName">Target name.</param>
-		/// <param name="triggerEvents">If set to <c>true</c> trigger events.</param>
-		public MMStateMachine(GameObject target, bool triggerEvents)
+        public delegate void OnStateChangeDelegate();
+        /// an event you can listen to to listen locally to changes on that state machine
+        /// to listen to them, from any class : 
+        /// void OnEnable()
+        /// {
+        ///    yourReferenceToTheStateMachine.OnStateChange += OnStateChange;
+        /// }
+        /// void OnDisable()
+        /// {
+        ///    yourReferenceToTheStateMachine.OnStateChange -= OnStateChange;
+        /// }
+        /// void OnStateChange()
+        /// {
+        ///    // Do something
+        /// }
+        public OnStateChangeDelegate OnStateChange;
+
+        /// <summary>
+        /// Creates a new StateMachine, with a targetName (used for events, usually use GetInstanceID()), and whether you want to use events with it or not
+        /// </summary>
+        /// <param name="targetName">Target name.</param>
+        /// <param name="triggerEvents">If set to <c>true</c> trigger events.</param>
+        public MMStateMachine(GameObject target, bool triggerEvents)
 		{
 			this.Target = target;
 			this.TriggerEvents = triggerEvents;
@@ -85,7 +102,9 @@ namespace MoreMountains.Tools
 			PreviousState = CurrentState;
 			CurrentState = newState;
 
-			if (TriggerEvents)
+            OnStateChange?.Invoke();
+
+            if (TriggerEvents)
 			{
 				MMEventManager.TriggerEvent (new MMStateChangeEvent<T> (this));
 			}
@@ -99,7 +118,9 @@ namespace MoreMountains.Tools
 			// we restore our previous state
 			CurrentState = PreviousState;
 
-			if (TriggerEvents)
+            OnStateChange?.Invoke();
+
+            if (TriggerEvents)
 			{
 				MMEventManager.TriggerEvent (new MMStateChangeEvent<T> (this));
 			}

@@ -4,11 +4,12 @@ using System.Collections;
 
 namespace MoreMountains.Tools
 {
+    /// <summary>
+    /// Add this class to a gameObject with a Text component and it'll feed it the number of FPS in real time.
+    /// </summary>
 	[RequireComponent(typeof(Text))]
-	/// <summary>
-	/// Add this class to a gameObject with a Text component and it'll feed it the number of FPS in real time.
-	/// </summary>
-	public class MMFPSCounter : MonoBehaviour
+    [AddComponentMenu("More Mountains/Tools/Performance/MMFPSCounter")]
+    public class MMFPSCounter : MonoBehaviour
 	{
 		/// <summary>
 		/// The frequency at which the FPS counter should update (in seconds)

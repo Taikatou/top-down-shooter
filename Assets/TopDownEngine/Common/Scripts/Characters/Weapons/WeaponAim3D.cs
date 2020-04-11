@@ -13,15 +13,27 @@ namespace MoreMountains.TopDownEngine
 	[AddComponentMenu("TopDown Engine/Weapons/Weapon Aim 3D")]
 	public class WeaponAim3D : WeaponAim
     {
+        [Header("Reticle and slopes")]
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        public bool ReticleMovesWithSlopes = false;
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        public LayerMask ReticleObstacleMask;
+        [MMEnumCondition("ReticleType", (int)ReticleTypes.Scene, (int)ReticleTypes.UI)]
+        public float MaximumSlopeElevation = 50f;
 
         protected Vector2 _inputMovement;
         protected Camera _mainCamera;
+        protected Vector3 _slopeTargetPosition;
 
         protected override void Initialization()
         {
             base.Initialization();
             _mainCamera = Camera.main;
+        }
 
+        protected virtual void Reset()
+        {
+            ReticleObstacleMask = LayerMask.NameToLayer("Ground");
         }
 
         /// <summary>
@@ -207,7 +219,13 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		protected override void DetermineWeaponRotation()
 		{
-			if (_currentAim != Vector3.zero)
+            if (ReticleMovesWithSlopes)
+            {
+                AimAt(_slopeTargetPosition);
+                return;
+            }
+
+            if (_currentAim != Vector3.zero)
 			{
 				if (_direction != Vector3.zero)
 				{
@@ -226,7 +244,8 @@ namespace MoreMountains.TopDownEngine
 					CurrentAngle = -CurrentAngle + 90f;
 
 					_lookRotation = Quaternion.Euler (CurrentAngle * Vector3.up);
-					RotateWeapon(_lookRotation);
+                    
+                    RotateWeapon(_lookRotation);
 				}
 			}
 			else
@@ -235,6 +254,16 @@ namespace MoreMountains.TopDownEngine
 				RotateWeapon(_initialRotation);	
 			}
 		}
+
+        protected override void AimAt(Vector3 target)
+        {
+            base.AimAt(target);
+
+            _aimAtDirection = target - transform.position;
+            _aimAtQuaternion = Quaternion.LookRotation(_aimAtDirection, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _aimAtQuaternion, WeaponRotationSpeed * Time.deltaTime);
+            //transform.LookAt(target, Vector3.up);
+        }
 
         /// <summary>
         /// Initializes the reticle based on the settings defined in the inspector
@@ -302,6 +331,25 @@ namespace MoreMountains.TopDownEngine
                 }
             }
             _reticlePosition = _reticle.transform.position;
+
+            if (ReticleMovesWithSlopes)
+            {
+                // we cast a ray from above
+                RaycastHit groundCheck = MMDebug.Raycast3D(_reticlePosition + Vector3.up * MaximumSlopeElevation / 2f, Vector3.down, MaximumSlopeElevation, ReticleObstacleMask, Color.cyan, true);
+                if (groundCheck.collider != null)
+                {
+                    _reticlePosition.y = groundCheck.point.y + ReticleHeight;
+                    _reticle.transform.position = _reticlePosition;
+
+                    _slopeTargetPosition = groundCheck.point + Vector3.up * ReticleHeight;
+
+                    //_lookRotation = Quaternion.Euler(CurrentAngle * Vector3.up);
+                }
+                else
+                {
+                    _slopeTargetPosition = _reticle.transform.position;
+                }
+            }
         }
 
         protected override void MoveTarget()

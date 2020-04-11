@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this component to a projectile (in 3D) and it'll be able to push stuff (opening doors for example)
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Weapons/Pusher Projectile 3D")]
     public class PusherProjectile3D : MonoBehaviour
     {
         /// the amount of force to apply when colliding

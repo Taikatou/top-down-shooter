@@ -9,6 +9,7 @@ namespace MoreMountains.Tools
     /// Use this class on a sprite or mesh to have its texture pan according to the specified speed
     /// You can also force a sorting layer name 
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/VFX/PanningTexture")]
     public class PanningTexture : MonoBehaviour
     {
         /// the speed at which the texture pans
@@ -26,7 +27,7 @@ namespace MoreMountains.Tools
         protected virtual void Start()
         {
             _renderer = GetComponent<Renderer>();
-            if ((_renderer != null) && (SortingLayerName != ""))
+            if ((_renderer != null) && (!string.IsNullOrEmpty(SortingLayerName)))
             {
                 _renderer.sortingLayerName = SortingLayerName;
             }            

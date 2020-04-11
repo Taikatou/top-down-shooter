@@ -9,6 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this zone to a trigger collider and it'll automatically trigger a crouch on your 3D character on entry
     /// </summary>
     [RequireComponent(typeof(Collider))]
+    [AddComponentMenu("TopDown Engine/Environment/Crouch Zone")]
     public class CrouchZone : MonoBehaviour
     {
         protected CharacterCrouch _characterCrouch;
