@@ -15,19 +15,17 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			public Vector2Int Pos;
 		}
 		
-		public static GridSpace[,] GenerateMap (GridSpace[,] map, float seed, float percentToFill = 0.2f)
+		public static GridSpace[,] GenerateMap (GridSpace[,] map, float percentToFill = 0.2f)
 		{
-			Random.InitState(seed.GetHashCode());
-			map = CreateFloors(map, percentToFill);
+			CreateFloors(map, percentToFill);
 			
-			map = CreateWalls(map);
-
-			map = RemoveSingleWalls(map, seed, percentToFill);
+			CreateWalls(map);
+			RemoveSingleWalls(map, percentToFill);
 
 			return map;
 		}
 
-		private static GridSpace[,] CreateWalls(GridSpace[,] map)
+		private static void CreateWalls(GridSpace[,] map)
 		{
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);
@@ -40,33 +38,28 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 					if (map[x,y] == GridSpace.Floor)
 					{
 						//if any surrounding spaces are empty, place a wall
-						if (map[x, y+1] == GridSpace.Empty)
-						{
-							map[x, y+1] = GridSpace.Wall;
-						}
-						if (map[x, y-1] == GridSpace.Empty)
-						{
-							map[x, y-1] = GridSpace.Wall;
-						}
-						if (map[x+1, y] == GridSpace.Empty)
-						{
-							map[x+1, y] = GridSpace.Wall;
-						}
-						if (map[x-1, y] == GridSpace.Empty)
-						{
-							map[x-1, y] = GridSpace.Wall;
-						}
+						AddWallOnEmpty(map, x, y + 1);
+						AddWallOnEmpty(map, x, y -1);
+						AddWallOnEmpty(map, x + 1, y);
+						AddWallOnEmpty(map, x - 1, y);
 					}
 				}
 			}
-			return map;
 		}
 
-		private static GridSpace[,] CreateFloors(GridSpace[,] map, float percentToFill)
+		private static void AddWallOnEmpty(GridSpace[,] map, int x, int y)
+		{
+			if (map[x, y] == GridSpace.Empty)
+			{
+				map[x, y] = GridSpace.Wall;
+			}
+		}
+
+		private static void CreateFloors(GridSpace[,] map, float percentToFill)
 		{
 			var chanceWalkerChangeDir = 0.5f;
-			var chanceWalkerSpawn = 0.1f;
-			var chanceWalkerDestoy = 0.05f;
+			var chanceWalkerSpawn = 0.08f;
+			var chanceWalkerDestoy = 0.02f;
 			var maxWalkers = 20;
 
 			var roomWidth = map.GetUpperBound(0);
@@ -77,7 +70,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			
 			var newWalker = new Walker {Dir = RandomDirection(), Pos = spawnPos};
 			//add walker to list
-			var walkers = new List<Walker> {newWalker};
+			var walkers = new List<Walker> { newWalker };
 
 			var iterations = 0;
 			//loop will not run forever
@@ -146,10 +139,9 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 				iterations++;
 			}
 			while(iterations < 100000);
-			return map;
 		}
 
-		private static GridSpace[,] RemoveSingleWalls(GridSpace[,] map, float seed, float requiredFloorPercent)
+		private static void RemoveSingleWalls(GridSpace[,] map, float requiredFloorPercent)
 		{
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);
@@ -192,7 +184,6 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 					}
 				}
 			}
-			return map;
 		}
 		
 		private static Vector2Int RandomDirection()
