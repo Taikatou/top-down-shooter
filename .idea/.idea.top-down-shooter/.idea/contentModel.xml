@@ -312,6 +312,9 @@
                 <e p="SlowGenerator.cs" t="Include" />
               </e>
             </e>
+            <e p="Scripts" t="Include">
+              <e p="GetSpawnProcedural.cs" t="Include" />
+            </e>
             <e p="UnityProcedural" t="Include">
               <e p="Global Scripts" t="Include">
                 <e p="LevelGenerator.cs" t="Include" />
