@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace MoreMountains.Feedbacks
 {
+    /// <summary>
+    /// A struct used to trigger sounds
+    /// </summary>
     public struct MMSfxEvent
     {
         public delegate void Delegate(AudioClip clipToPlay, AudioMixerGroup audioGroup = null, float volume = 1f, float pitch = 1f);
@@ -26,11 +31,15 @@ namespace MoreMountains.Feedbacks
         }
     }
 
+    [ExecuteInEditMode]
     [AddComponentMenu("")]
-    [FeedbackPath("Sounds/Sound")]
+    [FeedbackPath("Audio/Sound")]
     [FeedbackHelp("This feedback lets you play the specified AudioClip, either via event (you'll need something to catch a MMSfxEvent, that's not included in this package, but that's how it's done in the Corgi Engine and TopDown Engine), or cached (AudioSource gets created on init, and is then ready to be played), or on demand (instantiated on Play). For all these methods you can define a random volume between min/max boundaries (just set the same value in both fields if you don't want randomness), random pitch, and an optional AudioMixerGroup.")]
     public class MMFeedbackSound : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.SoundsColor; } }
+
         /// <summary>
         /// The possible methods to play the sound with. 
         /// Event : sends a MMSfxEvent, you'll need a class to catch this event and play the sound
@@ -47,9 +56,13 @@ namespace MoreMountains.Feedbacks
         /// an array to pick a random sfx from
         public AudioClip[] RandomSfx;
 
+        [Header("Test")]
+        [MMFInspectorButton("TestPlaySound")]
+        public bool TestButton;
+
         [Header("Method")]
         /// the play method to use when playing the sound (event, cached or on demand)
-        public PlayMethods PlayMethod = PlayMethods.Event;
+        public PlayMethods PlayMethod = PlayMethods.Cached;
         [MMFEnumCondition("PlayMethod", (int)PlayMethods.Pool)]
         public int PoolSize = 10;
 
@@ -69,10 +82,14 @@ namespace MoreMountains.Feedbacks
         /// the audiomixer to play the sound with (optional)
         public AudioMixerGroup SfxAudioMixerGroup;
 
+        /// the duration of this feedback is the duration of the clip being played
+        public override float FeedbackDuration { get { return _duration; } }
+
         protected AudioClip _randomClip;
         protected AudioSource _cachedAudioSource;
         protected AudioSource[] _pool;
-        protected AudioSource _tempAudioSource;        
+        protected AudioSource _tempAudioSource;
+        protected float _duration;
 
         /// <summary>
         /// Custom init to cache the audiosource if required
@@ -120,6 +137,7 @@ namespace MoreMountains.Feedbacks
             {
                 if (Sfx != null)
                 {
+                    _duration = Sfx.length;
                     PlaySound(Sfx, position);
                     return;
                 }
@@ -130,6 +148,7 @@ namespace MoreMountains.Feedbacks
 
                     if (_randomClip != null)
                     {
+                        _duration = _randomClip.length;
                         PlaySound(_randomClip, position);
                     }
                     
@@ -182,6 +201,13 @@ namespace MoreMountains.Feedbacks
             }
         }
 
+        /// <summary>
+        /// Plays the audio source with the specified volume and pitch
+        /// </summary>
+        /// <param name="audioSource"></param>
+        /// <param name="sfx"></param>
+        /// <param name="volume"></param>
+        /// <param name="pitch"></param>
         protected virtual void PlayAudioSource(AudioSource audioSource, AudioClip sfx, float volume, float pitch)
         {
             // we set that audio source clip to the one in paramaters
@@ -195,6 +221,10 @@ namespace MoreMountains.Feedbacks
             audioSource.Play();
         }
 
+        /// <summary>
+        /// Gets an audio source from the pool if possible
+        /// </summary>
+        /// <returns></returns>
         protected virtual AudioSource GetAudioSourceFromPool()
         {
             for (int i = 0; i < PoolSize; i++)
@@ -205,6 +235,40 @@ namespace MoreMountains.Feedbacks
                 }
             }
             return null;
+        }
+        
+        /// <summary>
+        /// A test method that creates an audiosource, plays it, and destroys itself after play
+        /// </summary>
+        protected virtual async void TestPlaySound()
+        {
+            AudioClip tmpAudioClip = null;
+
+            if (Sfx != null)
+            {
+                tmpAudioClip = Sfx;
+            }
+
+            if (RandomSfx.Length > 0)
+            {
+                tmpAudioClip = RandomSfx[Random.Range(0, RandomSfx.Length)];
+            }
+
+            if (tmpAudioClip == null)
+            {
+                Debug.LogError(Label + " on "+this.gameObject.name + " can't play in editor mode, you haven't set its Sfx.");
+                return;
+            }
+
+            float volume = Random.Range(MinVolume, MaxVolume);
+            float pitch = Random.Range(MinPitch, MaxPitch);
+            GameObject temporaryAudioHost = new GameObject("EditorTestAS_WillAutoDestroy");
+            temporaryAudioHost.transform.position = this.transform.position;
+            AudioSource audioSource = temporaryAudioHost.AddComponent<AudioSource>() as AudioSource;
+            PlayAudioSource(audioSource, tmpAudioClip, volume, pitch);
+            float length = 1000 * tmpAudioClip.length;
+            await Task.Delay((int)length);
+            DestroyImmediate(temporaryAudioHost);
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections;
 
 namespace MoreMountains.Tools
 {
-	/// <summary>
-	/// Add this class to an object (usually a sprite) and it'll face the camera at all times
-	/// </summary>
-	public class MMBillboard : MonoBehaviour
+    /// <summary>
+    /// Add this class to an object (usually a sprite) and it'll face the camera at all times
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMBillboard")]
+    public class MMBillboard : MonoBehaviour
 	{
 		/// the camera we're facing
 		public Camera MainCamera { get; set; }

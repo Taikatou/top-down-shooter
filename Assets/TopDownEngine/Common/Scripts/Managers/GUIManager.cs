@@ -5,11 +5,12 @@ using MoreMountains.Tools;
 using UnityEngine.EventSystems;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// Handles all GUI effects and changes
-	/// </summary>
-	public class GUIManager : MMSingleton<GUIManager> 
+{
+    /// <summary>
+    /// Handles all GUI effects and changes
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Managers/GUIManager")]
+    public class GUIManager : MMSingleton<GUIManager> 
 	{
 		/// the main canvas
 		public Canvas MainCanvas;
@@ -202,7 +203,7 @@ namespace MoreMountains.TopDownEngine
 		/// </summary>
 		/// <param name="state">If set to <c>true</c> state.</param>
 		/// <param name="playerID">Player I.</param>
-		public virtual void SetAmmoDisplays(bool state, string playerID)
+		public virtual void SetAmmoDisplays(bool state, string playerID, int ammoDisplayID)
 		{
 			if (AmmoDisplays == null)
 			{
@@ -213,7 +214,7 @@ namespace MoreMountains.TopDownEngine
 			{
 				if (ammoDisplay != null)
 				{ 
-					if (ammoDisplay.PlayerID == playerID)
+					if ((ammoDisplay.PlayerID == playerID) && (ammoDisplayID == ammoDisplay.AmmoDisplayID))
 					{
 						ammoDisplay.gameObject.SetActive(state);
 					}					
@@ -289,7 +290,7 @@ namespace MoreMountains.TopDownEngine
 		/// <param name="magazineSize">Magazine size.</param>
 		/// <param name="playerID">Player I.</param>
 		/// <param name="displayTotal">If set to <c>true</c> display total.</param>
-		public virtual void UpdateAmmoDisplays(bool magazineBased, int totalAmmo, int maxAmmo, int ammoInMagazine, int magazineSize, string playerID, bool displayTotal)
+		public virtual void UpdateAmmoDisplays(bool magazineBased, int totalAmmo, int maxAmmo, int ammoInMagazine, int magazineSize, string playerID, int ammoDisplayID, bool displayTotal)
 		{
 			if (AmmoDisplays == null)
 			{
@@ -299,8 +300,8 @@ namespace MoreMountains.TopDownEngine
 			foreach (AmmoDisplay ammoDisplay in AmmoDisplays)
 			{
 				if (ammoDisplay == null) { return; }
-				if (ammoDisplay.PlayerID == playerID)
-				{
+				if ((ammoDisplay.PlayerID == playerID) && (ammoDisplayID == ammoDisplay.AmmoDisplayID))
+                {
 					ammoDisplay.UpdateAmmoDisplays (magazineBased, totalAmmo, maxAmmo, ammoInMagazine, magazineSize, displayTotal);
 				}    
 			}

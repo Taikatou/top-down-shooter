@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MoreMountains.Tools
 {
+    [AddComponentMenu("More Mountains/Tools/Gyroscope/MMGyroscope")]
     public class MMGyroscope : MonoBehaviour
     {
         public enum TimeScales { Scaled, Unscaled }

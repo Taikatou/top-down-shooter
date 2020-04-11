@@ -49,13 +49,19 @@ namespace MoreMountains.FeedbacksForThirdParty
         public TextAsset AHAPFileForIOS;
         [MMFEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
         public MMNVAndroidWaveFormAsset AndroidWaveFormFile;
+        [MMNVEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
+        public MMNVRumbleWaveFormAsset RumbleWaveFormFile;
         [MMFEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
         public int AndroidRepeat = -1;
+        [MMNVEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
+        public int RumbleRepeat = -1;
         [MMFEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
         public HapticTypes OldIOSFallback;
         [MMFEnumCondition("HapticMethod", (int)HapticMethods.AdvancedPattern)]
         public Timescales Timescale = Timescales.UnscaledTime;
 
+        [Header("Rumble")]
+        public bool AllowRumble = true;
 
         protected static bool _continuousPlaying = false;
         protected static float _continuousStartedAt = 0f;
@@ -75,7 +81,19 @@ namespace MoreMountains.FeedbacksForThirdParty
             switch(HapticMethod)
             {
                 case HapticMethods.AdvancedPattern:
-                    MMVibrationManager.AdvancedHapticPattern(AHAPFileForIOS.text, AndroidWaveFormFile.WaveForm.Pattern, AndroidWaveFormFile.WaveForm.Amplitudes, AndroidRepeat, OldIOSFallback);
+
+                    string iOSString = (AHAPFileForIOS == null) ? "" : AHAPFileForIOS.text;
+
+                    long[] androidPattern = (AndroidWaveFormFile == null) ? null : AndroidWaveFormFile.WaveForm.Pattern;
+                    int[] androidAmplitude = (AndroidWaveFormFile == null) ? null : AndroidWaveFormFile.WaveForm.Amplitudes;
+
+                    long[] rumblePattern = (RumbleWaveFormFile == null) ? null : RumbleWaveFormFile.WaveForm.Pattern;
+                    int[] lowFreqAmplitude = (RumbleWaveFormFile == null) ? null : RumbleWaveFormFile.WaveForm.LowFrequencyAmplitudes;
+                    int[] highFreqAmplitude = (RumbleWaveFormFile == null) ? null : RumbleWaveFormFile.WaveForm.HighFrequencyAmplitudes;
+
+                    MMVibrationManager.AdvancedHapticPattern(iOSString, androidPattern, androidAmplitude, AndroidRepeat,
+                                                                        rumblePattern, lowFreqAmplitude, highFreqAmplitude, RumbleRepeat,
+                                                                OldIOSFallback, this);
                     break;
 
                 case HapticMethods.Continuous:
@@ -83,17 +101,17 @@ namespace MoreMountains.FeedbacksForThirdParty
                     break;
 
                 case HapticMethods.NativePreset:
-                    MMVibrationManager.Haptic(HapticType);
+                    MMVibrationManager.Haptic(HapticType, false, AllowRumble, this);
                     break;
 
                 case HapticMethods.Transient:
-                    MMVibrationManager.TransientHaptic(TransientIntensity, TransientSharpness);
+                    MMVibrationManager.TransientHaptic(TransientIntensity, TransientSharpness, AllowRumble, this);
                     break;
 
                 case HapticMethods.Stop:
                     if (_continuousPlaying)
                     {
-                        MMVibrationManager.StopContinuousHaptic();
+                        MMVibrationManager.StopContinuousHaptic(AllowRumble);
                         _continuousPlaying = false;
                     }                    
                     break;
@@ -110,22 +128,28 @@ namespace MoreMountains.FeedbacksForThirdParty
             _continuousPlaying = true;
             float elapsedTime = ComputeElapsedTime();
 
-            MMVibrationManager.ContinuousHaptic(InitialContinuousIntensity, InitialContinuousSharpness, ContinuousDuration, HapticTypes.Success);
+            MMVibrationManager.ContinuousHaptic(InitialContinuousIntensity, InitialContinuousSharpness, ContinuousDuration, HapticTypes.Success, this);
 
             while (_continuousPlaying && (elapsedTime < ContinuousDuration))
             {
                 elapsedTime = ComputeElapsedTime();
-                float remappedTime = MMFeedbacksHelpers.Remap(elapsedTime, 0f, ContinuousDuration, 0f, 1f);
+                float remappedTime = Remap(elapsedTime, 0f, ContinuousDuration, 0f, 1f);
                 float intensity = ContinuousIntensityCurve.Evaluate(remappedTime);
                 float sharpness = ContinuousSharpnessCurve.Evaluate(remappedTime);
-                MMNViOSCoreHaptics.UpdateContinuousHapticPatternRational(intensity, sharpness);
+                MMVibrationManager.UpdateContinuousHaptic(intensity, sharpness, true);
+                if (AllowRumble)
+                {
+                    #if MOREMOUNTAINS_NICEVIBRATIONS_RUMBLE
+                        MMNVRumble.RumbleContinuous(intensity, sharpness);
+                    #endif
+                }
                 yield return null;
             }
             if (_continuousPlaying)
             {
                 _continuousPlaying = false;
-                MMVibrationManager.StopContinuousHaptic();
-            }            
+                MMVibrationManager.StopContinuousHaptic(AllowRumble);
+            }
         }
 
         /// <summary>
@@ -136,6 +160,21 @@ namespace MoreMountains.FeedbacksForThirdParty
         {
             float elapsedTime = (Timescale == Timescales.ScaledTime) ? Time.time - _continuousStartedAt : Time.unscaledTime - _continuousStartedAt;
             return elapsedTime;
+        }
+
+        /// <summary>
+        /// Remaps value x from AB to CD
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        /// <param name="D"></param>
+        /// <returns></returns>
+        public static float Remap(float x, float A, float B, float C, float D)
+        {
+            float remappedValue = C + (x - A) / (B - A) * (D - C);
+            return remappedValue;
         }
     }
 }

@@ -73,6 +73,12 @@ namespace MoreMountains.TopDownEngine
         protected const string _verticalDirectionAnimationParameterName = "VerticalDirection";
         protected int _horizontalDirectionAnimationParameter;
         protected int _verticalDirectionAnimationParameter;
+        protected const string _horizontalSpeedAnimationParameterName = "HorizontalSpeed";
+        protected const string _verticalSpeedAnimationParameterName = "VerticalSpeed";
+        protected int _horizontalSpeedAnimationParameter;
+        protected int _verticalSpeedAnimationParameter;
+        protected float _lastDirectionX;
+        protected float _lastDirectionY;
 
         /// <summary>
         /// On awake we init our facing direction and grab components
@@ -90,9 +96,30 @@ namespace MoreMountains.TopDownEngine
                 IsFacingRight = true;
                 _direction = 1;
             }
+            Face(InitialFacingDirection);
             _directionLastFrame = 0;
             _characterHandleWeapon = this.gameObject.GetComponent<CharacterHandleWeapon>();
+
             CurrentFacingDirection = InitialFacingDirection;
+            switch(InitialFacingDirection)
+            {
+                case Character.FacingDirections.East:
+                    _lastDirectionX = 1f;
+                    _lastDirectionY = 0f;
+                    break;
+                case Character.FacingDirections.West:
+                    _lastDirectionX = -1f;
+                    _lastDirectionY = 0f;
+                    break;
+                case Character.FacingDirections.North:
+                    _lastDirectionX = 0f;
+                    _lastDirectionY = 1f;
+                    break;
+                case Character.FacingDirections.South:
+                    _lastDirectionX = 0f;
+                    _lastDirectionY = -1f;
+                    break;
+            }
         }
 
         /// <summary>
@@ -117,22 +144,34 @@ namespace MoreMountains.TopDownEngine
             _lastNonNullXMovement = (Mathf.Abs(_controller.CurrentDirection.x) > 0) ? _controller.CurrentDirection.x : _lastNonNullXMovement;
         }
 
+        protected virtual void FixedUpdate()
+        {
+            ComputeRelativeSpeeds();
+        }
+
         protected virtual void DetermineFacingDirection()
         {
             if (_controller.CurrentDirection.normalized.magnitude >= AbsoluteThresholdMovement)
             {
                 if (Mathf.Abs(_controller.CurrentDirection.y) > Mathf.Abs(_controller.CurrentDirection.x))
                 {
-                    CurrentFacingDirection = (_controller.CurrentDirection.y > 0) ? Character.FacingDirections.North : Character.FacingDirections.South;                 
+                    CurrentFacingDirection = (_controller.CurrentDirection.y > 0) ? Character.FacingDirections.North : Character.FacingDirections.South;
                 }
                 else
                 {
                     CurrentFacingDirection = (_controller.CurrentDirection.x > 0) ? Character.FacingDirections.East : Character.FacingDirections.West;
                 }
+                _horizontalDirection = Mathf.Abs(_controller.CurrentDirection.x) >= AbsoluteThresholdMovement ? _controller.CurrentDirection.x : 0f;
+                _verticalDirection = Mathf.Abs(_controller.CurrentDirection.y) >= AbsoluteThresholdMovement ? _controller.CurrentDirection.y : 0f;
+            }
+            else
+            {
+                _horizontalDirection = _lastDirectionX;
+                _verticalDirection = _lastDirectionY;
             }
 
-            _horizontalDirection = Mathf.Abs(_controller.CurrentDirection.x) >= AbsoluteThresholdMovement ? _controller.CurrentDirection.x : 0f;
-            _verticalDirection = Mathf.Abs(_controller.CurrentDirection.y) >= AbsoluteThresholdMovement ? _controller.CurrentDirection.y : 0f;
+            _lastDirectionX = _horizontalDirection;
+            _lastDirectionY = _verticalDirection;
         }
 
 
@@ -203,6 +242,9 @@ namespace MoreMountains.TopDownEngine
                 {
                     FaceDirection(1);
                 }
+
+                _horizontalDirection = _characterHandleWeapon.WeaponAimComponent.CurrentAimAbsolute.normalized.x;
+                _verticalDirection = _characterHandleWeapon.WeaponAimComponent.CurrentAimAbsolute.normalized.y;
             }            
         }
         
@@ -270,7 +312,19 @@ namespace MoreMountains.TopDownEngine
                 _character.FlipAllAbilities();
             }
         }
-        
+
+        protected Vector3 _positionLastFrame;
+        protected Vector3 _newSpeed;
+
+        /// <summary>
+        /// Computes the relative speeds
+        /// </summary>
+        protected virtual void ComputeRelativeSpeeds()
+        {
+            _newSpeed = (this.transform.position - _positionLastFrame) / Time.deltaTime;            
+            _positionLastFrame = this.transform.position;
+        }
+
         /// <summary>
         /// Adds required animator parameters to the animator parameters list if they exist
         /// </summary>
@@ -278,6 +332,9 @@ namespace MoreMountains.TopDownEngine
         {
             RegisterAnimatorParameter(_horizontalDirectionAnimationParameterName, AnimatorControllerParameterType.Float, out _horizontalDirectionAnimationParameter);
             RegisterAnimatorParameter(_verticalDirectionAnimationParameterName, AnimatorControllerParameterType.Float, out _verticalDirectionAnimationParameter);
+
+            RegisterAnimatorParameter(_horizontalSpeedAnimationParameterName, AnimatorControllerParameterType.Float, out _horizontalSpeedAnimationParameter);
+            RegisterAnimatorParameter(_verticalSpeedAnimationParameterName, AnimatorControllerParameterType.Float, out _verticalSpeedAnimationParameter);
         }
 
         /// <summary>
@@ -287,6 +344,9 @@ namespace MoreMountains.TopDownEngine
         {
             MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _horizontalDirectionAnimationParameter, _horizontalDirection, _character._animatorParameters);
             MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _verticalDirectionAnimationParameter, _verticalDirection, _character._animatorParameters);
+
+            MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _horizontalSpeedAnimationParameter, _newSpeed.x, _character._animatorParameters);
+            MMAnimatorExtensions.UpdateAnimatorFloat(_animator, _verticalSpeedAnimationParameter, _newSpeed.y, _character._animatorParameters);
         }
 
     }

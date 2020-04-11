@@ -10,7 +10,7 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// This class will allow you to trigger zooms on your cinemachine camera by sending MMCameraZoomEvents from any other class
     /// </summary>
-
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineZoom")]
     [RequireComponent(typeof(Cinemachine.CinemachineVirtualCamera))]
     public class MMCinemachineZoom : MonoBehaviour
     {

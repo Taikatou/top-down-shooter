@@ -10,6 +10,7 @@ namespace MoreMountains.Tools
     /// The Fader class can be put on an Image, and it'll intercept MMFadeEvents and turn itself on or off accordingly.
     /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
+    [AddComponentMenu("More Mountains/Tools/GUI/MMFaderRound")]
     public class MMFaderRound : MonoBehaviour, MMEventListener<MMFadeEvent>, MMEventListener<MMFadeInEvent>, MMEventListener<MMFadeOutEvent>
     {
         public enum CameraModes { Main, Override }
@@ -35,7 +36,7 @@ namespace MoreMountains.Tools
         /// the default duration of the fade in/out
         public float DefaultDuration = 0.2f;
         /// the default curve to use for this fader
-        public MMTween.MMTweenCurve DefaultTween = MMTween.MMTweenCurve.LinearTween;
+        public MMTweenType DefaultTween = new MMTweenType(MMTween.MMTweenCurve.LinearTween);
         /// whether or not the fade should happen in unscaled time 
         public bool IgnoreTimescale = true;
         [Header("Interaction")]
@@ -58,7 +59,7 @@ namespace MoreMountains.Tools
         protected float _currentTargetScale;
 
         protected float _currentDuration;
-        protected MMTween.MMTweenCurve _currentCurve;
+        protected MMTweenType _currentCurve;
 
         protected bool _fading = false;
         protected float _fadeStartedAt;
@@ -184,7 +185,7 @@ namespace MoreMountains.Tools
             _canvasGroup.alpha = 1;
         }
 
-        protected virtual void StartFading(float initialAlpha, float endAlpha, float duration, MMTween.MMTweenCurve curve, int id, 
+        protected virtual void StartFading(float initialAlpha, float endAlpha, float duration, MMTweenType curve, int id, 
             bool ignoreTimeScale, Vector3 worldPosition)
         {
             if (id != ID)

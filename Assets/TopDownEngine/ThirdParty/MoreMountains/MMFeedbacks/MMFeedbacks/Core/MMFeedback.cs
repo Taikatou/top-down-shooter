@@ -14,7 +14,7 @@ namespace MoreMountains.Feedbacks
     public abstract class MMFeedback : MonoBehaviour
     {
         /// whether or not this feedback is active
-        public bool Active = true;
+        public bool Active = true;        
         /// the name of this feedback to display in the inspector
         public string Label = "MMFeedback";
         /// the chance of this feedback happening (in percent : 100 : happens all the time, 0 : never happens, 50 : happens once every two calls, etc)
@@ -27,6 +27,18 @@ namespace MoreMountains.Feedbacks
         [HideInInspector]
         /// whether or not this feedback is in debug mode
         public bool DebugActive = false;
+        /// set this to true if your feedback should pause the execution of the feedback sequence
+        public virtual YieldInstruction Pause { get { return null; } }
+        /// if this is true, this feedback will wait until all previous feedbacks have run
+        public virtual bool HoldingPause { get { return false; } }
+        /// if this is true, this feedback will wait until all previous feedbacks have run, then run all previous feedbacks again
+        public virtual bool LooperPause { get { return false; } }
+        /// if this is true, this feedback will wait until all previous feedbacks have run, then run all previous feedbacks again
+        public virtual bool LooperStart { get { return false; } }
+        /// an overridable color for your feedback, that can be redefined per feedback. White is the only reserved color, and the feedback will revert to 
+        /// normal (light or dark skin) when left to White
+        public virtual Color FeedbackColor { get { return Color.white;  } }
+        
         /// the time (or unscaled time) based on the selected Timing settings
         public float FeedbackTime { get {
                 if (Timing.TimescaleMode == TimescaleModes.Scaled)
@@ -54,10 +66,18 @@ namespace MoreMountains.Feedbacks
             }
         }
 
+
+        // the timestamp at which this feedback was last played
+        public virtual float FeedbackStartedAt { get { return _lastPlayTimestamp; } }
+        // the perceived duration of the feedback, to be used to display its progress bar, meant to be overridden with meaningful data by each feedback
+        public virtual float FeedbackDuration { get { return 0f; } }
+        /// whether or not this feedback is playing right now
+        public virtual bool FeedbackPlaying { get { return ((FeedbackStartedAt > 0f) && (Time.time - FeedbackStartedAt < FeedbackDuration)); } }
+
         protected WaitForSeconds _initialDelayWaitForSeconds;
         protected WaitForSeconds _betweenDelayWaitForSeconds;
         protected WaitForSeconds _sequenceDelayWaitForSeconds;
-        protected float _lastPlayTimestamp = 0f;
+        protected float _lastPlayTimestamp = -1f;
         protected int _playsLeft;
         protected bool _initialized = false;
         protected Coroutine _playCoroutine;
@@ -74,7 +94,7 @@ namespace MoreMountains.Feedbacks
         {
             _initialized = true;
             Owner = owner;
-            _playsLeft = Timing.NumberOfRepeats;
+            _playsLeft = Timing.NumberOfRepeats + 1;
 
             if (Timing.InitialDelay > 0f)
             {
@@ -83,7 +103,7 @@ namespace MoreMountains.Feedbacks
 
             if (Timing.DelayBetweenRepeats > 0f)
             {
-                _betweenDelayWaitForSeconds = new WaitForSeconds(Timing.DelayBetweenRepeats);
+                _betweenDelayWaitForSeconds = new WaitForSeconds(Timing.DelayBetweenRepeats + FeedbackDuration);
             }
             
             if (Timing.Sequence != null)
@@ -109,6 +129,10 @@ namespace MoreMountains.Feedbacks
         /// <param name="attenuation"></param>
         public virtual void Play(Vector3 position, float attenuation = 1.0f)
         {
+            if (!Active)
+            {
+                return;
+            }
 
             if (!_initialized)
             {
@@ -234,7 +258,7 @@ namespace MoreMountains.Feedbacks
                     yield return _sequenceDelayWaitForSeconds;
                 }
             }
-            _playsLeft = Timing.NumberOfRepeats;
+            _playsLeft = Timing.NumberOfRepeats + 1;
         }
 
         protected float _beatInterval;
@@ -309,13 +333,13 @@ namespace MoreMountains.Feedbacks
             if (_sequenceCoroutine != null) { StopCoroutine(_sequenceCoroutine);  }
 
             _lastPlayTimestamp = 0f;
-            _playsLeft = Timing.NumberOfRepeats;
+            _playsLeft = Timing.NumberOfRepeats + 1;
             CustomStopFeedback(position, attenuation);
         }
 
         public virtual void ResetFeedback()
         {
-            _playsLeft = Timing.NumberOfRepeats;
+            _playsLeft = Timing.NumberOfRepeats + 1;
             CustomReset();
         }
         

@@ -2,11 +2,12 @@
 using System.Collections;
 
 namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Adds this class to particles to force their sorting layer
-	/// </summary>
-	public class MMVisibleParticle : MonoBehaviour {
+{
+    /// <summary>
+    /// Adds this class to particles to force their sorting layer
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Particles/MMVisibleParticle")]
+    public class MMVisibleParticle : MonoBehaviour {
 
 	    /// <summary>
 	    /// Sets the particle system's renderer to the Visible Particles sorting layer

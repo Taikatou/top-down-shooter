@@ -5,7 +5,7 @@ using UnityEngine;
 using MoreMountains.Tools;
 using UnityEngine.Rendering;
 
-namespace MoreMountains.TopDownEngine
+namespace MoreMountains.Tools
 {
     [CustomEditor(typeof(MMPlaylist))]
     [CanEditMultipleObjects]

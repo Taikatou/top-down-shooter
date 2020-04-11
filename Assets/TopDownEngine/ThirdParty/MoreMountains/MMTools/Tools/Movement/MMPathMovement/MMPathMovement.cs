@@ -5,11 +5,11 @@ using MoreMountains.Tools;
 
 namespace MoreMountains.Tools
 {
-	[AddComponentMenu("MMTools/Environment/Path Movement")]
-	/// <summary>
-	/// Add this component to an object and it'll be able to move along a path defined from its inspector.
-	/// </summary>
-	public class MMPathMovement : MonoBehaviour 
+    /// <summary>
+    /// Add this component to an object and it'll be able to move along a path defined from its inspector.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMPathMovement")]
+    public class MMPathMovement : MonoBehaviour 
 	{
 		/// the possible movement types
 		public enum PossibleAccelerationType

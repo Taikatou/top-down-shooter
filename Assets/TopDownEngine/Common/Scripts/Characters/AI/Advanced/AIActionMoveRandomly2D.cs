@@ -9,6 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// Requires a CharacterMovement ability. 
     /// Makes the character move randomly, until it finds an obstacle in its path, in which case it'll pick a new direction at random
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionMoveRandomly2D")]
     [RequireComponent(typeof(CharacterMovement))]
     public class AIActionMoveRandomly2D : AIAction
     {

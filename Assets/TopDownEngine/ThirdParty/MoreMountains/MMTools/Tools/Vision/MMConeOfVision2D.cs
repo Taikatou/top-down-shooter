@@ -7,6 +7,7 @@ using System;
 namespace MoreMountains.Tools
 {
     [Serializable]
+    [AddComponentMenu("More Mountains/Tools/Vision/MMConeOfVision2D")]
     public class MMConeOfVision2D : MonoBehaviour
     {
         public struct RaycastData

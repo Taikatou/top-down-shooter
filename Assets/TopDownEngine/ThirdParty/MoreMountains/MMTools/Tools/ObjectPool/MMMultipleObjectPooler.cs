@@ -23,10 +23,11 @@ namespace MoreMountains.Tools
 	/// </summary>
 	public enum MMPoolingMethods { OriginalOrder, OriginalOrderSequential, RandomBetweenObjects, RandomPoolSizeBased }
 
-	/// <summary>
-	/// This class allows you to have a pool of various objects to pool from.
-	/// </summary>
-	public class MMMultipleObjectPooler : MMObjectPooler
+    /// <summary>
+    /// This class allows you to have a pool of various objects to pool from.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Object Pool/MMMultipleObjectPooler")]
+    public class MMMultipleObjectPooler : MMObjectPooler
 	{
 		/// the list of objects to pool
 		public List<MMMultipleObjectPoolerObject> Pool;

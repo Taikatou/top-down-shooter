@@ -5,11 +5,12 @@ using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// Extend this class to activate something when a button is pressed in a certain zone
-	/// </summary>
-	public class ButtonActivated : MonoBehaviour 
+{
+    /// <summary>
+    /// Extend this class to activate something when a button is pressed in a certain zone
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Environment/Button Activated")]
+    public class ButtonActivated : MonoBehaviour 
 	{
         public enum ButtonActivatedRequirements { Character, ButtonActivator, Either, None }
 
@@ -222,7 +223,6 @@ namespace MoreMountains.TopDownEngine
             {
                 _buttonPrompt.transform.position = _collider2D.bounds.center + PromptRelativePosition;
             }
-            _buttonPrompt.gameObject.SetActive(true);
 			_buttonPrompt.transform.parent = transform;
             _buttonPrompt.SetText(ButtonPromptText);
             _buttonPrompt.SetBackgroundColor(ButtonPromptColor);
@@ -235,7 +235,6 @@ namespace MoreMountains.TopDownEngine
 	    /// </summary>
 		public virtual void HidePrompt()
         {
-            _buttonPrompt.gameObject.SetActive(true);
             _buttonPrompt.Hide();
         }
 

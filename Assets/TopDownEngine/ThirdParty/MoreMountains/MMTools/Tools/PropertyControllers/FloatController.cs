@@ -52,28 +52,29 @@ namespace MoreMountains.Tools
     /// A class used to control a float in any other class, over time
     /// To use it, simply drag a monobehaviour in its target field, pick a control mode (ping pong or random), and tweak the settings
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Property Controllers/FloatController")]
     public class FloatController : MonoBehaviour
     {
         /// the possible control modes
-        public enum ControlModes { PingPong, Random, OneTime, AudioAnalyzer }
+        public enum ControlModes { PingPong, Random, OneTime, AudioAnalyzer, ToDestination }
 
         [Header("Target")]
         /// the mono on which the float you want to control is
         public MonoBehaviour TargetObject;
 
-        [Header("Settings")]
+        [Header("Global Settings")]
         /// the control mode (ping pong or random)
         public ControlModes ControlMode;
         /// whether or not the updated value should be added to the initial one
         public bool AddToInitialValue = false;
         /// whether or not to use unscaled time
         public bool UseUnscaledTime = true;
-        /// if this is true, control will happen, otherwise it won't
-        public bool Active = true;
+        /// whether or not you want to revert to the InitialValue after the control ends
+        public bool RevertToInitialValueAfterEnd = true;
 
         [Header("Ping Pong")]
         /// the curve to apply to the tween
-        public MMTween.MMTweenCurve Curve;
+        public MMTweenType Curve = new MMTweenType(MMTween.MMTweenCurve.EaseInCubic);
         /// the minimum value for the ping pong
         public float MinValue = 0f;
         /// the maximum value for the ping pong
@@ -82,7 +83,6 @@ namespace MoreMountains.Tools
         public float Duration = 1f;
         /// the duration (in seconds) between a ping and a pong 
         public float PingPongPauseDuration = 0f;
-
 
         [Header("Random")]
         [MMVector("Min", "Max")]
@@ -100,15 +100,37 @@ namespace MoreMountains.Tools
         public float OneTimeDuration = 1f;
         /// the amplitude of the One Time shake (this will be multiplied by the curve's height)
         public float OneTimeAmplitude = 1f;
+        /// the low value to remap the normalized curve value to 
+        public float OneTimeRemapMin = 0f;
+        /// the high value to remap the normalized curve value to 
+        public float OneTimeRemapMax = 1f;
         /// the curve to apply to the one time shake
         public AnimationCurve OneTimeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
+        /// whether or not this controller should go to sleep after a one time shake
+        public bool DisableAfterOneTime;
         [MMInspectorButton("OneTime")]
         /// a test button for the one time shake
         public bool OneTimeButton;
 
+        [Header("ToDestination")]
+        /// the duration of the tween to the destination value
+        public float ToDestinationDuration = 1f;
+        /// the value to tween to
+        public float ToDestinationValue = 1f;
+        /// the curve to use when tweening a value to destination
+        public AnimationCurve ToDestinationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 0.6f), new Keyframe(1f, 1f));
+        /// whether or not this controller should go to sleep after a to destination shake
+        public bool DisableAfterToDestination;
+        [MMInspectorButton("ToDestination")]
+        /// a test button for the one time shake
+        public bool ToDestinationButton;
+
         [Header("AudioAnalyzer")]
+        /// the audio analyzer to read the value on
         public MMAudioAnalyzer AudioAnalyzer;
+        /// the ID of the beat to listen to
         public int BeatID;
+        /// a multiplier to apply to the output beat value
         public float AudioAnalyzerMultiplier = 1f;
 
         [Header("Debug")]
@@ -147,12 +169,16 @@ namespace MoreMountains.Tools
         protected float _randomShift;
         protected float _elapsedTime = 0f;
 
-        protected bool _oneTimeShaking = false;
-        protected float _oneTimeStartedTimestamp = 0f;
+        protected bool _shaking = false;
+        protected float _shakeStartTimestamp = 0f;
         protected float _remappedTimeSinceStart = 0f;
 
         protected float _pingPongDirection = 1f;
         protected float _lastPingPongPauseAt = 0f;
+        protected float _initialValue = 0f;
+
+        protected MonoBehaviour _targetObjectLastFrame;
+        protected MonoAttribute _targetAttributeLastFrame;
 
         /// <summary>
         /// Finds an attribute (property or field) on the target object
@@ -204,9 +230,17 @@ namespace MoreMountains.Tools
         /// <summary>
         /// On start we initialize our controller
         /// </summary>
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             Initialization();
+        }
+
+        /// <summary>
+        /// On enable, grabs the initial value
+        /// </summary>
+        protected virtual void OnEnable()
+        {
+            InitialValue = GetInitialValue();
         }
 
         /// <summary>
@@ -220,7 +254,7 @@ namespace MoreMountains.Tools
                 return;
             }
 
-            if ((TargetObject == null) || (TargetAttribute.MemberName == ""))
+            if ((TargetObject == null) || (string.IsNullOrEmpty(TargetAttribute.MemberName)))
             {
                 return;
             }
@@ -229,17 +263,23 @@ namespace MoreMountains.Tools
             _randomAmplitude = Random.Range(Amplitude.x, Amplitude.y);
             _randomFrequency = Random.Range(Frequency.x, Frequency.y);
             _randomShift = Random.Range(Shift.x, Shift.y);
-            
+
+            InitialValue = GetInitialValue();
+
+            _shaking = false;
+        }
+
+        protected virtual float GetInitialValue()
+        {
             if (TargetAttribute.MemberType == MonoAttribute.MemberTypes.Property)
             {
-                InitialValue = (float)TargetAttribute.MemberPropertyInfo.GetValue(TargetObject);
+                return (float)TargetAttribute.MemberPropertyInfo.GetValue(TargetObject);
             }
             else if (TargetAttribute.MemberType == MonoAttribute.MemberTypes.Field)
             {
-                InitialValue = (float)TargetAttribute.MemberFieldInfo.GetValue(TargetObject);
+                return (float)TargetAttribute.MemberFieldInfo.GetValue(TargetObject);
             }
-
-            _oneTimeShaking = false;
+            return 0f;
         }
 
         /// <summary>
@@ -247,18 +287,34 @@ namespace MoreMountains.Tools
         /// </summary>
         public virtual void OneTime()
         {
-            if ((TargetObject == null) || (TargetAttribute == null) || (!Active) || (ControlMode != ControlModes.OneTime))
-            {
-                return;
-            }
-            if (_oneTimeShaking || !Active)
+            if ((TargetObject == null) || (TargetAttribute == null))
             {
                 return;
             }
             else
             {
-                _oneTimeStartedTimestamp = Time.time;
-                _oneTimeShaking = true;
+                this.enabled = true;
+                _shakeStartTimestamp = Time.time;
+                _shaking = true;
+            }
+        }
+
+        /// <summary>
+        /// Triggers a one time shake of the controller to a specified destination value
+        /// </summary>
+        public virtual void ToDestination()
+        {
+            if ((TargetObject == null) || (TargetAttribute == null))
+            {
+                return;
+            }
+            else
+            {
+                this.enabled = true;
+                ControlMode = ControlModes.ToDestination;
+                _shakeStartTimestamp = Time.time;
+                _shaking = true;
+                _initialValue = GetInitialValue();
             }
         }
 
@@ -285,7 +341,10 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void Update()
         {
-            if ((TargetObject == null) || (TargetAttribute == null) || (!Active) || (!_attributeFound))
+            _targetObjectLastFrame = TargetObject;
+            _targetAttributeLastFrame = TargetAttribute;
+
+            if ((TargetObject == null) || (TargetAttribute == null) || (!_attributeFound))
             {
                 return;
             }
@@ -322,19 +381,26 @@ namespace MoreMountains.Tools
                     CurrentValue = (Mathf.PerlinNoise(_randomFrequency * _elapsedTime, _randomShift) * 2.0f - 1.0f) * _randomAmplitude;
                     break;
                 case ControlModes.OneTime:
-                    if (!_oneTimeShaking)
+                    if (!_shaking)
                     {
                         return;
                     }
-                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _oneTimeStartedTimestamp, 0f, OneTimeDuration, 0f, 1f);
-                    CurrentValue = OneTimeCurve.Evaluate(_remappedTimeSinceStart) * OneTimeAmplitude;
-                    if (AddToInitialValue)
-                    {
-                        CurrentValue += InitialValue;
-                    }
+                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _shakeStartTimestamp, 0f, OneTimeDuration, 0f, 1f);
+                    CurrentValue = OneTimeCurve.Evaluate(_remappedTimeSinceStart);
+                    CurrentValue = MMMaths.Remap(CurrentValue, 0f, 1f, OneTimeRemapMin, OneTimeRemapMax);
+                    CurrentValue *= OneTimeAmplitude;
                     break;
                 case ControlModes.AudioAnalyzer:
                     CurrentValue = AudioAnalyzer.Beats[BeatID].CurrentValue * AudioAnalyzerMultiplier;
+                    break;
+                case ControlModes.ToDestination:
+                    if (!_shaking)
+                    {
+                        return;
+                    }
+                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _shakeStartTimestamp, 0f, ToDestinationDuration, 0f, 1f);
+                    float time = ToDestinationCurve.Evaluate(_remappedTimeSinceStart);
+                    CurrentValue = Mathf.LerpUnclamped(_initialValue, ToDestinationValue, time);
                     break;
             }
                                    
@@ -344,11 +410,53 @@ namespace MoreMountains.Tools
                 CurrentValue += InitialValue;
             }
 
-            if (_oneTimeShaking && (Time.time - _oneTimeStartedTimestamp > OneTimeDuration))
+            if (ControlMode == ControlModes.OneTime)
             {
-                _oneTimeShaking = false;
-                CurrentValue = InitialValue;
+                if (_shaking && (Time.time - _shakeStartTimestamp > OneTimeDuration))
+                {
+                    _shaking = false;
+                    if (RevertToInitialValueAfterEnd)
+                    {
+                        CurrentValue = InitialValue;
+                        TargetAttribute.SetValue(CurrentValue);
+                    }
+                    else
+                    {
+                        CurrentValue = OneTimeCurve.Evaluate(1f);
+                        CurrentValue = MMMaths.Remap(CurrentValue, 0f, 1f, OneTimeRemapMin, OneTimeRemapMax);
+                        CurrentValue *= OneTimeAmplitude;
+                        TargetAttribute.SetValue(CurrentValue);
+                    }
+                    if (DisableAfterOneTime)
+                    {
+                        this.enabled = false;
+                    }
+                    return;
+                }
             }
+
+            if (ControlMode == ControlModes.ToDestination)
+            {
+                if (_shaking && (Time.time - _shakeStartTimestamp > OneTimeDuration))
+                {
+                    _shaking = false;
+                    if (RevertToInitialValueAfterEnd)
+                    {
+                        CurrentValue = InitialValue;
+                        TargetAttribute.SetValue(CurrentValue);
+                    }
+                    else
+                    {
+                        float time = ToDestinationCurve.Evaluate(1f);
+                        CurrentValue = Mathf.LerpUnclamped(_initialValue, ToDestinationValue, time);
+                    }
+                    if (DisableAfterOneTime)
+                    {
+                        this.enabled = false;
+                    }
+                    return;
+                }
+            }            
 
             TargetAttribute.SetValue(CurrentValue);
         }
@@ -359,9 +467,22 @@ namespace MoreMountains.Tools
         protected virtual void OnValidate()
         {
             FillDropDownList();
-            if (Application.isPlaying)
+            if ( Application.isPlaying 
+                && ((_targetAttributeLastFrame != TargetAttribute) || (_targetObjectLastFrame != TargetObject)) )
             {
                 Initialization();
+            }
+        }
+               
+        /// <summary>
+        /// On disable we revert to the previous value if needed
+        /// </summary>
+        protected virtual void OnDisable()
+        {
+            if (RevertToInitialValueAfterEnd)
+            {
+                CurrentValue = InitialValue;
+                TargetAttribute.SetValue(CurrentValue);
             }
         }
 

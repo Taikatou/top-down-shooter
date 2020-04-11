@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This Decision will return true if the current Brain's Target is within the specified range, false otherwise.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionDistanceToTarget")]
     public class AIDecisionDistanceToTarget : AIDecision
     {
         /// The possible comparison modes

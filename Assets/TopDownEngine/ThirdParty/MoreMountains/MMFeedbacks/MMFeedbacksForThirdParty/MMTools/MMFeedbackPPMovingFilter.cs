@@ -13,6 +13,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("PostProcess/PPMovingFilter")]
     public class MMFeedbackPPMovingFilter : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.PostProcessColor; } }
+
         /// the possible modes for this feedback 
         public enum Modes { Toggle, On, Off }
 
@@ -24,7 +27,10 @@ namespace MoreMountains.Feedbacks
         /// the duration of the transition
         public float TransitionDuration = 1f;
         /// the curve to move along to
-        public MMTween.MMTweenCurve Curve = MMTween.MMTweenCurve.EaseInCubic;
+        public MMTweenType Curve = new MMTweenType(MMTween.MMTweenCurve.EaseInCubic);
+        
+        /// the duration of this feedback is the duration of the transition
+        public override float FeedbackDuration { get { return TransitionDuration; } }
 
         protected bool _active = false;
         protected bool _toggle = false;

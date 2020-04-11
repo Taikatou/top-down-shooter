@@ -8,6 +8,7 @@ using MoreMountains.Feedbacks;
 
 namespace MoreMountains.TopDownEngine
 {
+    [AddComponentMenu("TopDown Engine/GUI/SfxSwitch")]
     public class SfxSwitch : MonoBehaviour
     {
         public virtual void On()

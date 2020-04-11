@@ -4,10 +4,11 @@ using System.Collections;
 namespace MoreMountains.Tools
 {
 	[RequireComponent(typeof(Camera))]
-	/// <summary>
-	/// Forces an aspect ratio on a camera
-	/// </summary>
-	public class MMCameraAspectRatio : MonoBehaviour 
+    /// <summary>
+    /// Forces an aspect ratio on a camera
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMCameraAspectRatio")]
+    public class MMCameraAspectRatio : MonoBehaviour 
 	{
 		/// the desired aspect ratio
 		public Vector2 AspectRatio = Vector2.zero;

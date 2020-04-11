@@ -34,6 +34,8 @@ namespace MoreMountains.TopDownEngine
         public Transform ProjectileSpawn;
         /// if this is true this animator will be automatically bound to the weapon
         public bool AutomaticallyBindAnimator = true;
+        /// the ID of the AmmoDisplay this ability should update
+        public int AmmoDisplayID = 0;
         /// if this is true, IK will be automatically setup if possible
         public bool AutoIK = true;
 
@@ -162,14 +164,14 @@ namespace MoreMountains.TopDownEngine
             {
                 return;
             }
-            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
+            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonDown) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonDown))
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonPressed))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
@@ -184,7 +186,7 @@ namespace MoreMountains.TopDownEngine
                 Reload();
             }
 
-            if ((_inputManager.ShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
+            if ((_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.ButtonUp) || (_inputManager.ShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -192,7 +194,7 @@ namespace MoreMountains.TopDownEngine
             if (CurrentWeapon != null)
             {
                 if ((CurrentWeapon.WeaponState.CurrentState == Weapon.WeaponStates.WeaponDelayBetweenUses)
-                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButtonState == MMInput.ButtonStates.Off)))
+                && ((_inputManager.ShootAxis == MMInput.ButtonStates.Off) && (_inputManager.ShootButton.State.CurrentState == MMInput.ButtonStates.Off)))
                 {
                     CurrentWeapon.WeaponInputStop();
                 }
@@ -391,26 +393,26 @@ namespace MoreMountains.TopDownEngine
             {
                 if (CurrentWeapon == null)
                 {
-                    GUIManager.Instance.SetAmmoDisplays(false, _character.PlayerID);
+                    GUIManager.Instance.SetAmmoDisplays(false, _character.PlayerID, AmmoDisplayID);
                     return;
                 }
 
                 if (!CurrentWeapon.MagazineBased && (CurrentWeapon.WeaponAmmo == null))
                 {
-                    GUIManager.Instance.SetAmmoDisplays(false, _character.PlayerID);
+                    GUIManager.Instance.SetAmmoDisplays(false, _character.PlayerID, AmmoDisplayID);
                     return;
                 }
 
                 if (CurrentWeapon.WeaponAmmo == null)
                 {
-                    GUIManager.Instance.SetAmmoDisplays(true, _character.PlayerID);
-                    GUIManager.Instance.UpdateAmmoDisplays(CurrentWeapon.MagazineBased, 0, 0, CurrentWeapon.CurrentAmmoLoaded, CurrentWeapon.MagazineSize, _character.PlayerID, false);
+                    GUIManager.Instance.SetAmmoDisplays(true, _character.PlayerID, AmmoDisplayID);
+                    GUIManager.Instance.UpdateAmmoDisplays(CurrentWeapon.MagazineBased, 0, 0, CurrentWeapon.CurrentAmmoLoaded, CurrentWeapon.MagazineSize, _character.PlayerID, AmmoDisplayID, false);
                     return;
                 }
                 else
                 {
-                    GUIManager.Instance.SetAmmoDisplays(true, _character.PlayerID);
-                    GUIManager.Instance.UpdateAmmoDisplays(CurrentWeapon.MagazineBased, CurrentWeapon.WeaponAmmo.CurrentAmmoAvailable, CurrentWeapon.WeaponAmmo.MaxAmmo, CurrentWeapon.CurrentAmmoLoaded, CurrentWeapon.MagazineSize, _character.PlayerID, true);
+                    GUIManager.Instance.SetAmmoDisplays(true, _character.PlayerID, AmmoDisplayID);
+                    GUIManager.Instance.UpdateAmmoDisplays(CurrentWeapon.MagazineBased, CurrentWeapon.WeaponAmmo.CurrentAmmoAvailable, CurrentWeapon.WeaponAmmo.MaxAmmo, CurrentWeapon.CurrentAmmoLoaded, CurrentWeapon.MagazineSize, _character.PlayerID, AmmoDisplayID, true);
                     return;
                 }
             }

@@ -4,8 +4,9 @@ using System.Collections;
 using System;
 
 namespace MoreMountains.Tools
-{	
-	public class MMObjectBounds : MonoBehaviour
+{
+    [AddComponentMenu("More Mountains/Tools/Object Bounds/MMObjectBounds")]
+    public class MMObjectBounds : MonoBehaviour
 	{
 		public enum WaysToDetermineBounds { Collider, Collider2D, Renderer, Undefined }
 

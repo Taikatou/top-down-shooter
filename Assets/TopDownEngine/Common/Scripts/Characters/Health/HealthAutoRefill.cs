@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this class to a character or object with a Health class, and its health will auto refill based on the settings here
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/Health/Health Auto Refill")]
     public class HealthAutoRefill : MonoBehaviour
     {
         /// the possible refill modes :

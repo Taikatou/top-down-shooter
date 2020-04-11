@@ -9,6 +9,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// Add this component to an object and it'll get moved towards the target at update, with or without interpolation based on your settings
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMFollowTarget")]
     public class MMFollowTarget : MonoBehaviour
     {
         [Header("Activity")]
@@ -75,6 +76,14 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void Start()
         {
+            Initialization();
+        }
+
+        /// <summary>
+        /// Initializes the follow
+        /// </summary>
+        public virtual void Initialization()
+        {
             SetInitialPosition();
             SetOffset();
         }
@@ -111,6 +120,10 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void SetOffset()
         {
+            if (Target == null)
+            {
+                return;
+            }
             Vector3 difference = this.transform.position - Target.transform.position;
             Offset.x = AddInitialDistanceXToXOffset ? difference.x : Offset.x;
             Offset.y = AddInitialDistanceYToYOffset ? difference.y : Offset.y;
@@ -122,10 +135,14 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void Update()
         {
+            if (Target == null)
+            {
+                return;
+            }
             if (UpdateMode == Modes.Update)
             {
-                FollowTargetPosition();
                 FollowTargetRotation();
+                FollowTargetPosition();
             }
         }
 
@@ -136,6 +153,7 @@ namespace MoreMountains.Tools
         {
             if (UpdateMode == Modes.FixedUpdate)
             {
+                FollowTargetRotation();
                 FollowTargetPosition();
             }
         }
@@ -147,6 +165,7 @@ namespace MoreMountains.Tools
         {
             if (UpdateMode == Modes.LateUpdate)
             {
+                FollowTargetRotation();
                 FollowTargetPosition();
             }
         }
@@ -195,8 +214,7 @@ namespace MoreMountains.Tools
                     interpolatedDistance = trueDistance - MaximumDistance;
                 }
             }
-
-            this.transform.Translate(_direction * interpolatedDistance);
+            this.transform.Translate(_direction * interpolatedDistance, Space.World);
         }
 
         /// <summary>
@@ -209,7 +227,7 @@ namespace MoreMountains.Tools
                 return;
             }
 
-            if (!FollowPosition)
+            if (!FollowRotation)
             {
                 return;
             }

@@ -12,6 +12,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Camera/Flash")]
     public class MMFeedbackFlash : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.CameraColor; } }
+
         [Header("Flash")]
         /// the channel to broadcast that flash event on
         public int Channel = 0;
@@ -23,6 +26,10 @@ namespace MoreMountains.Feedbacks
         public float FlashAlpha = 1f;
         /// the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health pickups, etc)
         public int FlashID = 0;
+
+
+        /// the duration of this feedback is the duration of the flash
+        public override float FeedbackDuration { get { return FlashDuration; } }
 
         /// <summary>
         /// On Play we trigger a flash event

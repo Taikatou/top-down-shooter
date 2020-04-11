@@ -13,6 +13,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Events")]
     public class MMFeedbackEvents : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.EventsColor; } }
+
         [Header("Events")]
         /// the events to trigger when the feedback is played
         public UnityEvent PlayEvents;

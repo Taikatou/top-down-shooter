@@ -7,6 +7,7 @@ namespace MoreMountains.Tools
     /// <summary>
     /// Add this class to an empty object in your scene and it'll act as a point of control to enable or disable logs and debug draws
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Utilities/MMDebugController")]
     public class MMDebugController : MonoBehaviour
     {
         /// whether or not debug logs (MMDebug.DebugLogTime, MMDebug.DebugOnScreen) should be displayed

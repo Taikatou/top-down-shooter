@@ -6,12 +6,13 @@ using UnityEngine.EventSystems;
 using System;
 
 namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Add this component to a UI rectangle and it'll act as a detection zone for a joystick.
-	/// Note that this component extends the MMTouchJoystick class so you don't need to add another joystick to it. It's both the detection zone and the stick itself.
-	/// </summary>
-	public class MMTouchDynamicJoystick : MMTouchJoystick, IPointerDownHandler
+{
+    /// <summary>
+    /// Add this component to a UI rectangle and it'll act as a detection zone for a joystick.
+    /// Note that this component extends the MMTouchJoystick class so you don't need to add another joystick to it. It's both the detection zone and the stick itself.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Controls/MMTouchDynamicJoystick")]
+    public class MMTouchDynamicJoystick : MMTouchJoystick, IPointerDownHandler
 	{
 		[Header("Dynamic Joystick")]
 		[MMInformation("Here you can select an image for your joystick's knob, and decide if the joystick's detection zone should reset its position whenever the drag ends.", MMInformationAttribute.InformationType.Info,false)]

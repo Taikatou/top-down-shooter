@@ -96,6 +96,16 @@ namespace MoreMountains.Tools
         }
     }
 
+    /// <summary>
+    /// This component lets you pick an audio source (either global : the whole scene's audio, a unique source, or the 
+    /// microphone), and will cut it into chunks that you can then use to emit beat events, that other objects can consume and act upon. 
+    /// The sample interval is the frequency at which sound will be analyzed, the amount of spectrum samples will determine the 
+    /// accuracy of the sampling, the window defines the method used to reduce leakage, and the number of bands 
+    /// will determine in how many bands you want to cut the sound. The more bands, the more levers you'll have to play with afterwards.
+    /// In general, for all of these settings, higher values mean better quality and lower performance. The buffer speed determines how 
+    /// fast buffered band levels readjust.
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Audio/MMAudioAnalyzer")]
     public class MMAudioAnalyzer : MonoBehaviour
     {
         public enum Modes { Global, AudioSource, Microphone }

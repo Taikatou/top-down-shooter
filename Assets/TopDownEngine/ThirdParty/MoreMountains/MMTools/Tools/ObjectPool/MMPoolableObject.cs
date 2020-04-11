@@ -4,12 +4,13 @@ using MoreMountains.Tools;
 using System;
 
 namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Add this class to an object that you expect to pool from an objectPooler. 
-	/// Note that these objects can't be destroyed by calling Destroy(), they'll just be set inactive (that's the whole point).
-	/// </summary>
-	public class MMPoolableObject : MMObjectBounds 
+{
+    /// <summary>
+    /// Add this class to an object that you expect to pool from an objectPooler. 
+    /// Note that these objects can't be destroyed by calling Destroy(), they'll just be set inactive (that's the whole point).
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Object Pool/MMPoolableObject")]
+    public class MMPoolableObject : MMObjectBounds 
 	{
 		public delegate void Events();
 		public event Events OnSpawnComplete;

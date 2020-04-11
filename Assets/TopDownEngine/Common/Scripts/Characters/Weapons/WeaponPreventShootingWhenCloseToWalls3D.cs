@@ -9,6 +9,7 @@ namespace MoreMountains.TopDownEngine
     /// Add this class to a weapon and it'll prevent shooting when close to an obstacle (as defined by the ObstacleLayerMask)
     /// </summary>
     [RequireComponent(typeof(Weapon))]
+    [AddComponentMenu("TopDown Engine/Weapons/Weapon Prevent Shooting when Close to Walls 3D")]
     public class WeaponPreventShootingWhenCloseToWalls3D : MonoBehaviour
     {
         /// the angle to consider when deciding whether or not there's a wall in front of the weapon (usually 5 degrees is fine)

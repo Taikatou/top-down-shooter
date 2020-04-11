@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(CharacterController))]
+    [AddComponentMenu("TopDown Engine/Character/Core/TopDown Controller 3D")]
 
     /// <summary>
     /// A controller, initially adapted from Unity's CharacterMotor.js, to add on top of Unity's native CharacterController, that will handle 

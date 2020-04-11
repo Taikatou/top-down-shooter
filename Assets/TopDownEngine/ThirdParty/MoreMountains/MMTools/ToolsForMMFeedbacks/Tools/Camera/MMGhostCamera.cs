@@ -14,6 +14,7 @@ namespace MoreMountains.Tools
     /// Add this class to a camera and you'll be able to pilot it using the horizontal/vertical axis, and up/down controls set via its inspector. 
     /// It's got an activation button, a run button, and an option to slow down time (this will require a MMTimeManager present in the scene)
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMGhostCamera")]
     public class MMGhostCamera : MonoBehaviour
     {
         [Header("Speed")]

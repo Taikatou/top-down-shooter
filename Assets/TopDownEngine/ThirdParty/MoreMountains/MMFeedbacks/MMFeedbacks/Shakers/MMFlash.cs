@@ -30,6 +30,7 @@ namespace MoreMountains.Feedbacks
     
 	[RequireComponent(typeof(Image))]
     [RequireComponent(typeof(CanvasGroup))]
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Various/MMFlash")]
     /// <summary>
     /// Add this class to an image and it'll flash when getting a MMFlashEvent
     /// </summary>

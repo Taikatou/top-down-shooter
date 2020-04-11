@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 namespace MoreMountains.Tools
 {	
 	[RequireComponent(typeof(CanvasGroup))]
-	public class MMTouchControls : MonoBehaviour 
+    [AddComponentMenu("More Mountains/Tools/Controls/MMTouchControls")]
+    public class MMTouchControls : MonoBehaviour 
 	{
 		public enum InputForcedMode { None, Mobile, Desktop }
 		[MMInformation("If you check Auto Mobile Detection, the engine will automatically switch to mobile controls when your build target is Android or iOS. You can also force mobile or desktop (keyboard, gamepad) controls using the dropdown below.\nNote that if you don't need mobile controls and/or GUI this component can also work on its own, just put it on an empty GameObject instead.", MMInformationAttribute.InformationType.Info,false)]

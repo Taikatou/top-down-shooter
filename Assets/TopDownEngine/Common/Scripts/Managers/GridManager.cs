@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// A manager required in your scenes that use CharacterGridMovement.
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Managers/GridManager")]
     public class GridManager : MMSingleton<GridManager>
     {
         /// the possible types of debug modes

@@ -9,6 +9,8 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// Add this component to your Cinemachine Virtual Camera to have it shake when calling its ShakeCamera methods.
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Cinemachine/MMCinemachineCameraShaker")]
+    [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class MMCinemachineCameraShaker : MonoBehaviour
     {
         [Header("Settings")]
@@ -51,7 +53,7 @@ namespace MoreMountains.FeedbacksForThirdParty
         /// </summary>
         protected virtual void Awake()
         {
-            _virtualCamera = GameObject.FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
+            _virtualCamera = this.gameObject.GetComponent<CinemachineVirtualCamera>();
             _perlin = _virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
         }
 

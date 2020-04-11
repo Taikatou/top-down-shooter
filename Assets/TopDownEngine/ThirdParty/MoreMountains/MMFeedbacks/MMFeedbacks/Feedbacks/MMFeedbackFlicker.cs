@@ -8,13 +8,26 @@ namespace MoreMountains.Feedbacks
     /// This feedback will make the bound renderer flicker for the set duration when played (and restore its initial color when stopped)
     /// </summary>
     [AddComponentMenu("")]
-    [FeedbackHelp("This feedback lets you flicker the specified renderer (sprite, mesh, etc) for a certain duration, at the specified octave, and with the specified color. Useful when a character gets hit, for example (but so much more!).")]
-    [FeedbackPath("GameObject/Flicker")]
+    [FeedbackHelp("This feedback lets you flicker the color of a specified renderer (sprite, mesh, etc) for a certain duration, at the specified octave, and with the specified color. Useful when a character gets hit, for example (but so much more!).")]
+    [FeedbackPath("Renderer/Flicker")]
     public class MMFeedbackFlicker : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.RendererColor; } }
+
+        /// the possible modes
+        /// Color : will control material.color
+        /// PropertyName : will target a specific shader property by name
+        public enum Modes { Color, PropertyName }
+
         [Header("Flicker")]
         /// the renderer to flicker when played
         public Renderer BoundRenderer;
+        /// the selected mode to flicker the renderer 
+        public Modes Mode = Modes.Color;
+        [MMFEnumCondition("Mode", (int)Modes.PropertyName)]
+        /// the name of the property to target
+        public string PropertyName = "_Tint";
         /// the duration of the flicker when getting damage
         public float FlickerDuration = 0.2f;
         /// the frequency at which to flicker
@@ -22,7 +35,12 @@ namespace MoreMountains.Feedbacks
         /// the color we should flicker the sprite to 
         public Color FlickerColor = new Color32(255, 20, 20, 255);
 
+        /// the duration of this feedback is the duration of the flicker
+        public override float FeedbackDuration { get { return FlickerDuration; } }
+
         protected Color _initialFlickerColor;
+        protected int _propertyID = -1;
+        protected bool _propertyFound = false;
 
         /// <summary>
         /// On init we grab our initial color and components
@@ -30,13 +48,8 @@ namespace MoreMountains.Feedbacks
         /// <param name="owner"></param>
         protected override void CustomInitialization(GameObject owner)
         {
-            if (Active && (BoundRenderer != null))
-            {
-                if (BoundRenderer.material.HasProperty("_Color"))
-                {
-                    _initialFlickerColor = BoundRenderer.material.color;
-                }
-            }
+            _propertyFound = false;
+
             if (Active && (BoundRenderer == null) && (owner != null))
             {
                 if (owner.MMFGetComponentNoAlloc<Renderer>() != null)
@@ -52,6 +65,27 @@ namespace MoreMountains.Feedbacks
                     if (BoundRenderer.material.HasProperty("_Color"))
                     {
                         _initialFlickerColor = BoundRenderer.material.color;
+                    }
+                }
+            }
+
+            if (Active && (BoundRenderer != null))
+            {
+                if (Mode == Modes.Color)
+                {
+                    if (BoundRenderer.material.HasProperty("_Color"))
+                    {
+                        _propertyFound = true;
+                        _initialFlickerColor = BoundRenderer.material.color;
+                    }
+                }
+                else
+                {
+                    if (BoundRenderer.material.HasProperty(PropertyName))
+                    {
+                        _propertyID = Shader.PropertyToID(PropertyName);
+                        _propertyFound = true;
+                        _initialFlickerColor = BoundRenderer.material.GetColor(_propertyID);
                     }
                 }
             }
@@ -78,10 +112,7 @@ namespace MoreMountains.Feedbacks
             base.CustomReset();
             if (Active && (BoundRenderer != null))
             {
-                if (BoundRenderer.material.HasProperty("_Color"))
-                {
-                    BoundRenderer.material.color = _initialFlickerColor;
-                }
+                SetColor(_initialFlickerColor);                
             }
         }
 
@@ -92,7 +123,7 @@ namespace MoreMountains.Feedbacks
                 yield break;
             }
 
-            if (!renderer.material.HasProperty("_Color"))
+            if (!_propertyFound)
             {
                 yield break;
             }
@@ -106,13 +137,31 @@ namespace MoreMountains.Feedbacks
 
             while (FeedbackTime < flickerStop)
             {
-                renderer.material.color = flickerColor;
+                SetColor(flickerColor);
                 yield return new WaitForSeconds(flickerSpeed);
-                renderer.material.color = initialColor;
+                SetColor(initialColor);
                 yield return new WaitForSeconds(flickerSpeed);
             }
 
-            renderer.material.color = initialColor;
+            SetColor(initialColor);
+        }
+
+        protected virtual void SetColor(Color color)
+        {
+            if (Mode == Modes.Color)
+            {
+                if (BoundRenderer.material.HasProperty("_Color"))
+                {
+                    BoundRenderer.material.color = color;
+                }
+            }
+            else
+            {
+                if (_propertyFound)
+                {
+                    BoundRenderer.material.SetColor(_propertyID, color);
+                }
+            }            
         }
     }
 }

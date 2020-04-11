@@ -8,7 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// Add this class to a trigger and it will allow you to modify the time scale when entering it, for the specified duration and settings
     /// </summary>
-    [AddComponentMenu("TopDown Engine/Spawn/Finish Level")]
+	[AddComponentMenu("TopDown Engine/Environment/Time Zone")]
     public class TimeZone : ButtonActivated
     {
         /// the possible modes for this zone

@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace MoreMountains.Tools
 {
-	/// <summary>
-	/// Add this class to a radial image and it'll allow you to control its fill amount
-	/// </summary>
-	public class MMRadialProgressBar : MonoBehaviour 
+    /// <summary>
+    /// Add this class to a radial image and it'll allow you to control its fill amount
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/GUI/MMRadialProgressBar")]
+    public class MMRadialProgressBar : MonoBehaviour 
 	{
 		/// the start fill amount value 
 		public float StartValue = 1f;

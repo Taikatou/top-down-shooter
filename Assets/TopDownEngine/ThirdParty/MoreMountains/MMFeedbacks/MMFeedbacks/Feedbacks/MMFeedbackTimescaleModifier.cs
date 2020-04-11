@@ -12,6 +12,9 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Time/Timescale Modifier")]
     public class MMFeedbackTimescaleModifier : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.TimeColor; } }
+
         [Header("Timescale Modifier")]
         /// the new timescale to apply
         public float TimeScale = 0.5f;
@@ -21,6 +24,10 @@ namespace MoreMountains.Feedbacks
         public bool TimeScaleLerp = false;
         /// the speed at which to lerp the timescale
         public float TimeScaleLerpSpeed = 1f;
+
+
+        /// the duration of this feedback is the duration of the time modification
+        public override float FeedbackDuration { get { return TimeScaleDuration; } }
 
         /// <summary>
         /// On Play, triggers a time scale event

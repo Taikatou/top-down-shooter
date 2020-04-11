@@ -110,14 +110,14 @@ namespace MoreMountains.Tools
                 {
                     if (Transitions[i].Decision.Decide())
                     {
-                        if (Transitions[i].TrueState != "")
+                        if (!string.IsNullOrEmpty(Transitions[i].TrueState))
                         {
                             _brain.TransitionToState(Transitions[i].TrueState);
                         }
                     }
                     else
                     {
-                        if (Transitions[i].FalseState != "")
+                        if (!string.IsNullOrEmpty(Transitions[i].FalseState))
                         {
                             _brain.TransitionToState(Transitions[i].FalseState);
                         }

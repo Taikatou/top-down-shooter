@@ -10,16 +10,15 @@ namespace MoreMountains.Tools
     /// A class used to control a float in any other class, over time
     /// To use it, simply drag a monobehaviour in its target field, pick a control mode (ping pong or random), and tweak the settings
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Property Controllers/ShaderController")]
     public class ShaderController : MonoBehaviour
     {
         /// the possible types of targets
-        public enum TargetTypes { Renderer, Image, Text }
-
+        public enum TargetTypes { Renderer, Image, RawImage, Text }
         /// the possible types of properties
         public enum PropertyTypes { Bool, Float, Int, Vector, Keyword, Color }
-
         /// the possible control modes
-        public enum ControlModes { PingPong, Random, OneTime, AudioAnalyzer }
+        public enum ControlModes { PingPong, Random, OneTime, AudioAnalyzer, ToDestination }
 
         [Header("Target")]
         /// the type of renderer to pilot
@@ -33,6 +32,9 @@ namespace MoreMountains.Tools
         /// the Image with the shader you want to control
         [MMEnumCondition("TargetType", (int)TargetTypes.Image)]
         public Image TargetImage;
+        /// the RawImage with the shader you want to control
+        [MMEnumCondition("TargetType", (int)TargetTypes.RawImage)]
+        public RawImage TargetRawImage;
         /// the Text with the shader you want to control
         [MMEnumCondition("TargetType", (int)TargetTypes.Text)]
         public Text TargetText;
@@ -63,80 +65,80 @@ namespace MoreMountains.Tools
         [MMEnumCondition("PropertyType", (int)PropertyTypes.Color)]
         public Color ToColor = Color.white;
 
-        [Header("Settings")]
+        [Header("Global Settings")]
         /// the control mode (ping pong or random)
         public ControlModes ControlMode;
         /// whether or not the updated value should be added to the initial one
         public bool AddToInitialValue = false;
         /// whether or not to use unscaled time
         public bool UseUnscaledTime = true;
-        /// if this is true, control will happen, otherwise it won't
-        public bool Active = true;
+        /// whether or not you want to revert to the InitialValue after the control ends
+        public bool RevertToInitialValueAfterEnd = true;
 
         /// the curve to apply to the tween
-        [MMEnumCondition("ControlMode", (int)ControlModes.PingPong)]
         [Header("Ping Pong")]
-        public MMTween.MMTweenCurve Curve;
+        public MMTweenType Curve;
         /// the minimum value for the ping pong
-        [MMEnumCondition("ControlMode", (int)ControlModes.PingPong)]
         public float MinValue = 0f;
         /// the maximum value for the ping pong
-        [MMEnumCondition("ControlMode", (int)ControlModes.PingPong)]
         public float MaxValue = 5f;
         /// the duration of one ping (or pong)
-        [MMEnumCondition("ControlMode", (int)ControlModes.PingPong)]
         public float Duration = 1f;
         /// the duration of the pause between two ping (or pongs) (in seconds)
-        [MMEnumCondition("ControlMode", (int)ControlModes.PingPong)]
         public float PingPongPauseDuration = 1f;
 
         [Header("Random")]
         [MMVector("Min", "Max")]
         /// the noise amplitude
-        [MMEnumCondition("ControlMode", (int)ControlModes.Random)]
         public Vector2 Amplitude = new Vector2(0f,5f);
         [MMVector("Min", "Max")]
         /// the noise frequency
-        [MMEnumCondition("ControlMode", (int)ControlModes.Random)]
         public Vector2 Frequency = new Vector2(1f, 1f);
         [MMVector("Min", "Max")]
         /// the noise shift
-        [MMEnumCondition("ControlMode", (int)ControlModes.Random)]
         public Vector2 Shift = new Vector2(0f, 1f);
 
         [Header("OneTime")]
         /// the duration of the One Time shake
-        [MMEnumCondition("ControlMode", (int)ControlModes.OneTime)]
         public float OneTimeDuration = 1f;
-        [MMEnumCondition("ControlMode", (int)ControlModes.OneTime)]
-        public bool ResetValueAfterOneTime = true;
         /// the amplitude of the One Time shake (this will be multiplied by the curve's height)
-        [MMEnumCondition("ControlMode", (int)ControlModes.OneTime)]
         public float OneTimeAmplitude = 1f;
+        /// the low value to remap the normalized curve value to 
+        public float OneTimeRemapMin = 0f;
+        /// the high value to remap the normalized curve value to 
+        public float OneTimeRemapMax = 1f;
         /// the curve to apply to the one time shake
-        [MMEnumCondition("ControlMode", (int)ControlModes.OneTime)]
         public AnimationCurve OneTimeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0));
         [MMInspectorButton("OneTime")]
         /// a test button for the one time shake
-        [MMEnumCondition("ControlMode", (int)ControlModes.OneTime)]
         public bool OneTimeButton;
+        /// whether or not this controller should go back to sleep after a OneTime
+        public bool DisableAfterOneTime = false;
 
         [Header("AudioAnalyzer")]
         /// the bound audio analyzer used to drive this controller
-        [MMEnumCondition("ControlMode", (int)ControlModes.AudioAnalyzer)]
         public MMAudioAnalyzer AudioAnalyzer;
         /// the ID of the selected beat on the analyzer
-        [MMEnumCondition("ControlMode", (int)ControlModes.AudioAnalyzer)]
         public int BeatID;
         /// the multiplier to apply to the value out of the analyzer
-        [MMEnumCondition("ControlMode", (int)ControlModes.AudioAnalyzer)]
         public float AudioAnalyzerMultiplier = 1f;
         /// the offset to apply to the value out of the analyzer
-        [MMEnumCondition("ControlMode", (int)ControlModes.AudioAnalyzer)]
         public float AudioAnalyzerOffset = 0f;
         /// the speed at which to lerp the value
-        [MMEnumCondition("ControlMode", (int)ControlModes.AudioAnalyzer)]
         public float AudioAnalyzerLerp = 60f;
+
+        [Header("ToDestination")]
+        /// the value to go to when in ToDestination mode
+        public float ToDestinationValue = 1f;
+        /// the duration of the ToDestination tween
+        public float ToDestinationDuration = 1f;
+        /// the curve to use to tween to the ToDestination value
+        public AnimationCurve ToDestinationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 0.6f), new Keyframe(1f, 1f));
+        /// a test button for the one time shake
+        [MMInspectorButton("ToDestination")]
+        public bool ToDestinationButton;
+        /// whether or not this controller should go back to sleep after a OneTime
+        public bool DisableAfterToDestination = false;
 
         [Header("Debug")]
         [MMReadOnly]
@@ -168,8 +170,8 @@ namespace MoreMountains.Tools
         protected float _randomShift;
         protected float _elapsedTime = 0f;
 
-        protected bool _oneTimeShaking = false;
-        protected float _oneTimeStartedTimestamp = 0f;
+        protected bool _shaking = false;
+        protected float _startedTimestamp = 0f;
         protected float _remappedTimeSinceStart = 0f;
         protected Color _currentColor;
 
@@ -177,6 +179,9 @@ namespace MoreMountains.Tools
 
         protected float _pingPongDirection = 1f;
         protected float _lastPingPongPauseAt = 0f;
+        protected float _initialValue = 0f;
+        protected Color _fromColorStorage;
+        protected bool _activeLastFrame = false;
 
         /// <summary>
         /// Finds an attribute (property or field) on the target object
@@ -200,6 +205,14 @@ namespace MoreMountains.Tools
                     TargetImage.material = new Material(TargetImage.material);
                 }
                 TargetMaterial = TargetImage.material;
+            }
+            else if (TargetType == TargetTypes.RawImage)
+            {
+                if (CreateMaterialInstance)
+                {
+                    TargetRawImage.material = new Material(TargetRawImage.material);
+                }
+                TargetMaterial = TargetRawImage.material;
             }
             else if (TargetType == TargetTypes.Text)
             {
@@ -227,9 +240,21 @@ namespace MoreMountains.Tools
         /// <summary>
         /// On start we initialize our controller
         /// </summary>
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             Initialization();
+        }
+
+        /// <summary>
+        /// On enable, grabs the initial value
+        /// </summary>
+        protected virtual void OnEnable()
+        {
+            InitialValue = GetInitialValue();
+            if (PropertyType == PropertyTypes.Color)
+            {
+                InitialColor = TargetMaterial.GetColor(PropertyID);
+            }
         }
 
         /// <summary>
@@ -246,6 +271,10 @@ namespace MoreMountains.Tools
             {
                 return true;
             }
+            if ((TargetType == TargetTypes.RawImage) && (TargetRawImage == null))
+            {
+                return true;
+            }
             if ((TargetType == TargetTypes.Text) && (TargetText == null))
             {
                 return true;
@@ -258,7 +287,7 @@ namespace MoreMountains.Tools
         /// </summary>
         public virtual void Initialization()
         {
-            if (RendererIsNull() || (TargetPropertyName == ""))
+            if (RendererIsNull() || (string.IsNullOrEmpty(TargetPropertyName)))
             {
                 return;
             }
@@ -274,13 +303,17 @@ namespace MoreMountains.Tools
             _randomFrequency = Random.Range(Frequency.x, Frequency.y);
             _randomShift = Random.Range(Shift.x, Shift.y);
 
-            GetInitialValue();
+            InitialValue = GetInitialValue();
+            if (PropertyType == PropertyTypes.Color)
+            {
+                InitialColor = TargetMaterial.GetColor(PropertyID);
+            }
                 
-            _oneTimeShaking = false;
+            _shaking = false;
         }
-        
+                
         /// <summary>
-        /// Triggers a one time shake of the float controller
+        /// Triggers a one time shake of the shader controller
         /// </summary>
         public virtual void OneTime()
         {
@@ -289,18 +322,44 @@ namespace MoreMountains.Tools
                 Initialization();
             }
 
-            if (RendererIsNull() || (!PropertyFound) || (!Active) || (ControlMode != ControlModes.OneTime))
-            {
-                return;
-            }
-            if (_oneTimeShaking || !Active)
+            if (RendererIsNull() || (!PropertyFound))
             {
                 return;
             }
             else
             {
-                _oneTimeStartedTimestamp = Time.time;
-                _oneTimeShaking = true;
+                this.enabled = true;
+                ControlMode = ControlModes.OneTime;
+                _startedTimestamp = Time.time;
+                _shaking = true;
+            }
+        }
+
+        /// <summary>
+        /// Triggers a one time shake of the controller to a specified destination value
+        /// </summary>
+        public virtual void ToDestination()
+        {
+            if (!CacheMaterial)
+            {
+                Initialization();
+            }
+            if (RendererIsNull() || (!PropertyFound))
+            {
+                return;
+            }
+            else
+            {
+                this.enabled = true;
+                if (PropertyType == PropertyTypes.Color)
+                {
+                    _fromColorStorage = FromColor;
+                    FromColor = TargetMaterial.GetColor(PropertyID);
+                }                
+                ControlMode = ControlModes.ToDestination;
+                _startedTimestamp = Time.time;
+                _shaking = true;
+                _initialValue = GetInitialValue();
             }
         }
 
@@ -327,7 +386,25 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void Update()
         {
-            if (RendererIsNull() || (!Active) || (!PropertyFound))
+            UpdateValue();
+        }
+
+        protected virtual void OnDisable()
+        {
+            if (RevertToInitialValueAfterEnd)
+            {
+                CurrentValue = InitialValue;
+                _currentColor = InitialColor;
+                SetValue(CurrentValue);
+            }
+        }
+
+        /// <summary>
+        /// Updates the value over time based on the selected options
+        /// </summary>
+        protected virtual void UpdateValue()
+        {
+            if (RendererIsNull() || (!PropertyFound))
             {
                 return;
             }
@@ -360,19 +437,26 @@ namespace MoreMountains.Tools
                     CurrentValue = (Mathf.PerlinNoise(_randomFrequency * _elapsedTime, _randomShift) * 2.0f - 1.0f) * _randomAmplitude;
                     break;
                 case ControlModes.OneTime:
-                    if (!_oneTimeShaking)
+                    if (!_shaking)
                     {
                         return;
                     }
-                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _oneTimeStartedTimestamp, 0f, OneTimeDuration, 0f, 1f);
-                    CurrentValue = OneTimeCurve.Evaluate(_remappedTimeSinceStart) * OneTimeAmplitude;
-                    if (AddToInitialValue)
-                    {
-                        CurrentValue += InitialValue;
-                    }
+                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _startedTimestamp, 0f, OneTimeDuration, 0f, 1f);
+                    CurrentValue = OneTimeCurve.Evaluate(_remappedTimeSinceStart);
+                    CurrentValue = MMMaths.Remap(CurrentValue, 0f, 1f, OneTimeRemapMin, OneTimeRemapMax);
+                    CurrentValue *= OneTimeAmplitude;
                     break;
                 case ControlModes.AudioAnalyzer:
                     CurrentValue = Mathf.Lerp(CurrentValue, AudioAnalyzer.Beats[BeatID].CurrentValue * AudioAnalyzerMultiplier + AudioAnalyzerOffset, AudioAnalyzerLerp * Time.deltaTime);
+                    break;
+                case ControlModes.ToDestination:
+                    if (!_shaking)
+                    {
+                        return;
+                    }
+                    _remappedTimeSinceStart = MMMaths.Remap(Time.time - _startedTimestamp, 0f, ToDestinationDuration, 0f, 1f);
+                    float time = ToDestinationCurve.Evaluate(_remappedTimeSinceStart);
+                    CurrentValue = Mathf.LerpUnclamped(_initialValue, ToDestinationValue, time);
                     break;
             }
 
@@ -386,13 +470,53 @@ namespace MoreMountains.Tools
                 CurrentValue += InitialValue;
             }
 
-            if (_oneTimeShaking && (Time.time - _oneTimeStartedTimestamp > OneTimeDuration))
+            if ((ControlMode == ControlModes.OneTime) && _shaking && (Time.time - _startedTimestamp > OneTimeDuration))
             {
-                _oneTimeShaking = false;
-                if (ResetValueAfterOneTime)
+                _shaking = false;
+                if (RevertToInitialValueAfterEnd)
                 {
                     CurrentValue = InitialValue;
+                    if (PropertyType == PropertyTypes.Color)
+                    {
+                        _currentColor = InitialColor;
+                    }
+                }
+                else
+                {
+                    CurrentValue = OneTimeCurve.Evaluate(1f);
+                    CurrentValue = MMMaths.Remap(CurrentValue, 0f, 1f, OneTimeRemapMin, OneTimeRemapMax);
+                    CurrentValue *= OneTimeAmplitude;
+                }
+                SetValue(CurrentValue);
+                if (DisableAfterOneTime)
+                {
+                    this.enabled = false;
                 }                
+                return;
+            }
+
+            if ((ControlMode == ControlModes.ToDestination) && _shaking && (Time.time - _startedTimestamp > ToDestinationDuration))
+            {
+                _shaking = false;
+                FromColor = _fromColorStorage;
+                if (RevertToInitialValueAfterEnd)
+                {
+                    CurrentValue = InitialValue;
+                    if (PropertyType == PropertyTypes.Color)
+                    {
+                        _currentColor = InitialColor;
+                    }
+                }
+                else
+                {
+                    CurrentValue = ToDestinationValue;
+                }
+                SetValue(CurrentValue);
+                if (DisableAfterToDestination)
+                {
+                    this.enabled = false;
+                }
+                return;
             }
 
             SetValue(CurrentValue);
@@ -401,34 +525,35 @@ namespace MoreMountains.Tools
         /// <summary>
         /// Grabs and stores the initial value
         /// </summary>
-        protected virtual void GetInitialValue()
+        protected virtual float GetInitialValue()
         {
             switch (PropertyType)
             {
                 case PropertyTypes.Bool:
-                    InitialValue = TargetMaterial.GetInt(PropertyID);
-                    break;
+                    return TargetMaterial.GetInt(PropertyID);                    
 
                 case PropertyTypes.Int:
-                    InitialValue = TargetMaterial.GetInt(PropertyID);
-                    break;
+                    return TargetMaterial.GetInt(PropertyID);
 
                 case PropertyTypes.Float:
-                    InitialValue = TargetMaterial.GetFloat(PropertyID);
-                    break;
+                    return TargetMaterial.GetFloat(PropertyID);
 
                 case PropertyTypes.Vector:
-                    InitialValue = TargetMaterial.GetVector(PropertyID).x;
-                    break;
+                    return TargetMaterial.GetVector(PropertyID).x;                    
 
                 case PropertyTypes.Keyword:
-                    InitialValue = TargetMaterial.IsKeywordEnabled(TargetPropertyName) ? 1f : 0f;
-                    break;
+                    return TargetMaterial.IsKeywordEnabled(TargetPropertyName) ? 1f : 0f;
 
                 case PropertyTypes.Color:
-                    InitialColor = TargetMaterial.GetColor(PropertyID);
-                    InitialValue = 0f;
-                    break;
+                    if (ControlMode != ControlModes.ToDestination)
+                    {
+                        InitialColor = TargetMaterial.GetColor(PropertyID);
+                    }                    
+                    return 0f;
+
+                default:
+                    return 0f;
+
             }
         }
 

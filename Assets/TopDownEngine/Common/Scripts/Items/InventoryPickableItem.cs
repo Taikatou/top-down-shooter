@@ -8,7 +8,8 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// An item picker that instantiates an effect and plays a sound on pick
     /// </summary>
-	public class InventoryPickableItem : ItemPicker 
+    [AddComponentMenu("TopDown Engine/Items/InventoryPickableItem")]
+    public class InventoryPickableItem : ItemPicker 
 	{
 		/// The effect to instantiate when the coin is hit
 		public GameObject Effect;

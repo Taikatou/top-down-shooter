@@ -19,7 +19,7 @@ namespace MoreMountains.Tools
 		/// <param name="type">Type.</param>
 		public static bool MMHasParameterOfType(this Animator self, string name, AnimatorControllerParameterType type)
         {
-            if (name == null || name == "") { return false; }
+            if (string.IsNullOrEmpty(name)) { return false; }
             AnimatorControllerParameter[] parameters = self.parameters;
             foreach (AnimatorControllerParameter currParam in parameters)
             {
@@ -41,7 +41,7 @@ namespace MoreMountains.Tools
         /// <param name="parameterList"></param>
         public static void AddAnimatorParameterIfExists(Animator animator, string parameterName, out int parameter, AnimatorControllerParameterType type, List<int> parameterList)
         {
-            if (parameterName == "")
+            if (string.IsNullOrEmpty(parameterName))
             {
                 parameter = -1;
                 return;

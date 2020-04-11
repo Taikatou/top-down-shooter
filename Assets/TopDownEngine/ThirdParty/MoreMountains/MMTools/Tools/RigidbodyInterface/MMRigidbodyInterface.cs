@@ -7,6 +7,7 @@ namespace MoreMountains.Tools
 	/// This class acts as an interface to allow the demo levels to work whether the environment (colliders, rigidbodies) are set as 2D or 3D.
 	/// If you already know for sure that you're going for a 2D or 3D game, I suggest you replace the use of this class with the appropriate classes.
 	/// </summary>
+    [AddComponentMenu("More Mountains/Tools/Rigidbody Interface/MMRigidbodyInterface")]
 	public class MMRigidbodyInterface : MonoBehaviour 
 	{	
 		/// <summary>

@@ -18,6 +18,7 @@ namespace MoreMountains.Tools
         protected SerializedProperty _MinValue;
         protected SerializedProperty _MaxValue;
         protected SerializedProperty _Duration;
+        protected SerializedProperty _PingPongPauseDuration;
 
         protected SerializedProperty _Amplitude;
         protected SerializedProperty _Frequency;
@@ -25,8 +26,17 @@ namespace MoreMountains.Tools
 
         protected SerializedProperty _OneTimeDuration;
         protected SerializedProperty _OneTimeAmplitude;
+        protected SerializedProperty _OneTimeRemapMin;
+        protected SerializedProperty _OneTimeRemapMax;
         protected SerializedProperty _OneTimeCurve;
+        protected SerializedProperty _DisableAfterOneTime;
         protected SerializedProperty _OneTimeButton;
+
+        protected SerializedProperty _ToDestinationValue;
+        protected SerializedProperty _ToDestinationDuration;
+        protected SerializedProperty _ToDestinationCurve;
+        protected SerializedProperty _DisableAfterToDestination;
+        protected SerializedProperty _ToDestinationButton;
 
         protected SerializedProperty _InitialValue;
         protected SerializedProperty _CurrentValue;
@@ -51,6 +61,7 @@ namespace MoreMountains.Tools
             _MinValue = serializedObject.FindProperty("MinValue");
             _MaxValue = serializedObject.FindProperty("MaxValue");
             _Duration = serializedObject.FindProperty("Duration");
+            _PingPongPauseDuration = serializedObject.FindProperty("PingPongPauseDuration");
 
             _Amplitude = serializedObject.FindProperty("Amplitude");
             _Frequency = serializedObject.FindProperty("Frequency");
@@ -58,8 +69,17 @@ namespace MoreMountains.Tools
 
             _OneTimeDuration = serializedObject.FindProperty("OneTimeDuration");
             _OneTimeAmplitude = serializedObject.FindProperty("OneTimeAmplitude");
+            _OneTimeRemapMin = serializedObject.FindProperty("OneTimeRemapMin");
+            _OneTimeRemapMax = serializedObject.FindProperty("OneTimeRemapMax");
             _OneTimeCurve = serializedObject.FindProperty("OneTimeCurve");
+            _DisableAfterOneTime = serializedObject.FindProperty("DisableAfterOneTime");
             _OneTimeButton = serializedObject.FindProperty("OneTimeButton");
+
+            _ToDestinationValue = serializedObject.FindProperty("ToDestinationValue");
+            _ToDestinationDuration = serializedObject.FindProperty("ToDestinationDuration");
+            _ToDestinationCurve = serializedObject.FindProperty("ToDestinationCurve");
+            _DisableAfterToDestination = serializedObject.FindProperty("DisableAfterToDestination");
+            _ToDestinationButton = serializedObject.FindProperty("ToDestinationButton");
 
             _InitialValue = serializedObject.FindProperty("InitialValue");
             _CurrentValue = serializedObject.FindProperty("CurrentValue");
@@ -154,9 +174,11 @@ namespace MoreMountains.Tools
                     EditorGUILayout.EndHorizontal();
 
                     Editor.DrawPropertiesExcluding(serializedObject, new string[] { "m_Script", "TargetObject", "Curve", "MinValue", "MaxValue", "Duration", "Amplitude",
-                                                                            "Frequency", "Shift", "InitialValue", "CurrentValue",
-                                                                            "OneTimeDuration", "OneTimeAmplitude", "OneTimeCurve", "OneTimeButton",
-                                                                            "AudioAnalyzer", "BeatID", "AudioAnalyzerMultiplier" });
+                                                                            "Frequency", "Shift", "InitialValue", "CurrentValue", "PingPongPauseDuration",
+                                                                            "OneTimeDuration", "OneTimeAmplitude", "OneTimeRemapMin", "OneTimeRemapMax",
+                                                                            "OneTimeCurve", "OneTimeButton", "DisableAfterOneTime",
+                                                                            "AudioAnalyzer", "BeatID", "AudioAnalyzerMultiplier", "DisableAfterToDestination",
+                                                                            "ToDestinationDuration", "ToDestinationValue", "ToDestinationCurve", "ToDestinationButton"});
 
                     if (myTarget.ControlMode == FloatController.ControlModes.PingPong)
                     {
@@ -164,6 +186,7 @@ namespace MoreMountains.Tools
                         EditorGUILayout.PropertyField(_MinValue);
                         EditorGUILayout.PropertyField(_MaxValue);
                         EditorGUILayout.PropertyField(_Duration);
+                        EditorGUILayout.PropertyField(_PingPongPauseDuration);
                     }
                     else if (myTarget.ControlMode == FloatController.ControlModes.Random)
                     {
@@ -175,7 +198,10 @@ namespace MoreMountains.Tools
                     {
                         EditorGUILayout.PropertyField(_OneTimeDuration);
                         EditorGUILayout.PropertyField(_OneTimeAmplitude);
+                        EditorGUILayout.PropertyField(_OneTimeRemapMin);
+                        EditorGUILayout.PropertyField(_OneTimeRemapMax);
                         EditorGUILayout.PropertyField(_OneTimeCurve);
+                        EditorGUILayout.PropertyField(_DisableAfterOneTime);
                         EditorGUILayout.PropertyField(_OneTimeButton);
                     }
                     else if (myTarget.ControlMode == FloatController.ControlModes.AudioAnalyzer)
@@ -183,6 +209,14 @@ namespace MoreMountains.Tools
                         EditorGUILayout.PropertyField(_AudioAnalyzer);
                         EditorGUILayout.PropertyField(_BeatID);
                         EditorGUILayout.PropertyField(_AudioAnalyzerMultiplier);
+                    }
+                    else if (myTarget.ControlMode == FloatController.ControlModes.ToDestination)
+                    {
+                        EditorGUILayout.PropertyField(_ToDestinationDuration);
+                        EditorGUILayout.PropertyField(_ToDestinationValue);
+                        EditorGUILayout.PropertyField(_ToDestinationCurve);
+                        EditorGUILayout.PropertyField(_DisableAfterToDestination);
+                        EditorGUILayout.PropertyField(_ToDestinationButton);
                     }
 
                     EditorGUILayout.PropertyField(_InitialValue);

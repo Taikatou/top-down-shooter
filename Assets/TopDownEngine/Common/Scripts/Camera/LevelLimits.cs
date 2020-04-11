@@ -3,10 +3,11 @@ using System.Collections;
 
 namespace MoreMountains.TopDownEngine
 {
-	/// <summary>
-	/// Add this class to a boxcollider to signify the bounds of your level
-	/// </summary>
-	public class LevelLimits : MonoBehaviour
+    /// <summary>
+    /// Add this class to a boxcollider to signify the bounds of your level
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Camera/LevelLimits")]
+    public class LevelLimits : MonoBehaviour
 	{
 	    /// left x coordinate
 	    public float LeftLimit;

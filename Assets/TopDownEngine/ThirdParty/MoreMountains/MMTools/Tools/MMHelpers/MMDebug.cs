@@ -133,7 +133,7 @@ namespace MoreMountains.Tools
 				Debug.DrawRay (rayOriginPoint, rayDirection * rayDistance, color);
 			}
 			RaycastHit hit;
-			Physics.Raycast(rayOriginPoint,rayDirection,out hit,rayDistance,mask);	
+			Physics.Raycast(rayOriginPoint, rayDirection, out hit, rayDistance, mask);	
 			return hit;
 		}
 
@@ -141,21 +141,33 @@ namespace MoreMountains.Tools
 		/// Outputs the message object to the console, prefixed with the current timestamp
 		/// </summary>
 		/// <param name="message">Message.</param>
-		public static void DebugLogTime(object message, string color="")
+		public static void DebugLogTime(object message, string color="", int timePrecision = 3, bool displayFrameCount = true)
 		{
             if (!DebugLogsEnabled)
             {
                 return;
             }
 
+            // colors
 			string colorPrefix = "";
 			string colorSuffix = "";
-			if (color != "")
+			if (!string.IsNullOrEmpty(color))
 			{
 				colorPrefix = "<color="+color+">";
 				colorSuffix = "</color>";
 			}
-			Debug.Log (colorPrefix + Time.time + " " + message + colorSuffix);
+
+            // build output
+            string output = "";
+            if (displayFrameCount)
+            {
+                output += "<color=#82d3f9>[" + Time.frameCount + "]</color> ";
+            }
+            output += "<color=#f9a682>[" + MMTime.FloatToTimeString(Time.time, false, true, true, true) + "]</color> ";
+            output += colorPrefix + message + colorSuffix;
+
+            // output
+            Debug.Log (output);
 		}
 
 		/// <summary>

@@ -12,13 +12,22 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("GameObject/Animation")]
     public class MMFeedbackAnimation : MMFeedback
     {
+        /// the possible modes that pilot triggers
+        public enum TriggerModes { SetTrigger, ResetTrigger }
+
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.GameObjectColor; } }
+
         [Header("Animation")]
         /// the animator whose parameters you want to update
         public Animator BoundAnimator;
         
         [Header("Trigger")]
         /// if this is true, will update the specified trigger parameter
-        public bool UpdateTrigger = false;        
+        public bool UpdateTrigger = false;
+        /// the selected mode to interact with this trigger
+        [MMFCondition("UpdateTrigger", true)]
+        public TriggerModes TriggerMode = TriggerModes.SetTrigger;
         /// the trigger animator parameter to, well, trigger when the feedback is played
         [MMFCondition("UpdateTrigger", true)]
         public string TriggerParameterName;
@@ -29,7 +38,7 @@ namespace MoreMountains.Feedbacks
         /// the bool parameter to turn true when the feedback gets played
         [MMFCondition("UpdateBool", true)]
         public string BoolParameterName;
-
+        
         protected int _triggerParameter;
         protected int _boolParameter;
         
@@ -61,7 +70,14 @@ namespace MoreMountains.Feedbacks
 
                 if (UpdateTrigger)
                 {
-                    BoundAnimator.SetTrigger(_triggerParameter);
+                    if (TriggerMode == TriggerModes.SetTrigger)
+                    {
+                        BoundAnimator.SetTrigger(_triggerParameter);
+                    }
+                    if (TriggerMode == TriggerModes.ResetTrigger)
+                    {
+                        BoundAnimator.ResetTrigger(_triggerParameter);
+                    }
                 }
 
                 if (UpdateBool)

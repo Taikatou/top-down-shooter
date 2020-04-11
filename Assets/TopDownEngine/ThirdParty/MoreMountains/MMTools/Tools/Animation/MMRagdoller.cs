@@ -18,6 +18,7 @@ namespace MoreMountains.Tools
     /// Use this class to pilot a ragdoll on a character that is usually driven by an animator and have it fall elegantly
     /// If you have parts of your ragdoll that you don't want to be affected by this script (a weapon for example), just add a MMRagdollerIgnore component to them
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Animation/MMRagdoller")]
     public class MMRagdoller : MonoBehaviour
     {
         /// <summary>
@@ -167,7 +168,7 @@ namespace MoreMountains.Tools
             }
 
             // we store our animator
-            _animator = GetComponent<Animator>();
+            _animator = this.gameObject.GetComponent<Animator>();
             RegisterAnimatorParameters();
         }
 

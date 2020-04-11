@@ -37,7 +37,7 @@ namespace MoreMountains.TopDownEngine
             }
             PlayAbilityStartFeedbacks();
             // we trigger a Pause event for the GameManager and other classes that could be listening to it too
-            TopDownEngineEvent.Trigger(TopDownEngineEventTypes.Pause, null);
+            TopDownEngineEvent.Trigger(TopDownEngineEventTypes.TogglePause, null);
         }
 
         /// <summary>

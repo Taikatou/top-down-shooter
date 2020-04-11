@@ -4,10 +4,11 @@ using System.Collections;
 using System;
 
 namespace MoreMountains.Tools
-{ 
+{
     /// <summary>
     /// Add this class to a UI object to have it act as a raycast target without needing an Image component
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/GUI/MMRaycastTarget")]
     public class MMRaycastTarget : Graphic
     {
         public override void SetVerticesDirty() { return; }

@@ -12,11 +12,33 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("GameObject/Instantiate Object")]
     public class MMFeedbackInstantiateObject : MMFeedback
     {
+        /// the different ways to position the instantiated object :
+        /// - FeedbackPosition : object will be instantiated at the position of the feedback, plus an optional offset
+        /// - Transform : the object will be instantiated at the specified Transform's position, plus an optional offset
+        /// - WorldPosition : the object will be instantiated at the specified world position vector, plus an optional offset
+        /// - Script : the position passed in parameters when calling the feedback
+        public enum PositionModes { FeedbackPosition, Transform, WorldPosition, Script }
+
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.GameObjectColor; } }
+
         [Header("Instantiate Object")]
         /// the vfx object to instantiate
-        public GameObject VfxToInstantiate; 
+        public GameObject VfxToInstantiate;
+
+        [Header("Position")]
+        /// the chosen way to position the object 
+        public PositionModes PositionMode = PositionModes.FeedbackPosition;
+        /// the transform at which to instantiate the object
+        [MMFEnumCondition("PositionMode", (int)PositionModes.Transform)]
+        public Transform TargetTransform;
+        /// the transform at which to instantiate the object
+        [MMFEnumCondition("PositionMode", (int)PositionModes.WorldPosition)]
+        public Vector3 TargetPosition;
         /// the position offset at which to instantiate the vfx object
         public Vector3 VfxPositionOffset;
+
+        [Header("Object Pool")]
         /// whether or not we should create automatically an object pool for this vfx
         public bool VfxCreateObjectPool;
         /// the initial and planned size of this object pool
@@ -64,15 +86,32 @@ namespace MoreMountains.Feedbacks
                     _newGameObject = _objectPool.GetPooledGameObject();
                     if (_newGameObject != null)
                     {
-                        _newGameObject.transform.position = position + VfxPositionOffset;
+                        _newGameObject.transform.position = GetPosition(position);
                         _newGameObject.SetActive(true);
                     }
                 }
                 else
                 {
                     _newGameObject = GameObject.Instantiate(VfxToInstantiate) as GameObject;
-                    _newGameObject.transform.position = position + VfxPositionOffset;
+                    _newGameObject.transform.position = GetPosition(position);
                 }
+            }
+        }
+
+        protected virtual Vector3 GetPosition(Vector3 position)
+        {
+            switch (PositionMode)
+            {
+                case PositionModes.FeedbackPosition:
+                    return this.transform.position + VfxPositionOffset;
+                case PositionModes.Transform:
+                    return TargetTransform.position + VfxPositionOffset;
+                case PositionModes.WorldPosition:
+                    return TargetPosition + VfxPositionOffset;
+                case PositionModes.Script:
+                    return position + VfxPositionOffset;
+                default:
+                    return position + VfxPositionOffset;
             }
         }
     }

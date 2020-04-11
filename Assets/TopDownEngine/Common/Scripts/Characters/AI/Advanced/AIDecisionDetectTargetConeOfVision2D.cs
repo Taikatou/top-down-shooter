@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This Decision will return true if its MMConeOfVision has detected at least one target, and will set it as the Brain's target
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Decisions/AIDecisionDetectTargetConeOfVision2D")]
     [RequireComponent(typeof(MMConeOfVision2D))]
     public class AIDecisionDetectTargetConeOfVision2D : AIDecision
     {

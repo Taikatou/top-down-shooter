@@ -22,6 +22,9 @@ namespace MoreMountains.Feedbacks
         static readonly Color _reorderlight = new Color(0.1f, 0.1f, 0.1f, 0.2f);
         public static Color Reorder { get { return EditorGUIUtility.isProSkin ? _reorderdark : _reorderlight; } }
 
+        static readonly Color _timingDark = new Color(1f, 1f, 1f, 0.5f);
+        static readonly Color _timingLight = new Color(0f, 0f, 0f, 0.5f);
+        
         static readonly Texture2D _paneoptionsicondark;
         static readonly Texture2D _paneoptionsiconlight;
         public static Texture2D PaneOptionsIcon { get { return EditorGUIUtility.isProSkin ? _paneoptionsicondark : _paneoptionsiconlight; } }
@@ -31,6 +34,8 @@ namespace MoreMountains.Feedbacks
             _paneoptionsicondark = (Texture2D)EditorGUIUtility.Load("Builtin Skins/DarkSkin/Images/pane options.png");
             _paneoptionsiconlight = (Texture2D)EditorGUIUtility.Load("Builtin Skins/LightSkin/Images/pane options.png");
         }
+
+        private static GUIStyle _timingStyle = new GUIStyle();
 
         /// <summary>
         /// Simply drow a splitter line and a title bellow
@@ -99,7 +104,7 @@ namespace MoreMountains.Feedbacks
 
             var menuIcon = PaneOptionsIcon;
             var menuRect = new Rect(labelRect.xMax + 4f, labelRect.y + 4f, menuIcon.width, menuIcon.height);
-
+            
             // Background rect should be full-width
             backgroundRect.xMin = 0f;
             backgroundRect.width += 4f;
@@ -133,13 +138,15 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Draw a header similar to the one used for the post-process stack
         /// </summary>
-        static public Rect DrawHeader(ref bool expanded, ref bool activeField, string title, System.Action<GenericMenu> fillGenericMenu)
+        static public Rect DrawHeader(ref bool expanded, ref bool activeField, string title, Color feedbackColor, System.Action<GenericMenu> fillGenericMenu, 
+            float startedAt, float duration, MMFeedbackTiming timing, bool pause)
         {
             var e = Event.current;
 
             // Initialize Rects
-
             var backgroundRect = GUILayoutUtility.GetRect(1f, 17f);
+
+            var progressRect = GUILayoutUtility.GetRect(1f, 2f);
 
             var offset = 4f;
 
@@ -169,13 +176,33 @@ namespace MoreMountains.Feedbacks
             var menuIcon = PaneOptionsIcon;
             var menuRect = new Rect(labelRect.xMax + 4f, labelRect.y + 4f, menuIcon.width, menuIcon.height);
 
+            _timingStyle.normal.textColor = EditorGUIUtility.isProSkin ? _timingDark : _timingLight;
+            _timingStyle.alignment = TextAnchor.MiddleRight;
+
+            var colorRect = new Rect(labelRect.xMin, labelRect.yMin, 5f, 17f);
+            colorRect.xMin = 0f;
+            colorRect.xMax = 5f;
+            EditorGUI.DrawRect(colorRect, feedbackColor);
+
             // Background rect should be full-width
             backgroundRect.xMin = 0f;
             backgroundRect.width += 4f;
 
-            // Background
-            EditorGUI.DrawRect(backgroundRect, HeaderBackground);
+            progressRect.xMin = 0f;
+            progressRect.width += 4f;
 
+            Color headerBackgroundColor = Color.white;
+            // Background - if color is white we draw the default color
+            if (!pause)
+            {
+                headerBackgroundColor = HeaderBackground;
+            }
+            else
+            {
+                headerBackgroundColor = feedbackColor;
+            }
+            EditorGUI.DrawRect(backgroundRect, headerBackgroundColor);
+            
             // Foldout
             expanded = GUI.Toggle(foldoutRect, expanded, GUIContent.none, EditorStyles.foldout);
 
@@ -183,6 +210,73 @@ namespace MoreMountains.Feedbacks
             using (new EditorGUI.DisabledScope(!activeField))
             {
                 EditorGUI.LabelField(labelRect, title, EditorStyles.boldLabel);
+            }
+            
+            float timingRectWidth = 150f;
+
+
+            //string fullTimingInfo = "[ ";
+            float totalTime = 0f;
+
+            if (timing.InitialDelay != 0)
+            {
+                //fullTimingInfo += timing.InitialDelay.ToString() + "s + ";
+                totalTime += timing.InitialDelay;
+            }
+            
+            //fullTimingInfo += duration.ToString("F2") + "s";
+            totalTime += duration;
+
+            if (timing.NumberOfRepeats != 0)
+            {
+                totalTime += timing.NumberOfRepeats * (duration + timing.DelayBetweenRepeats);
+
+                /*fullTimingInfo += " + "+ timing.NumberOfRepeats.ToString() + " x ";
+                if (timing.DelayBetweenRepeats > 0)
+                {
+                    fullTimingInfo += "(";
+                }
+                fullTimingInfo += duration + "s";
+                if (timing.DelayBetweenRepeats > 0)
+                {
+                    fullTimingInfo += " + " + timing.DelayBetweenRepeats + "s )";
+                }*/
+            }
+
+            //fullTimingInfo += " ]";
+
+            string timingInfo = "[ " + totalTime.ToString("F2") + "s ]";
+
+            //"[ 2s + 3 x (4s + 1s) ]"
+
+            var timingRect = new Rect(labelRect.xMax - timingRectWidth, labelRect.yMin, timingRectWidth, 17f);
+            timingRect.xMin = labelRect.xMax - timingRectWidth;
+            timingRect.xMax = labelRect.xMax;
+            EditorGUI.LabelField(timingRect, timingInfo, _timingStyle);
+
+
+
+            // Progress bar
+            if (duration == 0f)
+            {
+                duration = 0.1f;
+            }
+            if ((startedAt > 0f) && (Time.time - startedAt < duration + 0.05f))
+            {
+                float fullWidth = progressRect.width;
+                if (duration == 0f) { duration = 0.1f; }
+                float percent = ((Time.time - startedAt) / duration) * 100f;
+                progressRect.width = percent * fullWidth / 100f;
+                Color barColor = Color.white;
+                if (Time.time - startedAt > duration)
+                {
+                    barColor = Color.yellow;
+                }
+                EditorGUI.DrawRect(progressRect, barColor);
+            }
+            else
+            {
+                EditorGUI.DrawRect(progressRect, headerBackgroundColor);
             }
 
             // Active checkbox
@@ -198,6 +292,7 @@ namespace MoreMountains.Feedbacks
                 r.y = reorderRect.y + reorderRect.height * (i / 3.0f);
                 EditorGUI.DrawRect(r, Reorder);
             }
+
 
             // Handle events
 

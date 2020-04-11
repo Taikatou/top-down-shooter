@@ -15,7 +15,7 @@ namespace MoreMountains.Feedbacks
         protected MMSequencer _targetSequencer;
         protected float _inspectorWidth;
         protected GUIStyle _buttonStyle;
-        protected GUIStyle _dotStyle;
+        protected GUIStyle _trackControlStyle;
         protected GUIStyle _indexStyle;
         protected Texture2D _buttonBackground;
         protected Texture2D _dotBackground;
@@ -24,9 +24,9 @@ namespace MoreMountains.Feedbacks
 
         protected Color _emptyButtonColor = new Color(0,0,0,0.5f);
         protected Color _empty4ButtonColor = new Color(0, 0, 0, 0.75f);
-        protected const float _buttonWidth = 32;
-        protected const float _trackControlWidth = 14;
-        protected const float _distanceBetweenButtons = 8f;
+        protected const float _buttonWidth = 24;
+        protected const float _trackControlWidth = 11;
+        protected const float _distanceBetweenButtons = 6f;
         protected int _boxesPerLine;
         protected Color _originalBackgroundColor;
         protected Color _controlColor;
@@ -57,14 +57,14 @@ namespace MoreMountains.Feedbacks
             _buttonStyle.fixedWidth = _buttonWidth;
             _buttonStyle.fixedHeight = _buttonWidth;
 
-            _dotStyle = new GUIStyle();
-            _dotStyle.normal.background = _dotBackground;
-            _dotStyle.normal.textColor = (Application.isPlaying) ? Color.black : Color.white;
-            _dotStyle.fixedWidth = _trackControlWidth;
-            _dotStyle.fixedHeight = _trackControlWidth;            
-            _dotStyle.margin = new RectOffset(0, 0, 0, 0);
-            _dotStyle.alignment = TextAnchor.MiddleCenter;
-            _dotStyle.fontSize = 10;
+            _trackControlStyle = new GUIStyle();
+            _trackControlStyle.normal.background = _dotBackground;
+            _trackControlStyle.normal.textColor = (Application.isPlaying) ? Color.black : Color.white;
+            _trackControlStyle.fixedWidth = _trackControlWidth;
+            _trackControlStyle.fixedHeight = _trackControlWidth;            
+            _trackControlStyle.margin = new RectOffset(0, 0, 1, 0);
+            _trackControlStyle.alignment = TextAnchor.MiddleCenter;
+            _trackControlStyle.fontSize = 10;
 
 
             _indexStyle = new GUIStyle();
@@ -132,19 +132,18 @@ namespace MoreMountains.Feedbacks
                 _targetSequencer.ClearSequence();
                 EditorUtility.SetDirty(_targetSequencer.Sequence);
             }
-            if (GUILayout.Button("[ - ] Reduce length by one", EditorStyles.miniButtonMid))
+            if (GUILayout.Button("[ - ] Length - 1", EditorStyles.miniButtonMid))
             {
                 _targetSequencer.DecrementLength();
                 EditorUtility.SetDirty(_targetSequencer.Sequence);
             }
-            if (GUILayout.Button("[ + ] Increase length by one", EditorStyles.miniButtonRight))
+            if (GUILayout.Button("[ + ] Length + 1", EditorStyles.miniButtonRight))
             {
                 _targetSequencer.IncrementLength();
                 EditorUtility.SetDirty(_targetSequencer.Sequence);
             }
             EditorGUILayout.EndHorizontal();
-
-
+            
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             DrawSequenceIndexes();
@@ -248,7 +247,7 @@ namespace MoreMountains.Feedbacks
             for (int i = 0; i < _targetSequencer.SequencerLength; i++)
             {
                 label = i < 10 ? " " + i.ToString() : i.ToString();
-                _dotStyle.fontStyle = (i % 4 == 0) ? FontStyle.Bold : FontStyle.Normal;
+                _trackControlStyle.fontStyle = (i % 4 == 0) ? FontStyle.Bold : FontStyle.Normal;
                 //GUILayout.Label(label, _indexStyle, GUILayout.Width(_buttonWidth + _distanceBetweenButtons), GUILayout.Height(_trackControlWidth));
                 if (GUILayout.Button(label, _indexStyle, GUILayout.Width(_buttonWidth + _distanceBetweenButtons), GUILayout.Height(_trackControlWidth)))
                 {
@@ -296,7 +295,7 @@ namespace MoreMountains.Feedbacks
             }
 
             GUI.backgroundColor = _trackControlColor;
-            if (GUILayout.Button("", _dotStyle, GUILayout.Width(_trackControlWidth), GUILayout.Height(_trackControlWidth)))
+            if (GUILayout.Button("", _trackControlStyle, GUILayout.Width(_trackControlWidth), GUILayout.Height(_trackControlWidth)))
             {
                 if (_targetSequencer.TrackEvents[trackIndex] != null)
                 {
@@ -311,7 +310,7 @@ namespace MoreMountains.Feedbacks
             _trackControlColor = _targetSequencer.Sequence.SequenceTracks[trackIndex].TrackColor;
             _controlColor = Application.isPlaying ? SequencerColor(_trackControlLastUseTimestamps[trackIndex], _trackControlColor) : Color.black;
             GUI.backgroundColor = _controlColor;
-            if (GUILayout.Button(trackIndex.ToString(), _dotStyle, GUILayout.Width(_trackControlWidth), GUILayout.Height(_trackControlWidth)))
+            if (GUILayout.Button(trackIndex.ToString(), _trackControlStyle, GUILayout.Width(_trackControlWidth), GUILayout.Height(_trackControlWidth)))
             {
                 if (_targetSequencer.TrackEvents[trackIndex] != null)
                 {

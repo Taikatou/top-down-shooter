@@ -6,6 +6,7 @@ using MoreMountains.Tools;
 
 namespace MoreMountains.Tools
 {
+    [AddComponentMenu("More Mountains/Tools/Activation/MMConditionalActivation")]
     public class MMConditionalActivation : MonoBehaviour
     {
         public MonoBehaviour[] EnableThese;

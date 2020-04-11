@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This action forces the character to crouch if it can
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionCrouchStart")]
     public class AIActionCrouchStart : AIAction
     {
         protected CharacterCrouch _characterCrouch;

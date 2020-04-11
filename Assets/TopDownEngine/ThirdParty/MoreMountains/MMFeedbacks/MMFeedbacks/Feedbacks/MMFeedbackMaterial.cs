@@ -6,9 +6,12 @@ namespace MoreMountains.Feedbacks
 {
     [AddComponentMenu("")]
     [FeedbackHelp("This feedback will let you change the material of the target renderer everytime it's played.")]
-    [FeedbackPath("GameObject/Material")]
+    [FeedbackPath("Renderer/Material")]
     public class MMFeedbackMaterial : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.RendererColor; } }
+
         public enum Methods { Sequential, Random }
 
         [Header("Material")]

@@ -4,15 +4,18 @@ using MoreMountains.Tools;
 using UnityEngine.UI;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// A class that combines a progress bar and a text display
-	/// and that can be used to display the current ammo level of a weapon
-	/// </summary>
-	public class AmmoDisplay : MMProgressBar 
+{
+    /// <summary>
+    /// A class that combines a progress bar and a text display
+    /// and that can be used to display the current ammo level of a weapon
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/GUI/AmmoDisplay")]
+    public class AmmoDisplay : MMProgressBar 
 	{
-		/// the Text object used to display the current ammo numbers
-		public Text TextDisplay;
+        /// the ID of the AmmoDisplay 
+        public int AmmoDisplayID = 0;
+        /// the Text object used to display the current ammo numbers
+        public Text TextDisplay;
 
 		/// <summary>
 		/// Updates the text display with the parameter string

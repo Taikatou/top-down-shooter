@@ -32,6 +32,7 @@ namespace MoreMountains.Feedbacks
     /// <summary>
     /// Add this class to a GameObject to make it blink, either by enabling/disabling a gameobject, changing its alpha, emission intensity, or a value on a shader)
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/Various/MMBlink")]
     public class MMBlink : MonoBehaviour
     {
         /// the possible methods to blink an object
@@ -67,7 +68,7 @@ namespace MoreMountains.Feedbacks
 
 
         [Header("Sequence")]
-        /// how many times the sequence should repeat (0 : infinite)
+        /// how many times the sequence should repeat (-1 : infinite)
         public int RepeatCount = 0;
         /// The list of phases to apply blinking with
         public List<BlinkPhase> Phases;
@@ -232,7 +233,7 @@ namespace MoreMountains.Feedbacks
             if (CurrentPhaseIndex > Phases.Count -1)
             {
                 CurrentPhaseIndex = 0;
-                if (RepeatCount != 0)
+                if (RepeatCount != -1)
                 {
                     _repeatCount--;
                     if (_repeatCount < 0)

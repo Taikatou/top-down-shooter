@@ -11,6 +11,7 @@ namespace MoreMountains.TopDownEngine
     /// Each character in your scene will need to have a CharacterSwap class on it, and the corresponding PlayerID.
     /// You can see an example of such a setup in the MinimalCharacterSwap demo scene
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Managers/CharacterSwapManager")]
     public class CharacterSwapManager : MonoBehaviour
     {
         /// the name of the axis to use to catch input and trigger a swap on press

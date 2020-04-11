@@ -8,7 +8,7 @@ namespace MoreMountains.Tools
     /// </summary>
     public struct MMPostProcessingMovingFilterEvent
     {
-        public delegate void Delegate(MMTween.MMTweenCurve curve, bool active, bool toggle, float duration, int channel = 0);
+        public delegate void Delegate(MMTweenType curve, bool active, bool toggle, float duration, int channel = 0);
         static private event Delegate OnEvent;
 
         static public void Register(Delegate callback)
@@ -21,7 +21,7 @@ namespace MoreMountains.Tools
             OnEvent -= callback;
         }
 
-        static public void Trigger(MMTween.MMTweenCurve curve, bool active, bool toggle, float duration, int channel = 0)
+        static public void Trigger(MMTweenType curve, bool active, bool toggle, float duration, int channel = 0)
         {
             OnEvent?.Invoke(curve, active, toggle, duration, channel);
         }
@@ -38,6 +38,7 @@ namespace MoreMountains.Tools
     /// MMPostProcessingMovingFilterEvent.Trigger(MMTween.MMTweenCurve.EaseInOutCubic, TrueOrFalse, Duration, ChannelID);
     /// 
     /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Camera/MMPostProcessingMovingFilter")]
     public class MMPostProcessingMovingFilter : MonoBehaviour
     {
         public enum TimeScales { Unscaled, Scaled }
@@ -48,13 +49,15 @@ namespace MoreMountains.Tools
         /// whether this should use scaled or unscaled time
         public TimeScales TimeScale = TimeScales.Unscaled;
         /// the curve to use for this movement
-        public MMTween.MMTweenCurve Curve = MMTween.MMTweenCurve.EaseInCubic;
+        public MMTweenType Curve = new MMTweenType(MMTween.MMTweenCurve.EaseInCubic);
         /// whether the filter is active at start or not
         public bool Active = false;
 
         [MMVector("On","Off")]
         /// the vertical offsets to apply when the filter is on or off
         public Vector2 FilterOffset = new Vector2(0f, 5f);
+        /// whether or not to add the initial position
+        public bool AddToInitialPosition = true;
 
         [Header("Tests")]
         /// the duration to apply to the test methods
@@ -90,9 +93,17 @@ namespace MoreMountains.Tools
         {
             _lastMovementStartedAt = 0f;
 
-            _initialPosition = this.transform.localPosition;
+            if (AddToInitialPosition)
+            {
+                _initialPosition = this.transform.localPosition;
+            }
+            else
+            {
+                _initialPosition = Vector3.zero;
+            }
+            
             _newPosition = _initialPosition;
-            _newPosition.y = Active ? _initialPosition.y + FilterOffset.x : _initialPosition.y + FilterOffset.y;
+            _newPosition.y = Active ? _initialPosition.y + FilterOffset.x : _initialPosition.y + FilterOffset.y;            
             this.transform.localPosition = _newPosition;
             _lastReachedState = Active;
         }
@@ -142,7 +153,7 @@ namespace MoreMountains.Tools
         /// <param name="active"></param>
         /// <param name="duration"></param>
         /// <param name="channel"></param>
-        public virtual void OnMMPostProcessingMovingFilterEvent(MMTween.MMTweenCurve curve, bool active, bool toggle, float duration, int channel = 0)
+        public virtual void OnMMPostProcessingMovingFilterEvent(MMTweenType curve, bool active, bool toggle, float duration, int channel = 0)
         {
             if ((channel != Channel) && (channel != -1) && (Channel != -1))
             {
@@ -187,14 +198,14 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void PostProcessingToggle()
         {
-            MMPostProcessingMovingFilterEvent.Trigger(MMTween.MMTweenCurve.EaseInOutCubic, false, true, TestDuration, 0);
+            MMPostProcessingMovingFilterEvent.Trigger(new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic), false, true, TestDuration, 0);
         }
         /// <summary>
         /// Turns the post processing effect off
         /// </summary>
         protected virtual void PostProcessingTriggerOff()
         {
-            MMPostProcessingMovingFilterEvent.Trigger(MMTween.MMTweenCurve.EaseInOutCubic, false, false, TestDuration, 0);
+            MMPostProcessingMovingFilterEvent.Trigger(new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic), false, false, TestDuration, 0);
         }
 
         /// <summary>
@@ -202,7 +213,7 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void PostProcessingTriggerOn()
         {
-            MMPostProcessingMovingFilterEvent.Trigger(MMTween.MMTweenCurve.EaseInOutCubic, true, false, TestDuration, 0);
+            MMPostProcessingMovingFilterEvent.Trigger(new MMTweenType(MMTween.MMTweenCurve.EaseInOutCubic), true, false, TestDuration, 0);
         }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	[AddComponentMenu("TopDown Engine/Environment/Surface Modifier")]
+{
     /// <summary>
     /// Add this component to a platform and define its new friction or force which will be applied to any TopDownController that walks on it
     /// TODO, still work in progress
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Environment/Surface Modifier")]
     public class SurfaceModifier : MonoBehaviour 
 	{
 		[Header("Friction")]

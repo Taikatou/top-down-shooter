@@ -7,7 +7,8 @@ using UnityEngine.Events;
 
 namespace MoreMountains.Tools
 {
-	public class MMTriggerAndCollision : MonoBehaviour 
+    [AddComponentMenu("More Mountains/Tools/Activation/MMTriggerAndCollision")]
+    public class MMTriggerAndCollision : MonoBehaviour 
 	{
 		public LayerMask CollisionLayerMask;
 		public UnityEvent OnCollisionEnterEvent;

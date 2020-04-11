@@ -13,6 +13,17 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Particles/Particles Instantiation")]
     public class MMFeedbackParticlesInstantiation : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.ParticlesColor; } }
+        /// the different ways to position the instantiated object :
+        /// - FeedbackPosition : object will be instantiated at the position of the feedback, plus an optional offset
+        /// - Transform : the object will be instantiated at the specified Transform's position, plus an optional offset
+        /// - WorldPosition : the object will be instantiated at the specified world position vector, plus an optional offset
+        /// - Script : the position passed in parameters when calling the feedback
+        public enum PositionModes { FeedbackPosition, Transform, WorldPosition, Script }
+        /// the possible delivery modes
+        /// - cached : will cache a copy of the particle system and reuse it
+        /// - on demand : will instantiate a new particle system for every play
         public enum Modes { Cached, OnDemand }
 
         [Header("Particles Instantiation")]
@@ -23,9 +34,19 @@ namespace MoreMountains.Feedbacks
         public bool CachedRecycle = true;
         /// the particle system to spawn
         public ParticleSystem ParticlesPrefab;
+
+        [Header("Position")]
+        /// the selected position mode
+        public PositionModes PositionMode = PositionModes.FeedbackPosition;
         /// the position at which to spawn this particle system
+        [MMFEnumCondition("PositionMode", (int)PositionModes.Transform)]
         public Transform InstantiateParticlesPosition;
+        [MMFEnumCondition("PositionMode", (int)PositionModes.WorldPosition)]
+        public Vector3 TargetWorldPosition;
+        /// an offset to apply to the instantiation position
+        public Vector3 Offset;
         /// whether or not the particle system should be nested in hierarchy or floating on its own
+        [MMFEnumCondition("PositionMode", (int)PositionModes.Transform, (int)PositionModes.FeedbackPosition)]
         public bool NestParticles = true;
 
         protected ParticleSystem _instantiatedParticleSystem;
@@ -41,7 +62,7 @@ namespace MoreMountains.Feedbacks
                 if (Mode == Modes.Cached)
                 {
                     InstantiateParticleSystem();
-                }                
+                }
             }
         }
 
@@ -49,7 +70,7 @@ namespace MoreMountains.Feedbacks
         {
             if ((Mode == Modes.OnDemand) && (!CachedRecycle))
             {
-
+                //do nothing
             }
             else
             {
@@ -57,7 +78,7 @@ namespace MoreMountains.Feedbacks
                 {
                     Destroy(_instantiatedParticleSystem.gameObject);
                 }
-            }            
+            }
 
             _instantiatedParticleSystem = GameObject.Instantiate(ParticlesPrefab) as ParticleSystem;
             _instantiatedParticleSystem.Stop();
@@ -70,21 +91,35 @@ namespace MoreMountains.Feedbacks
                 }
             }
 
-            if (InstantiateParticlesPosition)
+            if (NestParticles)
             {
-                _instantiatedParticleSystem.gameObject.transform.position = InstantiateParticlesPosition.transform.position;
-                if (NestParticles)
+                if (PositionMode == PositionModes.FeedbackPosition)
+                {
+                    _instantiatedParticleSystem.transform.SetParent(this.transform);
+                }
+                if (PositionMode == PositionModes.Transform)
                 {
                     _instantiatedParticleSystem.transform.SetParent(InstantiateParticlesPosition);
                 }
             }
-            else
+            _instantiatedParticleSystem.transform.position = GetPosition(this.transform.position);
+            _instantiatedParticleSystem.Clear();
+        }
+
+        protected virtual Vector3 GetPosition(Vector3 position)
+        {
+            switch (PositionMode)
             {
-                _instantiatedParticleSystem.gameObject.transform.position = this.transform.position;
-                if (NestParticles)
-                {
-                    this.transform.SetParent(InstantiateParticlesPosition);
-                }
+                case PositionModes.FeedbackPosition:
+                    return this.transform.position + Offset;
+                case PositionModes.Transform:
+                    return InstantiateParticlesPosition.position + Offset;
+                case PositionModes.WorldPosition:
+                    return TargetWorldPosition + Offset;
+                case PositionModes.Script:
+                    return position + Offset;
+                default:
+                    return position + Offset;
             }
         }
 
@@ -104,6 +139,13 @@ namespace MoreMountains.Feedbacks
             {
                 InstantiateParticleSystem();
             }
+
+            if (_instantiatedParticleSystem != null)
+            {
+                _instantiatedParticleSystem?.Stop();
+            }
+
+            _instantiatedParticleSystem.transform.position = GetPosition(position);                        
             _instantiatedParticleSystem?.Play();
         }
 
@@ -118,8 +160,10 @@ namespace MoreMountains.Feedbacks
             {
                 return;
             }
-
-            _instantiatedParticleSystem?.Stop();
+            if (_instantiatedParticleSystem != null)
+            {
+                _instantiatedParticleSystem?.Stop();
+            }            
         }
 
         /// <summary>
@@ -134,7 +178,10 @@ namespace MoreMountains.Feedbacks
                 return;
             }
 
-            _instantiatedParticleSystem?.Stop();
+            if (_instantiatedParticleSystem != null)
+            {
+                _instantiatedParticleSystem?.Stop();
+            }            
         }
     }
 }

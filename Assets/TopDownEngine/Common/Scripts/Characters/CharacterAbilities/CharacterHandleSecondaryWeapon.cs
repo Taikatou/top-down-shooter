@@ -19,14 +19,14 @@ namespace MoreMountains.TopDownEngine
         protected override void HandleInput()
         {
 
-            if ((_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.ButtonDown) || (_inputManager.SecondaryShootAxis == MMInput.ButtonStates.ButtonDown))
+            if ((_inputManager.SecondaryShootButton.State.CurrentState == MMInput.ButtonStates.ButtonDown) || (_inputManager.SecondaryShootAxis == MMInput.ButtonStates.ButtonDown))
             {
                 ShootStart();
             }
 
             if (CurrentWeapon != null)
             {
-                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.ButtonPressed))
+                if (ContinuousPress && (CurrentWeapon.TriggerMode == Weapon.TriggerModes.Auto) && (_inputManager.SecondaryShootButton.State.CurrentState == MMInput.ButtonStates.ButtonPressed))
                 {
                     ShootStart();
                 }
@@ -36,12 +36,12 @@ namespace MoreMountains.TopDownEngine
                 }
             }
 
-            if (_inputManager.ReloadButtonState == MMInput.ButtonStates.ButtonDown)
+            if (_inputManager.ReloadButton.State.CurrentState == MMInput.ButtonStates.ButtonDown)
             {
                 Reload();
             }
 
-            if ((_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.ButtonUp) || (_inputManager.SecondaryShootAxis == MMInput.ButtonStates.ButtonUp))
+            if ((_inputManager.SecondaryShootButton.State.CurrentState == MMInput.ButtonStates.ButtonUp) || (_inputManager.SecondaryShootAxis == MMInput.ButtonStates.ButtonUp))
             {
                 ShootStop();
             }
@@ -49,7 +49,7 @@ namespace MoreMountains.TopDownEngine
             if (CurrentWeapon != null)
             {
                 if ((CurrentWeapon.WeaponState.CurrentState == Weapon.WeaponStates.WeaponDelayBetweenUses)
-                && ((_inputManager.SecondaryShootAxis == MMInput.ButtonStates.Off) && (_inputManager.SecondaryShootButtonState == MMInput.ButtonStates.Off)))
+                && ((_inputManager.SecondaryShootAxis == MMInput.ButtonStates.Off) && (_inputManager.SecondaryShootButton.State.CurrentState == MMInput.ButtonStates.Off)))
                 {
                     CurrentWeapon.WeaponInputStop();
                 }

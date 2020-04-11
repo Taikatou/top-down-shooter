@@ -2,12 +2,13 @@
 using System.Collections;
 
 namespace MoreMountains.Tools
-{	
-	/// <summary>
-	/// Add this class to a ParticleSystem so it auto destroys once it has stopped emitting.
-	/// Make sure your ParticleSystem isn't looping, otherwise this script will be useless
-	/// </summary>
-	public class MMAutoDestroyParticleSystem : MonoBehaviour 
+{
+    /// <summary>
+    /// Add this class to a ParticleSystem so it auto destroys once it has stopped emitting.
+    /// Make sure your ParticleSystem isn't looping, otherwise this script will be useless
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Particles/MMAutoDestroyParticleSystem")]
+    public class MMAutoDestroyParticleSystem : MonoBehaviour 
 	{
 		/// True if the ParticleSystem should also destroy its parent
 		public bool DestroyParent=false;

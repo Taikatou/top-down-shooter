@@ -8,6 +8,7 @@ namespace MoreMountains.TopDownEngine
     /// <summary>
     /// This action will make the character pathfind its way back to its last patrol point
     /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Actions/AIActionPathfinderToPatrol3D")]
     [RequireComponent(typeof(AIActionMovePatrol3D))]
     public class AIActionPathfinderToPatrol3D : AIAction
     {

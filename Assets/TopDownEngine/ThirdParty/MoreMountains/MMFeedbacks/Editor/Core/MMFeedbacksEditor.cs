@@ -13,13 +13,24 @@ namespace MoreMountains.Feedbacks
     public class MMFeedbacksEditor : Editor
     {
         /// <summary>
+        /// A data structure to store types and names
+        /// </summary>
+        public class FeedbackTypePair
+        {
+            public System.Type FeedbackType;
+            public string FeedbackName;
+        }
+
+        /// <summary>
         /// A helper class to copy and paste feedback properties
         /// </summary>
         static class FeedbackCopy
         {
+            // Single Copy --------------------------------------------------------------------
+
             static public System.Type Type { get; private set; }
             static List<SerializedProperty> Properties = new List<SerializedProperty>();
-
+            
             static string[] IgnoreList = new string[]
             {
             "m_ObjectHideFlags",
@@ -65,18 +76,51 @@ namespace MoreMountains.Feedbacks
             {
                 return Properties != null && Properties.Count > 0;
             }
+
+            // Multiple Copy ----------------------------------------------------------
+
+            static public MMFeedbacks CopyAllSourceFeedbacks;
+
+            static public void CopyAll(MMFeedbacks sourceFeedbacks)
+            {
+                CopyAllSourceFeedbacks = sourceFeedbacks;
+            }
+
+            static public bool HasMultipleCopies()
+            {
+                return (CopyAllSourceFeedbacks != null); 
+            }
+
+            static public void PasteAll(MMFeedbacksEditor targetEditor)
+            {
+                var sourceFeedbacks = new SerializedObject(CopyAllSourceFeedbacks);
+                SerializedProperty feedbacks = sourceFeedbacks.FindProperty("Feedbacks");
+
+                for (int i = 0; i < feedbacks.arraySize; i++)
+                {
+                    MMFeedback arrayFeedback = (feedbacks.GetArrayElementAtIndex(i).objectReferenceValue as MMFeedback);
+
+                    FeedbackCopy.Copy(new SerializedObject(arrayFeedback));
+                    MMFeedback newFeedback = targetEditor.AddFeedback(arrayFeedback.GetType());
+                    SerializedObject serialized = new SerializedObject(newFeedback);
+                    serialized.Update();
+                    FeedbackCopy.Paste(serialized);
+                    serialized.ApplyModifiedProperties();
+                }
+
+                CopyAllSourceFeedbacks = null;
+            }
         }
 
-        SerializedProperty _mmfeedbacks;
-        SerializedProperty _mmfeedbacksInitializationMode;
-        Dictionary<MMFeedback, Editor> _editors;
-
-        List<System.Type> _types;
-        string[] _typeDisplays;
-        int _draggedStartID = -1;
-        int _draggedEndID = -1;
-
-        static bool _debugView = false;
+        protected SerializedProperty _mmfeedbacks;
+        protected SerializedProperty _mmfeedbacksInitializationMode;
+        protected SerializedProperty _mmfeedbacksAutoPlayOnStart;
+        protected Dictionary<MMFeedback, Editor> _editors;
+        protected List<FeedbackTypePair> _typesAndNames = new List<FeedbackTypePair>();
+        protected string[] _typeDisplays;
+        protected int _draggedStartID = -1;
+        protected int _draggedEndID = -1;
+        private static bool _debugView = false;
 
         /// <summary>
         /// On Enable, grabs properties and initializes the add feedback dropdown's contents
@@ -86,6 +130,7 @@ namespace MoreMountains.Feedbacks
             // Get properties
             _mmfeedbacks = serializedObject.FindProperty("Feedbacks");
             _mmfeedbacksInitializationMode = serializedObject.FindProperty("InitializationMode");
+            _mmfeedbacksAutoPlayOnStart = serializedObject.FindProperty("AutoPlayOnStart");
 
             // Create editors
             _editors = new Dictionary<MMFeedback, Editor>();
@@ -93,17 +138,27 @@ namespace MoreMountains.Feedbacks
                 AddEditor(_mmfeedbacks.GetArrayElementAtIndex(i).objectReferenceValue as MMFeedback);
 
             // Retrieve available feedbacks
-            _types = (from domainAssembly in System.AppDomain.CurrentDomain.GetAssemblies()
+            List<System.Type> types = (from domainAssembly in System.AppDomain.CurrentDomain.GetAssemblies()
                      from assemblyType in domainAssembly.GetTypes()
                      where assemblyType.IsSubclassOf(typeof(MMFeedback))
                      select assemblyType).ToList();
 
             // Create display list from types
             List<string> typeNames = new List<string>();
-            typeNames.Add("Add new feedback...");
-            for (int i = 0; i < _types.Count; i++)
+            for (int i = 0; i < types.Count; i++)
             {
-                typeNames.Add(FeedbackPathAttribute.GetFeedbackDefaultPath(_types[i]));
+                FeedbackTypePair newType = new FeedbackTypePair();
+                newType.FeedbackType = types[i];
+                newType.FeedbackName = FeedbackPathAttribute.GetFeedbackDefaultPath(types[i]);
+                _typesAndNames.Add(newType);
+            }
+
+            _typesAndNames = _typesAndNames.OrderBy(t => t.FeedbackName).ToList();
+            
+            typeNames.Add("Add new feedback...");
+            for (int i = 0; i < types.Count; i++)
+            {
+                typeNames.Add(_typesAndNames[i].FeedbackName);
             }
 
             _typeDisplays = typeNames.ToArray();
@@ -130,9 +185,10 @@ namespace MoreMountains.Feedbacks
 
             // Initialisation
 
-            MMFeedbackStyling.DrawSection("Initialization");
+            MMFeedbackStyling.DrawSection("Settings");
 
             EditorGUILayout.PropertyField(_mmfeedbacksInitializationMode);
+            EditorGUILayout.PropertyField(_mmfeedbacksAutoPlayOnStart);
 
             // Draw list
 
@@ -160,10 +216,23 @@ namespace MoreMountains.Feedbacks
 
                 int id = i;
                 bool isExpanded = property.isExpanded;
+                string label = feedback.Label;
+                bool pause = false;
+
+                if (feedback.Pause != null)
+                {
+                    pause = true;
+                }
+                if ((feedback.LooperPause == true) && (Application.isPlaying))
+                {
+                    label = label + "[ " + (feedback as MMFeedbackLooper).NumberOfLoopsLeft + " loops left ] ";
+                }
+
                 Rect headerRect = MMFeedbackStyling.DrawHeader(
                         ref isExpanded,
                         ref feedback.Active,
-                        feedback.Label,
+                        label,
+                        feedback.FeedbackColor,
                         (GenericMenu menu) =>
                         {
                             if (Application.isPlaying)
@@ -179,7 +248,12 @@ namespace MoreMountains.Feedbacks
                                 menu.AddItem(new GUIContent("Paste"), false, () => PasteFeedback(id));
                             else
                                 menu.AddDisabledItem(new GUIContent("Paste"));
-                        });
+                        }, 
+                        feedback.FeedbackStartedAt,
+                        feedback.FeedbackDuration,
+                        feedback.Timing,
+                        pause
+                        );
 
                 // Check if we start dragging this feedback
 
@@ -228,7 +302,7 @@ namespace MoreMountains.Feedbacks
                     EditorGUI.BeginDisabledGroup(!feedback.Active);
 
                     string helpText = FeedbackHelpAttribute.GetFeedbackHelpText(feedback.GetType());
-                    if (helpText != "")
+                    if (!string.IsNullOrEmpty(helpText))
                     {
                         GUIStyle style = new GUIStyle(EditorStyles.helpBox);
                         style.richText = true;
@@ -283,7 +357,7 @@ namespace MoreMountains.Feedbacks
 
                 int newItem = EditorGUILayout.Popup(0, _typeDisplays) - 1;
                 if (newItem >= 0)
-                    AddFeedback(_types[newItem]);
+                    AddFeedback(_typesAndNames[newItem].FeedbackType);
 
                 // Paste feedback copy as new
 
@@ -292,7 +366,22 @@ namespace MoreMountains.Feedbacks
                     if (GUILayout.Button("Paste as new", EditorStyles.miniButton, GUILayout.Width(EditorStyles.miniButton.CalcSize(new GUIContent("Paste as new")).x)))
                         PasteAsNew();
                 }
+
+                if (FeedbackCopy.HasMultipleCopies())
+                {
+                    if (GUILayout.Button("Paste all as new", EditorStyles.miniButton, GUILayout.Width(EditorStyles.miniButton.CalcSize(new GUIContent("Paste all as new")).x)))
+                        PasteAllAsNew();
+                }
             }
+
+            if (!FeedbackCopy.HasMultipleCopies())
+            {
+                if (GUILayout.Button("Copy all", EditorStyles.miniButton, GUILayout.Width(EditorStyles.miniButton.CalcSize(new GUIContent("Paste as new")).x)))
+                {
+                    CopyAll();
+                }
+            }                
+
             EditorGUILayout.EndHorizontal();
 
             // Reorder
@@ -372,6 +461,7 @@ namespace MoreMountains.Feedbacks
                 {
                     (target as MMFeedbacks).ResetFeedbacks();
                 }
+                EditorGUI.EndDisabledGroup();
                 EditorGUI.BeginChangeCheck();
                 {
                     _debugView = GUILayout.Toggle(_debugView, "Debug View", EditorStyles.miniButtonRight);
@@ -385,7 +475,6 @@ namespace MoreMountains.Feedbacks
                 }
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUI.EndDisabledGroup();
 
             // Debug draw
 
@@ -404,13 +493,13 @@ namespace MoreMountains.Feedbacks
         /// </summary>
         public override bool RequiresConstantRepaint()
         {
-            return _draggedStartID >= 0;
+            return true;
         }
 
         /// <summary>
         /// Add a feedback to the list
         /// </summary>
-        MMFeedback AddFeedback(System.Type type)
+        protected virtual MMFeedback AddFeedback(System.Type type)
         {
             GameObject gameObject = (target as MMFeedbacks).gameObject;
 
@@ -434,7 +523,7 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Create the editor for a feedback
         /// </summary>
-        void AddEditor(MMFeedback feedback)
+        protected virtual void AddEditor(MMFeedback feedback)
         {
             if (feedback == null)
                 return;
@@ -451,7 +540,7 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Destroy the editor for a feedback
         /// </summary>
-        void RemoveEditor(MMFeedback feedback)
+        protected virtual void RemoveEditor(MMFeedback feedback)
         {
             if (feedback == null)
                 return;
@@ -470,7 +559,7 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Play the selected feedback
         /// </summary>
-        void InitializeFeedback(int id)
+        protected virtual void InitializeFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
@@ -480,38 +569,38 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Play the selected feedback
         /// </summary>
-        void PlayFeedback(int id)
+        protected virtual void PlayFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
-            feedback.Play(feedback.transform.position);
+            feedback.Play(feedback.transform.position, 1f);
         }
 
         /// <summary>
         /// Play the selected feedback
         /// </summary>
-        void StopFeedback(int id)
+        protected virtual void StopFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
             feedback.Stop(feedback.transform.position);
         }
-                
+
         /// <summary>
         /// Resets the selected feedback
         /// </summary>
         /// <param name="id"></param>
-        void ResetFeedback(int id)
+        protected virtual void ResetFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
             feedback.ResetFeedback();
         }
-        
+
         /// <summary>
         /// Remove the selected feedback
         /// </summary>
-        void RemoveFeedback(int id)
+        protected virtual void RemoveFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
@@ -525,7 +614,7 @@ namespace MoreMountains.Feedbacks
         /// <summary>
         /// Copy the selected feedback
         /// </summary>
-        void CopyFeedback(int id)
+        protected virtual void CopyFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
@@ -534,9 +623,17 @@ namespace MoreMountains.Feedbacks
         }
 
         /// <summary>
+        /// Asks for a full copy of the source
+        /// </summary>
+        protected virtual void CopyAll()
+        {
+            FeedbackCopy.CopyAll(target as MMFeedbacks);
+        }
+
+        /// <summary>
         /// Paste the previously copied feedback values into the selected feedback
         /// </summary>
-        void PasteFeedback(int id)
+        protected virtual void PasteFeedback(int id)
         {
             SerializedProperty property = _mmfeedbacks.GetArrayElementAtIndex(id);
             MMFeedback feedback = property.objectReferenceValue as MMFeedback;
@@ -548,17 +645,27 @@ namespace MoreMountains.Feedbacks
         }
 
         /// <summary>
-        /// Create a new feedback and apply the previoulsy copied feedback values
+        /// Creates a new feedback and applies the previoulsy copied feedback values
         /// </summary>
-        void PasteAsNew()
+        protected virtual void PasteAsNew()
         {
             MMFeedback newFeedback = AddFeedback(FeedbackCopy.Type);
-
             SerializedObject serialized = new SerializedObject(newFeedback);
 
             serialized.Update();
             FeedbackCopy.Paste(serialized);
             serialized.ApplyModifiedProperties();
+        }
+
+        /// <summary>
+        /// Asks for a paste of all feedbacks in the source
+        /// </summary>
+        protected virtual void PasteAllAsNew()
+        {
+            serializedObject.Update();
+            Undo.RecordObject(target, "Paste all MMFeedbacks");
+            FeedbackCopy.PasteAll(this);
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

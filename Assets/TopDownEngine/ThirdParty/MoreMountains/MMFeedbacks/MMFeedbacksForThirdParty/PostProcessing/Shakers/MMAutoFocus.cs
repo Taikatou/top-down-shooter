@@ -9,23 +9,30 @@ namespace MoreMountains.FeedbacksForThirdParty
     /// <summary>
     /// This class will set the depth of field to focus on the set of targets specified in its inspector.
     /// </summary>
+    [AddComponentMenu("More Mountains/Feedbacks/Shakers/PostProcessing/MMAutoFocus")]
     [RequireComponent(typeof(PostProcessVolume))]
     public class MMAutoFocus : MonoBehaviour
     {
-        // Array of targets
+        [Header("Bindings")]
+        /// the position of the camera
+        public Transform CameraTransform;
+        /// a list of all possible targets
         public Transform[] FocusTargets;
-
-        // Current target
+        [Header("Setup")]
+        /// the current target of this auto focus
         public float FocusTargetID;
+        [Header("Desired Aperture")]
+        /// the aperture to work with
+        [Range(0.1f, 20f)]
+        public float Aperture = 0.1f;
 
-        // Cache profile
-        PostProcessVolume _volume;
-        PostProcessProfile _profile;
-        DepthOfField _depthOfField;
-
-        [Range(0.1f, 20f)] public float Aperture;
-
-
+        protected PostProcessVolume _volume;
+        protected PostProcessProfile _profile;
+        protected DepthOfField _depthOfField;
+               
+        /// <summary>
+        /// On start we grab our volume and profile
+        /// </summary>
         void Start()
         {
             _volume = GetComponent<PostProcessVolume>();
@@ -33,11 +40,12 @@ namespace MoreMountains.FeedbacksForThirdParty
             _profile.TryGetSettings<DepthOfField>(out _depthOfField);
         }
 
+        /// <summary>
+        /// Adapts DoF to target
+        /// </summary>
         void Update()
         {
-            // Set variables
-            // Get distance from camera and target
-            float distance = Vector3.Distance(transform.position, FocusTargets[Mathf.FloorToInt(FocusTargetID)].position);
+            float distance = Vector3.Distance(CameraTransform.position, FocusTargets[Mathf.FloorToInt(FocusTargetID)].position);
             _depthOfField.focusDistance.Override(distance);
             _depthOfField.aperture.Override(Aperture);
         }

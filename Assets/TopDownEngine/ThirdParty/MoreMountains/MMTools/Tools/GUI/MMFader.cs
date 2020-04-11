@@ -18,7 +18,7 @@ namespace MoreMountains.Tools
         /// the alpha to aim for
         public float TargetAlpha;
         /// the curve to apply to the fade
-        public MMTween.MMTweenCurve Curve;
+        public MMTweenType Curve;
         /// whether or not this fade should ignore timescale
         public bool IgnoreTimeScale;
         /// a world position for a target object. Useless for regular fades, but can be useful for alt implementations (circle fade for example)
@@ -30,7 +30,7 @@ namespace MoreMountains.Tools
         /// </summary>
         /// <param name="duration">Duration, in seconds.</param>
         /// <param name="targetAlpha">Target alpha, from 0 to 1.</param>
-        public MMFadeEvent(float duration, float targetAlpha, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id=0, 
+        public MMFadeEvent(float duration, float targetAlpha, MMTweenType tween, int id=0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             ID = id;
@@ -41,7 +41,7 @@ namespace MoreMountains.Tools
             WorldPosition = worldPosition;
         }
         static MMFadeEvent e;
-        public static void Trigger(float duration, float targetAlpha, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id = 0, 
+        public static void Trigger(float duration, float targetAlpha, MMTweenType tween, int id = 0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             e.ID = id;
@@ -61,7 +61,7 @@ namespace MoreMountains.Tools
         /// the duration of the fade, in seconds
         public float Duration;
         /// the curve to apply to the fade
-        public MMTween.MMTweenCurve Curve;
+        public MMTweenType Curve;
         /// whether or not this fade should ignore timescale
         public bool IgnoreTimeScale;
         /// a world position for a target object. Useless for regular fades, but can be useful for alt implementations (circle fade for example)
@@ -71,7 +71,7 @@ namespace MoreMountains.Tools
         /// Initializes a new instance of the <see cref="MoreMountains.MMInterface.MMFadeInEvent"/> struct.
         /// </summary>
         /// <param name="duration">Duration.</param>
-        public MMFadeInEvent(float duration, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id = 0, 
+        public MMFadeInEvent(float duration, MMTweenType tween, int id = 0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             ID = id;
@@ -81,7 +81,7 @@ namespace MoreMountains.Tools
             WorldPosition = worldPosition;
         }
         static MMFadeInEvent e;
-        public static void Trigger(float duration, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id = 0, 
+        public static void Trigger(float duration, MMTweenType tween, int id = 0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             e.ID = id;
@@ -100,7 +100,7 @@ namespace MoreMountains.Tools
         /// the duration of the fade, in seconds
         public float Duration;
         /// the curve to apply to the fade
-        public MMTween.MMTweenCurve Curve;
+        public MMTweenType Curve;
         /// whether or not this fade should ignore timescale
         public bool IgnoreTimeScale;
         /// a world position for a target object. Useless for regular fades, but can be useful for alt implementations (circle fade for example)
@@ -110,7 +110,7 @@ namespace MoreMountains.Tools
         /// Initializes a new instance of the <see cref="MoreMountains.MMInterface.MMFadeOutEvent"/> struct.
         /// </summary>
         /// <param name="duration">Duration.</param>
-        public MMFadeOutEvent(float duration, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id = 0, 
+        public MMFadeOutEvent(float duration, MMTweenType tween, int id = 0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             ID = id;
@@ -121,7 +121,7 @@ namespace MoreMountains.Tools
         }
 
         static MMFadeOutEvent e;
-        public static void Trigger(float duration, MMTween.MMTweenCurve tween = MMTween.MMTweenCurve.LinearTween, int id = 0, 
+        public static void Trigger(float duration, MMTweenType tween, int id = 0, 
             bool ignoreTimeScale = true, Vector3 worldPosition = new Vector3())
         {
             e.ID = id;
@@ -138,6 +138,7 @@ namespace MoreMountains.Tools
     /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(Image))]
+    [AddComponentMenu("More Mountains/Tools/GUI/MMFader")]
     public class MMFader : MonoBehaviour, MMEventListener<MMFadeEvent>, MMEventListener<MMFadeInEvent>, MMEventListener<MMFadeOutEvent>
     {
         [Header("Identification")]
@@ -152,7 +153,7 @@ namespace MoreMountains.Tools
         /// the default duration of the fade in/out
         public float DefaultDuration = 0.2f;
         /// the default curve to use for this fader
-        public MMTween.MMTweenCurve DefaultTween = MMTween.MMTweenCurve.LinearTween;
+        public MMTweenType DefaultTween = new MMTweenType(MMTween.MMTweenCurve.LinearTween);
         /// whether or not the fade should happen in unscaled time 
         public bool IgnoreTimescale = true;
         [Header("Interaction")]
@@ -175,7 +176,7 @@ namespace MoreMountains.Tools
         protected float _initialAlpha;
         protected float _currentTargetAlpha;
         protected float _currentDuration;
-        protected MMTween.MMTweenCurve _currentCurve;
+        protected MMTweenType _currentCurve;
 
         protected bool _fading = false;
         protected float _fadeStartedAt;
@@ -201,7 +202,7 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void FadeIn1Second()
         {
-            MMFadeInEvent.Trigger(1f);
+            MMFadeInEvent.Trigger(1f, new MMTweenType(MMTween.MMTweenCurve.LinearTween));
         }
 
         /// <summary>
@@ -209,7 +210,7 @@ namespace MoreMountains.Tools
         /// </summary>
         protected virtual void FadeOut1Second()
         {
-            MMFadeOutEvent.Trigger(1f);
+            MMFadeOutEvent.Trigger(1f, new MMTweenType(MMTween.MMTweenCurve.LinearTween));
         }
 
         /// <summary>
@@ -300,7 +301,7 @@ namespace MoreMountains.Tools
             }
         }
 
-        protected virtual void StartFading(float initialAlpha, float endAlpha, float duration, MMTween.MMTweenCurve curve, int id, bool ignoreTimeScale)
+        protected virtual void StartFading(float initialAlpha, float endAlpha, float duration, MMTweenType curve, int id, bool ignoreTimeScale)
         {
             if (id != ID)
             {

@@ -12,11 +12,19 @@ namespace MoreMountains.Feedbacks
     [FeedbackPath("Camera/Camera Shake")]
     public class MMFeedbackCameraShake : MMFeedback
     {
+        /// sets the inspector color for this feedback
+        public override Color FeedbackColor { get { return MMFeedbacksInspectorColors.CameraColor; } }
+
         [Header("Camera Shake")]
+        /// whether or not this shake should repeat forever, until stopped
         public bool RepeatUntilStopped = false;
+        /// the channel to broadcast this shake on
         public int Channel = 0;
         /// the properties of the shake (duration, intensity, frequenc)
         public MMCameraShakeProperties CameraShakeProperties = new MMCameraShakeProperties(0.1f, 0.2f, 40f);
+        
+        /// the duration of this feedback is the duration of the shake
+        public override float FeedbackDuration { get { return CameraShakeProperties.Duration; } }
 
         /// <summary>
         /// On Play, sends a shake camera event

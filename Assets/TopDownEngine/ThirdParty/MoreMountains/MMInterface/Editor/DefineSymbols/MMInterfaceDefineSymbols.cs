@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-namespace MoreMountains.TopDownEngine
+namespace MoreMountains.MMInterface
 {
 #if UNITY_EDITOR
     /// <summary>

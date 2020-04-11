@@ -14,6 +14,7 @@ namespace MoreMountains.Feedbacks
     /// You can either use it on its own, or bind it from another class and trigger it from there.
     /// </summary>
     [ExecuteAlways]
+    [AddComponentMenu("More Mountains/Feedbacks/MMFeedbacks")]
     [DisallowMultipleComponent]
     public class MMFeedbacks : MonoBehaviour
     {
@@ -24,12 +25,18 @@ namespace MoreMountains.Feedbacks
         public enum InitializationModes { Script, Awake, Start }
         /// the chosen initialization mode
         public InitializationModes InitializationMode = InitializationModes.Start;
+        /// whether or not to play this feedbacks automatically on Start
+        public bool AutoPlayOnStart = false;
         [HideInInspector]
         /// whether or not this MMFeedbacks is in debug mode
         public bool DebugActive = false;
         /// whether or not this MMFeedbacks is playing right now - meaning it hasn't been stopped yet.
         /// if you don't stop your MMFeedbacks it'll remain true of course
         public bool IsPlaying { get; protected set; }
+
+        protected float _startTime = 0f;
+        protected float _holdingMax = 0f;
+        protected float _lastStartAt = 0f;
 
         /// <summary>
         /// On Awake we initialize our feedbacks if we're in auto mode
@@ -50,6 +57,10 @@ namespace MoreMountains.Feedbacks
             if ((InitializationMode == InitializationModes.Start) && (Application.isPlaying))
             {
                 Initialization(this.gameObject);
+            }
+            if (AutoPlayOnStart && Application.isPlaying)
+            {
+                PlayFeedbacks();
             }
         }
 
@@ -75,7 +86,10 @@ namespace MoreMountains.Feedbacks
             IsPlaying = false;
             for (int i = 0; i < Feedbacks.Count; i++)
             {
-                Feedbacks[i].Initialization(owner);
+                if (Feedbacks[i] != null)
+                {
+                    Feedbacks[i].Initialization(owner);
+                }                
             }
         }
 
@@ -84,11 +98,7 @@ namespace MoreMountains.Feedbacks
         /// </summary>
         public virtual void PlayFeedbacks()
         {
-            IsPlaying = true;
-            for (int i = 0; i < Feedbacks.Count; i++)
-            {
-                Feedbacks[i].Play(this.transform.position, 1.0f);
-            }
+            PlayFeedbacksInternal(this.transform.position, 1.0f);
         }
 
         /// <summary>
@@ -101,10 +111,142 @@ namespace MoreMountains.Feedbacks
         /// <param name="attenuation"></param>
         public virtual void PlayFeedbacks(Vector3 position, float attenuation = 1.0f)
         {
+            PlayFeedbacksInternal(position, attenuation);
+        }
+
+        /// <summary>
+        /// An internal method used to play feedbacks, shouldn't be called externally
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="attenuation"></param>
+        protected virtual void PlayFeedbacksInternal(Vector3 position, float attenuation)
+        {
+            _startTime = Time.time;
+            _holdingMax = 0f;
+            _lastStartAt = _startTime;
+
+            ResetFeedbacks();
+
+            // test if a pause or holding pause is found
+            bool pauseFound = false;
+            for (int i = 0; i < Feedbacks.Count; i++)
+            {
+                if ((Feedbacks[i].Pause != null) && (Feedbacks[i].Active))
+                {
+                    pauseFound = true;
+                }
+                if ((Feedbacks[i].HoldingPause == true) && (Feedbacks[i].Active))
+                {
+                    pauseFound = true;
+                }
+            }
+
+            if (!pauseFound)
+            {
+                // if no pause was found, we just play all feedbacks at once
+                IsPlaying = true;
+                for (int i = 0; i < Feedbacks.Count; i++)
+                {
+                    Feedbacks[i].Play(position, attenuation);
+                }
+            }
+            else
+            {
+                // if at least one pause was found
+                StartCoroutine(PausedFeedbacksCo(position, attenuation));
+            }            
+        }
+
+        protected virtual IEnumerator PausedFeedbacksCo(Vector3 position, float attenuation)
+        {
             IsPlaying = true;
             for (int i = 0; i < Feedbacks.Count; i++)
             {
+                // handles holding pauses
+                if ( (Feedbacks[i].Active) 
+                    && ((Feedbacks[i].HoldingPause == true) || (Feedbacks[i].LooperPause == true)))
+                {
+                    // we stay here until all previous feedbacks have finished
+                    while (Time.time - _lastStartAt < _holdingMax)
+                    {
+                        yield return null;
+                    }
+
+                    _holdingMax = 0f;
+                    _lastStartAt = Time.time;
+                }
+
+                // plays the feedback
                 Feedbacks[i].Play(position, attenuation);
+
+                // Handles pause
+                if ((Feedbacks[i].Pause != null) 
+                    && (Feedbacks[i].Active))
+                {
+                    bool shouldPause = true;
+                    if (Feedbacks[i].Chance < 100)
+                    {
+                        float random = Random.Range(0f, 100f);
+                        if (random > Feedbacks[i].Chance)
+                        {
+                            shouldPause = false;
+                        }
+                    }
+
+                    if (shouldPause)
+                    {
+                        yield return Feedbacks[i].Pause;
+                        _lastStartAt = Time.time;
+                        _holdingMax = 0f;
+                    }                    
+                }
+
+                // updates holding max
+                if (Feedbacks[i].Active)
+                {                    
+                    if (Feedbacks[i].Pause == null)
+                    {
+                        float feedbackDuration = Feedbacks[i].FeedbackDuration + Feedbacks[i].Timing.InitialDelay + Feedbacks[i].Timing.NumberOfRepeats * (Feedbacks[i].FeedbackDuration + Feedbacks[i].Timing.DelayBetweenRepeats);
+                        _holdingMax = Mathf.Max(feedbackDuration, _holdingMax);
+                    }                        
+                }
+
+                // handles looper
+                if ( (Feedbacks[i].LooperPause == true) 
+                    && (Feedbacks[i].Active) 
+                    && ((Feedbacks[i] as MMFeedbackLooper).NumberOfLoopsLeft > 0) )
+                {
+                    // we determine the index we should start again at
+                    bool loopAtLastPause = (Feedbacks[i] as MMFeedbackLooper).LoopAtLastPause;
+                    bool loopAtLastLoopStart = (Feedbacks[i] as MMFeedbackLooper).LoopAtLastLoopStart;
+                    int newi = 0;                    
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        // if we're at the start
+                        if (j == 0)
+                        {
+                            newi = j-1;
+                            break;
+                        }
+                        // if we've found a pause
+                        if ( (Feedbacks[j].Pause != null) 
+                            && (Feedbacks[j].FeedbackDuration > 0f) 
+                            && loopAtLastPause && (Feedbacks[j].Active) )
+                        {
+                            newi = j;
+                            break;
+                        }
+                        // if we've found a looper start
+                        if ( (Feedbacks[j].LooperStart == true) 
+                            && loopAtLastLoopStart 
+                            && (Feedbacks[j].Active) )
+                        {
+                            newi = j;
+                            break;
+                        }
+                    }
+                    i = newi;
+                }
             }
         }
 
@@ -144,6 +286,18 @@ namespace MoreMountains.Feedbacks
                 Feedbacks[i].ResetFeedback();
             }
             IsPlaying = false;
+        }
+
+        /// <summary>
+        /// On Disable we stop all feedbacks
+        /// </summary>
+        protected virtual void OnDisable()
+        {
+            /*if (IsPlaying)
+            {
+                StopFeedbacks();
+                StopAllCoroutines();
+            }*/
         }
 
         /// <summary>

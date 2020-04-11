@@ -107,7 +107,7 @@ namespace MoreMountains.TopDownEngine
         }
 
 
-        protected virtual void LateUpdate()
+        protected virtual void FixedUpdate()
         {
             ComputeRelativeSpeeds();
         }
@@ -232,20 +232,26 @@ namespace MoreMountains.TopDownEngine
             }
         }
 
+        protected Vector3 _positionLastFrame;
+        protected Vector3 _newSpeed;
+
         /// <summary>
         /// Computes the relative speeds
         /// </summary>
         protected virtual void ComputeRelativeSpeeds()
         {
+            _newSpeed = (this.transform.position - _positionLastFrame) / Time.deltaTime;
+
             if (_characterHandleWeapon == null)
             {
-                _relativeSpeed = MovementRotatingModel.transform.InverseTransformVector(_controller.CurrentMovement);
+                _relativeSpeed = MovementRotatingModel.transform.InverseTransformVector(_newSpeed);
             }
             else
             {
-                _relativeSpeed = WeaponRotatingModel.transform.InverseTransformVector(_controller.CurrentMovement);
+                _relativeSpeed = WeaponRotatingModel.transform.InverseTransformVector(_newSpeed);
             }
             _relativeSpeedNormalized = _relativeSpeed.normalized;
+            _positionLastFrame = this.transform.position;
         }
 
         /// <summary>

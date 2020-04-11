@@ -8,6 +8,7 @@ using MoreMountains.Feedbacks;
 
 namespace MoreMountains.TopDownEngine
 {
+    [AddComponentMenu("TopDown Engine/GUI/MusicSwitch")]
     public class MusicSwitch : MonoBehaviour
     {
         public virtual void On()

@@ -3,12 +3,12 @@ using System.Collections;
 using MoreMountains.Tools;
 
 namespace MoreMountains.TopDownEngine
-{	
-	/// <summary>
-	/// This class handles the movement of a pathed projectile
-	/// </summary>
-	[AddComponentMenu("TopDown Engine/Character/AI/Pathed Projectile")] 
-	public class PathedProjectile : MonoBehaviour
+{
+    /// <summary>
+    /// This class handles the movement of a pathed projectile
+    /// </summary>
+    [AddComponentMenu("TopDown Engine/Character/AI/Automation/PathedProjectile")]
+    public class PathedProjectile : MonoBehaviour
 	{
 		[MMInformation("A GameObject with this component will move towards its target and get destroyed when it reaches it. Here you can define what object to instantiate on impact. Use the Initialize method to set its destination and speed.",MoreMountains.Tools.MMInformationAttribute.InformationType.Info,false)]
 		/// The effect to instantiate when the object gets destroyed

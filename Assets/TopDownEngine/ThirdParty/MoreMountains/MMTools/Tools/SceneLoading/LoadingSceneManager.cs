@@ -62,6 +62,8 @@ namespace MoreMountains.Tools
 		protected float _fillTarget=0f;
 		protected string _loadingTextValue;
 
+        protected static MMTweenType _tween;
+
 		/// <summary>
 		/// Call this static method to load a scene from anywhere
 		/// </summary>
@@ -91,10 +93,11 @@ namespace MoreMountains.Tools
 		/// <summary>
 		/// On Start(), we start loading the new level asynchronously
 		/// </summary>
-		protected virtual void Start() 
-		{
-			_loadingTextValue=LoadingText.text;
-			if (_sceneToLoad != "")
+		protected virtual void Start()
+        {
+            _tween = new MMTweenType(MMTween.MMTweenCurve.EaseOutCubic);
+            _loadingTextValue =LoadingText.text;
+			if (!string.IsNullOrEmpty(_sceneToLoad))
 			{
 				StartCoroutine(LoadAsynchronously());
 			}        
@@ -105,7 +108,7 @@ namespace MoreMountains.Tools
 		/// </summary>
 		protected virtual void Update()
 		{
-            //Time.timeScale = 1f;
+            Time.timeScale = 1f;
 			LoadingProgressBar.GetComponent<Image>().fillAmount = MMMaths.Approach(LoadingProgressBar.GetComponent<Image>().fillAmount,_fillTarget,Time.deltaTime*ProgressBarSpeed);
 		}
 
@@ -141,7 +144,7 @@ namespace MoreMountains.Tools
 			yield return new WaitForSeconds(LoadCompleteDelay);
 
 			// we fade to black
-			MMFadeInEvent.Trigger(ExitFadeDuration);
+			MMFadeInEvent.Trigger(ExitFadeDuration, _tween);
 			yield return new WaitForSeconds(ExitFadeDuration);
 
 			// we switch to the new scene
@@ -154,7 +157,7 @@ namespace MoreMountains.Tools
 		/// </summary>
 		protected virtual void LoadingSetup() 
 		{
-			MMFadeOutEvent.Trigger(StartFadeDuration);
+			MMFadeOutEvent.Trigger(StartFadeDuration, _tween);
 			LoadingCompleteAnimation.alpha=0;
 			LoadingProgressBar.GetComponent<Image>().fillAmount = 0f;
 			LoadingText.text = _loadingTextValue;

@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace MoreMountains.Tools
 {
-	/// <summary>
-	/// Prevents fast moving objects from going through colliders by casting a ray backwards after each movement
-	/// </summary>
-	public class MMPreventPassingThrough2D : MonoBehaviour 
+    /// <summary>
+    /// Prevents fast moving objects from going through colliders by casting a ray backwards after each movement
+    /// </summary>
+    [AddComponentMenu("More Mountains/Tools/Movement/MMPreventPassingThrough2D")]
+    public class MMPreventPassingThrough2D : MonoBehaviour 
 	{
 		/// the layer mask to search obstacles on
 		public LayerMask ObstaclesLayerMask; 
