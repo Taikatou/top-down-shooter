@@ -19,6 +19,14 @@
 /Assets/TopDownEngine/Common/Scripts/Managers/*
 !/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs
 
+!/Assets/TopDownEngine/Common/Scripts/Characters
+/Assets/TopDownEngine/Common/Scripts/Characters/*
+!/Assets/TopDownEngine/Common/Scripts/Characters/Core
+/Assets/TopDownEngine/Common/Scripts/Characters/Core/*
+!/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
+
+# !/Assets/TopDownEngine/Demo/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs*
+
 
 /Config/models/*
 /Config/summaries/*
