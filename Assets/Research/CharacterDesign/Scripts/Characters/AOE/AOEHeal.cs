@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.TopDownEngineCustom;
-using TopDownEngine.Common.Scripts.Characters.Core;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Characters
