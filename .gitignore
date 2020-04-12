@@ -28,6 +28,13 @@
 /Assets/TopDownEngine/Common/Scripts/Characters/Core/*
 !/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
 
+
+!/Assets/TopDownEngine/Demo
+/Assets/TopDownEngine/Demo/*
+!/Assets/TopDownEngine/Demo/Grasslands
+/Assets/TopDownEngine/Demo/Grasslands/*
+!/Assets/TopDownEngine/Demo/Grasslands/Scripts
+/Assets/TopDownEngine/Demo/Grasslands/Scripts/*
 !/Assets/TopDownEngine/Demo/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs*
 
 
