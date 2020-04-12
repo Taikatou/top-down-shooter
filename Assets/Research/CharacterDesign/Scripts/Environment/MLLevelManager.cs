@@ -161,8 +161,8 @@ namespace Research.CharacterDesign.Scripts.Environment
             var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
             var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
             
-            dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
-            dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
+            dataLogger?.AddResultTeam(sortedNames0, loggedData[0]);
+            dataLogger?.AddResultTeam(sortedNames1, loggedData[1]);
             
             Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
                                 "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);

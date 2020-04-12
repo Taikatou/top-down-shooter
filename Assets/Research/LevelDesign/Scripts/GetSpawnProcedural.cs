@@ -2,7 +2,6 @@
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.CharacterDesign.Scripts.SpawnPoints;
-using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {

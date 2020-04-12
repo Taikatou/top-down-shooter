@@ -60,6 +60,16 @@ PrefabInstance:
       propertyPath: WalkSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 212479530728563738, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 212479530728563738, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[2]

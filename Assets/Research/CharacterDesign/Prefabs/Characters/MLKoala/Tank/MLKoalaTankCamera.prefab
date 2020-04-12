@@ -136,6 +136,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3978408697661250553, guid: ea4d9a1282e7d5748a3393a32892ddbf,
         type: 3}
+    - target: {fileID: 212479530728563738, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 212479530728563738, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4773280857398313532, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: secondaryAbilityEnabled
