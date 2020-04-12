@@ -10,6 +10,9 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Never ignore Asset meta data
+!/[Aa]ssets/**/*.meta
+
 /Assets/TopDownEngine/*
 !/Assets/TopDownEngine/Common
 /Assets/TopDownEngine/Common/*
@@ -30,9 +33,6 @@
 
 /Config/models/*
 /Config/summaries/*
-
-# Never ignore Asset meta data
-!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
