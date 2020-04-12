@@ -11,9 +11,13 @@
 /[Mm]emoryCaptures/
 
 /Assets/TopDownEngine/*
-!/Assets/TopDownEngine/Common/Scripts/Managers/
+!/Assets/TopDownEngine/Common
+/Assets/TopDownEngine/Common/*
+!/Assets/TopDownEngine/Common/Scripts
+/Assets/TopDownEngine/Common/Scripts/*
+!/Assets/TopDownEngine/Common/Scripts/Managers
 /Assets/TopDownEngine/Common/Scripts/Managers/*
-!/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs*
+!/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs
 
 
 /Config/models/*
