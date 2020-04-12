@@ -51,6 +51,8 @@ namespace Research.LevelDesign.NuclearThrone
 		[ExecuteInEditMode]
 		public void GenerateMap()
 		{
+			ClearMap();
+			
 			var seed = mapSetting.randomSeed ? Time.time : mapSetting.seed;
 			Random.InitState(seed.GetHashCode());
 
@@ -100,28 +102,29 @@ namespace Research.LevelDesign.NuclearThrone
 			{
 				foreach (var secondItem in array)
 				{
-					if (item == secondItem)
-						continue;
-					var xDiff = Mathf.Abs(item.x - secondItem.x);
-					var yDiff = Mathf.Abs(item.y - secondItem.y);
-					var distance = Mathf.Max(xDiff, yDiff);
-					if (distance >= maxDistance)
+					if (item != secondItem)
 					{
-						maxDistance = distance;
-						output = new List<Vector3Int>{item, secondItem};
+						var xDiff = Mathf.Abs(item.x - secondItem.x);
+						var yDiff = Mathf.Abs(item.y - secondItem.y);
+						var distance = Mathf.Max(xDiff, yDiff);
+						if (distance > maxDistance)
+						{
+							maxDistance = distance;
+							output = new List<Vector3Int> {item, secondItem};
+						}
 					}
 				}
 			}
 			return output;
 		}
-		
-		
 
 		private bool CheckDistance(int x, int y, IEnumerable<Vector3Int> availableSpots, int distance)
 		{
 			foreach (var spot in availableSpots)
 			{
-				if (Mathf.Abs(spot.x - x) < distance || Mathf.Abs(spot.y - y) < distance)
+				var xDistance = Mathf.Abs(spot.x - x);
+				var yDistance = Mathf.Abs(spot.y - y);
+				if (xDistance < distance || yDistance < distance)
 				{
 					return false;
 				}

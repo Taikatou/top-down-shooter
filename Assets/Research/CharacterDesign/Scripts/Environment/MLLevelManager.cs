@@ -8,6 +8,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.SpawnPoints;
+using Research.CharacterDesign.TopDownEngineCustom;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
