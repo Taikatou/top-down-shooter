@@ -4,7 +4,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.TopDownEngineCustom
+namespace MoreMountains.TopDownEngine
 {
 	/// <summary>
 	/// This class manages the health of an object, pilots its potential health bar, handles what happens when it takes damage,

@@ -3,7 +3,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.TopDownEngineCustom
+namespace MoreMountains.TopDownEngine
 {	
 	/// <summary>
 	/// This persistent singleton handles the inputs and sends commands to the player.

@@ -1,6 +1,7 @@
 ﻿using MLAgents;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.TopDownEngineCustom;
+using TopDownEngine.Common.Scripts.Characters.Core;
 
 namespace Research.CharacterDesign.Scripts.Characters
 {
