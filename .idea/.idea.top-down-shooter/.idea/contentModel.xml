@@ -298,9 +298,6 @@
             <e p="SpriteOutline.cs" t="Include" />
             <e p="SwordOutline.cs" t="Include" />
             <e p="TimeScaleChecker.cs" t="Include" />
-            <e p="TopDownEngineCustom" t="Include">
-              <e p="GrasslandsMultiplayerLevelManager.cs" t="Include" />
-            </e>
           </e>
           <e p="LevelDesign" t="Include">
             <e p="NuclearThrone" t="Include">
@@ -573,6 +570,7 @@
             <e p="Grasslands" t="Include">
               <e p="Scripts" t="Include">
                 <e p="GrasslandHUD.cs" t="Include" />
+                <e p="GrasslandsMultiplayerLevelManager.cs" t="Include" />
               </e>
             </e>
             <e p="Koala2D" t="Include">
