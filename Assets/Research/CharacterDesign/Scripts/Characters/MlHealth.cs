@@ -11,7 +11,7 @@ namespace Research.CharacterDesign.Scripts.Characters
             
             var requester = GetComponent<DecisionRequester>();
             
-            requester.allowDecisions = false;
+            Academy.Instance.AgentPreStep -= requester.MakeRequests;
         }
     }
 }

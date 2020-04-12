@@ -9,7 +9,7 @@ namespace Research.CharacterDesign.Scripts
     /// <summary>
     /// A component for 2D Ray Perception.
     /// </summary>
-    [AddComponentMenu("ML Agents/Top Down Ray Perception Sensor 2D", (int) MenuGroup.Sensors)]
+    [AddComponentMenu("ML Agents/Top Down Ray Perception Sensor 2D", 50)]
     public class TopDownRaySensorComponent : RayPerceptionSensorComponentBase
     {
         public float verticalOffSet = 100.0f;

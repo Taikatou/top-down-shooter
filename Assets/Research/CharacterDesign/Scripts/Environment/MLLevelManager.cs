@@ -69,7 +69,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 var requester = player.GetComponent<DecisionRequester>();
             
-                requester.allowDecisions = false;
+                Academy.Instance.AgentPreStep -= requester.MakeRequests;
             }
             
             WaitForRestart();
