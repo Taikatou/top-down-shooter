@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
-using MoreMountains.Tools;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using UnityEngine;
 
 namespace MoreMountains.TopDownEngine
 {
@@ -9,7 +10,7 @@ namespace MoreMountains.TopDownEngine
 	/// This class manages the health of an object, pilots its potential health bar, handles what happens when it takes damage,
 	/// and what happens when it dies.
 	/// </summary>
-	[AddComponentMenu("TopDown Engine/Character/Core/Health")] 
+	[AddComponentMenu("TopDown Engine/Character/Core/HealthResearch")] 
 	public class Health : MonoBehaviour
 	{
         /// the model to disable (if set so)

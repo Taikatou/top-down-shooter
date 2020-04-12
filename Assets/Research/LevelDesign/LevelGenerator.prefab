@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1023800576880102814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023800576880102812}
+  - component: {fileID: 1023800576880102815}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1023800576880102812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023800576880102814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1023800576880102815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023800576880102814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88cc953eb2b5c1d42a284a0c82a8c5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemapWalls: {fileID: 0}
+  tilemapGround: {fileID: 0}
+  tileWall: {fileID: 11400000, guid: 81c4b33e3b055d14b9e3e201f9dbb8d7, type: 2}
+  tileGround: {fileID: 11400000, guid: 3d835d80a70a4444db68c96c06a63738, type: 2}
+  width: 60
+  height: 60
+  mapSetting: {fileID: 11400000, guid: 4b6b499175466e648bd938abfb6396cf, type: 2}
+  players: 2
+  spawnPrefab: {fileID: 4204711970419528432, guid: 9e7f5d7db1fbcba4a8a491dcbaa2e406,
+    type: 3}
+  spawnGameObjects:
+  - {fileID: 0}
+  - {fileID: 0}

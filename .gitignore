@@ -10,11 +10,36 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-/Config/models/*
-/Config/summaries/*
-
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
+
+/Assets/TopDownEngine/*
+!/Assets/TopDownEngine/Common
+/Assets/TopDownEngine/Common/*
+!/Assets/TopDownEngine/Common/Scripts
+/Assets/TopDownEngine/Common/Scripts/*
+!/Assets/TopDownEngine/Common/Scripts/Managers
+/Assets/TopDownEngine/Common/Scripts/Managers/*
+!/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs*
+
+!/Assets/TopDownEngine/Common/Scripts/Characters
+/Assets/TopDownEngine/Common/Scripts/Characters/*
+!/Assets/TopDownEngine/Common/Scripts/Characters/Core
+/Assets/TopDownEngine/Common/Scripts/Characters/Core/*
+!/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
+
+
+!/Assets/TopDownEngine/Demos
+/Assets/TopDownEngine/Demos/*
+!/Assets/TopDownEngine/Demos/Grasslands
+/Assets/TopDownEngine/Demos/Grasslands/*
+!/Assets/TopDownEngine/Demos/Grasslands/Scripts
+/Assets/TopDownEngine/Demos/Grasslands/Scripts/*
+!/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs*
+
+
+/Config/models/*
+/Config/summaries/*
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -61,3 +86,4 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+AssetsTopDownEngine/
