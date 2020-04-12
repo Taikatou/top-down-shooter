@@ -1,5 +1,6 @@
 using UnityEngine;
 using MLAgents;
+using MLAgents.SideChannels;
 
 namespace MLAgentsExamples
 {
@@ -42,7 +43,9 @@ namespace MLAgentsExamples
             Physics.defaultSolverIterations = solverIterations;
             Physics.defaultSolverVelocityIterations = solverVelocityIterations;
 
-            Academy.Instance.FloatProperties.RegisterCallback("gravity", f => { Physics.gravity = new Vector3(0, -f, 0); });
+            // Make sure the Academy singleton is initialized first, since it will create the SideChannels.
+            var academy = Academy.Instance;
+            SideChannelUtils.GetSideChannel<FloatPropertiesChannel>().RegisterCallback("gravity", f => { Physics.gravity = new Vector3(0, -f, 0); });
         }
 
         public void OnDestroy()

@@ -105,6 +105,7 @@
         <e p="OutgoingMessage.cs" t="Include" />
         <e p="RawBytesChannel.cs" t="Include" />
         <e p="SideChannel.cs" t="Include" />
+        <e p="SideChannelUtils.cs" t="Include" />
         <e p="StatsSideChannel.cs" t="Include" />
       </e>
       <e p="Timer.cs" t="Include" />
