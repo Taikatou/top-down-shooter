@@ -1,4 +1,5 @@
 ﻿using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.TopDownEngineCustom;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Characters.AOE

@@ -298,6 +298,11 @@
             <e p="SpriteOutline.cs" t="Include" />
             <e p="SwordOutline.cs" t="Include" />
             <e p="TimeScaleChecker.cs" t="Include" />
+            <e p="TopDownEngineCustom" t="Include">
+              <e p="GrasslandsMultiplayerLevelManager.cs" t="Include" />
+              <e p="Health.cs" t="Include" />
+              <e p="InputManager.cs" t="Include" />
+            </e>
           </e>
           <e p="LevelDesign" t="Include">
             <e p="NuclearThrone" t="Include">
@@ -446,7 +451,6 @@
                   <e p="Character.cs" t="Include" />
                   <e p="CharacterEvents.cs" t="Include" />
                   <e p="CharacterStates.cs" t="Include" />
-                  <e p="Health.cs" t="Include" />
                   <e p="TopDownController.cs" t="Include" />
                   <e p="TopDownController2D.cs" t="Include" />
                   <e p="TopDownController3D.cs" t="Include" />
@@ -522,7 +526,6 @@
                 <e p="GameManager.cs" t="Include" />
                 <e p="GridManager.cs" t="Include" />
                 <e p="GUIManager.cs" t="Include" />
-                <e p="InputManager.cs" t="Include" />
                 <e p="LevelManager.cs" t="Include" />
                 <e p="MultiplayerGUIManager.cs" t="Include" />
                 <e p="MultiplayerLevelManager.cs" t="Include" />
@@ -570,7 +573,6 @@
             <e p="Grasslands" t="Include">
               <e p="Scripts" t="Include">
                 <e p="GrasslandHUD.cs" t="Include" />
-                <e p="GrasslandsMultiplayerLevelManager.cs" t="Include" />
               </e>
             </e>
             <e p="Koala2D" t="Include">
