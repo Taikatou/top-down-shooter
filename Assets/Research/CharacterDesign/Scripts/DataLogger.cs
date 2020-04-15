@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Research.CharacterDesign.Scripts
 {
@@ -25,43 +26,55 @@ namespace Research.CharacterDesign.Scripts
 
     public class DataLogger : MonoBehaviour
     {
-        private Dictionary<string, WinResults> winResultsTeams;
+        public int mapId = 0;
+        
+        private Dictionary<string, WinResults> _winResultsTeams;
 
-        private Dictionary<string, WinResults> winResultsPlayers;
+        private Dictionary<string, WinResults> _winResultsPlayers;
 
         public void Start()
         {
-            winResultsTeams = new Dictionary<string, WinResults>();
-            winResultsPlayers = new Dictionary<string, WinResults>();
+            _winResultsTeams = new Dictionary<string, WinResults>();
+            _winResultsPlayers = new Dictionary<string, WinResults>();
         }
 
-        public string GetFileName(string fileName)
+        private string GetFileName(string fileName)
         {
             var nowStr = DateTime.Now.ToString("_dd_MM_yyyy_HH_mm");
             return fileName + nowStr + ".csv";
         }
 
-        public void OutputCsv(List<string[]> rowData, string filename)
+        public void OutputMap(List<string[]> rowData)
         {
-            string[][] output = new string[rowData.Count][];
+            mapId++;
+            OutputCsv(rowData, mapId + "_mapdata.csv");
+        }
 
-            for (int i = 0; i < output.Length; i++)
+        private void OutputCsv(List<string[]> rowData, string filename)
+        {
+            var output = new string[rowData.Count][];
+
+            for (var i = 0; i < output.Length; i++)
             {
                 output[i] = rowData[i];
             }
 
-            int length = output.GetLength(0);
-            string delimiter = ",";
+            var length = output.GetLength(0);
+            var delimiter = ",";
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             for (int index = 0; index < length; index++)
-                sb.AppendLine(string.Join(delimiter, output[index]));
+            {
+                sb.AppendLine(string.Join(delimiter, output[index]));   
+            }
+
+            sb.AppendLine(mapId.ToString());
 
 
-            string filePath = GetPath(filename);
+            var filePath = GetPath(filename);
 
-            StreamWriter outStream = System.IO.File.CreateText(filePath);
+            var outStream = System.IO.File.CreateText(filePath);
             outStream.WriteLine(sb);
             outStream.Close();
         }
@@ -80,16 +93,16 @@ namespace Research.CharacterDesign.Scripts
 #endif
         }
 
-        void OnApplicationQuit()
+        private void OnApplicationQuit()
         {
-            PrintFile(winResultsTeams, "teams");
-            PrintFile(winResultsPlayers, "players");
+            PrintFile(_winResultsTeams, "teams");
+            PrintFile(_winResultsPlayers, "players");
         }
 
         private void PrintFile(Dictionary<string, WinResults> dict, string filename)
         {
             var rowData = new List<string[]> {new[] {"Name", "Win Rate", "Loss Rate", "Draw Rate"}};
-            foreach (KeyValuePair<string, WinResults> item in winResultsTeams)
+            foreach (KeyValuePair<string, WinResults> item in _winResultsTeams)
             {
                 var row = new[]
                 {
@@ -126,12 +139,12 @@ namespace Research.CharacterDesign.Scripts
 
         public void AddResultTeam(string teamName, int condition)
         {
-            AddResult(winResultsTeams, teamName, condition);
+            AddResult(_winResultsTeams, teamName, condition);
         }
 
         public void AddResultAgent(string agentName, int condition)
         {
-            AddResult(winResultsPlayers, agentName, condition);
+            AddResult(_winResultsPlayers, agentName, condition);
         }
     }
 }

@@ -7,6 +7,7 @@ using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.SpawnPoints;
+using Research.LevelDesign.NuclearThrone;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -23,11 +24,24 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public IGetSpawnPoints spawnPoints;
 
+        public NuclearThroneLevelGenerator levelGenerator;
+
+        public int changeLevelMap = 1;
+
+        private int _levelCounter = 0;
+
         protected override void Awake()
         {
             base.Awake();
+            UpdateSpawnPoints();
+        }
+
+        private void UpdateSpawnPoints()
+        {
             if (spawnPoints != null)
             {
+                Debug.Log("Clear Spawn");
+                SpawnPoints.Clear();
                 foreach (var point in spawnPoints.Points)
                 {
                     SpawnPoints.Add(point);
@@ -63,6 +77,20 @@ namespace Research.CharacterDesign.Scripts.Environment
             MMGameEvent.Trigger("Load");
         }
 
+        private void ChangeLevelDesign()
+        {
+            if (levelGenerator)
+            {
+                _levelCounter++;
+                if (changeLevelMap % _levelCounter == 0)
+                {
+                    levelGenerator.GenerateMap();   
+                }
+
+                UpdateSpawnPoints();
+            }
+        }
+
         public virtual void Restart()
         {
             foreach (var player in Players)
@@ -72,6 +100,8 @@ namespace Research.CharacterDesign.Scripts.Environment
                 Academy.Instance.AgentPreStep -= requester.MakeRequests;
             }
             
+            ChangeLevelDesign();
+
             WaitForRestart();
         }
 

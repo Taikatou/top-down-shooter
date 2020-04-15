@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
+using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
 using UnityEditor;
@@ -27,6 +29,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 		[Tooltip("Width of our map")]
 		public int width;
+		
 		[Tooltip("Height of our map")]
 		public int height;
 		
@@ -37,7 +40,11 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public GameObject spawnPrefab;
 
-		public List<GameObject> spawnGameObjects;
+		public IGetSpawnPoints getSpawnPoints;
+
+		private List<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
+
+		public DataLogger dataLogger;
 		
 		private void Update()
 		{
@@ -81,17 +88,46 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			}
 			
+			OutputMap(map);
+			
 			//Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, tilemapGround, tilemapWalls, tileWall, tileGround);
 
+			var index = 0;
 			var spawnPositions = GetMaxDistance(validPositions);
 			foreach(var position in spawnPositions)
 			{
 				var place = tilemapGround.CellToWorld(position);
-				var prefab = Instantiate(spawnPrefab, place, Quaternion.identity);
+				var shouldInstantiate = !Application.isPlaying;
+				var prefab = shouldInstantiate
+					? Instantiate(spawnPrefab)
+					: getSpawnPoints.Points[index].gameObject;
+				
+				prefab.transform.position = place;
 				prefab.transform.parent = tilemapGround.transform;
-				spawnGameObjects.Add(prefab);
+
+				index++;
 			}
+		}
+
+		private void OutputMap(GridSpace[,] map)
+		{
+			var rowData = new List<string[]>();
+
+			var roomWidth = map.GetUpperBound(0);
+			var roomHeight = map.GetUpperBound(1);
+
+			for (var i = 0; i < roomHeight; i++)
+			{
+				var row = new string [roomWidth];
+				for (var j = 0; j < roomWidth; j++)
+				{
+					row[j] = ((int)map[i, j]).ToString();
+				}
+				rowData.Add(row);
+			}
+			
+			dataLogger.OutputMap(rowData);
 		}
 
 		private static IEnumerable<Vector3Int> GetMaxDistance(IReadOnlyCollection<Vector3Int> array)
@@ -152,11 +188,14 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			tilemapGround.ClearAllTiles();
 			tilemapWalls.ClearAllTiles();
-			foreach (var point in spawnGameObjects)
+			foreach (var point in SpawnGameObjects)
 			{
-				DestroyImmediate(point);
+				if (!Application.isPlaying)
+				{
+					Debug.Log("Editor");
+					DestroyImmediate(point.gameObject);
+				}
 			}
-			spawnGameObjects.Clear();
 		}
 	}
 

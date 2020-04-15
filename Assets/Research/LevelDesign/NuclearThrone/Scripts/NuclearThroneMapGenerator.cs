@@ -20,6 +20,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			CreateFloors(map, percentToFill);
 			
 			CreateWalls(map);
+			
 			RemoveSingleWalls(map, percentToFill);
 
 			return map;

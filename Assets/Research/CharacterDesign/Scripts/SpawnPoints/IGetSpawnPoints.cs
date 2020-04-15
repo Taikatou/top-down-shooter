@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.SpawnPoints
 {
     public abstract class IGetSpawnPoints : MonoBehaviour
     {
-        public abstract List<CheckPoint> Points { get; }
+        public abstract List<MLCheckbox> Points { get; }
     }
 }
