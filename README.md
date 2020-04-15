@@ -13,7 +13,7 @@ Follow relevant Python installation instructions for ml-agents [here](https://gi
 Import the Unity TopDown Engine [here](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636)
 
 Reset changes to Inputmanager using github desktop or using the following command
-    git reset --hard.
+    `git reset --hard`
 
 # Training
 After installation of ml-agents run the mlagents-learn command as shown bellow then press play in the editor.
