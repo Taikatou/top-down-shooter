@@ -27,8 +27,9 @@
       <e p="Constants.cs" t="Include" />
       <e p="DecisionRequester.cs" t="Include" />
       <e p="Demonstrations" t="Include">
-        <e p="Demonstration.cs" t="Include" />
+        <e p="DemonstrationMetaData.cs" t="Include" />
         <e p="DemonstrationRecorder.cs" t="Include" />
+        <e p="DemonstrationSummary.cs" t="Include" />
         <e p="DemonstrationWriter.cs" t="Include" />
       </e>
       <e p="DiscreteActionMasker.cs" t="Include" />

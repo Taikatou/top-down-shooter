@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MLAgents;
 using MLAgents.Policies;
 using MLAgents.Sensors;
@@ -54,61 +53,55 @@ namespace Research.CharacterDesign.Scripts
             var counter = 0;
             // Extrinsic Penalty
             // AddReward(-1f / 3000f);
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter]);
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
             inputManager.SetAiPrimaryMovement(primaryDirection);
-            counter++;
 
             if (shootEnabled)
             {
                 // Shoot Button Input
-                var shootButtonDown = Convert.ToBoolean(vectorAction[counter]);
+                var shootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
                 inputManager.SetShootButton(shootButtonDown);
-                counter++;
             }
 
             if (secondaryInputEnabled)
             {
                 // Set secondary input as vector
-                var secondaryXInput = GetDecision(vectorAction[counter]);
-                counter++;
-                var secondaryYInput = GetDecision(vectorAction[counter]);
+                var secondaryXInput = GetDecision(vectorAction[counter++]);
+                var secondaryYInput = GetDecision(vectorAction[counter++]);
                 var secondary = new Vector2(secondaryXInput, secondaryYInput);
                 inputManager.SetAiSecondaryMovement(secondary);
-                counter++;
             }
 
             if (secondaryAbilityEnabled)
             {
-                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter]);
+                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
         }
 
-        public override float[] Heuristic()
+        public override void Heuristic(float[] actionsOut)
         {
-            var output = new List<float>{ (float)directionsKeyMapper.PrimaryDirections };
+            var index = 0;
             var shootButtonState = Input.GetKey(KeyCode.X);
             if (shootEnabled)
             {
                 var shootButtonInput = Convert.ToSingle(shootButtonState);
-                output.Add(shootButtonInput);
+                actionsOut[index++] = shootButtonInput;
             }
 
             if (secondaryInputEnabled)
             {
                 var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
-                output.Add(secondaryDirections.x);
-                output.Add(secondaryDirections.y);
+                actionsOut[index++] = secondaryDirections.x;
+                actionsOut[index++] = secondaryDirections.y;
             }
             
             if (secondaryAbilityEnabled)
             {
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-                output.Add(secondaryShootButtonInput);
+                actionsOut[index++] = secondaryShootButtonInput;
             }
-            
-            return output.ToArray();
         }
 
         public override void CollectObservations(VectorSensor sensor)

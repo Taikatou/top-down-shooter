@@ -13,16 +13,16 @@ namespace Research.LevelDesign.NuclearThrone
             var roomHeight = map.GetUpperBound(1);
             var z = (int) tilemapGround.transform.position.y;
             
-            for (var y = 0; y < roomHeight; y++)
+            for (var i = 0; i < roomHeight; i++)
             {
-                for (var x = 0; x < roomWidth; x++)
+                for (var j = 0; j < roomWidth; j++)
                 {
-                    var tilePosition = new Vector3Int(x, y, z);
-                    if(map[x,y] == GridSpace.Wall)
+                    var tilePosition = new Vector3Int(j, i, z);
+                    if(map[i,j] == GridSpace.Wall)
                     {
                         tilemapGround.SetTile(tilePosition, tileWalls);
                     }
-                    if(map[x,y] == GridSpace.Floor)
+                    if(map[i,j] == GridSpace.Floor)
                     {
                         tilemapWall.SetTile(tilePosition, tileGround);
                     }
@@ -32,17 +32,19 @@ namespace Research.LevelDesign.NuclearThrone
 
         public static void ClearArray(GridSpace [,] map, bool empty)
         {
-            for (var x = 0; x < map.GetUpperBound(0); x++)
+            var roomWidth = map.GetUpperBound(0);
+            var roomHeight = map.GetUpperBound(1);
+            for (var i = 0; i < roomHeight; i++)
             {
-                for (var y = 0; y < map.GetUpperBound(1); y++)
+                for (var j = 0; j < roomWidth; j++)
                 {
                     if (empty)
                     {
-                        map[x, y] = GridSpace.Empty;
+                        map[i, j] = GridSpace.Empty;
                     }
                     else
                     {
-                        map[x, y] = GridSpace.Floor;
+                        map[i, j] = GridSpace.Floor;
                     }
                 }
             }
