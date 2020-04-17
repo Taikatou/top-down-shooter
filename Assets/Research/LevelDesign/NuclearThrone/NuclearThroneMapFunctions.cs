@@ -13,18 +13,19 @@ namespace Research.LevelDesign.NuclearThrone
             var roomHeight = map.GetUpperBound(1);
             var z = (int) tilemapGround.transform.position.y;
             
-            for (var i = 0; i < roomHeight; i++)
+            for (var y = 0; y < roomHeight; y++)
             {
-                for (var j = 0; j < roomWidth; j++)
+                for (var x = 0; x < roomWidth; x++)
                 {
-                    var tilePosition = new Vector3Int(j, i, z);
-                    if(map[i,j] == GridSpace.Wall)
+                    var tilePosition = new Vector3Int(x, y, z);
+                    switch (map[x, y])
                     {
-                        tilemapGround.SetTile(tilePosition, tileWalls);
-                    }
-                    if(map[i,j] == GridSpace.Floor)
-                    {
-                        tilemapWall.SetTile(tilePosition, tileGround);
+                        case GridSpace.Wall:
+                            tilemapGround.SetTile(tilePosition, tileWalls);
+                            break;
+                        case GridSpace.Floor:
+                            tilemapWall.SetTile(tilePosition, tileGround);
+                            break;
                     }
                 }
             }
@@ -34,17 +35,17 @@ namespace Research.LevelDesign.NuclearThrone
         {
             var roomWidth = map.GetUpperBound(0);
             var roomHeight = map.GetUpperBound(1);
-            for (var i = 0; i < roomHeight; i++)
+            for (var y = 0; y < roomHeight; y++)
             {
-                for (var j = 0; j < roomWidth; j++)
+                for (var x = 0; x < roomWidth; x++)
                 {
                     if (empty)
                     {
-                        map[i, j] = GridSpace.Empty;
+                        map[x, y] = GridSpace.Empty;
                     }
                     else
                     {
-                        map[i, j] = GridSpace.Floor;
+                        map[x, y] = GridSpace.Floor;
                     }
                 }
             }

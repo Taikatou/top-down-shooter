@@ -36,7 +36,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 				for (var y = 0; y < roomHeight-1; y++)
 				{
 					//if theres a floor, check the spaces around it
-					if (map[x,y] == GridSpace.Floor)
+					if (map[x, y] == GridSpace.Floor)
 					{
 						//if any surrounding spaces are empty, place a wall
 						AddWallOnEmpty(map, x, y + 1);
@@ -205,7 +205,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			}
 		}
 
-		private static int NumberOfFloors(GridSpace [,] map)
+		private static int NumberOfFloors(GridSpace[,] map)
 		{
 			return map.Cast<GridSpace>().Count(space => space == GridSpace.Floor);
 		}

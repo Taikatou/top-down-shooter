@@ -1,6 +1,5 @@
 ﻿using System;
 using MLAgents;
-using MLAgents.Policies;
 using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.AgentInput;
@@ -18,11 +17,9 @@ namespace Research.CharacterDesign.Scripts
 
         public SecondaryDirectionsInput secondaryDirectionsInput;
 
-        private BehaviorParameters _behaviorParameters;
-
         private Health _health;
 
-        public bool secondaryInputEnabled = false;
+        public bool secondaryInputEnabled;
         public bool shootEnabled;
         public bool secondaryAbilityEnabled;
 
@@ -30,7 +27,6 @@ namespace Research.CharacterDesign.Scripts
 
         public override void Initialize()
         {
-            _behaviorParameters = GetComponent<BehaviorParameters>();
             _health = GetComponent<Health>();
         }
         
@@ -82,9 +78,9 @@ namespace Research.CharacterDesign.Scripts
         public override void Heuristic(float[] actionsOut)
         {
             var index = 0;
-            var shootButtonState = Input.GetKey(KeyCode.X);
             if (shootEnabled)
             {
+                var shootButtonState = Input.GetKey(KeyCode.X);
                 var shootButtonInput = Convert.ToSingle(shootButtonState);
                 actionsOut[index++] = shootButtonInput;
             }

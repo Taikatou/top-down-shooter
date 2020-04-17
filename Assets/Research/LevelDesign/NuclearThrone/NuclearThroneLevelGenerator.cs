@@ -114,8 +114,8 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			var rowData = new List<string[]>();
 
-			var roomWidth = map.GetUpperBound(0);
-			var roomHeight = map.GetUpperBound(1);
+			var roomHeight = map.GetUpperBound(0);
+			var roomWidth = map.GetUpperBound(1);
 
 			for (var i = 0; i < roomHeight; i++)
 			{
