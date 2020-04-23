@@ -2,7 +2,7 @@
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts
+namespace Research.CharacterDesign.Scripts.Environment
 {
     public class TopDownInputManager : InputManager
     {

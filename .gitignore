@@ -30,6 +30,10 @@
 /Assets/TopDownEngine/Common/Scripts/Characters/Core/*
 !/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
 
+!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities
+/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/*
+!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs*
+
 
 !/Assets/TopDownEngine/Demos
 /Assets/TopDownEngine/Demos/*

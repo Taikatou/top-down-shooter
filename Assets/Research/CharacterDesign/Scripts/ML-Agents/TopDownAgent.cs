@@ -3,6 +3,7 @@ using MLAgents;
 using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.AgentInput;
+using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
@@ -78,6 +79,8 @@ namespace Research.CharacterDesign.Scripts
         public override void Heuristic(float[] actionsOut)
         {
             var index = 0;
+            actionsOut[index++] = (int)directionsKeyMapper.PrimaryDirections;
+            
             if (shootEnabled)
             {
                 var shootButtonState = Input.GetKey(KeyCode.X);
