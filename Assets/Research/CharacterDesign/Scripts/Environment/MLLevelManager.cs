@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
@@ -26,9 +24,11 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public NuclearThroneLevelGenerator levelGenerator;
 
-        public int changeLevelMap = 1;
+        private int changeLevelMap = 2;
 
-        private int _levelCounter = 0;
+        private int _levelCounter;
+
+        public int teamCount = 2;
 
         protected override void Awake()
         {
@@ -82,9 +82,10 @@ namespace Research.CharacterDesign.Scripts.Environment
             if (levelGenerator)
             {
                 _levelCounter++;
-                if (changeLevelMap % _levelCounter == 0)
+                if (_levelCounter == changeLevelMap)
                 {
-                    levelGenerator.GenerateMap();   
+                    levelGenerator.GenerateMap();
+                    _levelCounter = 0;
                 }
 
                 UpdateSpawnPoints();
@@ -137,7 +138,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             var teamDeaths = GetTeamDeaths();
 
-            var gameOver = teamDeaths[0] == 2 || teamDeaths[1] == 2;
+            var gameOver = teamDeaths[0] == teamCount || teamDeaths[1] == teamCount;
             return gameOver;
         }
 
@@ -177,7 +178,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var reward = GetReward(teamId, winningTeamId);
                 
                 loggedData[teamId] = reward;
-                var agentName = agent.GetComponent<BehaviorParameters>().behaviorName;
+                var agentName = agent.GetComponent<BehaviorParameters>().FullyQualifiedBehaviorName;
                 loggedNames[teamId].Add(agentName);
 
                 agent.AddReward(reward);

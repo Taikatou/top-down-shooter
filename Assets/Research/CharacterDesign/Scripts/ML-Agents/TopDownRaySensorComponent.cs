@@ -19,7 +19,7 @@ namespace Research.CharacterDesign.Scripts
         public TopDownRaySensorComponent()
         {
             // Set to the 2D defaults (just in case they ever diverge).
-            rayLayerMask = Physics2D.DefaultRaycastLayers;
+            RayLayerMask = Physics2D.DefaultRaycastLayers;
         }
 
         /// <inheritdoc/>

@@ -1715,13 +1715,13 @@ PrefabInstance:
         type: 3}
       propertyPath: mlCharacters.Array.data[0]
       value: 
-      objectReference: {fileID: 5304628133201296549, guid: 17e9ef6a7067eb2469fc952bd38ed419,
+      objectReference: {fileID: 8205006499429971300, guid: 6809375a4c4066e4399479c54abdb91f,
         type: 3}
     - target: {fileID: 3644290879213326370, guid: 1d5dd01c2d056d64992a8945d61f7d47,
         type: 3}
       propertyPath: priorMlCharacters.Array.data[0]
       value: 
-      objectReference: {fileID: 4740794389653712349, guid: bb65ffbb7e3a6a94299fef7526cc15be,
+      objectReference: {fileID: 2767805354622965184, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
     - target: {fileID: 3644290879213326370, guid: 1d5dd01c2d056d64992a8945d61f7d47,
         type: 3}
@@ -8197,7 +8197,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.9
+  orthographic size: 33.56
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -8310,7 +8310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4538199101394737115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.55031, y: -17.43, z: -40.690002}
+  m_LocalPosition: {x: 28.78, y: 23.63, z: -40.690002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4538626489313701857}
@@ -8837,7 +8837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4537875236287005117
 GameObject:
   m_ObjectHideFlags: 0
@@ -20159,7 +20159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4538626488602877453
 Transform:
   m_ObjectHideFlags: 0
@@ -21538,13 +21538,13 @@ MonoBehaviour:
   Countdowns:
   - {fileID: 4538626489218007915}
   - {fileID: 4538626489705735881}
-  GameDuration: 3
+  GameDuration: 60
   teamSize: 1
   agentQueue: {fileID: 1378458095}
   dataLogger: {fileID: 0}
   spawnPoints: {fileID: 4538626489832758768}
   levelGenerator: {fileID: 659059018}
-  changeLevelMap: 1
+  teamCount: 1
 --- !u!1 &4538626488824685368
 GameObject:
   m_ObjectHideFlags: 0

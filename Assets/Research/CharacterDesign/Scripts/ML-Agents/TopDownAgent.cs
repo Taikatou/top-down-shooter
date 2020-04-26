@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MLAgents;
 using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
@@ -25,6 +26,8 @@ namespace Research.CharacterDesign.Scripts
         public bool secondaryAbilityEnabled;
 
         private float HealthInput => _health.CurrentHealth / _health.MaximumHealth;
+
+        public SpriteRenderer spriteRenderer;
 
         public override void Initialize()
         {
@@ -99,7 +102,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-                actionsOut[index++] = secondaryShootButtonInput;
+                actionsOut[index] = secondaryShootButtonInput;
             }
         }
 
@@ -107,6 +110,72 @@ namespace Research.CharacterDesign.Scripts
         {
             // sensor.AddObservation(_behaviorParameters.TeamId);
             sensor.AddObservation(HealthInput);
+
+            var id = SpriteId.Instance.GetId(spriteRenderer);
+            
+            foreach(var result in id)
+            {
+                sensor.AddObservation(result);   
+            }
+        }
+    }
+
+    public class SpriteId
+    {
+        private Dictionary<string, int> _mapper;
+        private int _counter;
+
+        private static SpriteId _instance;
+        public static SpriteId Instance => _instance ?? (_instance = new SpriteId());
+
+        private SpriteId()
+        {
+            _mapper = new Dictionary<string, int>();
+            var animIds = new []{
+                "Damage", 
+                "DashParticle", 
+                "Dead", 
+                "Falling", 
+                "Idle", 
+                "Run", 
+                "SwordIdle",
+                "SwordSlash1",
+                "SwordSlash2",
+                "SwordSlash3"
+            };
+                
+            AddIds(animIds);
+        }
+
+        public void AddIds(string[] ids)
+        {
+            foreach (var id in ids)
+            {
+                _mapper[id] = _counter++;
+            }
+        }
+
+        private int[] GetId(string name)
+        {
+            try
+            {
+                var split = name.Split('_');
+                var indexAvailable = split.Length == 3;
+                var index = indexAvailable? int.Parse(split[2]) : 0;
+                var anim = _mapper[split[1]];
+                var results = new int [] {anim, index};
+                return results;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(name);
+                throw;
+            }
+        }
+
+        public int[] GetId(SpriteRenderer spriteRenderer)
+        {
+            return GetId(spriteRenderer.sprite.name);
         }
     }
 }

@@ -32,6 +32,8 @@ public class SoccerFieldArea : MonoBehaviour
     [HideInInspector]
     public bool canResetBall;
 
+    private EnvironmentParameters m_ResetParams;
+
     void Awake()
     {
         canResetBall = true;
@@ -40,6 +42,8 @@ public class SoccerFieldArea : MonoBehaviour
         m_BallController = ball.GetComponent<SoccerBallController>();
         m_BallController.area = this;
         ballStartingPos = ball.transform.position;
+
+        m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
     IEnumerator ShowGoalUI()
@@ -55,7 +59,7 @@ public class SoccerFieldArea : MonoBehaviour
         {
             if (ps.agentScript.team == scoredTeam)
             {
-                ps.agentScript.AddReward(1);
+                ps.agentScript.AddReward(1 + ps.agentScript.timePenalty);
             }
             else
             {
@@ -70,21 +74,13 @@ public class SoccerFieldArea : MonoBehaviour
         }
     }
 
-    public Vector3 GetBallSpawnPosition()
-    {
-        var randomSpawnPos = ground.transform.position +
-            new Vector3(0f, 0f, 0f);
-        randomSpawnPos.y = ground.transform.position.y + .5f;
-        return randomSpawnPos;
-    }
-
     public void ResetBall()
     {
-        ball.transform.position = GetBallSpawnPosition();
+        ball.transform.position = ballStartingPos;
         ballRb.velocity = Vector3.zero;
         ballRb.angularVelocity = Vector3.zero;
 
-        var ballScale = SideChannelUtils.GetSideChannel<FloatPropertiesChannel>().GetPropertyWithDefault("ball_scale", 0.015f);
+        var ballScale = m_ResetParams.GetWithDefault("ball_scale", 0.015f);
         ballRb.transform.localScale = new Vector3(ballScale, ballScale, ballScale);
     }
 }

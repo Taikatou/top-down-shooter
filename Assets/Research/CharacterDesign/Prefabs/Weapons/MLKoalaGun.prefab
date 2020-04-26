@@ -14691,7 +14691,7 @@ MonoBehaviour:
   WeaponAngleAnimationParameter: 
   WeaponAngleRelativeAnimationParameter: 
   WeaponStartMMFeedback: {fileID: 0}
-  WeaponUsedMMFeedback: {fileID: 8393519127234161796}
+  WeaponUsedMMFeedback: {fileID: 0}
   WeaponStopMMFeedback: {fileID: 0}
   WeaponReloadMMFeedback: {fileID: 0}
   WeaponReloadNeededMMFeedback: {fileID: 0}
@@ -19812,6 +19812,7 @@ MonoBehaviour:
   - {fileID: 4557123443627950319}
   - {fileID: 6250744471317053356}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &7174525974172923711
 MonoBehaviour:
@@ -19871,7 +19872,9 @@ MonoBehaviour:
   DebugActive: 0
   Channel: 0
   ShakeDuration: 0.2
-  RelativeIntensity: 1
+  ResetShakerValuesAfterShake: 1
+  ResetTargetValuesAfterShake: 1
+  RelativeValues: 1
   ShakeIntensity:
     serializedVersion: 2
     m_Curve:
@@ -19905,7 +19908,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ShakeIntensityAmplitude: 5
+  RemapIntensityZero: 0
+  RemapIntensityOne: 1
   ShakeThreshold:
     serializedVersion: 2
     m_Curve:
@@ -19939,7 +19943,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ShakeThresholdAmplitude: -0.2
+  RemapThresholdZero: 0
+  RemapThresholdOne: 0
 --- !u!114 &4067147030157240978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19968,6 +19973,11 @@ MonoBehaviour:
     TargetBPM: 120
   DebugActive: 0
   Channel: 0
+  Duration: 0.2
+  ResetShakerValuesAfterShake: 1
+  ResetTargetValuesAfterShake: 1
+  RemapIntensityZero: 0
+  RemapIntensityOne: 1
   Intensity:
     serializedVersion: 2
     m_Curve:
@@ -20001,7 +20011,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Duration: 0.2
   Amplitude: 1
   RelativeIntensity: 0
 --- !u!114 &6134617435371281027
@@ -20065,6 +20074,7 @@ MonoBehaviour:
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: 03372090399bb424d81d08beb68d6480, type: 3}
   RandomSfx: []
+  TestButton: 0
   PlayMethod: 0
   PoolSize: 10
   MinVolume: 1

@@ -33,6 +33,7 @@
         <e p="DemonstrationWriter.cs" t="Include" />
       </e>
       <e p="DiscreteActionMasker.cs" t="Include" />
+      <e p="EnvironmentParameters.cs" t="Include" />
       <e p="EpisodeIdCounter.cs" t="Include" />
       <e p="Grpc" t="Include">
         <e p="AssemblyInfo.cs" t="Include" />
@@ -87,6 +88,7 @@
         <e p="CameraSensorComponent.cs" t="Include" />
         <e p="ISensor.cs" t="Include" />
         <e p="Observation.cs" t="Include" />
+        <e p="ObservationWriter.cs" t="Include" />
         <e p="RayPerceptionSensor.cs" t="Include" />
         <e p="RayPerceptionSensorComponent2D.cs" t="Include" />
         <e p="RayPerceptionSensorComponent3D.cs" t="Include" />
@@ -97,18 +99,19 @@
         <e p="SensorShapeValidator.cs" t="Include" />
         <e p="StackingSensor.cs" t="Include" />
         <e p="VectorSensor.cs" t="Include" />
-        <e p="WriteAdapter.cs" t="Include" />
       </e>
       <e p="SideChannels" t="Include">
         <e p="EngineConfigurationChannel.cs" t="Include" />
+        <e p="EnvironmentParametersChannel.cs" t="Include" />
         <e p="FloatPropertiesChannel.cs" t="Include" />
         <e p="IncomingMessage.cs" t="Include" />
         <e p="OutgoingMessage.cs" t="Include" />
         <e p="RawBytesChannel.cs" t="Include" />
         <e p="SideChannel.cs" t="Include" />
-        <e p="SideChannelUtils.cs" t="Include" />
+        <e p="SideChannelsManager.cs" t="Include" />
         <e p="StatsSideChannel.cs" t="Include" />
       </e>
+      <e p="StatsRecorder.cs" t="Include" />
       <e p="Timer.cs" t="Include" />
       <e p="Unity.ML-Agents.asmdef" t="Include" />
       <e p="UnityAgentsException.cs" t="Include" />
@@ -244,6 +247,11 @@
               <e p="Scripts" t="Include">
                 <e p="WallJumpAgent.cs" t="Include" />
                 <e p="WallJumpSettings.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Worm" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="WormAgent.cs" t="Include" />
               </e>
             </e>
           </e>
