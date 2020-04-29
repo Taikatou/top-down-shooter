@@ -23,6 +23,7 @@
         <e p="GrpcExtensions.cs" t="Include" />
         <e p="ICommunicator.cs" t="Include" />
         <e p="RpcCommunicator.cs" t="Include" />
+        <e p="UnityRLCapabilities.cs" t="Include" />
       </e>
       <e p="Constants.cs" t="Include" />
       <e p="DecisionRequester.cs" t="Include" />
@@ -42,6 +43,7 @@
           <e p="AgentInfo.cs" t="Include" />
           <e p="AgentInfoActionPair.cs" t="Include" />
           <e p="BrainParameters.cs" t="Include" />
+          <e p="Capabilities.cs" t="Include" />
           <e p="Command.cs" t="Include" />
           <e p="CustomResetParameters.cs" t="Include" />
           <e p="DemonstrationMeta.cs" t="Include" />

@@ -18,8 +18,20 @@ namespace MoreMountains.TopDownEngine
 		/// set this to false to prevent input to be detected
 		public bool InputDetectionActive = true;
 
-        /// a string identifying the target player(s). You'll need to set this exact same string on your Character, and set its type to Player
-        public string PlayerID => GetComponent<Character>().PlayerID;
+		/// a string identifying the target player(s). You'll need to set this exact same string on your Character, and set its type to Player
+		public string PlayerID
+		{
+			get
+			{
+				var character = GetComponent<Character>();
+				if (character != null)
+				{
+					return character.PlayerID;
+				}
+
+				return "Player1";
+			}
+		}
 
 
 		/// the possible modes for this input manager

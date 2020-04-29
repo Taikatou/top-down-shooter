@@ -70,6 +70,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
     - target: {fileID: 4773280857398313532, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: secondaryInputEnabled

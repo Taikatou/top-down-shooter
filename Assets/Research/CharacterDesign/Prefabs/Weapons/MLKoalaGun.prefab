@@ -14615,6 +14615,7 @@ GameObject:
   - component: {fileID: 114349044915979940}
   - component: {fileID: 114164106778908234}
   - component: {fileID: 114904966379098586}
+  - component: {fileID: 7435059991523441766}
   m_Layer: 0
   m_Name: MLKoalaGun
   m_TagString: Untagged
@@ -14770,6 +14771,24 @@ MonoBehaviour:
   BelowThresholdSortingOrder: 1
   AboveThresholdSortingOrder: -1
   Sprite: {fileID: 212165625285736134}
+--- !u!114 &7435059991523441766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572783773909934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a1ad332e670b84fb2ee52316f58ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Angle: 5
+  Distance: 2
+  RaycastOriginOffset: {x: 0, y: 0, z: 0}
+  ObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 2304
 --- !u!1 &1598119543345386
 GameObject:
   m_ObjectHideFlags: 0

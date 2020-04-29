@@ -26,6 +26,30 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			return map;
 		}
 
+		private static void FillInGaps(GridSpace[,] map)
+		{
+			var listToFill = new List<Vector2Int>();
+			var roomWidth = map.GetUpperBound(0);
+			var roomHeight = map.GetUpperBound(1);
+			//loop though every grid space
+			for (var x = 0; x < roomWidth; x++)
+			{
+				for (var y = 0; y < roomHeight; y++)
+				{
+					//if theres a floor, check the spaces around it
+					if (map[x, y] == GridSpace.Empty)
+					{
+						listToFill.Add(new Vector2Int(x, y));
+					}
+				}
+			}
+
+			foreach (var item in listToFill)
+			{
+				map[item.x, item.y] = GridSpace.Wall;
+			}
+		}
+
 		private static void CreateWalls(GridSpace[,] map)
 		{
 			var roomWidth = map.GetUpperBound(0);

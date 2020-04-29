@@ -141,7 +141,8 @@ namespace Research.CharacterDesign.Scripts
                 "SwordIdle",
                 "SwordSlash1",
                 "SwordSlash2",
-                "SwordSlash3"
+                "SwordSlash3",
+                "KoalaDamage"
             };
                 
             AddIds(animIds);
@@ -162,11 +163,12 @@ namespace Research.CharacterDesign.Scripts
                 var split = name.Split('_');
                 var indexAvailable = split.Length == 3;
                 var index = indexAvailable? int.Parse(split[2]) : 0;
-                var anim = _mapper[split[1]];
+                var animIndex = indexAvailable ? 1 : 0;
+                var anim =  _mapper[split[animIndex]];
                 var results = new int [] {anim, index};
                 return results;
             }
-            catch (Exception e)
+            catch
             {
                 Debug.Log(name);
                 throw;

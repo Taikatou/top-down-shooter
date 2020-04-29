@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6143138082279506003, guid: 6809375a4c4066e4399479c54abdb91f,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 6143138082279506003, guid: 6809375a4c4066e4399479c54abdb91f,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078549015182500032, guid: 6809375a4c4066e4399479c54abdb91f,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 4767032738106823320, guid: b581b7d0b85ee0948bd1483b6dfc652d,
+        type: 3}
     - target: {fileID: 7180087553782486726, guid: 6809375a4c4066e4399479c54abdb91f,
         type: 3}
       propertyPath: m_LocalPosition.x
