@@ -6,6 +6,7 @@ using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Research.LevelDesign.NuclearThrone
@@ -45,7 +46,46 @@ namespace Research.LevelDesign.NuclearThrone
 		private List<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
 
 		public DataLogger dataLogger;
-		
+
+		private GridSpace[,] map;
+
+		public GridSpace[,] Map
+		{
+			get
+			{
+				if (map == null)
+				{
+					map = NuclearThroneMapFunctions.GenerateArray(width, height);
+					UpdateMap(tilemapWalls, GridSpace.Wall);
+					UpdateMap(tilemapGround, GridSpace.Floor);
+				}
+				return map;
+			}
+		}
+
+		public Vector3Int GetPosition(Vector3 position)
+		{
+			return tilemapWalls.WorldToCell(position);
+		}
+
+		private void UpdateMap(Tilemap tileMap, GridSpace type)
+		{
+			var z = (int) tileMap.transform.position.y;
+
+			for (var y = 0; y < height; y++)
+			{
+				for (var x = 0; x < width; x++)
+				{
+					var tilePosition = new Vector3Int(x, y, z);
+					var tile = tileMap.GetTile(tilePosition);
+					if (tile != null)
+					{
+						map[x, y] = type;
+					}
+				}
+			}
+		}
+
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.N))
@@ -56,7 +96,7 @@ namespace Research.LevelDesign.NuclearThrone
 		}
 
 		[ExecuteInEditMode]
-		public void GenerateMap()
+		public void GenerateMap(bool generateMap=true)
 		{
 			ClearMap();
 			
@@ -64,14 +104,21 @@ namespace Research.LevelDesign.NuclearThrone
 			Random.InitState(seed.GetHashCode());
 
 			var validPositions = new List<Vector3Int>();
-			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
+			map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)
 			{
 				validPositions.Clear();
 				NuclearThroneMapFunctions.ClearArray(map, true);
 
-				map = NuclearThroneMapGenerator.GenerateMap(map);
-
+				if (generateMap)
+				{
+					map = NuclearThroneMapGenerator.GenerateMap(map);
+				}
+				else
+				{
+					map = NuclearThroneMapGenerator.SquareMap(map);
+				}
+				
 				var distance = 2;
 				var z = (int) tilemapGround.transform.position.y;
 				for (var y = distance; y < height - distance; y++)
@@ -219,6 +266,11 @@ namespace Research.LevelDesign.NuclearThrone
 				if (GUILayout.Button("Generate"))
 				{
 					levelGen.GenerateMap();
+				}
+				
+				if (GUILayout.Button("Generate Square"))
+				{
+					levelGen.GenerateMap(false);
 				}
 
 				if (GUILayout.Button("Clear"))

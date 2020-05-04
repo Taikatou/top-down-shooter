@@ -311,6 +311,10 @@
             <e p="SwordOutline.cs" t="Include" />
             <e p="TimeScaleChecker.cs" t="Include" />
           </e>
+          <e p="Common" t="Include">
+            <e p="MLCharacterHandleWeapon.cs" t="Include" />
+            <e p="WeaponRayTrace.cs" t="Include" />
+          </e>
           <e p="LevelDesign" t="Include">
             <e p="NuclearThrone" t="Include">
               <e p="CheckpointSpawner.cs" t="Include" />
@@ -325,7 +329,10 @@
               </e>
             </e>
             <e p="Scripts" t="Include">
+              <e p="AIAccessor.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
+              <e p="TileMapSensor.cs" t="Include" />
+              <e p="TileMapSensorComponent.cs" t="Include" />
             </e>
             <e p="UnityProcedural" t="Include">
               <e p="Global Scripts" t="Include">

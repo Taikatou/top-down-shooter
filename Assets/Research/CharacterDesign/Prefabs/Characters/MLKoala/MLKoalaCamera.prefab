@@ -9935,7 +9935,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498750440386690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a07c6668aa55403790d27b575279549, type: 3}
+  m_Script: {fileID: 11500000, guid: d6f6cb1390ef7a84b97ebb8b86b98c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -10191,11 +10191,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 1
-    numStackedVectorObservations: 1
-    vectorActionSize: 0500000002000000
-    vectorActionDescriptions: []
-    vectorActionSpaceType: 0
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    VectorActionSize: 0500000002000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -10217,13 +10217,15 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  maxStep: 0
+  MaxStep: 0
   inputManager: {fileID: 736809353080717413}
   directionsKeyMapper: {fileID: 3227602827474996630}
   secondaryDirectionsInput: {fileID: 5874842002941729212}
   secondaryInputEnabled: 0
   shootEnabled: 1
   secondaryAbilityEnabled: 0
+  spriteRenderer: {fileID: 0}
+  continuous: 0
 --- !u!1 &1561075265052736
 GameObject:
   m_ObjectHideFlags: 0

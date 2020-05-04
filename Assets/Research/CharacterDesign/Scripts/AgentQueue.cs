@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
+using Research.LevelDesign.Scripts;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts

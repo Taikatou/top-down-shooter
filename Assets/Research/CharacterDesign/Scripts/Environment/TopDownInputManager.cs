@@ -39,6 +39,13 @@ namespace Research.CharacterDesign.Scripts.Environment
             _aiSecondaryMovement.y = vector.y;
         }
 
+        public void MoveAiSecondaryMovement(Vector2 vector, float scale = 0.01f)
+        {
+            var change = vector * scale;
+            _aiSecondaryMovement.x = Mathf.Clamp(_aiSecondaryMovement.x + change.x, -1.0f, 1.0f);
+            _aiSecondaryMovement.y = Mathf.Clamp(_aiSecondaryMovement.y + change.y, -1.0f, 1.0f);
+        }
+
         public override void SetMovement()
         {
             

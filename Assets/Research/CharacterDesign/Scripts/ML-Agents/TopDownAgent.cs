@@ -5,11 +5,20 @@ using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
+using Research.Common;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
 {
     public enum Directions { None, Left, Right, Up, Down }
+    
+    public enum AimControl
+    {
+        Addition,
+        EightWay,
+        SixTeenWay,
+        ThirtyTwoWay
+    };
 
     public class TopDownAgent : Agent
     {
@@ -29,12 +38,16 @@ namespace Research.CharacterDesign.Scripts
 
         public SpriteRenderer spriteRenderer;
 
+        public float gunSpeed = 0.01f;
+        
+        public AimControl aimControl = AimControl.ThirtyTwoWay;
+        
         public override void Initialize()
         {
             _health = GetComponent<Health>();
         }
         
-        private int GetDecision(float input)
+        private float GetDecision(float input)
         {
             switch (Mathf.FloorToInt(input))
             {
@@ -44,8 +57,32 @@ namespace Research.CharacterDesign.Scripts
                 case 2:
                     // Right or Up
                     return 1;
+                case 3:
+                    // Right or Up
+                    return -GetIncrement();
+                case 4:
+                    // Right or Up
+                    return GetIncrement();
+                case 5:
+                    // Right or Up
+                    return -2 * GetIncrement();
+                case 6:
+                    // Right or Up
+                    return 2 * GetIncrement();
             }
             return 0;
+        }
+
+        private float GetIncrement()
+        {
+            switch (aimControl)
+            {
+                case AimControl.SixTeenWay:
+                    return 0.5f;
+                case AimControl.ThirtyTwoWay:
+                    return 0.33f;
+            }
+            return 1;
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -69,7 +106,15 @@ namespace Research.CharacterDesign.Scripts
                 var secondaryXInput = GetDecision(vectorAction[counter++]);
                 var secondaryYInput = GetDecision(vectorAction[counter++]);
                 var secondary = new Vector2(secondaryXInput, secondaryYInput);
-                inputManager.SetAiSecondaryMovement(secondary);
+                switch (aimControl)
+                {
+                    case AimControl.Addition:
+                        inputManager.MoveAiSecondaryMovement(secondary, gunSpeed);
+                        break;
+                    case AimControl.SixTeenWay:
+                        inputManager.SetAiSecondaryMovement(secondary);
+                        break;
+                }
             }
 
             if (secondaryAbilityEnabled)
@@ -117,6 +162,14 @@ namespace Research.CharacterDesign.Scripts
             {
                 sensor.AddObservation(result);   
             }
+            
+            sensor.AddObservation(inputManager.SecondaryMovement);
+
+            var weaponTrace = GetComponentInChildren<WeaponRayTrace>();
+
+            var traceOutput = weaponTrace ? weaponTrace.GetRay() : 0.0f;
+            
+            sensor.AddObservation(traceOutput);
         }
     }
 
@@ -142,7 +195,8 @@ namespace Research.CharacterDesign.Scripts
                 "SwordSlash1",
                 "SwordSlash2",
                 "SwordSlash3",
-                "KoalaDamage"
+                "KoalaDamage",
+                "KoalaDead"
             };
                 
             AddIds(animIds);

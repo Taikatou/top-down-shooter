@@ -12,8 +12,6 @@ namespace Research.CharacterDesign.Scripts.Environment
 {
     public class MLLevelManager : GrasslandsMultiplayerLevelManager
     {
-        private int _colourSwitch = 0;
-
         public int teamSize = 2;
 
         public AgentQueue agentQueue;
@@ -24,7 +22,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public NuclearThroneLevelGenerator levelGenerator;
 
-        private int changeLevelMap = 2;
+        private int changeLevelMap = 100;
 
         private int _levelCounter;
 
@@ -109,29 +107,22 @@ namespace Research.CharacterDesign.Scripts.Environment
         protected override void InstantiatePlayableCharacters()
         {
             Players = new List<Character>();
-            var blueTeam = _colourSwitch % 2;
             for (var i = 0; i < teamSize; i++)
             {
                 var mlCharacter = agentQueue.PopRandomMlCharacter();
-                SpawnTeamPlayer(mlCharacter, blueTeam, false);
+                SpawnTeamPlayer(mlCharacter, false);
                 var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
-                SpawnTeamPlayer(priorMlCharacter, blueTeam, true);
+                SpawnTeamPlayer(priorMlCharacter, true);
             }
-            _colourSwitch++;
         }
 
-        protected virtual void SpawnTeamPlayer(Character newPlayer, int blueTeam, bool prior)
+        protected virtual void SpawnTeamPlayer(Character newPlayer, bool prior)
         {
             Players.Add(newPlayer);
-            
-            // Set TeamId
-            var behaviour = newPlayer.GetComponent<BehaviorParameters>();
-            // behaviour.TeamId = prior? 0 : 1;
 
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
-            var teamId = behaviour.TeamId;
-            outline.IsBlue = blueTeam == teamId;
+            outline.IsBlue = prior;
         }
 
         protected override bool GameOverCondition()
@@ -191,12 +182,15 @@ namespace Research.CharacterDesign.Scripts.Environment
             loggedNames[1].Sort();
             var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
             var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
-            
-            dataLogger?.AddResultTeam(sortedNames0, loggedData[0]);
-            dataLogger?.AddResultTeam(sortedNames1, loggedData[1]);
-            
+
+            if (dataLogger != null)
+            {
+                dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
+                dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
+            }
+
             Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
-                                "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
+                       "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
             
             Restart();
             yield break;
