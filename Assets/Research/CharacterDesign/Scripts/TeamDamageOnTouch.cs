@@ -27,7 +27,8 @@ namespace Research.CharacterDesign.Scripts
                         return;
                     }
                 }
-            } base.Colliding(collider);
+            }
+            base.Colliding(collider);
         }
 
         protected override void OnCollideWithDamageable(Health health)

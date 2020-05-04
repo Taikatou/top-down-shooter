@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
@@ -245,8 +246,8 @@ namespace MoreMountains.TopDownEngine
 		/// Kills the character, vibrates the device, instantiates death effects, handles points, etc
 		/// </summary>
 		public virtual void Kill()
-        {
-	        if (_character != null)
+		{
+			if (_character != null)
             {
                 // we set its dead state to true
                 _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);

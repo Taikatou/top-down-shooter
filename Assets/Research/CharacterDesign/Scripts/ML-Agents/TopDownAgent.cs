@@ -20,6 +20,13 @@ namespace Research.CharacterDesign.Scripts
         ThirtyTwoWay
     };
 
+    public enum LevelCurriculum
+    {
+        NoAdversaryNoMap,
+        NoAdversary,
+        AllActive
+    }
+
     public class TopDownAgent : Agent
     {
         public TopDownInputManager inputManager;
@@ -41,7 +48,7 @@ namespace Research.CharacterDesign.Scripts
         public float gunSpeed = 0.01f;
         
         public AimControl aimControl = AimControl.ThirtyTwoWay;
-        
+
         public override void Initialize()
         {
             _health = GetComponent<Health>();
@@ -148,6 +155,17 @@ namespace Research.CharacterDesign.Scripts
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
                 actionsOut[index] = secondaryShootButtonInput;
+            }
+        }
+
+        public override void OnEpisodeBegin()
+        {
+            var mResetParams = Academy.Instance.EnvironmentParameters;
+            var levelDesign = mResetParams.GetWithDefault("design", 0);
+            var agentQueue = GetComponentInParent<AgentQueue>();
+            if (agentQueue)
+            {
+                agentQueue.currentCurriculum = (LevelCurriculum) levelDesign;
             }
         }
 

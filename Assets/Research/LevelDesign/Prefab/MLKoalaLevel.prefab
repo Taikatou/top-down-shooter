@@ -34,6 +34,31 @@ PrefabInstance:
       propertyPath: DisableControllerOnDeath
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6530813142467327410, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: DisableCollisionsOnDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6530813142467327410, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: DisableModelOnDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6530813142467327410, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: DestroyOnDeath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6530813142467327410, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: InitialHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -6530813142467327410, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: MaximumHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1498750440386690, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
       propertyPath: m_Name
       value: MLKoalaLevel

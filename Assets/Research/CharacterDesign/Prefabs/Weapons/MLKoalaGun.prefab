@@ -14701,7 +14701,7 @@ MonoBehaviour:
   Flipped: 0
   ProjectileSpawnOffset: {x: 1.91, y: 0.1, z: 0}
   ProjectilesPerShot: 1
-  Spread: {x: 0, y: 0, z: 10}
+  Spread: {x: 0, y: 0, z: 0}
   RotateWeaponOnSpread: 1
   RandomSpread: 1
   SpawnPosition: {x: 0.9, y: -0.87, z: 0}

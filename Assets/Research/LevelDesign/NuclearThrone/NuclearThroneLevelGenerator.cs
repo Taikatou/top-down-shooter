@@ -47,19 +47,21 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public DataLogger dataLogger;
 
-		private GridSpace[,] map;
+		private GridSpace[,] _map;
+
+		public AgentQueue agentQueue;
 
 		public GridSpace[,] Map
 		{
 			get
 			{
-				if (map == null)
+				if (_map == null)
 				{
-					map = NuclearThroneMapFunctions.GenerateArray(width, height);
+					_map = NuclearThroneMapFunctions.GenerateArray(width, height);
 					UpdateMap(tilemapWalls, GridSpace.Wall);
 					UpdateMap(tilemapGround, GridSpace.Floor);
 				}
-				return map;
+				return _map;
 			}
 		}
 
@@ -80,7 +82,7 @@ namespace Research.LevelDesign.NuclearThrone
 					var tile = tileMap.GetTile(tilePosition);
 					if (tile != null)
 					{
-						map[x, y] = type;
+						_map[x, y] = type;
 					}
 				}
 			}
@@ -95,8 +97,14 @@ namespace Research.LevelDesign.NuclearThrone
 			}
 		}
 
+		public void GenerateMap()
+		{
+			var generateMap = agentQueue && agentQueue.currentCurriculum == LevelCurriculum.AllActive;
+			GenerateMap(generateMap);
+		}
+
 		[ExecuteInEditMode]
-		public void GenerateMap(bool generateMap=true)
+		public void GenerateMap(bool generateMap, int distance=2)
 		{
 			ClearMap();
 			
@@ -104,28 +112,26 @@ namespace Research.LevelDesign.NuclearThrone
 			Random.InitState(seed.GetHashCode());
 
 			var validPositions = new List<Vector3Int>();
-			map = NuclearThroneMapFunctions.GenerateArray(width, height);
+			_map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)
 			{
 				validPositions.Clear();
-				NuclearThroneMapFunctions.ClearArray(map, true);
+				NuclearThroneMapFunctions.ClearArray(_map, true);
 
 				if (generateMap)
 				{
-					map = NuclearThroneMapGenerator.GenerateMap(map);
+					_map = NuclearThroneMapGenerator.GenerateMap(_map);
 				}
 				else
 				{
-					map = NuclearThroneMapGenerator.SquareMap(map);
+					_map = NuclearThroneMapGenerator.SquareMap(_map);
 				}
-				
-				var distance = 2;
 				var z = (int) tilemapGround.transform.position.y;
 				for (var y = distance; y < height - distance; y++)
 				{
 					for (var x = distance; x < width - distance; x++)
 					{
-						var free = FreeTile(x, y, map, distance);
+						var free = FreeTile(x, y, _map, distance);
 						var notClose = CheckDistance(x, y, validPositions, 15);
 						if (free && notClose)
 						{
@@ -135,10 +141,10 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			}
 			
-			OutputMap(map);
+			OutputMap();
 			
 			//Render the result
-			NuclearThroneMapFunctions.RenderMapWithOffset(map, tilemapGround, tilemapWalls, tileWall, tileGround);
+			NuclearThroneMapFunctions.RenderMapWithOffset(_map, tilemapGround, tilemapWalls, tileWall, tileGround);
 
 			var index = 0;
 			var spawnPositions = GetMaxDistance(validPositions);
@@ -157,19 +163,19 @@ namespace Research.LevelDesign.NuclearThrone
 			}
 		}
 
-		private void OutputMap(GridSpace[,] map)
+		private void OutputMap()
 		{
 			var rowData = new List<string[]>();
 
-			var roomHeight = map.GetUpperBound(0);
-			var roomWidth = map.GetUpperBound(1);
+			var roomHeight = Map.GetUpperBound(0);
+			var roomWidth = Map.GetUpperBound(1);
 
 			for (var i = 0; i < roomHeight; i++)
 			{
 				var row = new string [roomWidth];
 				for (var j = 0; j < roomWidth; j++)
 				{
-					row[j] = ((int)map[i, j]).ToString();
+					row[j] = ((int)Map[i, j]).ToString();
 				}
 				rowData.Add(row);
 			}
@@ -239,7 +245,6 @@ namespace Research.LevelDesign.NuclearThrone
 			{
 				if (!Application.isPlaying)
 				{
-					Debug.Log("Editor");
 					DestroyImmediate(point.gameObject);
 				}
 			}
@@ -265,7 +270,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 				if (GUILayout.Button("Generate"))
 				{
-					levelGen.GenerateMap();
+					levelGen.GenerateMap(true);
 				}
 				
 				if (GUILayout.Button("Generate Square"))

@@ -1,4 +1,5 @@
-﻿using MLAgents.Policies;
+﻿using System;
+using MLAgents.Policies;
 using MLAgents.Sensors;
 using Research.CharacterDesign.Scripts;
 using Research.LevelDesign.NuclearThrone.Scripts;
@@ -8,50 +9,41 @@ namespace Research.LevelDesign.Scripts
 {
     public class TileMapSensor : ISensor
     {
-        public int maxSize = 25;
+        private int _sizeX = 50;
+        private int _sizeY = 50;
 
-        private int _sizeX;
-        private int _sizeY;
+        float[] m_Observations;
+        int[] m_Shape;
+        
+        private readonly GameObject _gameObject;
 
-        private float[] _map;
-
-        public AiAccessor Accessor => _gameObject.GetComponentInParent<AiAccessor>();
-
-        public void Update()
-        {
-            
-        }
+        private AiAccessor Accessor => _gameObject.GetComponentInParent<AiAccessor>();
 
         public void Reset() { }
         
         public byte[] GetCompressedObservation() { return null; }
-
-        private GameObject _gameObject;
-
-        public TileMapSensor(GameObject gameObject)
+        
+        private GridSpace[,] GridSpaces => Accessor == null ? null : Accessor.Map;
+        
+        private void SetNumObservations(int numObservations)
         {
-            _gameObject = gameObject;
+            m_Shape = new[] { numObservations };
+            m_Observations = new float[numObservations];
         }
 
-        private GridSpace[,] GridSpaces
+        public TileMapSensor(GameObject gameObject, int sizeX, int sizeY)
         {
-            get
-            {
-                if (Accessor != null)
-                {
-                    if (Accessor.Map != null)
-                    {
-                        return Accessor.Map;   
-                    }
-                }
-                return null;
-            }
+            _gameObject = gameObject;
+            var obsSize = _sizeX * _sizeY;
+            SetNumObservations(obsSize);
+
+            _sizeX = sizeX;
+            _sizeY = sizeX;
         }
 
         public int[] GetObservationShape()
         {
-            var obsSize = _sizeX * _sizeY;
-            return new [] { obsSize };
+            return m_Shape;
         }
 
         private GridSpace GetAgentType(TopDownAgent agent)
@@ -63,38 +55,34 @@ namespace Research.LevelDesign.Scripts
             var behaviour = _gameObject.GetComponent<BehaviorParameters>();
             var otherBehaviour = agent.GetComponent<BehaviorParameters>();
             var isTeam = behaviour.TeamId == otherBehaviour.TeamId;
-            
+
             return isTeam ? GridSpace.OurTeam : GridSpace.OtherTeam;
         }
 
         public int Write(ObservationWriter writer)
         {
-            UpdateBeforeWrite();
-            var mapClone = (float[])_map.Clone();
-            foreach (var pairs in Accessor.AgentPosition)
-            {
-                var agentType = GetAgentType(pairs.Item1);
-                var pos = pairs.Item2;
-                mapClone[pos.x + (pos.y * _sizeX)] = (float) agentType;
-            }
-            Debug.Log(mapClone);
-            writer.AddRange(mapClone);
-            return mapClone.Length;
+            writer.AddRange(m_Observations);
+            return m_Observations.Length;
         }
 
-        public void UpdateBeforeWrite()
+        public void Update()
         {
-            var roomWidth = GridSpaces.GetUpperBound(0);
-            _sizeX = roomWidth; // Mathf.Min(roomWidth, maxSize);
-            var roomHeight = GridSpaces.GetUpperBound(1);
-            _sizeY = roomHeight; // Mathf.Min(roomHeight, maxSize);
-            
-            _map = new float[_sizeX * _sizeY];
-            for (var x = 0; x < _sizeX; x++)
+            if (GridSpaces != null)
             {
-                for (var y = 0; y < _sizeY; y++)
+                Array.Clear(m_Observations, 0, m_Observations.Length);
+                for (var x = 0; x < _sizeX; x++)
                 {
-                    _map[x + (y * _sizeX)] = (int)GridSpaces[x, y];
+                    for (var y = 0; y < _sizeY; y++)
+                    {
+                        m_Observations[x + (y * _sizeX)] = (int)GridSpaces[x, y];
+                    }
+                }
+                
+                foreach (var pairs in Accessor.AgentPosition)
+                {
+                    var agentType = GetAgentType(pairs.Item1);
+                    var pos = pairs.Item2;
+                    m_Observations[pos.x + (pos.y * _sizeX)] = (float) agentType;
                 }
             }
         }

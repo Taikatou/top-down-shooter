@@ -4,6 +4,7 @@ using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts.Characters;
 using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone;
 using UnityEngine;
@@ -38,7 +39,6 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (spawnPoints != null)
             {
-                Debug.Log("Clear Spawn");
                 SpawnPoints.Clear();
                 foreach (var point in spawnPoints.Points)
                 {
@@ -95,8 +95,11 @@ namespace Research.CharacterDesign.Scripts.Environment
             foreach (var player in Players)
             {
                 var requester = player.GetComponent<DecisionRequester>();
-            
-                Academy.Instance.AgentPreStep -= requester.MakeRequests;
+
+                if (requester)
+                {
+                    Academy.Instance.AgentPreStep -= requester.MakeRequests;   
+                }
             }
             
             ChangeLevelDesign();
@@ -123,6 +126,13 @@ namespace Research.CharacterDesign.Scripts.Environment
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
             outline.IsBlue = prior;
+
+            var health = newPlayer.GetComponent<MlHealth>();
+            if (health)
+            {
+                health.Revive();
+                Debug.Log(health.gameObject.name);
+            }
         }
 
         protected override bool GameOverCondition()
@@ -139,7 +149,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             var draw = teamDeaths[0] == teamDeaths[1];
             if (!draw)
             {
-                return teamDeaths[0] > teamDeaths[1] ? 0 : 1;
+                return teamDeaths[0] < teamDeaths[1] ? 0 : 1;
             }
 
             return -1;
@@ -158,8 +168,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         protected override IEnumerator GameOver()
         {
             var winningTeamId = WinningTeam();
-            
-            var log = "";
+
             var loggedData = new [] {0, 0};
             var loggedNames = new[] {new List<string>(), new List<string>(), };
             foreach (var player in Players)
@@ -174,8 +183,6 @@ namespace Research.CharacterDesign.Scripts.Environment
 
                 agent.AddReward(reward);
                 agent.EndEpisode();
-
-                log += reward + ", ";
             }
 
             loggedNames[0].Sort();
@@ -188,10 +195,10 @@ namespace Research.CharacterDesign.Scripts.Environment
                 dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
                 dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
             }
-
+            Debug.Log("Winning Team" + winningTeamId);
             Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
                        "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
-            
+
             Restart();
             yield break;
         }

@@ -7,25 +7,46 @@ namespace Research.CharacterDesign.Scripts
 {
     public class AgentQueue : MonoBehaviour
     {
+        public LevelCurriculum currentCurriculum;
+        
         public Character[] mlCharacters;
 
         public Character[] priorMlCharacters;
+        
+        public Character[] dumbyCharacters;
 
         public AvailableCharacters availableCharacters;
+
+        private AvailableCharacters smartPriorCharacters;
         
-        public AvailableCharacters availablePriorCharacters;
+        private AvailableCharacters dumbPriorCharacters;
+
+        private AvailableCharacters AvailablePriorCharacters
+        {
+            get
+            {
+                switch (currentCurriculum)
+                {
+                    case LevelCurriculum.AllActive:
+                        return smartPriorCharacters;
+                }
+                return dumbPriorCharacters;
+            }
+        }
 
         public int numAgents = 4;
 
         private void Awake()
         {
             availableCharacters = new AvailableCharacters();
-            availablePriorCharacters = new AvailableCharacters();
+            smartPriorCharacters = new AvailableCharacters();
+            dumbPriorCharacters = new AvailableCharacters();
 
             for (var i = 0; i < numAgents; i++)
             {
                 SpawnCharacters(mlCharacters, availableCharacters);
-                SpawnCharacters(priorMlCharacters, availablePriorCharacters);   
+                SpawnCharacters(priorMlCharacters, smartPriorCharacters);   
+                SpawnCharacters(dumbyCharacters, dumbPriorCharacters);   
             }
         }
 
@@ -46,7 +67,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 player.Reset();
                 availableCharacters.ReturnCharacter(player);
-                availablePriorCharacters.ReturnCharacter(player);
+                AvailablePriorCharacters.ReturnCharacter(player);
                 player.gameObject.SetActive(false);
             }
         }
@@ -58,7 +79,7 @@ namespace Research.CharacterDesign.Scripts
         
         public Character PopRandomPriorMlCharacter()
         {
-            return availablePriorCharacters.PopRandomCharacter();
+            return AvailablePriorCharacters.PopRandomCharacter();
         }
     }
 }

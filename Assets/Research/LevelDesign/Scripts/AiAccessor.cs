@@ -11,19 +11,9 @@ namespace Research.LevelDesign.Scripts
     {
         public NuclearThroneLevelGenerator levelGenerator;
 
-        public GridSpace[,] Map
-        {
-            get
-            {
-                if (levelGenerator != null)
-                {
-                    return levelGenerator.Map;
-                }
-                return null;
-            }
-        }
+        public GridSpace[,] Map => levelGenerator == null ? null : levelGenerator.Map;
 
-        public List<Tuple<TopDownAgent, Vector3Int>> AgentPosition
+        public IEnumerable<Tuple<TopDownAgent, Vector3Int>> AgentPosition
         {
             get
             {
