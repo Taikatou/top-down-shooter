@@ -69,16 +69,18 @@ namespace Research.Common
         {
             var rayAngles = new [] {0.0f};
 
-            var rayPerceptionInput = new RayPerceptionInput();
-            rayPerceptionInput.RayLength = m_RayLength;
-            rayPerceptionInput.DetectableTags = m_DetectableTags;
-            rayPerceptionInput.Angles = rayAngles;
-            rayPerceptionInput.StartOffset = 0.0f;
-            rayPerceptionInput.EndOffset = 0.0f;
-            rayPerceptionInput.CastRadius = 0.0f;
-            rayPerceptionInput.Transform = transform;
-            rayPerceptionInput.CastType = RayPerceptionCastType.Cast2D;
-            rayPerceptionInput.LayerMask = m_RayLayerMask;
+            var rayPerceptionInput = new RayPerceptionInput
+            {
+                RayLength = m_RayLength,
+                DetectableTags = m_DetectableTags,
+                Angles = rayAngles,
+                StartOffset = 0.0f,
+                EndOffset = 0.0f,
+                CastRadius = 0.0f,
+                Transform = transform,
+                CastType = RayPerceptionCastType.Cast2D,
+                LayerMask = m_RayLayerMask
+            };
 
             return rayPerceptionInput;
         }

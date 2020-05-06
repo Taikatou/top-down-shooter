@@ -13,13 +13,13 @@ namespace Research.CharacterDesign.Scripts
 
         public Character[] priorMlCharacters;
         
-        public Character[] dumbyCharacters;
+        public Character[] dumbCharacters;
 
         public AvailableCharacters availableCharacters;
 
-        private AvailableCharacters smartPriorCharacters;
+        private AvailableCharacters _smartPriorCharacters;
         
-        private AvailableCharacters dumbPriorCharacters;
+        private AvailableCharacters _dumbPriorCharacters;
 
         private AvailableCharacters AvailablePriorCharacters
         {
@@ -28,9 +28,9 @@ namespace Research.CharacterDesign.Scripts
                 switch (currentCurriculum)
                 {
                     case LevelCurriculum.AllActive:
-                        return smartPriorCharacters;
+                        return _smartPriorCharacters;
                 }
-                return dumbPriorCharacters;
+                return _dumbPriorCharacters;
             }
         }
 
@@ -39,14 +39,14 @@ namespace Research.CharacterDesign.Scripts
         private void Awake()
         {
             availableCharacters = new AvailableCharacters();
-            smartPriorCharacters = new AvailableCharacters();
-            dumbPriorCharacters = new AvailableCharacters();
+            _smartPriorCharacters = new AvailableCharacters();
+            _dumbPriorCharacters = new AvailableCharacters();
 
             for (var i = 0; i < numAgents; i++)
             {
                 SpawnCharacters(mlCharacters, availableCharacters);
-                SpawnCharacters(priorMlCharacters, smartPriorCharacters);   
-                SpawnCharacters(dumbyCharacters, dumbPriorCharacters);   
+                SpawnCharacters(priorMlCharacters, _smartPriorCharacters);   
+                SpawnCharacters(dumbCharacters, _dumbPriorCharacters);   
             }
         }
 

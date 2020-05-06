@@ -41,13 +41,22 @@ namespace Research.CharacterDesign.Scripts
         public bool shootEnabled;
         public bool secondaryAbilityEnabled;
 
-        private float HealthInput => _health.CurrentHealth / _health.MaximumHealth;
+        private float HealthInput => GetHealth(_health);
 
         public SpriteRenderer spriteRenderer;
 
         public float gunSpeed = 0.01f;
         
         public AimControl aimControl = AimControl.ThirtyTwoWay;
+
+        public Health otherHealth;
+        
+        public bool punishTime = true;
+
+        private float GetHealth(Health health)
+        {
+            return health? (health.CurrentHealth / health.MaximumHealth) : 0.0f;
+        }
 
         public override void Initialize()
         {
@@ -92,6 +101,15 @@ namespace Research.CharacterDesign.Scripts
             return 1;
         }
 
+        private void PunishMovement()
+        {
+            if (punishTime)
+            {
+                AddReward(-0.00005f);
+            }
+        }
+        
+
         public override void OnActionReceived(float[] vectorAction)
         {
             var counter = 0;
@@ -129,6 +147,8 @@ namespace Research.CharacterDesign.Scripts
                 var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
+
+            PunishMovement();
         }
 
         public override void Heuristic(float[] actionsOut)
@@ -161,11 +181,13 @@ namespace Research.CharacterDesign.Scripts
         public override void OnEpisodeBegin()
         {
             var mResetParams = Academy.Instance.EnvironmentParameters;
-            var levelDesign = mResetParams.GetWithDefault("design", 0);
+            var levelDesign = mResetParams.GetWithDefault("agnet_level_setup", 0);
             var agentQueue = GetComponentInParent<AgentQueue>();
             if (agentQueue)
             {
-                agentQueue.currentCurriculum = (LevelCurriculum) levelDesign;
+                var curriculum = (LevelCurriculum) levelDesign;
+                Debug.Log("Current Curriculum:" + curriculum);
+                agentQueue.currentCurriculum = curriculum;
             }
         }
 
@@ -173,6 +195,10 @@ namespace Research.CharacterDesign.Scripts
         {
             // sensor.AddObservation(_behaviorParameters.TeamId);
             sensor.AddObservation(HealthInput);
+
+            var otherHealthInput = GetHealth(otherHealth);
+            // other health
+            sensor.AddObservation(otherHealthInput);
 
             var id = SpriteId.Instance.GetId(spriteRenderer);
             
@@ -220,7 +246,7 @@ namespace Research.CharacterDesign.Scripts
             AddIds(animIds);
         }
 
-        public void AddIds(string[] ids)
+        private void AddIds(string[] ids)
         {
             foreach (var id in ids)
             {

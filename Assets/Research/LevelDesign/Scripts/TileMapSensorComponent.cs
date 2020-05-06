@@ -9,8 +9,7 @@ namespace Research.LevelDesign.Scripts
 
         public override ISensor CreateSensor()
         {
-            var size = 50;
-            _tileMapSensor = new TileMapSensor(gameObject, size, size);
+            _tileMapSensor = new TileMapSensor(gameObject);
             return _tileMapSensor;
         }
 

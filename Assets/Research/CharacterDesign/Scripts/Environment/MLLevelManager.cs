@@ -117,6 +117,8 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
                 SpawnTeamPlayer(priorMlCharacter, true);
             }
+            Players[0].GetComponent<TopDownAgent>().otherHealth = Players[1].GetComponent<Health>();
+            Players[1].GetComponent<TopDownAgent>().otherHealth = Players[0].GetComponent<Health>();
         }
 
         protected virtual void SpawnTeamPlayer(Character newPlayer, bool prior)
@@ -130,8 +132,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             var health = newPlayer.GetComponent<MlHealth>();
             if (health)
             {
-                health.Revive();
-                Debug.Log(health.gameObject.name);
+                health.Revive(); 
             }
         }
 

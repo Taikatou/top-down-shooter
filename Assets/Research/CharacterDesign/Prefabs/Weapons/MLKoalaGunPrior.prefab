@@ -61,5 +61,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3484165277815935716, guid: edaa6390de7cd5b4cb49e559ff2b6a8c,
         type: 3}
+    - target: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: SpawnPosition.x
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: SpawnPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069169494822402855, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: m_RayLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069169494822402855, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: m_RayLayerMask.m_Bits
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862684986851950414, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: GameObjectToPool
+      value: 
+      objectReference: {fileID: 3484165277815935716, guid: edaa6390de7cd5b4cb49e559ff2b6a8c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63309671082ff30409623a954c22e8f5, type: 3}

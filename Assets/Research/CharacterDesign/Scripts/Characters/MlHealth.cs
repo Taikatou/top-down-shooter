@@ -1,5 +1,6 @@
 ﻿using MLAgents;
 using MoreMountains.TopDownEngine;
+using Research.Common;
 
 namespace Research.CharacterDesign.Scripts.Characters
 {
@@ -15,6 +16,13 @@ namespace Research.CharacterDesign.Scripts.Characters
             if (requester)
             {
                 Academy.Instance.AgentPreStep -= requester.MakeRequests;   
+            }
+            
+            // delete bullets
+            var pools = GetComponentsInChildren<MLObjectPooler>();
+            foreach (var pool in pools)
+            {
+                pool.DestroySpawnable();
             }
         }
 

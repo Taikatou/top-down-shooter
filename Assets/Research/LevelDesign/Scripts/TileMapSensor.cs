@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using MLAgents.Policies;
 using MLAgents.Sensors;
 using Research.CharacterDesign.Scripts;
@@ -9,11 +10,15 @@ namespace Research.LevelDesign.Scripts
 {
     public class TileMapSensor : ISensor
     {
-        private int _sizeX = 50;
-        private int _sizeY = 50;
+        private int SizeX => _size - 1;
+        private int SizeY => _size - 1;
 
-        float[] m_Observations;
-        int[] m_Shape;
+        private readonly int _size = 50;
+
+        private readonly float[] _mObservations;
+        private readonly int[] _mShape;
+
+        private bool _debug;
         
         private readonly GameObject _gameObject;
 
@@ -24,26 +29,20 @@ namespace Research.LevelDesign.Scripts
         public byte[] GetCompressedObservation() { return null; }
         
         private GridSpace[,] GridSpaces => Accessor == null ? null : Accessor.Map;
-        
-        private void SetNumObservations(int numObservations)
-        {
-            m_Shape = new[] { numObservations };
-            m_Observations = new float[numObservations];
-        }
 
-        public TileMapSensor(GameObject gameObject, int sizeX, int sizeY)
+        public TileMapSensor(GameObject gameObject, bool debug=false)
         {
             _gameObject = gameObject;
-            var obsSize = _sizeX * _sizeY;
-            SetNumObservations(obsSize);
-
-            _sizeX = sizeX;
-            _sizeY = sizeX;
+            _debug = debug;
+            var obsSize = SizeX * SizeY;
+            
+            _mShape = new[] { obsSize };
+            _mObservations = new float[obsSize];
         }
 
         public int[] GetObservationShape()
         {
-            return m_Shape;
+            return _mShape;
         }
 
         private GridSpace GetAgentType(TopDownAgent agent)
@@ -59,22 +58,43 @@ namespace Research.LevelDesign.Scripts
             return isTeam ? GridSpace.OurTeam : GridSpace.OtherTeam;
         }
 
+        private void OutputDebug()
+        {
+            var output = "";
+            for (var y = 0; y < SizeY; y++)
+            {
+                for (var x = 0; x < SizeX; x++)
+                {
+                    var value = _mObservations[x + (y * SizeX)];
+                    var str = value > 0 ? value.ToString(CultureInfo.InvariantCulture) : " ";
+                    output += str;
+                }
+
+                output += "\n";
+            }
+            Debug.Log(output);
+        }
+
         public int Write(ObservationWriter writer)
         {
-            writer.AddRange(m_Observations);
-            return m_Observations.Length;
+            if (_debug)
+            {
+                OutputDebug();
+            }
+            writer.AddRange(_mObservations);
+            return _mObservations.Length;
         }
 
         public void Update()
         {
             if (GridSpaces != null)
             {
-                Array.Clear(m_Observations, 0, m_Observations.Length);
-                for (var x = 0; x < _sizeX; x++)
+                Array.Clear(_mObservations, 0, _mObservations.Length);
+                for (var y = 0; y < SizeY; y++)
                 {
-                    for (var y = 0; y < _sizeY; y++)
+                    for (var x = 0; x < SizeX; x++)
                     {
-                        m_Observations[x + (y * _sizeX)] = (int)GridSpaces[x, y];
+                        _mObservations[x + (y * SizeX)] = (int)GridSpaces[x, y];
                     }
                 }
                 
@@ -82,7 +102,7 @@ namespace Research.LevelDesign.Scripts
                 {
                     var agentType = GetAgentType(pairs.Item1);
                     var pos = pairs.Item2;
-                    m_Observations[pos.x + (pos.y * _sizeX)] = (float) agentType;
+                    _mObservations[pos.x + (pos.y * SizeX)] = (float) agentType;
                 }
             }
         }

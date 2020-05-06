@@ -313,6 +313,7 @@
           </e>
           <e p="Common" t="Include">
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
+            <e p="MLObjectPooler.cs" t="Include" />
             <e p="WeaponRayTrace.cs" t="Include" />
           </e>
           <e p="LevelDesign" t="Include">

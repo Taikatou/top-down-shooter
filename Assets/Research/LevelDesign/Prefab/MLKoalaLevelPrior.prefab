@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 937257148958243950, guid: 6809375a4c4066e4399479c54abdb91f,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6143138082279506003, guid: 6809375a4c4066e4399479c54abdb91f,
+        type: 3}
+      propertyPath: m_ObservationStacks
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7078549015182500032, guid: 6809375a4c4066e4399479c54abdb91f,
         type: 3}
       propertyPath: InitialWeapon

@@ -14612,10 +14612,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4404346593870928}
   - component: {fileID: 114552424271636822}
-  - component: {fileID: 114349044915979940}
   - component: {fileID: 114164106778908234}
   - component: {fileID: 114904966379098586}
   - component: {fileID: 7435059991523441766}
+  - component: {fileID: 6862684986851950414}
   m_Layer: 0
   m_Name: MLKoalaGun
   m_TagString: Untagged
@@ -14706,24 +14706,6 @@ MonoBehaviour:
   RandomSpread: 1
   SpawnPosition: {x: 0.9, y: -0.87, z: 0}
   TestShootButton: 0
---- !u!114 &114349044915979940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1572783773909934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7277539b95c0d45895792ecc99ce66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MutualizeWaitingPools: 1
-  NestWaitingPool: 1
-  GameObjectToPool: {fileID: 1579859513670320, guid: eea0f4966d999fa408fcfaa6b22f1b33,
-    type: 3}
-  PoolSize: 20
-  PoolCanExpand: 1
 --- !u!114 &114164106778908234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14789,6 +14771,24 @@ MonoBehaviour:
   ObstacleLayerMask:
     serializedVersion: 2
     m_Bits: 2304
+--- !u!114 &6862684986851950414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572783773909934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a9ec85db2315147b71b4c3ba9992d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MutualizeWaitingPools: 1
+  NestWaitingPool: 1
+  GameObjectToPool: {fileID: 1579859513670320, guid: eea0f4966d999fa408fcfaa6b22f1b33,
+    type: 3}
+  PoolSize: 20
+  PoolCanExpand: 1
 --- !u!1 &1598119543345386
 GameObject:
   m_ObjectHideFlags: 0
