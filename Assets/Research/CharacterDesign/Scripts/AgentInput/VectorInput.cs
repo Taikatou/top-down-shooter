@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Research.Common;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class VectorInput : MonoBehaviour
     {
-        protected Dictionary<Directions, KeyCode> Directions;
+        protected Dictionary<Directions, KeyCode> InputDirections;
 
         protected virtual int NegativeValue => -1;
 
@@ -13,10 +14,10 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 
         protected Vector2 GetDirection()
         {
-            if (Directions != null)
+            if (InputDirections != null)
             {
-                var x = GetInput(Directions[Scripts.Directions.Left], Directions[Scripts.Directions.Right]);
-                var y = GetInput(Directions[Scripts.Directions.Down], Directions[Scripts.Directions.Up]);
+                var x = GetInput(InputDirections[Directions.Left], InputDirections[Directions.Right]);
+                var y = GetInput(InputDirections[Directions.Down], InputDirections[Directions.Up]);
                 return new Vector2(x, y);
             }
 

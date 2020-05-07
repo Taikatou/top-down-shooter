@@ -2,7 +2,7 @@
 using MoreMountains.TopDownEngine;
 using Research.Common;
 
-namespace Research.CharacterDesign.Scripts.Characters
+namespace Characters
 {
     public class MlHealth : Health
     {

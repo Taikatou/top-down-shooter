@@ -1,7 +1,8 @@
 ﻿using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.Characters
+namespace Characters
 {
     public class TopDownMeleeWeapon : MeleeWeapon
     {

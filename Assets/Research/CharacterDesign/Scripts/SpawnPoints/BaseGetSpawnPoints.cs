@@ -3,7 +3,7 @@ using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.SpawnPoints
+namespace SpawnPoints
 {
     public class BaseGetSpawnPoints : IGetSpawnPoints
     {

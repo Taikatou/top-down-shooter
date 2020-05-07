@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Research.CharacterDesign.Scripts.AgentInput;
+using Research.Common;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.AgentInput
+namespace AgentInput
 {
     public class SecondaryDirectionsInput : VectorInput
     {
@@ -12,14 +14,14 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 
         protected override int PositiveValue => 2;
         
-        void Start()
+        private void Start()
         {
-            Directions = new Dictionary<Directions, KeyCode>
+            InputDirections = new Dictionary<Directions, KeyCode>
             {
-                {Research.CharacterDesign.Scripts.Directions.Left, KeyCode.LeftArrow},
-                {Research.CharacterDesign.Scripts.Directions.Right, KeyCode.RightArrow },
-                {Research.CharacterDesign.Scripts.Directions.Down, KeyCode.DownArrow },
-                {Research.CharacterDesign.Scripts.Directions.Up, KeyCode.UpArrow }
+                {Directions.Left, KeyCode.LeftArrow},
+                {Directions.Right, KeyCode.RightArrow },
+                {Directions.Down, KeyCode.DownArrow },
+                {Directions.Up, KeyCode.UpArrow }
             };
         }
     }

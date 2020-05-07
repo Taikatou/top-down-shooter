@@ -2,7 +2,7 @@
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.Characters
+namespace Characters
 {
     public class AOEHeal : MonoBehaviour
     {

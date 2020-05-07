@@ -1,75 +1,71 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Research.CharacterDesign.Scripts;
-using Research.CharacterDesign.Scripts.AgentInput;
+﻿using System.Collections.Generic;
+using Research.Common;
 using UnityEngine;
 
-public class DirectionsKeyMapper : VectorInput
+namespace Research.CharacterDesign.Scripts.AgentInput
 {
-    private Dictionary<Vector2, Directions> _directionsVectorMap;
-
-    private Dictionary<Directions, Vector2> _vectorDirectionsMap;
-
-    public Directions PrimaryDirections => GetDirection(Directions);
-
-    void Start()
+    public class DirectionsKeyMapper : VectorInput
     {
-        Directions = new Dictionary<Directions, KeyCode>
-        {
-            {Research.CharacterDesign.Scripts.Directions.Left, KeyCode.A},
-            {Research.CharacterDesign.Scripts.Directions.Right, KeyCode.D },
-            {Research.CharacterDesign.Scripts.Directions.Down, KeyCode.S},
-            {Research.CharacterDesign.Scripts.Directions.Up, KeyCode.W }
-        };
-        _directionsVectorMap = new Dictionary<Vector2, Directions>
-        {
-            { new Vector2(-1, 0), Research.CharacterDesign.Scripts.Directions.Left },
-            { new Vector2(1, 0), Research.CharacterDesign.Scripts.Directions.Right },
-            { new Vector2(0, 1), Research.CharacterDesign.Scripts.Directions.Up },
-            { new Vector2(0, -1), Research.CharacterDesign.Scripts.Directions.Down },
-        };
-        _vectorDirectionsMap = new Dictionary<Directions, Vector2>
-        {
-            { Research.CharacterDesign.Scripts.Directions.Left, new Vector2(-1, 0)  },
-            { Research.CharacterDesign.Scripts.Directions.Right, new Vector2(1, 0) },
-            { Research.CharacterDesign.Scripts.Directions.Up,  new Vector2(0, 1)},
-            { Research.CharacterDesign.Scripts.Directions.Down, new Vector2(0, -1) },
-            { Research.CharacterDesign.Scripts.Directions.None, new Vector2(0, 0) }
-        };
-    }
+        private Dictionary<Vector2, Directions> _directionsVectorMap;
 
-    public Directions GetDirectionVector(Vector2 input)
-    { 
-        if (_directionsVectorMap.ContainsKey(input))
-        {
-            return _directionsVectorMap[input];
-        }
-        return Research.CharacterDesign.Scripts.Directions.None;
-    }
+        private Dictionary<Directions, Vector2> _vectorDirectionsMap;
 
-    public Vector2 GetVectorDirection(Directions direction)
-    {
-        if (_vectorDirectionsMap != null)
+        public Directions PrimaryDirections
         {
-            return _vectorDirectionsMap[direction];
-        }
-        return new Vector2();
-    }
-
-    public Vector2 GetVectorDirection(float direction)
-    {
-        return GetVectorDirection((Directions)direction);
-    }
-
-    public Directions GetDirection(Dictionary<Directions, KeyCode> directions)
-    {
-        if (directions != null)
-        {
-            var input = GetDirection();
-            return GetDirectionVector(input);
+            get
+            {
+                var input = GetDirection();
+                return GetDirectionVector(input);
+            }
         }
 
-        return Research.CharacterDesign.Scripts.Directions.None;
+        void Start()
+        {
+            InputDirections = new Dictionary<Directions, KeyCode>
+            {
+                {Directions.Left, KeyCode.A},
+                {Directions.Right, KeyCode.D },
+                {Directions.Down, KeyCode.S},
+                {Directions.Up, KeyCode.W }
+            };
+            _directionsVectorMap = new Dictionary<Vector2, Directions>
+            {
+                { new Vector2(-1, 0), Directions.Left },
+                { new Vector2(1, 0), Directions.Right },
+                { new Vector2(0, 1), Directions.Up },
+                { new Vector2(0, -1), Directions.Down },
+            };
+            _vectorDirectionsMap = new Dictionary<Directions, Vector2>
+            {
+                { Directions.Left, new Vector2(-1, 0)  },
+                { Directions.Right, new Vector2(1, 0) },
+                { Directions.Up,  new Vector2(0, 1)},
+                { Directions.Down, new Vector2(0, -1) },
+                { Directions.None, new Vector2(0, 0) }
+            };
+        }
+
+        public Directions GetDirectionVector(Vector2 input)
+        { 
+            if (_directionsVectorMap.ContainsKey(input))
+            {
+                return _directionsVectorMap[input];
+            }
+            return Directions.None;
+        }
+
+        private Vector2 GetVectorDirection(Directions direction)
+        {
+            if (_vectorDirectionsMap != null)
+            {
+                return _vectorDirectionsMap[direction];
+            }
+            return new Vector2();
+        }
+
+        public Vector2 GetVectorDirection(float direction)
+        {
+            return GetVectorDirection((Directions)direction);
+        }
     }
 }

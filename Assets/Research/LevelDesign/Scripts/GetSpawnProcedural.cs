@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.Environment;
-using Research.CharacterDesign.Scripts.SpawnPoints;
+using SpawnPoints;
 
 namespace Research.LevelDesign.Scripts
 {

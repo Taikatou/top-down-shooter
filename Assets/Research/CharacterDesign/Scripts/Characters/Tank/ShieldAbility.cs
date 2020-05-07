@@ -4,7 +4,7 @@ using MLAgents.Policies;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.Characters.Tank
+namespace Characters.Tank
 {
     public class ShieldAbility : BaseTankAbility
     {

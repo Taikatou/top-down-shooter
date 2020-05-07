@@ -4,7 +4,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.Characters.Tank
+namespace Characters.Tank
 {
     public abstract class BaseTankAbility : CharacterAbility
     {

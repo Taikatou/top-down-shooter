@@ -2,7 +2,7 @@
 using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts.SpawnPoints
+namespace SpawnPoints
 {
     public abstract class IGetSpawnPoints : MonoBehaviour
     {

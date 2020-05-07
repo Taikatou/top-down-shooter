@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
+using Research.Common;
 using Research.LevelDesign.Scripts;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ namespace Research.CharacterDesign.Scripts
         private AvailableCharacters _smartPriorCharacters;
         
         private AvailableCharacters _dumbPriorCharacters;
+
+        public Rigidbody2D groundRb;
 
         private AvailableCharacters AvailablePriorCharacters
         {
@@ -56,6 +59,13 @@ namespace Research.CharacterDesign.Scripts
             {
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
                 newPlayer.transform.parent = gameObject.transform;
+                
+                var agent = newPlayer.GetComponent<TopDownAgent>();
+                if (agent)
+                {
+                    agent.groundRb = groundRb;
+                }
+                
                 available.Add(newPlayer);
                 newPlayer.gameObject.SetActive(false);
             }

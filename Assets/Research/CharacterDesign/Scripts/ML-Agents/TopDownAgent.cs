@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MLAgents;
 using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
+using AgentInput;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
@@ -10,23 +11,6 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
 {
-    public enum Directions { None, Left, Right, Up, Down }
-    
-    public enum AimControl
-    {
-        Addition,
-        EightWay,
-        SixTeenWay,
-        ThirtyTwoWay
-    };
-
-    public enum LevelCurriculum
-    {
-        NoAdversaryNoMap,
-        NoAdversary,
-        AllActive
-    }
-
     public class TopDownAgent : Agent
     {
         public TopDownInputManager inputManager;
@@ -37,12 +21,6 @@ namespace Research.CharacterDesign.Scripts
 
         private Health _health;
 
-        public bool secondaryInputEnabled;
-        public bool shootEnabled;
-        public bool secondaryAbilityEnabled;
-
-        private float HealthInput => GetHealth(_health);
-
         public SpriteRenderer spriteRenderer;
 
         public float gunSpeed = 0.01f;
@@ -50,10 +28,18 @@ namespace Research.CharacterDesign.Scripts
         public AimControl aimControl = AimControl.ThirtyTwoWay;
 
         public Health otherHealth;
-        
-        public bool punishTime = true;
 
-        private float GetHealth(Health health)
+        public ObservationSettings observationSettings;
+
+        public TrainingSettings trainingSettings;
+
+        private Rigidbody2D _mAgentRb;
+
+        public Rigidbody2D groundRb;
+        
+        private float HealthInput => GetHealth(_health);
+
+        private static float GetHealth(Health health)
         {
             return health? (health.CurrentHealth / health.MaximumHealth) : 0.0f;
         }
@@ -61,6 +47,21 @@ namespace Research.CharacterDesign.Scripts
         public override void Initialize()
         {
             _health = GetComponent<Health>();
+            _mAgentRb = GetComponent<Rigidbody2D>();
+            trainingSettings = new TrainingSettings
+            {
+                ShootEnabled = true, 
+                PunishTime = true, 
+                SecondaryAbilityEnabled = true, 
+                SecondaryInputEnabled = true
+            };
+            observationSettings = new ObservationSettings
+            {
+                ObserveHealth = true,
+                ObserveSpriteRenderer = true,
+                ObserveWeaponTrace = true,
+                ObserveInput = true
+            };
         }
         
         private float GetDecision(float input)
@@ -103,7 +104,7 @@ namespace Research.CharacterDesign.Scripts
 
         private void PunishMovement()
         {
-            if (punishTime)
+            if (trainingSettings.PunishTime)
             {
                 AddReward(-0.00005f);
             }
@@ -118,14 +119,14 @@ namespace Research.CharacterDesign.Scripts
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
-            if (shootEnabled)
+            if (trainingSettings.ShootEnabled)
             {
                 // Shoot Button Input
                 var shootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
                 inputManager.SetShootButton(shootButtonDown);
             }
 
-            if (secondaryInputEnabled)
+            if (trainingSettings.SecondaryInputEnabled)
             {
                 // Set secondary input as vector
                 var secondaryXInput = GetDecision(vectorAction[counter++]);
@@ -142,7 +143,7 @@ namespace Research.CharacterDesign.Scripts
                 }
             }
 
-            if (secondaryAbilityEnabled)
+            if (trainingSettings.SecondaryAbilityEnabled)
             {
                 var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
@@ -156,21 +157,21 @@ namespace Research.CharacterDesign.Scripts
             var index = 0;
             actionsOut[index++] = (int)directionsKeyMapper.PrimaryDirections;
             
-            if (shootEnabled)
+            if (trainingSettings.ShootEnabled)
             {
                 var shootButtonState = Input.GetKey(KeyCode.X);
                 var shootButtonInput = Convert.ToSingle(shootButtonState);
                 actionsOut[index++] = shootButtonInput;
             }
 
-            if (secondaryInputEnabled)
+            if (trainingSettings.SecondaryInputEnabled)
             {
                 var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
                 actionsOut[index++] = secondaryDirections.x;
                 actionsOut[index++] = secondaryDirections.y;
             }
             
-            if (secondaryAbilityEnabled)
+            if (trainingSettings.SecondaryAbilityEnabled)
             {
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
@@ -193,89 +194,40 @@ namespace Research.CharacterDesign.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            // sensor.AddObservation(_behaviorParameters.TeamId);
-            sensor.AddObservation(HealthInput);
+            if(observationSettings.ObserveHealth)
+            {
+                sensor.AddObservation(HealthInput);
 
-            var otherHealthInput = GetHealth(otherHealth);
-            // other health
-            sensor.AddObservation(otherHealthInput);
+                var otherHealthInput = GetHealth(otherHealth);
+                sensor.AddObservation(otherHealthInput);   
+            }
 
-            var id = SpriteId.Instance.GetId(spriteRenderer);
+            if (observationSettings.ObserveSpriteRenderer)
+            {
+                var id = SpriteId.Instance.GetId(spriteRenderer);
             
-            foreach(var result in id)
+                foreach(var result in id)
+                {
+                    sensor.AddObservation(result);   
+                }   
+            }
+            if (observationSettings.ObserveWeaponTrace)
             {
-                sensor.AddObservation(result);   
+                var weaponTrace = GetComponentInChildren<WeaponRayTrace>();
+                var traceOutput = weaponTrace ? weaponTrace.GetRay() : 0.0f;
+            
+                sensor.AddObservation(traceOutput);
+            }
+
+            if (observationSettings.ObserveInput)
+            {
+                sensor.AddObservation(inputManager.PrimaryMovement);
+                sensor.AddObservation(inputManager.SecondaryMovement);
             }
             
-            sensor.AddObservation(inputManager.SecondaryMovement);
+            var agentPos = _mAgentRb.position - groundRb.position;
 
-            var weaponTrace = GetComponentInChildren<WeaponRayTrace>();
-
-            var traceOutput = weaponTrace ? weaponTrace.GetRay() : 0.0f;
-            
-            sensor.AddObservation(traceOutput);
-        }
-    }
-
-    public class SpriteId
-    {
-        private Dictionary<string, int> _mapper;
-        private int _counter;
-
-        private static SpriteId _instance;
-        public static SpriteId Instance => _instance ?? (_instance = new SpriteId());
-
-        private SpriteId()
-        {
-            _mapper = new Dictionary<string, int>();
-            var animIds = new []{
-                "Damage", 
-                "DashParticle", 
-                "Dead", 
-                "Falling", 
-                "Idle", 
-                "Run", 
-                "SwordIdle",
-                "SwordSlash1",
-                "SwordSlash2",
-                "SwordSlash3",
-                "KoalaDamage",
-                "KoalaDead"
-            };
-                
-            AddIds(animIds);
-        }
-
-        private void AddIds(string[] ids)
-        {
-            foreach (var id in ids)
-            {
-                _mapper[id] = _counter++;
-            }
-        }
-
-        private int[] GetId(string name)
-        {
-            try
-            {
-                var split = name.Split('_');
-                var indexAvailable = split.Length == 3;
-                var index = indexAvailable? int.Parse(split[2]) : 0;
-                var animIndex = indexAvailable ? 1 : 0;
-                var anim =  _mapper[split[animIndex]];
-                var results = new int [] {anim, index};
-                return results;
-            }
-            catch
-            {
-                Debug.Log(name);
-                throw;
-            }
-        }
-
-        public int[] GetId(SpriteRenderer spriteRenderer)
-        {
-            return GetId(spriteRenderer.sprite.name);
+            sensor.AddObservation(agentPos / 20f);
         }
     }
 }

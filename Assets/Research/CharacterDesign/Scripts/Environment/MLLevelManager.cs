@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Characters;
 using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.Scripts.Characters;
-using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone;
+using SpawnPoints;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -23,7 +23,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public NuclearThroneLevelGenerator levelGenerator;
 
-        private int changeLevelMap = 100;
+        private const int ChangeLevelMap = 100;
 
         private int _levelCounter;
 
@@ -80,7 +80,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             if (levelGenerator)
             {
                 _levelCounter++;
-                if (_levelCounter == changeLevelMap)
+                if (_levelCounter == ChangeLevelMap)
                 {
                     levelGenerator.GenerateMap();
                     _levelCounter = 0;

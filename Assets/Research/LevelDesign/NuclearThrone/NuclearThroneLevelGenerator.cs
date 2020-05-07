@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
-using Research.CharacterDesign.Scripts.SpawnPoints;
+using SpawnPoints;
+using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
 using UnityEditor;
