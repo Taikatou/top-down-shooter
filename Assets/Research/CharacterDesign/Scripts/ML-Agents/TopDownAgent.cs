@@ -27,8 +27,6 @@ namespace Research.CharacterDesign.Scripts
         
         public AimControl aimControl = AimControl.ThirtyTwoWay;
 
-        public Health otherHealth;
-
         public ObservationSettings observationSettings;
 
         public TrainingSettings trainingSettings;
@@ -37,13 +35,6 @@ namespace Research.CharacterDesign.Scripts
 
         public Rigidbody2D groundRb;
         
-        private float HealthInput => GetHealth(_health);
-
-        private static float GetHealth(Health health)
-        {
-            return health? (health.CurrentHealth / health.MaximumHealth) : 0.0f;
-        }
-
         public override void Initialize()
         {
             _health = GetComponent<Health>();
@@ -52,7 +43,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 ShootEnabled = true, 
                 PunishTime = true, 
-                SecondaryAbilityEnabled = true, 
+                SecondaryAbilityEnabled = false, 
                 SecondaryInputEnabled = true
             };
             observationSettings = new ObservationSettings
@@ -175,6 +166,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+                Debug.Log(index);
                 actionsOut[index] = secondaryShootButtonInput;
             }
         }
@@ -182,7 +174,7 @@ namespace Research.CharacterDesign.Scripts
         public override void OnEpisodeBegin()
         {
             var mResetParams = Academy.Instance.EnvironmentParameters;
-            var levelDesign = mResetParams.GetWithDefault("agnet_level_setup", 0);
+            var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);
             var agentQueue = GetComponentInParent<AgentQueue>();
             if (agentQueue)
             {
@@ -194,14 +186,6 @@ namespace Research.CharacterDesign.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            if(observationSettings.ObserveHealth)
-            {
-                sensor.AddObservation(HealthInput);
-
-                var otherHealthInput = GetHealth(otherHealth);
-                sensor.AddObservation(otherHealthInput);   
-            }
-
             if (observationSettings.ObserveSpriteRenderer)
             {
                 var id = SpriteId.Instance.GetId(spriteRenderer);
@@ -226,7 +210,6 @@ namespace Research.CharacterDesign.Scripts
             }
             
             var agentPos = _mAgentRb.position - groundRb.position;
-
             sensor.AddObservation(agentPos / 20f);
         }
     }

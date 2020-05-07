@@ -1,4 +1,6 @@
-﻿using MoreMountains.Tools;
+﻿using System.Collections.Generic;
+using MoreMountains.Tools;
+using UnityEngine;
 
 namespace Research.Common
 {
@@ -13,6 +15,45 @@ namespace Research.Common
                     Destroy(obj.gameObject);
                 }
             }
+        }
+
+        public struct PoolData
+        {
+            public readonly Vector2 Position;
+
+            public readonly float Rotation;
+
+            public PoolData(Rigidbody2D rigidBody)
+            {
+                Position = rigidBody.position;
+                Rotation = rigidBody.rotation;
+            }
+
+            public PoolData(Vector2 position, float rotation)
+            {
+                Position = position;
+                Rotation = rotation;
+            }
+        }
+
+        public List<PoolData> GetData(Vector2 offsetPosition, int limit = 3)
+        {
+            var counter = 0;
+            var output = new List<PoolData>();
+            foreach (var obj in _pooledGameObjects)
+            {
+                if (obj && obj.activeInHierarchy)
+                {
+                    var rigidBody = obj.GetComponent<Rigidbody2D>();
+                    output.Add(new PoolData(rigidBody));
+                    counter++;
+                    if (counter == limit)
+                    {
+                        break;
+                    }
+                }
+            }
+            return output;
         }
     }
 }

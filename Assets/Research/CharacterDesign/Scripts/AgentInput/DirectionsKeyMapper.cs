@@ -19,7 +19,7 @@ namespace Research.CharacterDesign.Scripts.AgentInput
             }
         }
 
-        void Start()
+        private void Start()
         {
             InputDirections = new Dictionary<Directions, KeyCode>
             {
@@ -45,9 +45,9 @@ namespace Research.CharacterDesign.Scripts.AgentInput
             };
         }
 
-        public Directions GetDirectionVector(Vector2 input)
+        private Directions GetDirectionVector(Vector2 input)
         { 
-            if (_directionsVectorMap.ContainsKey(input))
+            if (_directionsVectorMap != null && _directionsVectorMap.ContainsKey(input))
             {
                 return _directionsVectorMap[input];
             }

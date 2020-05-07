@@ -5,6 +5,7 @@ using MLAgents;
 using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Research.Common;
 using Research.LevelDesign.NuclearThrone;
 using SpawnPoints;
 using UnityEngine;
@@ -117,8 +118,12 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
                 SpawnTeamPlayer(priorMlCharacter, true);
             }
-            Players[0].GetComponent<TopDownAgent>().otherHealth = Players[1].GetComponent<Health>();
-            Players[1].GetComponent<TopDownAgent>().otherHealth = Players[0].GetComponent<Health>();
+
+            var sensor1 = Players[0].GetComponent<AgentSensorComponent>();
+            var sensor2 = Players[1].GetComponent<AgentSensorComponent>();
+            
+            sensor1.SetAgents(Players[0], Players[1]);
+            sensor2.SetAgents(Players[1], Players[0]);
         }
 
         protected virtual void SpawnTeamPlayer(Character newPlayer, bool prior)

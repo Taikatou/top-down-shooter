@@ -312,6 +312,9 @@
             <e p="TimeScaleChecker.cs" t="Include" />
           </e>
           <e p="Common" t="Include">
+            <e p="AgentSense.cs" t="Include" />
+            <e p="AgentSensor.cs" t="Include" />
+            <e p="AgentSensorComponent.cs" t="Include" />
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
             <e p="SpriteId.cs" t="Include" />

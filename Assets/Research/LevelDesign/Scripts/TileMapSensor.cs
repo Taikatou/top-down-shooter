@@ -18,13 +18,13 @@ namespace Research.LevelDesign.Scripts
         private readonly float[] _mObservations;
         private readonly int[] _mShape;
 
-        private bool _debug;
+        private readonly bool _debug;
         
         private readonly GameObject _gameObject;
 
         private AiAccessor Accessor => _gameObject.GetComponentInParent<AiAccessor>();
 
-        public void Reset() { }
+        public void Reset() { Array.Clear(_mObservations, 0, _mObservations.Length); }
         
         public byte[] GetCompressedObservation() { return null; }
         
@@ -98,10 +98,9 @@ namespace Research.LevelDesign.Scripts
                     }
                 }
                 
-                foreach (var pairs in Accessor.AgentPosition)
+                foreach (var (agent, pos) in Accessor.AgentPosition)
                 {
-                    var agentType = GetAgentType(pairs.Item1);
-                    var pos = pairs.Item2;
+                    var agentType = GetAgentType(agent);
                     _mObservations[pos.x + (pos.y * SizeX)] = (float) agentType;
                 }
             }
