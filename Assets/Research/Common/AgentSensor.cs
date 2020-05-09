@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
-using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.Common

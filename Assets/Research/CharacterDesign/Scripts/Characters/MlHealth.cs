@@ -1,8 +1,8 @@
-﻿using MLAgents;
-using MoreMountains.TopDownEngine;
+﻿using MoreMountains.TopDownEngine;
 using Research.Common;
+using Unity.MLAgents;
 
-namespace Characters
+namespace Research.CharacterDesign.Scripts.Characters
 {
     public class MlHealth : Health
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Barracuda;
 using System.IO;
-using MLAgents;
-using MLAgents.Policies;
+using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 
-namespace MLAgentsExamples
+namespace Unity.MLAgentsExamples
 {
     /// <summary>
     /// Utility class to allow the NNModel file for an agent to be overriden during inference.
@@ -22,6 +22,7 @@ namespace MLAgentsExamples
     {
         const string k_CommandLineModelOverrideFlag = "--mlagents-override-model";
         const string k_CommandLineQuitAfterEpisodesFlag = "--mlagents-quit-after-episodes";
+        const string k_CommandLineQuitOnLoadFailure = "--mlagents-quit-on-load-failure";
 
         // The attached Agent
         Agent m_Agent;
@@ -38,6 +39,8 @@ namespace MLAgentsExamples
 
         int m_NumSteps;
 
+        bool m_QuitOnLoadFailure;
+
         /// <summary>
         /// Get the asset path to use from the commandline arguments.
         /// </summary>
@@ -49,7 +52,7 @@ namespace MLAgentsExamples
             var maxEpisodes = 0;
 
             var args = Environment.GetCommandLineArgs();
-            for (var i = 0; i < args.Length - 1; i++)
+            for (var i = 0; i < args.Length; i++)
             {
                 if (args[i] == k_CommandLineModelOverrideFlag && i < args.Length-2)
                 {
@@ -57,9 +60,13 @@ namespace MLAgentsExamples
                     var value = args[i + 2].Trim();
                     m_BehaviorNameOverrides[key] = value;
                 }
-                else if (args[i] == k_CommandLineQuitAfterEpisodesFlag)
+                else if (args[i] == k_CommandLineQuitAfterEpisodesFlag && i < args.Length-1)
                 {
                     Int32.TryParse(args[i + 1], out maxEpisodes);
+                }
+                else if (args[i] == k_CommandLineQuitOnLoadFailure)
+                {
+                    m_QuitOnLoadFailure = true;
                 }
             }
 
@@ -142,12 +149,22 @@ namespace MLAgentsExamples
         {
             m_Agent.LazyInitialize();
             var bp = m_Agent.GetComponent<BehaviorParameters>();
-            var name = bp.BehaviorName;
+            var behaviorName = bp.BehaviorName;
 
-            var nnModel = GetModelForBehaviorName(name);
-            Debug.Log($"Overriding behavior {name} for agent with model {nnModel?.name}");
+            var nnModel = GetModelForBehaviorName(behaviorName);
+            if (nnModel == null && m_QuitOnLoadFailure)
+            {
+                Debug.Log(
+                    $"Didn't find a model for behaviorName {behaviorName}. Make " +
+                    $"sure the behaviorName is set correctly in the commandline " +
+                    $"and that the model file exists"
+                );
+                Application.Quit(1);
+            }
+            var modelName = nnModel != null ? nnModel.name : "<null>";
+            Debug.Log($"Overriding behavior {behaviorName} for agent with model {modelName}");
             // This might give a null model; that's better because we'll fall back to the Heuristic
-            m_Agent.SetModel($"Override_{name}", nnModel);
+            m_Agent.SetModel($"Override_{behaviorName}", nnModel);
 
         }
     }

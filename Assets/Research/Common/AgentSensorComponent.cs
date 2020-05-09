@@ -1,8 +1,7 @@
 ﻿using System;
-using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
-using UnityEngine;
+using Unity.MLAgents.Sensors;
 
 namespace Research.Common
 {

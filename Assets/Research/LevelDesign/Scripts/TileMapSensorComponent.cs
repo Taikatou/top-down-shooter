@@ -1,5 +1,5 @@
 ﻿using System;
-using MLAgents.Sensors;
+using Unity.MLAgents.Sensors;
 
 namespace Research.LevelDesign.Scripts
 {
@@ -7,9 +7,11 @@ namespace Research.LevelDesign.Scripts
     {
         [NonSerialized] private TileMapSensor _tileMapSensor;
 
+        public bool debug;
+
         public override ISensor CreateSensor()
         {
-            _tileMapSensor = new TileMapSensor(gameObject);
+            _tileMapSensor = new TileMapSensor(gameObject, debug);
             return _tileMapSensor;
         }
 

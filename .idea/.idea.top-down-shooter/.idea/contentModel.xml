@@ -338,6 +338,7 @@
             <e p="Scripts" t="Include">
               <e p="AIAccessor.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
+              <e p="MapAccessor.cs" t="Include" />
               <e p="TileMapSensor.cs" t="Include" />
               <e p="TileMapSensorComponent.cs" t="Include" />
             </e>

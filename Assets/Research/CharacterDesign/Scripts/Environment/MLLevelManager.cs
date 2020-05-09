@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Characters;
-using MLAgents;
-using MLAgents.Policies;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts.Characters;
 using Research.Common;
 using Research.LevelDesign.NuclearThrone;
 using SpawnPoints;
+using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment

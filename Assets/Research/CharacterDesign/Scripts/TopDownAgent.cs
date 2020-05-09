@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using MLAgents;
-using MLAgents.Sensors;
 using MoreMountains.TopDownEngine;
 using AgentInput;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
@@ -18,8 +17,6 @@ namespace Research.CharacterDesign.Scripts
         public DirectionsKeyMapper directionsKeyMapper;
 
         public SecondaryDirectionsInput secondaryDirectionsInput;
-
-        private Health _health;
 
         public SpriteRenderer spriteRenderer;
 
@@ -35,11 +32,12 @@ namespace Research.CharacterDesign.Scripts
 
         public Rigidbody2D groundRb;
 
-        public bool enableCuriculum = true;
+        public bool enableCuriculuum = true;
+
+        public float punishValue = -0.0005f;
         
         public override void Initialize()
         {
-            _health = GetComponent<Health>();
             _mAgentRb = GetComponent<Rigidbody2D>();
             trainingSettings = new TrainingSettings
             {
@@ -99,7 +97,7 @@ namespace Research.CharacterDesign.Scripts
         {
             if (trainingSettings.PunishTime)
             {
-                AddReward(-0.00005f);
+                AddReward(punishValue);
             }
         }
         
@@ -174,7 +172,7 @@ namespace Research.CharacterDesign.Scripts
 
         public override void OnEpisodeBegin()
         {
-            if (enableCuriculum)
+            if (enableCuriculuum)
             {
                 var mResetParams = Academy.Instance.EnvironmentParameters;
                 var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);

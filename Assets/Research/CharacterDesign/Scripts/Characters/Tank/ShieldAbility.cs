@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using MLAgents.Policies;
 using MoreMountains.TopDownEngine;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Characters.Tank

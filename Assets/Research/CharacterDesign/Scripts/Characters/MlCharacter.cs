@@ -1,8 +1,8 @@
-﻿using MLAgents;
-using MoreMountains.TopDownEngine;
+﻿using MoreMountains.TopDownEngine;
+using Unity.MLAgents;
 using UnityEngine;
 
-namespace Characters
+namespace Research.CharacterDesign.Scripts.Characters
 {
     public class MlCharacter : Character
     {

@@ -9,9 +9,9 @@ namespace Research.LevelDesign.Scripts
 {
     public class AiAccessor : MonoBehaviour
     {
-        public NuclearThroneLevelGenerator levelGenerator;
+        public MapAccessor mapAccessor;
 
-        public GridSpace[,] Map => levelGenerator == null ? null : levelGenerator.Map;
+        public GridSpace[,] Map => mapAccessor == null ? null : mapAccessor.Map;
 
         public IEnumerable<Tuple<TopDownAgent, Vector3Int>> AgentPosition
         {
@@ -24,7 +24,7 @@ namespace Research.LevelDesign.Scripts
                     if (agent.enabled)
                     {
                         var position = agent.transform.position;
-                        var cell = levelGenerator.GetPosition(position);
+                        var cell = mapAccessor.GetPosition(position);
                         var pair = new Tuple<TopDownAgent, Vector3Int>(agent, cell);
                         positions.Add(pair);
                     }

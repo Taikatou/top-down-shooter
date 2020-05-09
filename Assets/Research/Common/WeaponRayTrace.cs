@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MLAgents.Sensors;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.Common

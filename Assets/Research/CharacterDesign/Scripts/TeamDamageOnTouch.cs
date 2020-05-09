@@ -1,5 +1,5 @@
-﻿using MLAgents.Policies;
-using MoreMountains.TopDownEngine;
+﻿using MoreMountains.TopDownEngine;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts

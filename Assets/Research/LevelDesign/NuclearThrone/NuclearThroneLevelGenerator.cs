@@ -12,9 +12,7 @@ using UnityEngine.Tilemaps;
 
 namespace Research.LevelDesign.NuclearThrone
 {
-	#if UNITY_EDITOR
-#endif
-
+	public delegate void LevelUpdate();
 	public class NuclearThroneLevelGenerator : MonoBehaviour
 	{
 		[Tooltip("The Tilemap to draw onto")]
@@ -44,50 +42,11 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public IGetSpawnPoints getSpawnPoints;
 
-		private List<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
-
-		public DataLogger dataLogger;
-
-		private GridSpace[,] _map;
+		private IEnumerable<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
 
 		public AgentQueue agentQueue;
 
-		public GridSpace[,] Map
-		{
-			get
-			{
-				if (_map == null)
-				{
-					_map = NuclearThroneMapFunctions.GenerateArray(width, height);
-					UpdateMap(tilemapWalls, GridSpace.Wall);
-					UpdateMap(tilemapGround, GridSpace.Floor);
-				}
-				return _map;
-			}
-		}
-
-		public Vector3Int GetPosition(Vector3 position)
-		{
-			return tilemapWalls.WorldToCell(position);
-		}
-
-		private void UpdateMap(Tilemap tileMap, GridSpace type)
-		{
-			var z = (int) tileMap.transform.position.y;
-
-			for (var y = 0; y < height; y++)
-			{
-				for (var x = 0; x < width; x++)
-				{
-					var tilePosition = new Vector3Int(x, y, z);
-					var tile = tileMap.GetTile(tilePosition);
-					if (tile != null)
-					{
-						_map[x, y] = type;
-					}
-				}
-			}
-		}
+		public LevelUpdate onLevelUpdate;
 
 		private void Update()
 		{
@@ -104,6 +63,10 @@ namespace Research.LevelDesign.NuclearThrone
 			var generateMap = curriculum == LevelCurriculum.AllActive || 
 									curriculum == LevelCurriculum.NoAdversary;
 			GenerateMap(generateMap);
+			if (onLevelUpdate != null)
+			{
+				onLevelUpdate();
+			}
 		}
 
 		[ExecuteInEditMode]
@@ -115,26 +78,26 @@ namespace Research.LevelDesign.NuclearThrone
 			Random.InitState(seed.GetHashCode());
 
 			var validPositions = new List<Vector3Int>();
-			_map = NuclearThroneMapFunctions.GenerateArray(width, height);
+			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)
 			{
 				validPositions.Clear();
-				NuclearThroneMapFunctions.ClearArray(_map, true);
+				NuclearThroneMapFunctions.ClearArray(map, true);
 
 				if (generateMap)
 				{
-					_map = NuclearThroneMapGenerator.GenerateMap(_map);
+					map = NuclearThroneMapGenerator.GenerateMap(map);
 				}
 				else
 				{
-					_map = NuclearThroneMapGenerator.SquareMap(_map);
+					map = NuclearThroneMapGenerator.SquareMap(map);
 				}
 				var z = (int) tilemapGround.transform.position.y;
 				for (var y = distance; y < height - distance; y++)
 				{
 					for (var x = distance; x < width - distance; x++)
 					{
-						var free = FreeTile(x, y, _map, distance);
+						var free = FreeTile(x, y, map, distance);
 						var notClose = CheckDistance(x, y, validPositions, 15);
 						if (free && notClose)
 						{
@@ -143,11 +106,9 @@ namespace Research.LevelDesign.NuclearThrone
 					}
 				}
 			}
-			
-			OutputMap();
-			
+
 			//Render the result
-			NuclearThroneMapFunctions.RenderMapWithOffset(_map, tilemapGround, tilemapWalls, tileWall, tileGround);
+			NuclearThroneMapFunctions.RenderMapWithOffset(map, tilemapGround, tilemapWalls, tileWall, tileGround);
 
 			var index = 0;
 			var spawnPositions = GetMaxDistance(validPositions);
@@ -164,26 +125,6 @@ namespace Research.LevelDesign.NuclearThrone
 
 				index++;
 			}
-		}
-
-		private void OutputMap()
-		{
-			var rowData = new List<string[]>();
-
-			var roomHeight = Map.GetUpperBound(0);
-			var roomWidth = Map.GetUpperBound(1);
-
-			for (var i = 0; i < roomHeight; i++)
-			{
-				var row = new string [roomWidth];
-				for (var j = 0; j < roomWidth; j++)
-				{
-					row[j] = ((int)Map[i, j]).ToString();
-				}
-				rowData.Add(row);
-			}
-			
-			dataLogger.OutputMap(rowData);
 		}
 
 		private static IEnumerable<Vector3Int> GetMaxDistance(IReadOnlyCollection<Vector3Int> array)
