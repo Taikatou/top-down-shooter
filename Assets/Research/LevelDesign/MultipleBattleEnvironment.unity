@@ -1911,7 +1911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c80f4ab2160444983fd1ed3658c3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapAccessor: {fileID: 0}
+  mapAccessor: {fileID: 1025754639}
   agentQueue: {fileID: 1378458095}
 --- !u!1 &3917814871220450612
 GameObject:
@@ -15572,12 +15572,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfad200c8782a3449dfd49ea310c909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFrameRate: 300
+  TargetFrameRate: 0
   MaximumLives: 0
   CurrentLives: 0
   GameOverScene: 
   Points: 0
-  PauseGameWhenInventoryOpens: 1
+  PauseGameWhenInventoryOpens: 0
 --- !u!4 &4538626488330918407
 Transform:
   m_ObjectHideFlags: 0

@@ -13,8 +13,6 @@ namespace Research.LevelDesign.Scripts
 
         private GridSpace[,] _map;
 
-        private int _levelId = -1;
-        
         public DataLogger dataLogger;
 
         private void Start()

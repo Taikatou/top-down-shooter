@@ -98,8 +98,8 @@ namespace Research.LevelDesign.Scripts
             {
                 for (var x = 0; x < SizeX; x++)
                 {
-                    var value = debugGrid[x, y];
-                    output += value;
+                    var value = (int) debugGrid[x, y];
+                    output += value > 0? value.ToString() : " ";
                 }
                 output += "\n";
             }
@@ -130,8 +130,14 @@ namespace Research.LevelDesign.Scripts
         {
             if (GridSpaces != null)
             {
-                Array.Copy(GridSpaces, _mObservations, SizeX*SizeY);
-                
+                for (var y = 0; y < SizeY; y++)
+                {
+                    for (var x = 0; x < SizeX; x++)
+                    {
+                        _mObservations[x, y] = GridSpaces[x, y];
+                    }
+                }
+
                 foreach (var (agent, pos) in Accessor.AgentPosition)
                 {
                     var agentType = GetAgentType(agent);
