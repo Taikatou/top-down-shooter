@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8353864447477624940, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: enableCuriculum
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3574937756197684364, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1, type: 3}
     - {fileID: 520950806658511269, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1, type: 3}

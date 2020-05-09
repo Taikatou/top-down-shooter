@@ -26,7 +26,7 @@ namespace Research.CharacterDesign.Scripts
         public float gunSpeed = 0.01f;
         
         public AimControl aimControl = AimControl.ThirtyTwoWay;
-
+        
         public ObservationSettings observationSettings;
 
         public TrainingSettings trainingSettings;
@@ -34,6 +34,8 @@ namespace Research.CharacterDesign.Scripts
         private Rigidbody2D _mAgentRb;
 
         public Rigidbody2D groundRb;
+
+        public bool enableCuriculum = true;
         
         public override void Initialize()
         {
@@ -106,7 +108,6 @@ namespace Research.CharacterDesign.Scripts
         {
             var counter = 0;
             // Extrinsic Penalty
-            // AddReward(-1f / 3000f);
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
@@ -146,7 +147,7 @@ namespace Research.CharacterDesign.Scripts
         public override void Heuristic(float[] actionsOut)
         {
             var index = 0;
-            actionsOut[index++] = (int)directionsKeyMapper.PrimaryDirections;
+            actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
             
             if (trainingSettings.ShootEnabled)
             {
@@ -173,14 +174,17 @@ namespace Research.CharacterDesign.Scripts
 
         public override void OnEpisodeBegin()
         {
-            var mResetParams = Academy.Instance.EnvironmentParameters;
-            var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);
-            var agentQueue = GetComponentInParent<AgentQueue>();
-            if (agentQueue)
+            if (enableCuriculum)
             {
-                var curriculum = (LevelCurriculum) levelDesign;
-                Debug.Log("Current Curriculum:" + curriculum);
-                agentQueue.currentCurriculum = curriculum;
+                var mResetParams = Academy.Instance.EnvironmentParameters;
+                var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);
+                var agentQueue = GetComponentInParent<AgentQueue>();
+                if (agentQueue)
+                {
+                    var curriculum = (LevelCurriculum) levelDesign;
+                    Debug.Log("Current Curriculum:" + curriculum);
+                    agentQueue.currentCurriculum = curriculum;
+                }   
             }
         }
 

@@ -13,6 +13,7 @@
       <e p="EditorUtilities.cs" t="Include" />
       <e p="RayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
+      <e p="TopDownRayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
     <e p="C:\Users\conor\Documents\GitHub\ml-agents\com.unity.ml-agents\Runtime" t="Include">
@@ -100,6 +101,9 @@
         <e p="SensorComponent.cs" t="Include" />
         <e p="SensorShapeValidator.cs" t="Include" />
         <e p="StackingSensor.cs" t="Include" />
+        <e p="TopDown" t="Include">
+          <e p="TopDownRaySensorComponent.cs" t="Include" />
+        </e>
         <e p="VectorSensor.cs" t="Include" />
       </e>
       <e p="SideChannels" t="Include">
@@ -292,16 +296,13 @@
                 <e p="MLLevelManager.cs" t="Include" />
                 <e p="TopDownInputManager.cs" t="Include" />
               </e>
-              <e p="ml-agents" t="Include">
-                <e p="TopDownAgent.cs" t="Include" />
-                <e p="TopDownRaySensorComponent.cs" t="Include" />
-              </e>
               <e p="SpawnPoints" t="Include">
                 <e p="BaseGetSpawnPoints.cs" t="Include" />
                 <e p="IGetSpawnPoints.cs" t="Include" />
               </e>
               <e p="SpeedChanger.cs" t="Include" />
               <e p="TeamDamageOnTouch.cs" t="Include" />
+              <e p="TopDownAgent.cs" t="Include" />
             </e>
             <e p="Shaders" t="Include">
               <e p="Projector.shader" t="Include" />

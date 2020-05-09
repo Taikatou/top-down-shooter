@@ -100,7 +100,9 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public void GenerateMap()
 		{
-			var generateMap = agentQueue && agentQueue.currentCurriculum == LevelCurriculum.AllActive;
+			var curriculum = agentQueue.currentCurriculum;
+			var generateMap = curriculum == LevelCurriculum.AllActive || 
+									curriculum == LevelCurriculum.NoAdversary;
 			GenerateMap(generateMap);
 		}
 
