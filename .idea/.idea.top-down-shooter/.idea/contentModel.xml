@@ -316,6 +316,10 @@
             <e p="AgentSense.cs" t="Include" />
             <e p="AgentSensor.cs" t="Include" />
             <e p="AgentSensorComponent.cs" t="Include" />
+            <e p="MapSensor" t="Include">
+              <e p="AgentPosition.cs" t="Include" />
+              <e p="EntityMapPosition.cs" t="Include" />
+            </e>
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
             <e p="SpriteId.cs" t="Include" />
@@ -368,6 +372,13 @@
                   <e p="PaintOnLayerRuleTile.cs" t="Include" />
                 </e>
               </e>
+            </e>
+          </e>
+          <e p="Test" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="TestGridAgent.cs" t="Include" />
+              <e p="TestGridController.cs" t="Include" />
+              <e p="TestPickup.cs" t="Include" />
             </e>
           </e>
         </e>

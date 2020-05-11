@@ -1,34 +1,43 @@
-﻿using Research.LevelDesign.NuclearThrone.Scripts;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Research.LevelDesign.NuclearThrone.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Research.LevelDesign.NuclearThrone
 {
+    public struct MapLayer
+    {
+        public Tilemap TileMap;
+        public TileBase Tile;
+        public GridSpace Condition;
+    }
     public static class NuclearThroneMapFunctions
     {
-        public static void RenderMapWithOffset(GridSpace[,] map, Tilemap tilemapGround, Tilemap tilemapWall,
-            TileBase tileWalls, TileBase tileGround)
+        public static void RenderMapWithOffset(GridSpace[,] map, IEnumerable<MapLayer> mapLayerData)
         {
             var roomWidth = map.GetUpperBound(0);
             var roomHeight = map.GetUpperBound(1);
-            var z = (int) tilemapGround.transform.position.y;
-            
+            foreach (var layer in mapLayerData)
+            {
+                RenderTileMapLayer(map, layer, roomWidth, roomHeight);
+            }
+        }
+
+        public static void RenderTileMapLayer(GridSpace[,] map, MapLayer layer, int roomWidth, int roomHeight)
+        {
+            var z = (int) layer.TileMap.transform.position.z;
             for (var y = 0; y < roomHeight; y++)
             {
                 for (var x = 0; x < roomWidth; x++)
                 {
-                    var tilePosition = new Vector3Int(x, y, z);
-                    switch (map[x, y])
+                    if (map[x, y] == layer.Condition)
                     {
-                        case GridSpace.Wall:
-                            tilemapGround.SetTile(tilePosition, tileWalls);
-                            break;
-                        case GridSpace.Floor:
-                            tilemapWall.SetTile(tilePosition, tileGround);
-                            break;
+                        var tilePosition = new Vector3Int(x, y, z);
+                        layer.TileMap.SetTile(tilePosition, layer.Tile);
                     }
                 }
-            }
+            }   
         }
 
         public static void ClearArray(GridSpace [,] map, bool empty)

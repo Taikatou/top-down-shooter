@@ -1,9 +1,9 @@
 ﻿using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.Scripts.Environment;
+using Research.Test.Scripts;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
-namespace Research.CharacterDesign.Scripts
+namespace Research.CharacterDesign.Scripts.Environment
 {
     public class AgentsCoin : PickableItem
     {
@@ -18,7 +18,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 foreach (var player in levelManager.Players)
                 {
-                    var playerAgent = player.GetComponent<TopDownAgent>();
+                    var playerAgent = player.GetComponent<TestGridAgent>();
                     var playerBehaviour = player.GetComponent<BehaviorParameters>();
                     if (playerAgent)
                     {

@@ -1,23 +1,38 @@
-﻿using System;
-using Unity.MLAgents.Sensors;
+﻿using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {
     public class TileMapSensorComponent : SensorComponent
     {
-        [NonSerialized] private TileMapSensor _tileMapSensor;
-
         public bool debug;
+        
+        [Range(1, 50)]
+        [Tooltip("Number of raycast results that will be stacked before being fed to the neural network.")]
+        public int mObservationStacks = 1;
+
+        private int ObservationStacks => mObservationStacks;
+
+        private TileMapSensor _tileMapSensor;
+
+        public GameObject learningEnvironment;
 
         public override ISensor CreateSensor()
         {
-            _tileMapSensor = new TileMapSensor(gameObject, debug);
+            _tileMapSensor = new TileMapSensor(learningEnvironment, debug);
+            if (ObservationStacks != 1)
+            {
+                var stackingSensor = new StackingSensor(_tileMapSensor, ObservationStacks);
+                return stackingSensor;
+            }
             return _tileMapSensor;
         }
 
         public override int[] GetObservationShape()
         {
-            return _tileMapSensor.GetObservationShape();
+            var stacks = ObservationStacks > 1 ? ObservationStacks : 1;
+            var shape = _tileMapSensor.GetObservationShape();
+            return new [] {shape[0], shape[1], shape[2], ObservationStacks};
         }
     }
 }

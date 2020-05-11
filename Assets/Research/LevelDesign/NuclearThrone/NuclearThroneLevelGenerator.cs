@@ -48,6 +48,23 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public LevelUpdate onLevelUpdate;
 
+		public List<MapLayer> MapLayerData =>
+			new List<MapLayer>
+			{
+				new MapLayer
+				{
+					TileMap=tilemapGround,
+					Condition=GridSpace.Floor,
+					Tile=tileGround
+				},
+				new MapLayer
+				{
+					TileMap=tilemapWalls,
+					Condition=GridSpace.Wall,
+					Tile=tileWall
+				}
+			};
+
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.N))
@@ -63,10 +80,7 @@ namespace Research.LevelDesign.NuclearThrone
 			var generateMap = curriculum == LevelCurriculum.AllActive || 
 									curriculum == LevelCurriculum.NoAdversary;
 			GenerateMap(generateMap);
-			if (onLevelUpdate != null)
-			{
-				onLevelUpdate();
-			}
+			onLevelUpdate?.Invoke();
 		}
 
 		[ExecuteInEditMode]
@@ -106,9 +120,9 @@ namespace Research.LevelDesign.NuclearThrone
 					}
 				}
 			}
-
+			
 			//Render the result
-			NuclearThroneMapFunctions.RenderMapWithOffset(map, tilemapGround, tilemapWalls, tileWall, tileGround);
+			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
 
 			var index = 0;
 			var spawnPositions = GetMaxDistance(validPositions);

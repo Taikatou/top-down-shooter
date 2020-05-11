@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Research.CharacterDesign.Scripts;
+using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
@@ -25,16 +25,16 @@ namespace Research.LevelDesign.Scripts
         public void Reset() { Array.Clear(_mObservations, 0, SizeX*SizeY); }
         
         public byte[] GetCompressedObservation() { return null; }
-        
-        private AiAccessor Accessor
+
+        private MapAccessor MapAccessor
         {
             get
             {
                 if (_gameObject != null)
                 {
-                    return _gameObject.GetComponentInParent<AiAccessor>();;
+                    var mapAccessor = _gameObject.GetComponentInParent<MapAccessor>();
+                    return mapAccessor;
                 }
-                Debug.Log("Invalid Accessor");
                 return null;
             }
         }
@@ -43,32 +43,28 @@ namespace Research.LevelDesign.Scripts
         {
             get
             {
-                if (Accessor != null)
+                if (MapAccessor != null)
                 {
-                    return Accessor.Map;
+                    return MapAccessor.Map;
                 }
-                Debug.Log("Invalid Accessor");
                 return null;
             }
         }
 
-        private Dictionary<GridSpace, int> GetGridSpaceValues()
-        {
-            return new Dictionary<GridSpace, int>
+        private readonly Dictionary<GridSpace, int> _gridSpaceValues = new Dictionary<GridSpace, int>
             {
                 { GridSpace.Floor, 0 },
-                { GridSpace.Self, 1 },
-                { GridSpace.Wall, 2},
+                { GridSpace.Wall, 1 },
+                { GridSpace.Self, 2 },
                 { GridSpace.OtherTeam, 3 }
             };
-        }
-        
+
         public TileMapSensor(GameObject gameObject, bool debug)
         {
             _gameObject = gameObject;
             _debug = debug;
 
-            var detectable = GetGridSpaceValues().Count;
+            var detectable = _gridSpaceValues.Count;
             _mShape = new[] { SizeX, SizeY, detectable };
             _mObservations = new GridSpace[SizeX, SizeY];
         }
@@ -78,7 +74,7 @@ namespace Research.LevelDesign.Scripts
             return _mShape;
         }
 
-        private GridSpace GetAgentType(TopDownAgent agent)
+        private GridSpace GetAgentType(AgentPosition agent)
         {
             if (agent.gameObject == _gameObject)
             {
@@ -91,15 +87,16 @@ namespace Research.LevelDesign.Scripts
             return isTeam ? GridSpace.OurTeam : GridSpace.OtherTeam;
         }
 
-        private void OutputDebug(GridSpace [,] debugGrid)
+        private static void OutputDebugMap(GridSpace [,] debugGrid)
         {
-            var output = "";
-            for (var y = 0; y < SizeY; y++)
+            var roomWidth = debugGrid.GetUpperBound(0);
+            var roomHeight = debugGrid.GetUpperBound(1);
+            var output = "Output log \n";
+            for (var y = roomHeight; y >= 0; y--)
             {
-                for (var x = 0; x < SizeX; x++)
+                for (var x = 0; x < roomWidth; x++)
                 {
-                    var value = (int) debugGrid[x, y];
-                    output += value > 0? value.ToString() : " ";
+                    output += (int) debugGrid[x, y];
                 }
                 output += "\n";
             }
@@ -108,7 +105,7 @@ namespace Research.LevelDesign.Scripts
 
         public int Write(ObservationWriter writer)
         {
-            var typesOfGrid = GetGridSpaceValues();
+            var typesOfGrid = _gridSpaceValues;
 
             foreach (var pair in typesOfGrid)
             {
@@ -117,13 +114,15 @@ namespace Research.LevelDesign.Scripts
                 {
                     for (var x = 0; x < SizeX; x++)
                     {
-                        var present = _mObservations[x, y] == pair.Key? 1.0f: 0.0f;
+                        var isKey = _mObservations[x, y] == pair.Key;
+                        var present = isKey? 1.0f: 0.0f;
                         writer[x, y, gridInt] = present;
                     }
                 }   
             }
-
-            return _mShape[0] * _mShape[1] * _mShape[2];
+            var outputSize = _mShape[0] * _mShape[1] * _mShape[2];
+            Debug.Log(_mShape[2]);
+            return outputSize;
         }
 
         public void Update()
@@ -138,7 +137,7 @@ namespace Research.LevelDesign.Scripts
                     }
                 }
 
-                foreach (var (agent, pos) in Accessor.AgentPosition)
+                foreach (var (agent, pos) in AiAccessor)
                 {
                     var agentType = GetAgentType(agent);
                     _mObservations[pos.x, pos.y] = agentType;
@@ -146,12 +145,16 @@ namespace Research.LevelDesign.Scripts
                 
                 if (_debug)
                 {
-                    OutputDebug(_mObservations);
+                    OutputDebugMap(_mObservations);
+                }
+                else
+                {
+                    Debug.Log("No debug trace");
                 }
             }
             else
             {
-                Debug.Log("Invalid gridarray");
+                Debug.Log("Invalid grid array");
             }
         }
 

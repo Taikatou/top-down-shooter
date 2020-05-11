@@ -1,5 +1,4 @@
 ﻿using System;
-using MoreMountains.TopDownEngine;
 using AgentInput;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
@@ -101,7 +100,6 @@ namespace Research.CharacterDesign.Scripts
             }
         }
         
-
         public override void OnActionReceived(float[] vectorAction)
         {
             var counter = 0;
@@ -211,8 +209,8 @@ namespace Research.CharacterDesign.Scripts
                 sensor.AddObservation(inputManager.SecondaryMovement);
             }
             
-            var agentPos = _mAgentRb.position - groundRb.position;
-            sensor.AddObservation(agentPos / 20f);
+            // var agentPos = _mAgentRb.position - groundRb.position;
+            // sensor.AddObservation(agentPos / 20f);
         }
     }
 }

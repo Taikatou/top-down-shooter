@@ -10,7 +10,7 @@ namespace Research.Common
     {
         private readonly int[] _mShape;
 
-        private readonly TopDownAgent _topdownAgent;
+        private readonly TopDownAgent _topDownAgent;
         private readonly float[] _mObservations;
         private readonly AgentSense[] _agentSenses;
         
@@ -24,9 +24,9 @@ namespace Research.Common
         public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
         
 
-        public AgentSensor(TopDownAgent topdownAgent)
+        public AgentSensor(TopDownAgent topDownAgent)
         {
-            _topdownAgent = topdownAgent;
+            _topDownAgent = topDownAgent;
             _agentSenses = new[] {new AgentSense(), new AgentSense()};
             const int size = 7 * 2;
             _mShape = new[] { size };
@@ -39,14 +39,15 @@ namespace Research.Common
             return _mObservations.Length;
         }
 
-        public Vector2 Position
+        private Vector2 Position
         {
             get
             {
-                if (_topdownAgent && _topdownAgent.groundRb)
+                if (_topDownAgent && _topDownAgent.groundRb)
                 {
-                    return _topdownAgent.groundRb.position;
+                    return _topDownAgent.groundRb.position;
                 }
+                Debug.Log("Invalid Ground position");
                 return new Vector2();
             }
         }

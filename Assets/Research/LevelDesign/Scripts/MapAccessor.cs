@@ -35,9 +35,11 @@ namespace Research.LevelDesign.Scripts
         private void UpdateMapData()
         {
             _map = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);
-            UpdateTileMap(generator.tilemapWalls, GridSpace.Wall);
-            UpdateTileMap(generator.tilemapGround, GridSpace.Floor);
-            
+            foreach (var layers in generator.MapLayerData)
+            {
+                UpdateTileMap(layers.TileMap, layers.Condition);
+            }
+
             OutputMap();
         }
         
