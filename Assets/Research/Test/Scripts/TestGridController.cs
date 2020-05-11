@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Research.Test.Scripts
 {
@@ -15,6 +13,8 @@ namespace Research.Test.Scripts
         private float Speed => moveSpeed * Time.deltaTime;
 
         public LayerMask obstructMovement;
+        
+        public Vector2 Input { get; set; }
 
         private void Start()
         {
@@ -35,10 +35,10 @@ namespace Research.Test.Scripts
 
         protected virtual void UpdateInput()
         {
-            var horizontal = Input.GetAxis("Horizontal");
+            var horizontal = Input.x;
             ApplyMovement(horizontal, new Vector3(1, 0));
-            
-            var vertical = Input.GetAxis("Vertical");
+
+            var vertical = Input.y;
             ApplyMovement(vertical, new Vector3(0, 1));
         }
 
@@ -56,6 +56,11 @@ namespace Research.Test.Scripts
                     movePoint.position = newPosition;
                 }
             }
+        }
+
+        public void ResetMovePoint(Vector3 newPosition)
+        {
+            movePoint.transform.position = newPosition;
         }
     }
 }

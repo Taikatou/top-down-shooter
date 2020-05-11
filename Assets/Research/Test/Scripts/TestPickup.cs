@@ -1,12 +1,18 @@
-﻿using Research.CharacterDesign.Scripts;
+﻿using System.Collections.Generic;
+using Research.Common.MapSensor;
+using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.Test.Scripts
 {
-    public class TestPickup : MonoBehaviour
+    public class TestPickup : EntityMapPosition
     {
         public GameObject playersParent;
+        
+        public List<Transform> possibleSpawnPositions;
+        
+        public override GridSpace GetType(int teamId) => GridSpace.Coin;
 
         private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 
@@ -31,6 +37,15 @@ namespace Research.Test.Scripts
                 
                 Debug.Log("Reward Found");
             }
+        }
+
+        public void ResetPosition()
+        {
+            var random = new System.Random();
+            var randomIndex = random.Next(0, possibleSpawnPositions.Count);
+            var randomTransform = possibleSpawnPositions[randomIndex];
+            
+            transform.position = randomTransform.position;
         }
     }
 }

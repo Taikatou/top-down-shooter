@@ -23,10 +23,10 @@ namespace Research.CharacterDesign.Scripts.AgentInput
         {
             InputDirections = new Dictionary<Directions, KeyCode>
             {
-                {Directions.Left, KeyCode.A},
-                {Directions.Right, KeyCode.D },
-                {Directions.Down, KeyCode.S},
-                {Directions.Up, KeyCode.W }
+                { Directions.Left, KeyCode.A },
+                { Directions.Right, KeyCode.D },
+                { Directions.Down, KeyCode.S },
+                { Directions.Up, KeyCode.W }
             };
             _directionsVectorMap = new Dictionary<Vector2, Directions>
             {

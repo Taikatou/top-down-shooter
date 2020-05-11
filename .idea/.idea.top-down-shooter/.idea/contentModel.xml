@@ -317,13 +317,16 @@
             <e p="AgentSensor.cs" t="Include" />
             <e p="AgentSensorComponent.cs" t="Include" />
             <e p="MapSensor" t="Include">
-              <e p="AgentPosition.cs" t="Include" />
+              <e p="AgentMapPosition.cs" t="Include" />
               <e p="EntityMapPosition.cs" t="Include" />
             </e>
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
             <e p="SpriteId.cs" t="Include" />
             <e p="TDAgentSettings.cs" t="Include" />
+            <e p="Utils" t="Include">
+              <e p="AgentUtils.cs" t="Include" />
+            </e>
             <e p="WeaponRayTrace.cs" t="Include" />
           </e>
           <e p="LevelDesign" t="Include">
@@ -340,7 +343,6 @@
               </e>
             </e>
             <e p="Scripts" t="Include">
-              <e p="AIAccessor.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
               <e p="MapAccessor.cs" t="Include" />
               <e p="TileMapSensor.cs" t="Include" />

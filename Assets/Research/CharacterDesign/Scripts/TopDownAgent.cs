@@ -3,6 +3,7 @@ using AgentInput;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
+using Research.Common.Utils;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -53,43 +54,20 @@ namespace Research.CharacterDesign.Scripts
                 ObserveInput = true
             };
         }
-        
-        private float GetDecision(float input)
-        {
-            switch (Mathf.FloorToInt(input))
-            {
-                case 1:
-                    // Left or Down
-                    return -1;
-                case 2:
-                    // Right or Up
-                    return 1;
-                case 3:
-                    // Right or Up
-                    return -GetIncrement();
-                case 4:
-                    // Right or Up
-                    return GetIncrement();
-                case 5:
-                    // Right or Up
-                    return -2 * GetIncrement();
-                case 6:
-                    // Right or Up
-                    return 2 * GetIncrement();
-            }
-            return 0;
-        }
 
-        private float GetIncrement()
+        private float Increment
         {
-            switch (aimControl)
+            get
             {
-                case AimControl.SixTeenWay:
-                    return 0.5f;
-                case AimControl.ThirtyTwoWay:
-                    return 0.33f;
+                switch (aimControl)
+                {
+                    case AimControl.SixTeenWay:
+                        return 0.5f;
+                    case AimControl.ThirtyTwoWay:
+                        return 0.33f;
+                }
+                return 1;   
             }
-            return 1;
         }
 
         private void PunishMovement()
@@ -117,8 +95,8 @@ namespace Research.CharacterDesign.Scripts
             if (trainingSettings.SecondaryInputEnabled)
             {
                 // Set secondary input as vector
-                var secondaryXInput = GetDecision(vectorAction[counter++]);
-                var secondaryYInput = GetDecision(vectorAction[counter++]);
+                var secondaryXInput = AgentUtils.GetDecision(vectorAction[counter++], Increment);
+                var secondaryYInput = AgentUtils.GetDecision(vectorAction[counter++], Increment);
                 var secondary = new Vector2(secondaryXInput, secondaryYInput);
                 switch (aimControl)
                 {

@@ -1,19 +1,10 @@
-﻿using UnityEngine;
+﻿using Research.LevelDesign.NuclearThrone.Scripts;
+using UnityEngine;
 
 namespace Research.Common.MapSensor
 {
-    public class EntityMapPosition : MonoBehaviour
+    public abstract class EntityMapPosition : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        public abstract GridSpace GetType(int teamId);
     }
 }

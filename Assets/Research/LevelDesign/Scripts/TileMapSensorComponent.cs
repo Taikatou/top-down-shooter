@@ -1,4 +1,5 @@
-﻿using Unity.MLAgents.Sensors;
+﻿using Unity.MLAgents.Policies;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
@@ -16,10 +17,12 @@ namespace Research.LevelDesign.Scripts
         private TileMapSensor _tileMapSensor;
 
         public GameObject learningEnvironment;
+        
+        public BehaviorParameters behaviorParameters;
 
         public override ISensor CreateSensor()
         {
-            _tileMapSensor = new TileMapSensor(learningEnvironment, debug);
+            _tileMapSensor = new TileMapSensor(learningEnvironment, behaviorParameters.TeamId, debug);
             if (ObservationStacks != 1)
             {
                 var stackingSensor = new StackingSensor(_tileMapSensor, ObservationStacks);

@@ -45,7 +45,7 @@ namespace Research.LevelDesign.Scripts
         
         public Vector3Int GetPosition(Vector3 position)
         {
-            return generator.tilemapWalls.WorldToCell(position);
+            return generator.tilemapGround.WorldToCell(position);
         }
         
         private void UpdateTileMap(Tilemap tileMap, GridSpace type)

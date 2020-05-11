@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Research.Common;
+using Research.Common.MapSensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
@@ -20,19 +20,22 @@ namespace Research.LevelDesign.Scripts
 
         private readonly bool _debug;
         
-        private readonly GameObject _gameObject;
+        private readonly GameObject _learningEnvironment;
 
+        private int _teamId;
+        
         public void Reset() { Array.Clear(_mObservations, 0, SizeX*SizeY); }
         
         public byte[] GetCompressedObservation() { return null; }
+
 
         private MapAccessor MapAccessor
         {
             get
             {
-                if (_gameObject != null)
+                if (_learningEnvironment != null)
                 {
-                    var mapAccessor = _gameObject.GetComponentInParent<MapAccessor>();
+                    var mapAccessor = _learningEnvironment.GetComponentInChildren<MapAccessor>();
                     return mapAccessor;
                 }
                 return null;
@@ -56,13 +59,15 @@ namespace Research.LevelDesign.Scripts
                 { GridSpace.Floor, 0 },
                 { GridSpace.Wall, 1 },
                 { GridSpace.Self, 2 },
-                { GridSpace.OtherTeam, 3 }
+                { GridSpace.Team1, 3 },
+                { GridSpace.Team2, 4 }
             };
 
-        public TileMapSensor(GameObject gameObject, bool debug)
+        public TileMapSensor(GameObject learningEnvironment, int teamId, bool debug)
         {
-            _gameObject = gameObject;
+            _learningEnvironment = learningEnvironment;
             _debug = debug;
+            _teamId = teamId;
 
             var detectable = _gridSpaceValues.Count;
             _mShape = new[] { SizeX, SizeY, detectable };
@@ -72,19 +77,6 @@ namespace Research.LevelDesign.Scripts
         public int[] GetObservationShape()
         {
             return _mShape;
-        }
-
-        private GridSpace GetAgentType(AgentPosition agent)
-        {
-            if (agent.gameObject == _gameObject)
-            {
-                return GridSpace.Self;
-            }
-            var behaviour = _gameObject.GetComponent<BehaviorParameters>();
-            var otherBehaviour = agent.GetComponent<BehaviorParameters>();
-            var isTeam = behaviour.TeamId == otherBehaviour.TeamId;
-
-            return isTeam ? GridSpace.OurTeam : GridSpace.OtherTeam;
         }
 
         private static void OutputDebugMap(GridSpace [,] debugGrid)
@@ -121,7 +113,6 @@ namespace Research.LevelDesign.Scripts
                 }   
             }
             var outputSize = _mShape[0] * _mShape[1] * _mShape[2];
-            Debug.Log(_mShape[2]);
             return outputSize;
         }
 
@@ -137,10 +128,13 @@ namespace Research.LevelDesign.Scripts
                     }
                 }
 
-                foreach (var (agent, pos) in AiAccessor)
+                var entities = _learningEnvironment.GetComponentsInChildren<EntityMapPosition>();
+                
+                foreach (var entity in entities)
                 {
-                    var agentType = GetAgentType(agent);
-                    _mObservations[pos.x, pos.y] = agentType;
+                    var position = entity.transform.position;
+                    var cell = MapAccessor.GetPosition(position);
+                    _mObservations[cell.x, cell.y] = entity.GetType(_teamId);
                 }
                 
                 if (_debug)
