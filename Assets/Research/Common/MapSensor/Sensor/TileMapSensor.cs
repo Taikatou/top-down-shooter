@@ -16,7 +16,7 @@ namespace Research.Common.MapSensor.Sensor
         protected readonly int[] MShape;
         
         private readonly GameObject _learningEnvironment;
-        protected int SizeX => Config.Size - 1;
+        protected int SizeX => Config.Size - 1; 
         protected int SizeY => Config.Size - 1;
 
         public void Reset() { Array.Clear(MObservations, 0, SizeX*SizeY); }
@@ -85,7 +85,12 @@ namespace Research.Common.MapSensor.Sensor
                 {
                     var position = entity.transform.position;
                     var cell = MapAccessor.GetPosition(position);
-                    MObservations[cell.x, cell.y] = entity.GetGridSpaceType();
+                    
+                    var gridType = entity.GetGridSpaceType();
+                    if (Config.GridSpaceValues.ContainsKey(gridType))
+                    {
+                        MObservations[cell.x, cell.y] = gridType;   
+                    }
                 }
             }
             else

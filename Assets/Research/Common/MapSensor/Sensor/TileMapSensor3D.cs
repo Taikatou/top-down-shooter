@@ -20,8 +20,11 @@ namespace Research.Common.MapSensor.Sensor
                         var isKey = MObservations[x, y] == pair.Key;
                         var present = isKey? 1.0f: 0.0f;
                         writer[x, y, gridInt] = present;
-                        
-                        debugGridSpace[x, y] = MObservations[x, y];
+
+                        if (isKey)
+                        {
+                            debugGridSpace[x, y] = MObservations[x, y];   
+                        }
                     }
                 }   
             }
