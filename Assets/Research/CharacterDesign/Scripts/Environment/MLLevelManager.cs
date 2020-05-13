@@ -4,6 +4,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Characters;
 using Research.Common;
+using Research.Common.EntitySensor;
 using Research.LevelDesign.NuclearThrone;
 using SpawnPoints;
 using Unity.MLAgents;

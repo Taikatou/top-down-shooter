@@ -16,6 +16,9 @@ MonoBehaviour:
   mObservationStacks: 1
   learningEnvironment: {fileID: 0}
   behaviorParameters: {fileID: 358279482572410617}
+  detectableTags: 0100000002000000
+  selfDetectableTags: 
+  adversaryDetectableTags: 
 --- !u!1001 &8645273569031824678
 PrefabInstance:
   m_ObjectHideFlags: 0

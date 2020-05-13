@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Research.Common.MapSensor;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Policies;
 using UnityEngine;

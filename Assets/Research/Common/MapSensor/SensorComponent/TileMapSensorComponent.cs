@@ -24,13 +24,20 @@ namespace Research.Common.MapSensor.SensorComponent
         public BehaviorParameters behaviorParameters;
         
         
-        public List<GridSpace> detectableLayers;
+        public List<GridSpace> detectableTags;
+        
+        public List<GridSpace> selfDetectableTags;
+        
+        public List<GridSpace> adversaryDetectableTags;
 
-        protected abstract TileMapSensor CreateTileMapSensor();
+        protected abstract TileMapSensor CreateTileMapSensor(List<GridSpace> detectTags);
 
         public override ISensor CreateSensor()
         {
-            _tileMapSensor = CreateTileMapSensor();
+            var newTags = new List<GridSpace>(detectableTags);
+            newTags.AddRange(selfDetectableTags);
+            newTags.AddRange(adversaryDetectableTags);
+            _tileMapSensor = CreateTileMapSensor(newTags);
             if (ObservationStacks != 1)
             {
                 var stackingSensor = new StackingSensor(_tileMapSensor, ObservationStacks);

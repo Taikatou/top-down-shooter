@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -15,8 +16,12 @@ namespace Research.Common.MapSensor.Sensor
             {
                 for (var x = 0; x < SizeX; x++)
                 {
-                    var space = (float) MObservations[x, y];
-                    writer[x, y, 0] =  _normalize? space/GridSpaceValues.Count : space;
+                    var gridSpace = MObservations[x, y];
+                    if (GridSpaceValues.ContainsKey(gridSpace))
+                    {
+                        var space = (float) gridSpace;
+                        writer[x, y, 0] =  _normalize? space/GridSpaceValues.Count : space;   
+                    }
                 }
             }
             var outputSize = MShape[0] * MShape[1] * MShape[2];

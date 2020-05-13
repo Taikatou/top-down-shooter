@@ -313,9 +313,11 @@
             <e p="TimeScaleChecker.cs" t="Include" />
           </e>
           <e p="Common" t="Include">
-            <e p="AgentSense.cs" t="Include" />
-            <e p="AgentSensor.cs" t="Include" />
-            <e p="AgentSensorComponent.cs" t="Include" />
+            <e p="EntitySensor" t="Include">
+              <e p="AgentSense.cs" t="Include" />
+              <e p="AgentSensor.cs" t="Include" />
+              <e p="AgentSensorComponent.cs" t="Include" />
+            </e>
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />

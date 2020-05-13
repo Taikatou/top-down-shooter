@@ -2,7 +2,7 @@
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Research.Common
+namespace Research.Common.EntitySensor
 {
     public abstract class AbstractAgentSense
     {

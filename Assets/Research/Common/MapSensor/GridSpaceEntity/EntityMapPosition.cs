@@ -1,7 +1,7 @@
 ﻿using Research.LevelDesign.NuclearThrone.Scripts;
 using UnityEngine;
 
-namespace Research.Common.MapSensor
+namespace Research.Common.MapSensor.GridSpaceEntity
 {
     public abstract class EntityMapPosition : MonoBehaviour
     {

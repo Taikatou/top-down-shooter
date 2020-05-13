@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
@@ -19,7 +20,7 @@ namespace Research.Common.MapSensor.Sensor
         private readonly GameObject _learningEnvironment;
         private readonly int _teamId;
 
-        protected readonly Dictionary<GridSpace, int> GridSpaceValues;
+        protected Dictionary<GridSpace, int> GridSpaceValues;
 
         protected abstract int WriteObservations(ObservationWriter writer);
         
@@ -53,16 +54,8 @@ namespace Research.Common.MapSensor.Sensor
             }
         }
 
-        protected TileMapSensor(GameObject learningEnvironment, int teamId, bool debug, List<GridSpace> detectableLayers)
+        private void InitGridSpaces(IEnumerable<GridSpace> detectableLayers)
         {
-            _learningEnvironment = learningEnvironment;
-            _debug = debug;
-            _teamId = teamId;
-
-            var detectable = GridSpaceValues.Count;
-            MShape = new[] { SizeX, SizeY, detectable };
-            MObservations = new GridSpace[SizeX, SizeY];
-
             GridSpaceValues = new Dictionary<GridSpace, int>();
 
             var counter = 0;
@@ -71,6 +64,18 @@ namespace Research.Common.MapSensor.Sensor
                 GridSpaceValues.Add(layer, counter);
                 counter++;
             }
+        }
+
+        protected TileMapSensor(GameObject learningEnvironment, int teamId, bool debug, IEnumerable<GridSpace> detectableLayers)
+        {
+            _learningEnvironment = learningEnvironment;
+            _debug = debug;
+            _teamId = teamId;
+            InitGridSpaces(detectableLayers);
+
+            var detectable = GridSpaceValues.Count;
+            MShape = new[] { SizeX, SizeY, detectable };
+            MObservations = new GridSpace[SizeX, SizeY];
         }
 
         public int[] GetObservationShape()

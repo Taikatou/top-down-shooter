@@ -3,7 +3,7 @@ using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
 using Unity.MLAgents.Sensors;
 
-namespace Research.Common
+namespace Research.Common.EntitySensor
 {
     public class AgentSensorComponent : SensorComponent
     {

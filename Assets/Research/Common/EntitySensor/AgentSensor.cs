@@ -4,7 +4,7 @@ using Research.CharacterDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.Common
+namespace Research.Common.EntitySensor
 {
     public class AgentSensor : ISensor
     {
@@ -23,7 +23,6 @@ namespace Research.Common
 
         public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
         
-
         public AgentSensor(TopDownAgent topDownAgent)
         {
             _topDownAgent = topDownAgent;
