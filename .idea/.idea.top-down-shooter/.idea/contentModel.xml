@@ -317,8 +317,20 @@
             <e p="AgentSensor.cs" t="Include" />
             <e p="AgentSensorComponent.cs" t="Include" />
             <e p="MapSensor" t="Include">
-              <e p="AgentMapPosition.cs" t="Include" />
-              <e p="EntityMapPosition.cs" t="Include" />
+              <e p="GridSpaceEntity" t="Include">
+                <e p="AgentMapPosition.cs" t="Include" />
+                <e p="EntityMapPosition.cs" t="Include" />
+              </e>
+              <e p="Sensor" t="Include">
+                <e p="TileMapSensor.cs" t="Include" />
+                <e p="TileMapSensor2D.cs" t="Include" />
+                <e p="TileMapSensor3D.cs" t="Include" />
+              </e>
+              <e p="SensorComponent" t="Include">
+                <e p="TileMapSensor2DComponent.cs" t="Include" />
+                <e p="TileMapSensor3DComponent.cs" t="Include" />
+                <e p="TileMapSensorComponent.cs" t="Include" />
+              </e>
             </e>
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
@@ -346,8 +358,6 @@
             <e p="Scripts" t="Include">
               <e p="GetSpawnProcedural.cs" t="Include" />
               <e p="MapAccessor.cs" t="Include" />
-              <e p="TileMapSensor.cs" t="Include" />
-              <e p="TileMapSensorComponent.cs" t="Include" />
             </e>
             <e p="UnityProcedural" t="Include">
               <e p="Global Scripts" t="Include">

@@ -42,11 +42,11 @@ GameObject:
   - component: {fileID: 8287454318278028255}
   - component: {fileID: 4818543028260051894}
   - component: {fileID: 3224439477926264804}
-  - component: {fileID: 7335393889079104895}
   - component: {fileID: 871830119357574101}
   - component: {fileID: 3224496026014199549}
   - component: {fileID: 6127905617869802928}
   - component: {fileID: 3396425046379708337}
+  - component: {fileID: 635965537987794380}
   m_Layer: 10
   m_Name: TestAgent
   m_TagString: Untagged
@@ -133,23 +133,6 @@ MonoBehaviour:
   obstructMovement:
     serializedVersion: 2
     m_Bits: 1280
-  inputThreshold: 0.05
---- !u!114 &7335393889079104895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319302055351333312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef5eab47f666ba4abddca0670e486b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 1
-  mObservationStacks: 1
-  learningEnvironment: {fileID: 0}
-  behaviorParameters: {fileID: 8287454318278028255}
 --- !u!50 &871830119357574101
 Rigidbody2D:
   serializedVersion: 4
@@ -222,6 +205,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02cfb6cb362e624a900d8db164edd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &635965537987794380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319302055351333312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc4a50803ef8384a9390b51cd5aa993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  mObservationStacks: 1
+  learningEnvironment: {fileID: 0}
+  behaviorParameters: {fileID: 8287454318278028255}
 --- !u!1 &7478635369439321804
 GameObject:
   m_ObjectHideFlags: 0

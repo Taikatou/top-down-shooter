@@ -2,9 +2,9 @@
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.LevelDesign.Scripts
+namespace Research.Common.MapSensor.SensorComponent
 {
-    public class TileMapSensorComponent : SensorComponent
+    public abstract class TileMapSensorComponent : Unity.MLAgents.Sensors.SensorComponent
     {
         public bool debug;
         
@@ -20,9 +20,11 @@ namespace Research.LevelDesign.Scripts
         
         public BehaviorParameters behaviorParameters;
 
+        public abstract TileMapSensor CreateTileMapSensor();
+
         public override ISensor CreateSensor()
         {
-            _tileMapSensor = new TileMapSensor(learningEnvironment, behaviorParameters.TeamId, debug);
+            _tileMapSensor = CreateTileMapSensor();
             if (ObservationStacks != 1)
             {
                 var stackingSensor = new StackingSensor(_tileMapSensor, ObservationStacks);
@@ -35,7 +37,7 @@ namespace Research.LevelDesign.Scripts
         {
             var stacks = ObservationStacks > 1 ? ObservationStacks : 1;
             var shape = _tileMapSensor.GetObservationShape();
-            return new [] {shape[0], shape[1], shape[2], ObservationStacks};
+            return new [] { shape[0], shape[1], shape[2], stacks };
         }
     }
 }

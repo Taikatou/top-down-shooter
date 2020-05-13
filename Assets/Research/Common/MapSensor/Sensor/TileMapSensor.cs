@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using Research.Common.MapSensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
-using Unity.MLAgents.Policies;
+using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.LevelDesign.Scripts
+namespace Research.Common.MapSensor
 {
-    public class TileMapSensor : ISensor
+    public abstract class TileMapSensor : ISensor
     {
-        private int SizeX => _size - 1;
-        private int SizeY => _size - 1;
+        protected int SizeX => _size - 1;
+        protected int SizeY => _size - 1;
 
         private readonly int _size = 50;
 
-        private readonly GridSpace[,] _mObservations;
-        private readonly int[] _mShape;
+        protected readonly GridSpace[,] MObservations;
+        protected readonly int[] MShape;
 
         private readonly bool _debug;
         
         private readonly GameObject _learningEnvironment;
 
-        private int _teamId;
+        private readonly int _teamId;
         
-        public void Reset() { Array.Clear(_mObservations, 0, SizeX*SizeY); }
+        protected readonly Dictionary<GridSpace, int> GridSpaceValues = new Dictionary<GridSpace, int>
+            {
+                { GridSpace.Floor, 0 },
+                { GridSpace.Wall, 1 },
+                { GridSpace.Self, 2 },
+                { GridSpace.Team1, 3 },
+                { GridSpace.Team2, 4 }
+            };
+        
+        public abstract int WriteObservations(ObservationWriter writer);
+        
+        public void Reset() { Array.Clear(MObservations, 0, SizeX*SizeY); }
         
         public byte[] GetCompressedObservation() { return null; }
 
@@ -54,29 +64,20 @@ namespace Research.LevelDesign.Scripts
             }
         }
 
-        private readonly Dictionary<GridSpace, int> _gridSpaceValues = new Dictionary<GridSpace, int>
-            {
-                { GridSpace.Floor, 0 },
-                { GridSpace.Wall, 1 },
-                { GridSpace.Self, 2 },
-                { GridSpace.Team1, 3 },
-                { GridSpace.Team2, 4 }
-            };
-
         public TileMapSensor(GameObject learningEnvironment, int teamId, bool debug)
         {
             _learningEnvironment = learningEnvironment;
             _debug = debug;
             _teamId = teamId;
 
-            var detectable = _gridSpaceValues.Count;
-            _mShape = new[] { SizeX, SizeY, detectable };
-            _mObservations = new GridSpace[SizeX, SizeY];
+            var detectable = GridSpaceValues.Count;
+            MShape = new[] { SizeX, SizeY, detectable };
+            MObservations = new GridSpace[SizeX, SizeY];
         }
 
         public int[] GetObservationShape()
         {
-            return _mShape;
+            return MShape;
         }
 
         private static void OutputDebugMap(GridSpace [,] debugGrid)
@@ -97,23 +98,7 @@ namespace Research.LevelDesign.Scripts
 
         public int Write(ObservationWriter writer)
         {
-            var typesOfGrid = _gridSpaceValues;
-
-            foreach (var pair in typesOfGrid)
-            {
-                var gridInt = pair.Value;
-                for (var y = 0; y < SizeY; y++)
-                {
-                    for (var x = 0; x < SizeX; x++)
-                    {
-                        var isKey = _mObservations[x, y] == pair.Key;
-                        var present = isKey? 1.0f: 0.0f;
-                        writer[x, y, gridInt] = present;
-                    }
-                }   
-            }
-            var outputSize = _mShape[0] * _mShape[1] * _mShape[2];
-            return outputSize;
+            return WriteObservations(writer);
         }
 
         public void Update()
@@ -124,7 +109,7 @@ namespace Research.LevelDesign.Scripts
                 {
                     for (var x = 0; x < SizeX; x++)
                     {
-                        _mObservations[x, y] = GridSpaces[x, y];
+                        MObservations[x, y] = GridSpaces[x, y];
                     }
                 }
 
@@ -134,12 +119,12 @@ namespace Research.LevelDesign.Scripts
                 {
                     var position = entity.transform.position;
                     var cell = MapAccessor.GetPosition(position);
-                    _mObservations[cell.x, cell.y] = entity.GetType(_teamId);
+                    MObservations[cell.x, cell.y] = entity.GetType(_teamId);
                 }
                 
                 if (_debug)
                 {
-                    OutputDebugMap(_mObservations);
+                    OutputDebugMap(MObservations);
                 }
                 else
                 {
