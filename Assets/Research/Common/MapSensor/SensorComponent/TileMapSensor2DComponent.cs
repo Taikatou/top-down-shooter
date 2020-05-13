@@ -5,9 +5,10 @@ namespace Research.Common.MapSensor.SensorComponent
     public class TileMapSensor2DComponent : TileMapSensorComponent
     {
         public bool normalize;
-        public override TileMapSensor CreateTileMapSensor()
+
+        protected override TileMapSensor CreateTileMapSensor()
         {
-            return new TileMapSensor2D(learningEnvironment, behaviorParameters.TeamId, debug, normalize);
+            return new TileMapSensor2D(learningEnvironment, behaviorParameters.TeamId, debug, normalize, detectableLayers);
         }
     }
 }

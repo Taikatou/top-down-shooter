@@ -1,4 +1,6 @@
-﻿using Unity.MLAgents.Sensors;
+﻿using System.Collections.Generic;
+using Research.LevelDesign.NuclearThrone.Scripts;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
@@ -7,7 +9,7 @@ namespace Research.Common.MapSensor.Sensor
     {
         private readonly bool _normalize;
 
-        public override int WriteObservations(ObservationWriter writer)
+        protected override int WriteObservations(ObservationWriter writer)
         {
             for (var y = 0; y < SizeY; y++)
             {
@@ -21,8 +23,8 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor2D(GameObject learningEnvironment, int teamId, bool debug, bool normalize) : 
-            base(learningEnvironment, teamId, debug)
+        public TileMapSensor2D(GameObject learningEnvironment, int teamId, bool debug, bool normalize, List<GridSpace> detectableLayers) : 
+            base(learningEnvironment, teamId, debug, detectableLayers)
         {
             _normalize = normalize;
         }

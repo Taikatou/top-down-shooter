@@ -1,11 +1,13 @@
-﻿using Unity.MLAgents.Sensors;
+﻿using System.Collections.Generic;
+using Research.LevelDesign.NuclearThrone.Scripts;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.Common.MapSensor
+namespace Research.Common.MapSensor.Sensor
 {
     public class TileMapSensor3D : TileMapSensor
     {
-        public override int WriteObservations(ObservationWriter writer)
+        protected override int WriteObservations(ObservationWriter writer)
         {
             foreach (var pair in GridSpaceValues)
             {
@@ -24,7 +26,8 @@ namespace Research.Common.MapSensor
             return outputSize;
         }
 
-        public TileMapSensor3D(GameObject learningEnvironment, int teamId, bool debug) : base(learningEnvironment, teamId, debug)
+        public TileMapSensor3D(GameObject learningEnvironment, int teamId, bool debug, List<GridSpace> detectableLayers)
+            : base(learningEnvironment, teamId, debug, detectableLayers)
         {
         }
     }

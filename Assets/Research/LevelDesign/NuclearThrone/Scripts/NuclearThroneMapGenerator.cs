@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone.Scripts
 {
-	public enum GridSpace {Empty, Wall, Floor, Self, Team1, Team2, Coin}
+	public enum GridSpace {Empty, Wall, Floor, Team1, Team2, Coin}
 	public static class NuclearThroneMapGenerator
 	{
 		private struct Walker

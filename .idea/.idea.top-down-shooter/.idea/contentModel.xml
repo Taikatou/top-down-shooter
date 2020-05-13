@@ -389,6 +389,7 @@
           </e>
           <e p="Test" t="Include">
             <e p="Scripts" t="Include">
+              <e p="CoinSpawnLocations.cs" t="Include" />
               <e p="TestGridAgent.cs" t="Include" />
               <e p="TestGridController.cs" t="Include" />
               <e p="TestPickup.cs" t="Include" />

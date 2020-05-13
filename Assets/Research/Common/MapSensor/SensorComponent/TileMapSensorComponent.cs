@@ -1,4 +1,7 @@
-﻿using Unity.MLAgents.Policies;
+﻿using System.Collections.Generic;
+using Research.Common.MapSensor.Sensor;
+using Research.LevelDesign.NuclearThrone.Scripts;
+using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -19,8 +22,11 @@ namespace Research.Common.MapSensor.SensorComponent
         public GameObject learningEnvironment;
         
         public BehaviorParameters behaviorParameters;
+        
+        
+        public List<GridSpace> detectableLayers;
 
-        public abstract TileMapSensor CreateTileMapSensor();
+        protected abstract TileMapSensor CreateTileMapSensor();
 
         public override ISensor CreateSensor()
         {

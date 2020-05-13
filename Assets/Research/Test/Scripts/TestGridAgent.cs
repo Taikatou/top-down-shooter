@@ -17,7 +17,8 @@ namespace Research.Test.Scripts
         
         public float punishValue = -0.0005f;
 
-        public List<Transform> possibleSpawnPositions;
+        public CoinSpawnLocations spawnLocations;
+        
         public override void Initialize()
         {
             _mTransform = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -63,8 +64,8 @@ namespace Research.Test.Scripts
                 var found = false;
                 while (!found)
                 {
-                    var randomIndex = random.Next(0, possibleSpawnPositions.Count);
-                    var randomTransform = possibleSpawnPositions[randomIndex];
+                    var randomIndex = random.Next(0, spawnLocations.possibleSpawnPositions.Count);
+                    var randomTransform = spawnLocations.possibleSpawnPositions[randomIndex];
                 
                     if (!positionSet.Contains(randomTransform))
                     {

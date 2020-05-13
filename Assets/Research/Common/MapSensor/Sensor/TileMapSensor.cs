@@ -5,34 +5,23 @@ using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.Common.MapSensor
+namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
         protected int SizeX => _size - 1;
         protected int SizeY => _size - 1;
-
-        private readonly int _size = 50;
-
         protected readonly GridSpace[,] MObservations;
         protected readonly int[] MShape;
-
+        
+        private readonly int _size = 50;
         private readonly bool _debug;
-        
         private readonly GameObject _learningEnvironment;
-
         private readonly int _teamId;
-        
-        protected readonly Dictionary<GridSpace, int> GridSpaceValues = new Dictionary<GridSpace, int>
-            {
-                { GridSpace.Floor, 0 },
-                { GridSpace.Wall, 1 },
-                { GridSpace.Self, 2 },
-                { GridSpace.Team1, 3 },
-                { GridSpace.Team2, 4 }
-            };
-        
-        public abstract int WriteObservations(ObservationWriter writer);
+
+        protected readonly Dictionary<GridSpace, int> GridSpaceValues;
+
+        protected abstract int WriteObservations(ObservationWriter writer);
         
         public void Reset() { Array.Clear(MObservations, 0, SizeX*SizeY); }
         
@@ -64,7 +53,7 @@ namespace Research.Common.MapSensor
             }
         }
 
-        public TileMapSensor(GameObject learningEnvironment, int teamId, bool debug)
+        protected TileMapSensor(GameObject learningEnvironment, int teamId, bool debug, List<GridSpace> detectableLayers)
         {
             _learningEnvironment = learningEnvironment;
             _debug = debug;
@@ -73,6 +62,15 @@ namespace Research.Common.MapSensor
             var detectable = GridSpaceValues.Count;
             MShape = new[] { SizeX, SizeY, detectable };
             MObservations = new GridSpace[SizeX, SizeY];
+
+            GridSpaceValues = new Dictionary<GridSpace, int>();
+
+            var counter = 0;
+            foreach (var layer in detectableLayers)
+            {
+                GridSpaceValues.Add(layer, counter);
+                counter++;
+            }
         }
 
         public int[] GetObservationShape()

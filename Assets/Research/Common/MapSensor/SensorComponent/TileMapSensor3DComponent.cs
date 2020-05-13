@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using Research.Common.MapSensor.Sensor;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor3DComponent : TileMapSensorComponent
     {
-        public override TileMapSensor CreateTileMapSensor()
+        protected override TileMapSensor CreateTileMapSensor()
         {
-            return new TileMapSensor3D(learningEnvironment, behaviorParameters.TeamId, debug);
+            return new TileMapSensor3D(learningEnvironment, behaviorParameters.TeamId, debug, detectableLayers);
         }
     }
 }
