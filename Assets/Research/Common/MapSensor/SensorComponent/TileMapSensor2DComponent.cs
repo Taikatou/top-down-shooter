@@ -13,10 +13,10 @@ namespace Research.Common.MapSensor.SensorComponent
             return new TileMapSensor2D( LearningEnvironment, 
                                         sensorName,
                                         tileMapSize,
+                                        trackPosition, 
                                         debug, 
-                                        normalize, 
                                         detectTags, 
-                                        trackPosition );
+                                        normalize);
         }
     }
 }

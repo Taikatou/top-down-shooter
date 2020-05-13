@@ -9,6 +9,7 @@ namespace Research.Common.MapSensor.Sensor
     {
         protected override int WriteObservations(ObservationWriter writer)
         {
+            var debugGridSpace = new GridSpace[SizeX, SizeY];
             foreach (var pair in Config.GridSpaceValues)
             {
                 var gridInt = pair.Value;
@@ -19,9 +20,21 @@ namespace Research.Common.MapSensor.Sensor
                         var isKey = MObservations[x, y] == pair.Key;
                         var present = isKey? 1.0f: 0.0f;
                         writer[x, y, gridInt] = present;
+                        
+                        debugGridSpace[x, y] = MObservations[x, y];
                     }
                 }   
             }
+            
+            if (Config.Debug)
+            {
+                OutputDebugMap(debugGridSpace);
+            }
+            else
+            {
+                Debug.Log("No debug trace");
+            }
+            
             var outputSize = MShape[0] * MShape[1] * MShape[2];
             return outputSize;
         }

@@ -11,6 +11,7 @@ namespace Research.Common.MapSensor.Sensor
 
         protected override int WriteObservations(ObservationWriter writer)
         {
+            var debugGridSpace = new GridSpace[SizeX, SizeY];
             for (var y = 0; y < SizeY; y++)
             {
                 for (var x = 0; x < SizeX; x++)
@@ -19,17 +20,29 @@ namespace Research.Common.MapSensor.Sensor
                     if (Config.GridSpaceValues.ContainsKey(gridSpace))
                     {
                         var space = (float) gridSpace;
+                        
                         if (_normalize)
                         {
-                            writer[x, y, 0] = space / Config.GridSpaceValues.Count;
+                            space /= Config.GridSpaceValues.Count;
                         }
-                        else
+                        writer[x, y, 0] = space;
+                        if (Config.Debug)
                         {
-                            writer[x, y, 0] = space;
+                            debugGridSpace[x, y] = gridSpace;
                         }
                     }
                 }
             }
+            
+            if (Config.Debug)
+            {
+                OutputDebugMap(debugGridSpace);
+            }
+            else
+            {
+                Debug.Log("No debug trace");
+            }
+            
             var outputSize = MShape[0] * MShape[1] * MShape[2];
             return outputSize;
         }

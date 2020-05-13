@@ -43,7 +43,7 @@ namespace Research.Common.MapSensor.Sensor
             MObservations = new GridSpace[SizeX, SizeY];
         }
 
-        private static void OutputDebugMap(GridSpace [,] debugGrid)
+        protected static void OutputDebugMap(GridSpace [,] debugGrid)
         {
             var roomWidth = debugGrid.GetUpperBound(0);
             var roomHeight = debugGrid.GetUpperBound(1);
@@ -86,15 +86,6 @@ namespace Research.Common.MapSensor.Sensor
                     var position = entity.transform.position;
                     var cell = MapAccessor.GetPosition(position);
                     MObservations[cell.x, cell.y] = entity.GetGridSpaceType();
-                }
-                
-                if (Config.Debug)
-                {
-                    OutputDebugMap(MObservations);
-                }
-                else
-                {
-                    Debug.Log("No debug trace");
                 }
             }
             else
