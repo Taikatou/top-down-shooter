@@ -9,9 +9,7 @@ namespace Research.Test.Scripts
     public class TestPickup : EntityMapPosition
     {
         public GameObject playersParent;
-        
-        public List<Transform> possibleSpawnPositions;
-        
+
         public override GridSpace GetType(int teamId) => GridSpace.Coin;
 
         private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
@@ -39,13 +37,9 @@ namespace Research.Test.Scripts
             }
         }
 
-        public void ResetPosition()
+        public void ResetPosition(Transform position)
         {
-            var random = new System.Random();
-            var randomIndex = random.Next(0, possibleSpawnPositions.Count);
-            var randomTransform = possibleSpawnPositions[randomIndex];
-            
-            transform.position = randomTransform.position;
+            transform.position = position.position;
         }
     }
 }

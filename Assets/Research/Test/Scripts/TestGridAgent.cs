@@ -11,14 +11,21 @@ namespace Research.Test.Scripts
         public TestGridController controller;
         public DirectionsKeyMapper directionsKeyMapper;
 
-        public TestPickup coinPickup;
+        public List<TestPickup> coinPickup;
         
         private Vector3 _mTransform;
         
         public float punishValue = -0.0005f;
+
+        public List<Transform> possibleSpawnPositions;
         public override void Initialize()
         {
             _mTransform = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+
+        public void CompleteMovement()
+        {
+            controller.CompleteMovement();
         }
 
         public override void CollectObservations(VectorSensor sensor)
@@ -38,7 +45,9 @@ namespace Research.Test.Scripts
 
             var counter = 0;
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
-            controller.Input = primaryDirection;
+            controller.UpdateInput(primaryDirection);
+            
+            Debug.Log("Action Received");
         }
 
         public override void OnEpisodeBegin()
@@ -46,7 +55,25 @@ namespace Research.Test.Scripts
             transform.position = _mTransform;
             controller.ResetMovePoint(_mTransform);
             
-            coinPickup.ResetPosition();
+            var random = new System.Random();
+            var positionSet = new HashSet<Transform>();
+
+            foreach (var coin in coinPickup)
+            {
+                var found = false;
+                while (!found)
+                {
+                    var randomIndex = random.Next(0, possibleSpawnPositions.Count);
+                    var randomTransform = possibleSpawnPositions[randomIndex];
+                
+                    if (!positionSet.Contains(randomTransform))
+                    {
+                        coin.ResetPosition(randomTransform);
+                        positionSet.Add(randomTransform);
+                        found = true;
+                    }
+                }
+            }
         }
     }
 }
