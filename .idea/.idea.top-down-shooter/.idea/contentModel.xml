@@ -318,6 +318,7 @@
               <e p="AgentSensor.cs" t="Include" />
               <e p="AgentSensorComponent.cs" t="Include" />
             </e>
+            <e p="LearningEnvironmentAccessor.cs" t="Include" />
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />
@@ -327,6 +328,7 @@
                 <e p="TileMapSensor.cs" t="Include" />
                 <e p="TileMapSensor2D.cs" t="Include" />
                 <e p="TileMapSensor3D.cs" t="Include" />
+                <e p="TileMapSensorConfig.cs" t="Include" />
               </e>
               <e p="SensorComponent" t="Include">
                 <e p="TileMapSensor2DComponent.cs" t="Include" />

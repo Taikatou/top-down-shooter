@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
+using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -10,77 +11,36 @@ namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
-        protected int SizeX => _size - 1;
-        protected int SizeY => _size - 1;
+        protected readonly TileMapSensorConfig Config;
         protected readonly GridSpace[,] MObservations;
         protected readonly int[] MShape;
         
-        private readonly int _size = 50;
-        private readonly bool _debug;
         private readonly GameObject _learningEnvironment;
-        private readonly int _teamId;
+        protected int SizeX => Config.Size - 1;
+        protected int SizeY => Config.Size - 1;
 
-        protected Dictionary<GridSpace, int> GridSpaceValues;
-
-        protected abstract int WriteObservations(ObservationWriter writer);
-        
         public void Reset() { Array.Clear(MObservations, 0, SizeX*SizeY); }
         
         public byte[] GetCompressedObservation() { return null; }
+        
+        public int[] GetObservationShape() { return MShape; }
+        
+        private GridSpace[,] GridSpaces => MapAccessor? MapAccessor.Map: null;
 
+        private MapAccessor MapAccessor =>
+            _learningEnvironment ? _learningEnvironment.GetComponentInChildren<MapAccessor>() : null;
+        
+        protected abstract int WriteObservations(ObservationWriter writer);
 
-        private MapAccessor MapAccessor
-        {
-            get
-            {
-                if (_learningEnvironment != null)
-                {
-                    var mapAccessor = _learningEnvironment.GetComponentInChildren<MapAccessor>();
-                    return mapAccessor;
-                }
-                return null;
-            }
-        }
-
-        private GridSpace[,] GridSpaces
-        {
-            get
-            {
-                if (MapAccessor != null)
-                {
-                    return MapAccessor.Map;
-                }
-                return null;
-            }
-        }
-
-        private void InitGridSpaces(IEnumerable<GridSpace> detectableLayers)
-        {
-            GridSpaceValues = new Dictionary<GridSpace, int>();
-
-            var counter = 0;
-            foreach (var layer in detectableLayers)
-            {
-                GridSpaceValues.Add(layer, counter);
-                counter++;
-            }
-        }
-
-        protected TileMapSensor(GameObject learningEnvironment, int teamId, bool debug, IEnumerable<GridSpace> detectableLayers)
+        protected TileMapSensor(GameObject learningEnvironment, string name,
+            int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers)
         {
             _learningEnvironment = learningEnvironment;
-            _debug = debug;
-            _teamId = teamId;
-            InitGridSpaces(detectableLayers);
+            Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug);
 
-            var detectable = GridSpaceValues.Count;
+            var detectable = Config.GridSpaceValues.Count;
             MShape = new[] { SizeX, SizeY, detectable };
             MObservations = new GridSpace[SizeX, SizeY];
-        }
-
-        public int[] GetObservationShape()
-        {
-            return MShape;
         }
 
         private static void OutputDebugMap(GridSpace [,] debugGrid)
@@ -101,9 +61,12 @@ namespace Research.Common.MapSensor.Sensor
 
         public int Write(ObservationWriter writer)
         {
-            return WriteObservations(writer);
+            using (TimerStack.Instance.Scoped("TileMapSensor.WriteToTensor"))
+            {
+                return WriteObservations(writer);
+            }
         }
-
+        
         public void Update()
         {
             if (GridSpaces != null)
@@ -122,10 +85,10 @@ namespace Research.Common.MapSensor.Sensor
                 {
                     var position = entity.transform.position;
                     var cell = MapAccessor.GetPosition(position);
-                    MObservations[cell.x, cell.y] = entity.GetType(_teamId);
+                    MObservations[cell.x, cell.y] = entity.GetGridSpaceType();
                 }
                 
-                if (_debug)
+                if (Config.Debug)
                 {
                     OutputDebugMap(MObservations);
                 }
@@ -147,7 +110,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public string GetName()
         {
-            return "TopDown Sensor";
+            return Config.Name;
         }
     }
 }

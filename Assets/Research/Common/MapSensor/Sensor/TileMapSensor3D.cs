@@ -9,7 +9,7 @@ namespace Research.Common.MapSensor.Sensor
     {
         protected override int WriteObservations(ObservationWriter writer)
         {
-            foreach (var pair in GridSpaceValues)
+            foreach (var pair in Config.GridSpaceValues)
             {
                 var gridInt = pair.Value;
                 for (var y = 0; y < SizeY; y++)
@@ -26,8 +26,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor3D(GameObject learningEnvironment, int teamId, bool debug, List<GridSpace> detectableLayers)
-            : base(learningEnvironment, teamId, debug, detectableLayers)
+        public TileMapSensor3D(GameObject learningEnvironment, string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers) : base(learningEnvironment, name, size, trackPosition, debug, detectableLayers)
         {
         }
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7513293352193086336
+--- !u!114 &6139529724878310439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,16 +9,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 5479491874528138470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc4a50803ef8384a9390b51cd5aa993, type: 3}
+  m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
   mObservationStacks: 1
-  learningEnvironment: {fileID: 0}
+  debug: 0
+  tileMapSize: 50
+  trackPosition: 0
   behaviorParameters: {fileID: 358279482572410617}
   detectableTags: 0100000002000000
   selfDetectableTags: 
   adversaryDetectableTags: 
+  normalize: 0
+--- !u!114 &7112065872787857363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5479491874528138470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5cf963e347ef2439916f06674864b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironment: {fileID: 0}
+--- !u!114 &8247806282959911336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5479491874528138470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObservationStacks: 1
+  debug: 1
+  tileMapSize: 50
+  trackPosition: 0
+  behaviorParameters: {fileID: 358279482572410617}
+  detectableTags: 05000000
+  selfDetectableTags: 03000000
+  adversaryDetectableTags: 
+  normalize: 0
 --- !u!1001 &8645273569031824678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 4319302055351333312, guid: 54b55ee4f3ab26849b1fd23890e6541c,
         type: 3}
       propertyPath: m_Name
-      value: TilemapSensorTestAgent
+      value: TilemapSensor3DTestAgent
       objectReference: {fileID: 0}
     - target: {fileID: 5897494160683823228, guid: 54b55ee4f3ab26849b1fd23890e6541c,
         type: 3}

@@ -5,6 +5,6 @@ namespace Research.Common.MapSensor.GridSpaceEntity
 {
     public abstract class EntityMapPosition : MonoBehaviour
     {
-        public abstract GridSpace GetType(int teamId);
+        public abstract GridSpace GetGridSpaceType();
     }
 }

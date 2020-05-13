@@ -9,34 +9,40 @@ namespace Research.Common.MapSensor.SensorComponent
 {
     public abstract class TileMapSensorComponent : Unity.MLAgents.Sensors.SensorComponent
     {
-        public bool debug;
-        
         [Range(1, 50)]
         [Tooltip("Number of raycast results that will be stacked before being fed to the neural network.")]
         public int mObservationStacks = 1;
-
-        private int ObservationStacks => mObservationStacks;
-
-        private TileMapSensor _tileMapSensor;
-
-        public GameObject learningEnvironment;
         
+        public bool debug;
+        
+        public int tileMapSize;
+
+        public bool trackPosition;
+
+        public string sensorName;
+
         public BehaviorParameters behaviorParameters;
-        
-        
+
         public List<GridSpace> detectableTags;
-        
+
         public List<GridSpace> selfDetectableTags;
         
         public List<GridSpace> adversaryDetectableTags;
+        
+        private TileMapSensor _tileMapSensor;
+        
+        private int ObservationStacks => mObservationStacks;
 
-        protected abstract TileMapSensor CreateTileMapSensor(List<GridSpace> detectTags);
+        protected GameObject LearningEnvironment { get; private set; }
+
+        protected abstract TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
 
         public override ISensor CreateSensor()
         {
             var newTags = new List<GridSpace>(detectableTags);
             newTags.AddRange(selfDetectableTags);
             newTags.AddRange(adversaryDetectableTags);
+            LearningEnvironment = GetComponent<LearningEnvironmentAccessor>().learningEnvironment;
             _tileMapSensor = CreateTileMapSensor(newTags);
             if (ObservationStacks != 1)
             {

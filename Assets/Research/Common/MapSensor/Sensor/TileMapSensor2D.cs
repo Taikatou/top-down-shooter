@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -17,10 +16,17 @@ namespace Research.Common.MapSensor.Sensor
                 for (var x = 0; x < SizeX; x++)
                 {
                     var gridSpace = MObservations[x, y];
-                    if (GridSpaceValues.ContainsKey(gridSpace))
+                    if (Config.GridSpaceValues.ContainsKey(gridSpace))
                     {
                         var space = (float) gridSpace;
-                        writer[x, y, 0] =  _normalize? space/GridSpaceValues.Count : space;   
+                        if (_normalize)
+                        {
+                            writer[x, y, 0] = space / Config.GridSpaceValues.Count;
+                        }
+                        else
+                        {
+                            writer[x, y, 0] = space;
+                        }
                     }
                 }
             }
@@ -28,8 +34,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor2D(GameObject learningEnvironment, int teamId, bool debug, bool normalize, List<GridSpace> detectableLayers) : 
-            base(learningEnvironment, teamId, debug, detectableLayers)
+        public TileMapSensor2D(GameObject learningEnvironment, string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, bool normalize) : base(learningEnvironment, name, size, trackPosition, debug, detectableLayers)
         {
             _normalize = normalize;
         }
