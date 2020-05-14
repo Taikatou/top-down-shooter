@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Research.CharacterDesign.Scripts;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
@@ -32,13 +31,12 @@ namespace Research.Common.MapSensor.SensorComponent
         
         private int ObservationStacks => mObservationStacks;
 
-        public GameObject LearningEnvironment { get; set; }
-
         protected abstract TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
 
         public override ISensor CreateSensor()
         {
-            var newTags = new List<GridSpace>(detectableTags);
+            var newTags = new List<GridSpace>();
+            newTags.AddRange(detectableTags);
             newTags.AddRange(selfDetectableTags);
             newTags.AddRange(adversaryDetectableTags);
             
@@ -66,12 +64,11 @@ namespace Research.Common.MapSensor.SensorComponent
                 {
                     _tileMapSensor.Position =_tileMapSensor.MapAccessor.GetPosition(gameObject.transform.position); 
                 }*/
-                var accessor = GetComponentInParent<AgentQueue>();
+                var accessor = GetComponentInParent<EnabledCharactersComponent>();
                 var mapAccessor = GetComponentInParent<MapAccessor>();
-                
-                
-                
-                _tileMapSensor.EntityList = accessor.AvailableCharacters;
+
+
+                _tileMapSensor.EntityList = accessor.availableCharacters;
                 _tileMapSensor.MapAccessor = mapAccessor;
             }
             else

@@ -34147,7 +34147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4538626490098010132}
-  - component: {fileID: 4538626490098010133}
   m_Layer: 0
   m_Name: MultipleLearningEnvironment
   m_TagString: Untagged
@@ -34176,19 +34175,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4538626490098010133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4538626490098010131}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5301ab96af55bdf468ac4ab7088e2a1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scale: 0.1
 --- !u!1 &4538626490118958417
 GameObject:
   m_ObjectHideFlags: 0

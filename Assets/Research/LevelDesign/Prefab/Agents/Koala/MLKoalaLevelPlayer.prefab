@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mObservationStacks: 1
-  debug: 1
+  debug: 0
   tileMapSize: 50
   trackPosition: 0
   sensorName: 3d Sensor
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mObservationStacks: 1
-  debug: 1
+  debug: 0
   tileMapSize: 50
   trackPosition: 0
   sensorName: 2d Sensor

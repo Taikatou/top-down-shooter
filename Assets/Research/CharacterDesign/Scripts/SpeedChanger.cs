@@ -7,7 +7,7 @@ namespace Research.CharacterDesign.Scripts
         public float scale;
         void Start()
         {
-            Time.timeScale = scale;
+            // Time.timeScale = scale;
         }
     }
 }
