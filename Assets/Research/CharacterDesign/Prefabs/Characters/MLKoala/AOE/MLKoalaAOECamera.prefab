@@ -251,6 +251,56 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mSelfIds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.data[0]
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.data[1]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.data[2]
+      value: HealingBulletPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mSelfIds.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mSelfIds.Array.data[1]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957031493978047477, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: mSelfIds.Array.data[2]
+      value: HealingBullet
+      objectReference: {fileID: 0}
     - target: {fileID: 4773280857398313532, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
       propertyPath: secondaryAbilityEnabled
@@ -288,6 +338,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
         type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
       propertyPath: m_BrainParameters.vectorActionSize.Array.data[2]
       value: 3
       objectReference: {fileID: 0}
@@ -307,6 +362,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5022602860645237092, guid: c4fee409af469dd41b3a8e5b1ce18313,
         type: 3}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974523422064541640, guid: 22aaacecc7b7f5f41aa0111388b0f142,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22aaacecc7b7f5f41aa0111388b0f142, type: 3}
 --- !u!1 &3548683355997793712 stripped

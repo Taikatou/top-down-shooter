@@ -5,6 +5,8 @@ namespace Research.Common.MapSensor.Sensor
 {
     public struct TileMapSensorConfig
     {
+        public int SizeX => Size - 1; 
+        public int SizeY => Size - 1;
         public readonly int Size;
         public readonly bool Debug;
         public readonly Dictionary<GridSpace, int> GridSpaceValues;

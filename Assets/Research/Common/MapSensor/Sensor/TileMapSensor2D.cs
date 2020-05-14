@@ -11,10 +11,10 @@ namespace Research.Common.MapSensor.Sensor
 
         protected override int WriteObservations(ObservationWriter writer)
         {
-            var debugGridSpace = new GridSpace[SizeX, SizeY];
-            for (var y = 0; y < SizeY; y++)
+            var debugGridSpace = new GridSpace[Config.SizeX, Config.SizeY];
+            for (var y = 0; y < Config.SizeY; y++)
             {
-                for (var x = 0; x < SizeX; x++)
+                for (var x = 0; x < Config.SizeX; x++)
                 {
                     var gridSpace = MObservations[x, y];
                     if (Config.GridSpaceValues.ContainsKey(gridSpace))

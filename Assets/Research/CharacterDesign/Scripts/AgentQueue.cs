@@ -53,7 +53,7 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
-        private void SpawnCharacters(Character[] characters, AvailableCharacters available)
+        private void SpawnCharacters(IEnumerable<Character> characters, AvailableCharacters available)
         {
             foreach (var playerPrefab in characters)
             {
@@ -71,7 +71,7 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
-        public void ReturnCharacters(List<Character> players)
+        public void ReturnCharacters(IEnumerable<Character> players)
         {
             foreach (var player in players)
             {

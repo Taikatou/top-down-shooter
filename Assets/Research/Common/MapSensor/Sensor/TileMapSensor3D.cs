@@ -9,13 +9,13 @@ namespace Research.Common.MapSensor.Sensor
     {
         protected override int WriteObservations(ObservationWriter writer)
         {
-            var debugGridSpace = new GridSpace[SizeX, SizeY];
+            var debugGridSpace = new GridSpace[Config.SizeX, Config.SizeY];
             foreach (var pair in Config.GridSpaceValues)
             {
                 var gridInt = pair.Value;
-                for (var y = 0; y < SizeY; y++)
+                for (var y = 0; y < Config.SizeY; y++)
                 {
-                    for (var x = 0; x < SizeX; x++)
+                    for (var x = 0; x < Config.SizeX; x++)
                     {
                         var isKey = MObservations[x, y] == pair.Key;
                         var present = isKey? 1.0f: 0.0f;

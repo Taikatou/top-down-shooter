@@ -721,6 +721,18 @@ Transform:
   m_Father: {fileID: 1439940535}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &685994691 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1027318951999305355, guid: 4add4d43f2840db4380cdff33c6831ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1396787676903430671}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58101bf97fe103f4b9b56fabda5dc2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &799250836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2747817206217233754, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
@@ -910,6 +922,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388137074 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1027318951999305355, guid: 4add4d43f2840db4380cdff33c6831ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 626415314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58101bf97fe103f4b9b56fabda5dc2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1439940534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,20 +1190,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3829407526048710288, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: coinPickup.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3829407526048710288, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: spawnLocations
+      value: 
+      objectReference: {fileID: 1439940536}
+    - target: {fileID: 3829407526048710288, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: coinPickup.Array.data[0]
+      value: 
+      objectReference: {fileID: 685994691}
+    - target: {fileID: 3829407526048710288, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: coinPickup.Array.data[1]
+      value: 
+      objectReference: {fileID: 1388137074}
+    - target: {fileID: 3829407526048710288, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: MaxStep
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5479491874528138470, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
         type: 3}
       propertyPath: m_Name
       value: TilemapSensorTestAgent
       objectReference: {fileID: 0}
-    - target: {fileID: 7513293352193086336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: trackPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510857882455605033, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112065872787857363, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
         type: 3}
       propertyPath: learningEnvironment
       value: 
       objectReference: {fileID: 4538626490098010131}
-    - target: {fileID: 7513293352193086336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+    - target: {fileID: 8247806282959911336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247806282959911336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: trackPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247806282959911336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
         type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247806282959911336, guid: a0f86dbd4cb34bf4e9469d73028c4c6f,
+        type: 3}
+      propertyPath: detectableTags.Array.data[1]
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f86dbd4cb34bf4e9469d73028c4c6f, type: 3}

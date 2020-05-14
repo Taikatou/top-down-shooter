@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
-using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -20,8 +19,6 @@ namespace Research.Common.MapSensor.SensorComponent
         public bool trackPosition;
 
         public string sensorName;
-
-        public BehaviorParameters behaviorParameters;
 
         public List<GridSpace> detectableTags;
 
@@ -42,7 +39,9 @@ namespace Research.Common.MapSensor.SensorComponent
             var newTags = new List<GridSpace>(detectableTags);
             newTags.AddRange(selfDetectableTags);
             newTags.AddRange(adversaryDetectableTags);
-            LearningEnvironment = GetComponent<LearningEnvironmentAccessor>().learningEnvironment;
+            LearningEnvironment = GetComponentInParent<LearningEnvironmentAccessor>().learningEnvironment;
+            
+            Debug.Log(gameObject.name);
             _tileMapSensor = CreateTileMapSensor(newTags);
             if (ObservationStacks != 1)
             {
@@ -57,6 +56,18 @@ namespace Research.Common.MapSensor.SensorComponent
             var stacks = ObservationStacks > 1 ? ObservationStacks : 1;
             var shape = _tileMapSensor.GetObservationShape();
             return new [] { shape[0], shape[1], shape[2], stacks };
+        }
+
+        public void Update()
+        {
+            if (_tileMapSensor != null && _tileMapSensor.MapAccessor != null)
+            {
+                _tileMapSensor.Position =_tileMapSensor.MapAccessor.GetPosition(gameObject.transform.position);   
+            }
+            else
+            {
+                Debug.Log("Invalid map sensor");
+            }
         }
     }
 }

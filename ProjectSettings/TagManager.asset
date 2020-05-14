@@ -15,11 +15,12 @@ TagManager:
   - purpleGoal
   - blueGoal
   - Coin
-  - Prior
   - Projectile
   - ProjectilePrior
   - HealingBullet
   - HealingBulletPrior
+  - PlayerPrior
+  - Prior
   layers:
   - Default
   - TransparentFX

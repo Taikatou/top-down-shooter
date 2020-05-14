@@ -16,10 +16,23 @@ namespace Research.Common.MapSensor.Sensor
         protected readonly int[] MShape;
         
         private readonly GameObject _learningEnvironment;
-        protected int SizeX => Config.Size - 1; 
-        protected int SizeY => Config.Size - 1;
+        
+        private int HalfX => Config.Size / 2;
+        private int HalfY => Config.Size / 2;
 
-        public void Reset() { Array.Clear(MObservations, 0, SizeX*SizeY); }
+        private int StartX => Position.x - HalfX;
+        private int StartY => Position.y - HalfY;
+
+        private int EndX => Position.x + HalfX;
+        private int EndY => Position.y + HalfY;
+        
+        public Vector3Int Position { get; set; }
+        
+        public string GetName() { return Config.Name; }
+        
+        public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
+
+        public void Reset() { Array.Clear(MObservations, 0, Config.SizeX*Config.SizeY); }
         
         public byte[] GetCompressedObservation() { return null; }
         
@@ -27,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
         
         private GridSpace[,] GridSpaces => MapAccessor? MapAccessor.Map: null;
 
-        private MapAccessor MapAccessor =>
+        public MapAccessor MapAccessor =>
             _learningEnvironment ? _learningEnvironment.GetComponentInChildren<MapAccessor>() : null;
         
         protected abstract int WriteObservations(ObservationWriter writer);
@@ -39,8 +52,8 @@ namespace Research.Common.MapSensor.Sensor
             Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug);
 
             var detectable = Config.GridSpaceValues.Count;
-            MShape = new[] { SizeX, SizeY, detectable };
-            MObservations = new GridSpace[SizeX, SizeY];
+            MShape = new[] { Config.SizeX, Config.SizeY, detectable };
+            MObservations = new GridSpace[Config.SizeX, Config.SizeY];
         }
 
         protected static void OutputDebugMap(GridSpace [,] debugGrid)
@@ -66,18 +79,38 @@ namespace Research.Common.MapSensor.Sensor
                 return WriteObservations(writer);
             }
         }
-        
-        public void Update()
+
+        private void UpdateMap(int startX, int startY, int endX, int endY)
         {
-            if (GridSpaces != null)
+            for (var y = startY; y < endY; y++)
             {
-                for (var y = 0; y < SizeY; y++)
+                for (var x = startX; x < endX; x++)
                 {
-                    for (var x = 0; x < SizeX; x++)
+                    if (x >= 0 && x < Config.SizeX && y >= 0 && y < Config.SizeY)
                     {
                         MObservations[x, y] = GridSpaces[x, y];
                     }
                 }
+            }
+        }
+
+        private void UpdateMap()
+        {
+            if (Config.TrackPosition)
+            {
+                UpdateMap(StartX, StartY, EndX, EndY);
+            }
+            else
+            {
+                UpdateMap(0, 0, Config.SizeX, Config.SizeY); 
+            }
+        }
+
+        public void Update()
+        {
+            if (GridSpaces != null)
+            {
+                UpdateMap();
 
                 var entities = _learningEnvironment.GetComponentsInChildren<EntityMapPosition>();
                 
@@ -89,7 +122,7 @@ namespace Research.Common.MapSensor.Sensor
                     var gridType = entity.GetGridSpaceType();
                     if (Config.GridSpaceValues.ContainsKey(gridType))
                     {
-                        MObservations[cell.x, cell.y] = gridType;   
+                        UpdateEntityPosition(cell, gridType);
                     }
                 }
             }
@@ -99,14 +132,23 @@ namespace Research.Common.MapSensor.Sensor
             }
         }
 
-        public SensorCompressionType GetCompressionType()
+        private void UpdateEntityPosition(Vector3Int cell, GridSpace gridType)
         {
-            return SensorCompressionType.None;
-        }
-
-        public string GetName()
-        {
-            return Config.Name;
+            if (Config.TrackPosition)
+            {
+                var validX = cell.x >= StartX && cell.x < EndX;
+                var validY = cell.y >= StartY && cell.y < EndY;
+                if (validX && validY)
+                {
+                    var x = cell.x - Position.x;
+                    var y = cell.y - Position.y;
+                    MObservations[x, y] = gridType;
+                }
+            }
+            else
+            {
+                MObservations[cell.x, cell.y] = gridType;
+            }
         }
     }
 }

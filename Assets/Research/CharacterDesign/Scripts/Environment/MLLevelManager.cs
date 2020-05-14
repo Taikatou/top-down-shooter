@@ -120,11 +120,11 @@ namespace Research.CharacterDesign.Scripts.Environment
                 SpawnTeamPlayer(priorMlCharacter, true);
             }
 
-            var sensor1 = Players[0].GetComponent<AgentSensorComponent>();
-            var sensor2 = Players[1].GetComponent<AgentSensorComponent>();
+            //var sensor1 = Players[0].GetComponent<AgentSensorComponent>();
+            //var sensor2 = Players[1].GetComponent<AgentSensorComponent>();
             
-            sensor1.SetAgents(Players[0], Players[1]);
-            sensor2.SetAgents(Players[1], Players[0]);
+            //sensor1.SetAgents(Players[0], Players[1]);
+            //sensor2.SetAgents(Players[1], Players[0]);
         }
 
         protected virtual void SpawnTeamPlayer(Character newPlayer, bool prior)

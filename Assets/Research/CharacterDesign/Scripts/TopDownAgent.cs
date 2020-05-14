@@ -50,7 +50,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 ObserveHealth = true,
                 ObserveSpriteRenderer = true,
-                ObserveWeaponTrace = true,
+                ObserveWeaponTrace = false,
                 ObserveInput = true
             };
         }
