@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Research.Common;
+using Research.Common.MapSensor.SensorComponent;
 using Research.LevelDesign.Scripts;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace Research.CharacterDesign.Scripts
 
         public Rigidbody2D groundRb;
 
+        public int numAgents = 4;
+
         private AvailableCharacters AvailablePriorCharacters
         {
             get
@@ -37,13 +40,12 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
-        public int numAgents = 4;
-
         private void Awake()
         {
             availableCharacters = new AvailableCharacters();
             _smartPriorCharacters = new AvailableCharacters();
             _dumbPriorCharacters = new AvailableCharacters();
+            AvailableCharacters = new List<GameObject>();
 
             for (var i = 0; i < numAgents; i++)
             {
@@ -59,6 +61,12 @@ namespace Research.CharacterDesign.Scripts
             {
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
                 newPlayer.transform.parent = gameObject.transform;
+                var newAgent = newPlayer.GetComponentsInChildren<TileMapSensorComponent>();
+
+                foreach (var sensor in newAgent)
+                {
+                    sensor.LearningEnvironment = GetComponent<LearningEnvironmentAccessor>().learningEnvironment;
+                }
                 
                 var agent = newPlayer.GetComponent<TopDownAgent>();
                 if (agent)
@@ -71,6 +79,8 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
+        public List<GameObject> AvailableCharacters { get; private set; }
+
         public void ReturnCharacters(IEnumerable<Character> players)
         {
             foreach (var player in players)
@@ -79,17 +89,23 @@ namespace Research.CharacterDesign.Scripts
                 availableCharacters.ReturnCharacter(player);
                 AvailablePriorCharacters.ReturnCharacter(player);
                 player.gameObject.SetActive(false);
+
+                AvailableCharacters.Remove(player.gameObject);
             }
         }
 
         public Character PopRandomMlCharacter()
         {
-            return availableCharacters.PopRandomCharacter();
+            var character = availableCharacters.PopRandomCharacter();
+            AvailableCharacters.Add(character.gameObject);
+            return character;
         }
         
         public Character PopRandomPriorMlCharacter()
         {
-            return AvailablePriorCharacters.PopRandomCharacter();
+            var character = AvailablePriorCharacters.PopRandomCharacter();
+            AvailableCharacters.Add(character.gameObject);
+            return character;
         }
     }
 }

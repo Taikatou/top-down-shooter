@@ -47,7 +47,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor2D(GameObject learningEnvironment, string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, bool normalize) : base(learningEnvironment, name, size, trackPosition, debug, detectableLayers)
+        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, bool normalize) : base(name, size, trackPosition, debug, detectableLayers)
         {
             _normalize = normalize;
         }

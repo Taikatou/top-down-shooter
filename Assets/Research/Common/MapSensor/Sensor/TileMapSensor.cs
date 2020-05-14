@@ -14,20 +14,7 @@ namespace Research.Common.MapSensor.Sensor
         protected readonly TileMapSensorConfig Config;
         protected readonly GridSpace[,] MObservations;
         protected readonly int[] MShape;
-        
-        private readonly GameObject _learningEnvironment;
-        
-        private int HalfX => Config.Size / 2;
-        private int HalfY => Config.Size / 2;
 
-        private int StartX => Position.x - HalfX;
-        private int StartY => Position.y - HalfY;
-
-        private int EndX => Position.x + HalfX;
-        private int EndY => Position.y + HalfY;
-        
-        public Vector3Int Position { get; set; }
-        
         public string GetName() { return Config.Name; }
         
         public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
@@ -39,16 +26,17 @@ namespace Research.Common.MapSensor.Sensor
         public int[] GetObservationShape() { return MShape; }
         
         private GridSpace[,] GridSpaces => MapAccessor? MapAccessor.Map: null;
-
-        public MapAccessor MapAccessor =>
-            _learningEnvironment ? _learningEnvironment.GetComponentInChildren<MapAccessor>() : null;
+        
+        TrackPosition StartEnd => Config.GetTrackPositionPosition(Position);
+        
+        public List<GameObject> EntityList { get; set; }
+        public Vector3Int Position { get; set; }
+        public MapAccessor MapAccessor { get; set; }
         
         protected abstract int WriteObservations(ObservationWriter writer);
 
-        protected TileMapSensor(GameObject learningEnvironment, string name,
-            int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers)
+        protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers)
         {
-            _learningEnvironment = learningEnvironment;
             Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug);
 
             var detectable = Config.GridSpaceValues.Count;
@@ -98,7 +86,9 @@ namespace Research.Common.MapSensor.Sensor
         {
             if (Config.TrackPosition)
             {
-                UpdateMap(StartX, StartY, EndX, EndY);
+                var startEnd = StartEnd;
+                UpdateMap(startEnd.StartPos.x, startEnd.StartPos.y, 
+                    startEnd.EndPos.x, startEnd.EndPos.y);
             }
             else
             {
@@ -111,20 +101,7 @@ namespace Research.Common.MapSensor.Sensor
             if (GridSpaces != null)
             {
                 UpdateMap();
-
-                var entities = _learningEnvironment.GetComponentsInChildren<EntityMapPosition>();
-                
-                foreach (var entity in entities)
-                {
-                    var position = entity.transform.position;
-                    var cell = MapAccessor.GetPosition(position);
-                    
-                    var gridType = entity.GetGridSpaceType();
-                    if (Config.GridSpaceValues.ContainsKey(gridType))
-                    {
-                        UpdateEntityPosition(cell, gridType);
-                    }
-                }
+                UpdateMapEntityPositions();
             }
             else
             {
@@ -132,12 +109,34 @@ namespace Research.Common.MapSensor.Sensor
             }
         }
 
+        public void UpdateMapEntityPositions()
+        {
+            foreach (var entity in EntityList)
+            {
+                if (entity.activeInHierarchy)
+                {
+                    var entityMap = entity.GetComponentInParent<EntityMapPosition>();
+
+                    var position = entity.transform.position;
+                    var cell = MapAccessor.GetPosition(position);
+                    
+                    var gridType = entityMap.GetGridSpaceType();
+                    if (Config.GridSpaceValues.ContainsKey(gridType))
+                    {
+                        UpdateEntityPosition(cell, gridType);
+                    }   
+                }
+            }
+        }
+
         private void UpdateEntityPosition(Vector3Int cell, GridSpace gridType)
         {
             if (Config.TrackPosition)
             {
-                var validX = cell.x >= StartX && cell.x < EndX;
-                var validY = cell.y >= StartY && cell.y < EndY;
+                var startEnd = StartEnd;
+                
+                var validX = cell.x >= startEnd.StartPos.x && cell.x < startEnd.EndPos.x;
+                var validY = cell.y >= startEnd.StartPos.y && cell.y < startEnd.EndPos.y;
                 if (validX && validY)
                 {
                     var x = cell.x - Position.x;

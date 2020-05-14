@@ -82,5 +82,10 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}

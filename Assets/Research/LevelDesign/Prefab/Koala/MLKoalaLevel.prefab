@@ -5315,6 +5315,7 @@ GameObject:
   - component: {fileID: 8277717229346903411}
   - component: {fileID: 5606076189845811975}
   - component: {fileID: 7014888569447550707}
+  - component: {fileID: 1798506748191649430}
   m_Layer: 10
   m_Name: MLKoalaLevel
   m_TagString: Player
@@ -5798,6 +5799,19 @@ MonoBehaviour:
   groundRb: {fileID: 0}
   enableCuriculuum: 1
   punishValue: -0.0005
+--- !u!114 &1798506748191649430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549786438118128717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d21b302271c8874cab1f6f803408494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviorParameters: {fileID: 5606076189845811975}
 --- !u!1 &2549926896293074131
 GameObject:
   m_ObjectHideFlags: 0

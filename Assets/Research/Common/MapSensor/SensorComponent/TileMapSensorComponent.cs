@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -30,7 +32,7 @@ namespace Research.Common.MapSensor.SensorComponent
         
         private int ObservationStacks => mObservationStacks;
 
-        protected GameObject LearningEnvironment { get; private set; }
+        public GameObject LearningEnvironment { get; set; }
 
         protected abstract TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
 
@@ -39,9 +41,7 @@ namespace Research.Common.MapSensor.SensorComponent
             var newTags = new List<GridSpace>(detectableTags);
             newTags.AddRange(selfDetectableTags);
             newTags.AddRange(adversaryDetectableTags);
-            LearningEnvironment = GetComponentInParent<LearningEnvironmentAccessor>().learningEnvironment;
             
-            Debug.Log(gameObject.name);
             _tileMapSensor = CreateTileMapSensor(newTags);
             if (ObservationStacks != 1)
             {
@@ -60,9 +60,19 @@ namespace Research.Common.MapSensor.SensorComponent
 
         public void Update()
         {
-            if (_tileMapSensor != null && _tileMapSensor.MapAccessor != null)
+            if (_tileMapSensor != null)
             {
-                _tileMapSensor.Position =_tileMapSensor.MapAccessor.GetPosition(gameObject.transform.position);   
+                /*if (trackPosition)
+                {
+                    _tileMapSensor.Position =_tileMapSensor.MapAccessor.GetPosition(gameObject.transform.position); 
+                }*/
+                var accessor = GetComponentInParent<AgentQueue>();
+                var mapAccessor = GetComponentInParent<MapAccessor>();
+                
+                
+                
+                _tileMapSensor.EntityList = accessor.AvailableCharacters;
+                _tileMapSensor.MapAccessor = mapAccessor;
             }
             else
             {

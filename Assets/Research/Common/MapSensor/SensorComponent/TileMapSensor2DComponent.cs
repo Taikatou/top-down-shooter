@@ -10,8 +10,7 @@ namespace Research.Common.MapSensor.SensorComponent
 
         protected override TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags)
         {
-            return new TileMapSensor2D( LearningEnvironment, 
-                                        sensorName,
+            return new TileMapSensor2D( sensorName,
                                         tileMapSize,
                                         trackPosition, 
                                         debug, 
