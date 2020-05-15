@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
@@ -28,6 +29,10 @@ namespace Research.Common.MapSensor.SensorComponent
         public List<GridSpace> adversaryDetectableTags;
         
         private TileMapSensor _tileMapSensor;
+
+        public MapAccessor mapAccessor;
+        
+        public EnvironmentInstance environmentInstance;
         
         private int ObservationStacks => mObservationStacks;
 
@@ -54,27 +59,6 @@ namespace Research.Common.MapSensor.SensorComponent
             var stacks = ObservationStacks > 1 ? ObservationStacks : 1;
             var shape = _tileMapSensor.GetObservationShape();
             return new [] { shape[0], shape[1], shape[2], stacks };
-        }
-
-        public void Update()
-        {
-            if (_tileMapSensor != null)
-            {
-                /*if (trackPosition)
-                {
-                    _tileMapSensor.Position =_tileMapSensor.MapAccessor.GetPosition(gameObject.transform.position); 
-                }*/
-                var accessor = GetComponentInParent<EnabledCharactersComponent>();
-                var mapAccessor = GetComponentInParent<MapAccessor>();
-
-
-                _tileMapSensor.EntityList = accessor.availableCharacters;
-                _tileMapSensor.MapAccessor = mapAccessor;
-            }
-            else
-            {
-                Debug.Log("Invalid map sensor");
-            }
         }
     }
 }

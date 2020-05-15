@@ -28,19 +28,14 @@ namespace Research.CharacterDesign.Scripts.Environment
         public GetSpawnProcedural getSpawnProcedural;
 
         private List<MLCheckbox> SpawnPoints => getSpawnProcedural.Points;
-        
-        public List<Character> Players { get; private set; }
 
+        public List<Character> mlPlayers;
         
         private float _timer;
 
         public int CurrentTimer => (int)_timer;
 
-        private bool _gameOver = false;
-
-        public Character mlCharacter;
-
-        public Character priorMlCharacter;
+        private bool _gameOver;
 
         private void Start()
         {
@@ -50,7 +45,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
-            foreach (var character in Players)
+            foreach (var character in mlPlayers)
             {
                 if (MlUtils.Dead(character))
                 {
@@ -75,10 +70,10 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void SpawnMultipleCharacters()
         {
-            Debug.Log("Player Count " + Players.Count);
-            for (var i = 0; i < Players.Count; i++)
+            Debug.Log("Player Count " + mlPlayers.Count);
+            for (var i = 0; i < mlPlayers.Count; i++)
             {
-                SpawnPoints[i].SpawnPlayer(Players[i]);
+                SpawnPoints[i].SpawnPlayer(mlPlayers[i]);
             }
         }
 
@@ -97,7 +92,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void Restart()
         {
-            foreach (var player in Players)
+            foreach (var player in mlPlayers)
             {
                 var requester = player.GetComponent<DecisionRequester>();
 
@@ -112,23 +107,19 @@ namespace Research.CharacterDesign.Scripts.Environment
             WaitForRestart();
         }
 
-        public List<Character> InstantiatePlayableCharacters()
+        public void InstantiatePlayableCharacters()
         {
-            Players = new List<Character>();
-            for (var i = 0; i < teamSize; i++)
+            foreach(var agent in mlPlayers)
             {
-                SpawnTeamPlayer(mlCharacter, false);
-                SpawnTeamPlayer(priorMlCharacter, true);
+                SpawnTeamPlayer(agent);
             }
-            return Players;
         }
 
-        private void SpawnTeamPlayer(Character newPlayer, bool prior)
+        private void SpawnTeamPlayer(Character newPlayer)
         {
-            Players.Add(newPlayer);
-
             // Set outline
             var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
+            var prior = newPlayer.GetComponent<BehaviorParameters>().TeamId > 0;
             outline.IsBlue = prior;
 
             var health = newPlayer.GetComponent<MlHealth>();
@@ -196,7 +187,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             var loggedData = new [] {0, 0};
             var loggedNames = new[] {new List<string>(), new List<string>(), };
-            foreach (var player in Players)
+            foreach (var player in mlPlayers)
             {
                 var agent = player.GetComponent<TopDownAgent>();
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;

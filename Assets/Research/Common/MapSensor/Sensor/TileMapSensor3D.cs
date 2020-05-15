@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -38,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers) : base(name, size, trackPosition, debug, detectableLayers)
+        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance)
         {
         }
     }

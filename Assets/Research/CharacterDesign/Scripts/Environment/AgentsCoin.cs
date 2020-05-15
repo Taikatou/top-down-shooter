@@ -16,7 +16,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             if (agent)
             {
-                foreach (var player in levelManager.Players)
+                foreach (var player in levelManager.mlPlayers)
                 {
                     var playerAgent = player.GetComponent<TestGridAgent>();
                     var playerBehaviour = player.GetComponent<BehaviorParameters>();

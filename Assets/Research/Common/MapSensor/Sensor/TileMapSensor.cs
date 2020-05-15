@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
@@ -26,18 +28,26 @@ namespace Research.Common.MapSensor.Sensor
         
         public int[] GetObservationShape() { return MShape; }
         
-        private GridSpace[,] GridSpaces => MapAccessor? MapAccessor.Map: null;
+        private GridSpace[,] GridSpaces => _mapAccessor? _mapAccessor.Map: null;
         
         TrackPosition StartEnd => Config.GetTrackPositionPosition(Position);
+
+        private readonly EnvironmentInstance _environmentInstance;
+
+        private IEnumerable<Character> EntityList => _environmentInstance.mlPlayers;
         
-        public List<TopDownAgent> EntityList { get; set; }
-        public Vector3Int Position { get; set; }
-        public MapAccessor MapAccessor { get; set; }
+        private readonly MapAccessor _mapAccessor;
+        
+        private Vector3Int Position { get; set; }
+
         
         protected abstract int WriteObservations(ObservationWriter writer);
 
-        protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers)
+        protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers,
+            MapAccessor mapAccessor, EnvironmentInstance environmentInstance)
         {
+            _mapAccessor = mapAccessor;
+            _environmentInstance = environmentInstance;
             Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug);
 
             var detectable = Config.GridSpaceValues.Count;
@@ -119,7 +129,7 @@ namespace Research.Common.MapSensor.Sensor
                     var entityMap = entity.GetComponentInParent<EntityMapPosition>();
 
                     var position = entity.transform.position;
-                    var cell = MapAccessor.GetPosition(position);
+                    var cell = _mapAccessor.GetPosition(position);
                     
                     var gridType = entityMap.GetGridSpaceType();
                     if (Config.GridSpaceValues.ContainsKey(gridType))

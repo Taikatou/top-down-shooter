@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -43,7 +45,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, bool normalize) : base(name, size, trackPosition, debug, detectableLayers)
+        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, bool normalize) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance)
         {
             _normalize = normalize;
         }

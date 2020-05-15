@@ -36,8 +36,8 @@ namespace Research.CharacterDesign.Scripts.Environment
             base.InstantiatePlayableCharacters();
             foreach (var environment in environments)
             {
-                var players = environment.InstantiatePlayableCharacters();
-                Players.AddRange(players);
+                environment.InstantiatePlayableCharacters();
+                Players.AddRange(environment.mlPlayers);
             }
         }
 

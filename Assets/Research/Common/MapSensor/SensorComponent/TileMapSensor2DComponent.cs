@@ -14,7 +14,9 @@ namespace Research.Common.MapSensor.SensorComponent
                                         tileMapSize,
                                         trackPosition, 
                                         debug, 
-                                        detectTags, 
+                                        detectTags,
+                                        mapAccessor,
+                                        environmentInstance, 
                                         normalize);
         }
     }
