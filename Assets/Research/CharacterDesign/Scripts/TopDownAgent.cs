@@ -119,7 +119,6 @@ namespace Research.CharacterDesign.Scripts
         {
             var index = 0;
             actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
-            
             if (trainingSettings.ShootEnabled)
             {
                 var shootButtonState = Input.GetKey(KeyCode.X);

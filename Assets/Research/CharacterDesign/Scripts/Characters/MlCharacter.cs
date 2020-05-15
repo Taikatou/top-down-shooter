@@ -10,12 +10,7 @@ namespace Research.CharacterDesign.Scripts.Characters
         {
             base.RespawnAt(spawnPoint, facingDirection);
             
-            var requester = GetComponent<DecisionRequester>();
-
-            if (requester)
-            {
-                Academy.Instance.AgentPreStep += requester.MakeRequests;   
-            }
+            Debug.Log("resume requester");
         }
     }
 }

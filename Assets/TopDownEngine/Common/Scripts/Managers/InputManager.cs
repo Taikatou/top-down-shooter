@@ -92,9 +92,11 @@ namespace MoreMountains.TopDownEngine
         /// the shoot axis, used as a button (non analogic)
         public MMInput.ButtonStates SecondaryShootAxis { get; protected set; }
         /// the primary movement value (used to move the character around)
-        public virtual Vector2 PrimaryMovement { get { return _primaryMovement; } }
+        public virtual Vector2 PrimaryMovement => _primaryMovement;
+
         /// the secondary movement (usually the right stick on a gamepad), used to aim
-        public virtual Vector2 SecondaryMovement { get { return _secondaryMovement; } }
+        public virtual Vector2 SecondaryMovement => _secondaryMovement;
+
         /// the primary movement value (used to move the character around)
         public Vector2 LastNonNullPrimaryMovement { get; set; }
         /// the secondary movement (usually the right stick on a gamepad), used to aim
@@ -292,6 +294,7 @@ namespace MoreMountains.TopDownEngine
 					_primaryMovement.x = Input.GetAxisRaw(_axisHorizontal);
 					_primaryMovement.y = Input.GetAxisRaw(_axisVertical);		
 				}
+				Debug.Log(_primaryMovement);
 			}
 		}
 

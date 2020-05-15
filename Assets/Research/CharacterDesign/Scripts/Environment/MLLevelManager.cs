@@ -23,24 +23,6 @@ namespace Research.CharacterDesign.Scripts.Environment
             _characterEnvironmentMap ??
             (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
 
-        public void AddCharacter(Character ch, EnvironmentInstance env)
-        {
-            if (!CharacterEnvironmentMap.ContainsKey(ch))
-            {
-                CharacterEnvironmentMap.Add(ch, env);
-            }
-        }
-
-        protected override void InstantiatePlayableCharacters()
-        {
-            base.InstantiatePlayableCharacters();
-            foreach (var environment in environments)
-            {
-                environment.InstantiatePlayableCharacters();
-                Players.AddRange(environment.mlPlayers);
-            }
-        }
-
         protected override void SpawnSingleCharacter()
         {
             SpawnCharacters();
@@ -57,6 +39,23 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 environment.SpawnMultipleCharacters();
             }
+        }
+
+        protected override void InstantiatePlayableCharacters()
+        {
+            foreach (var environment in environments)
+            {
+                foreach (var player in environment.mlPlayers)
+                {
+                    SceneCharacters.Add(player);
+                    if (!CharacterEnvironmentMap.ContainsKey(player))
+                    {
+                        CharacterEnvironmentMap.Add(player, environment);
+                    }
+                }
+            }
+
+            base.InstantiatePlayableCharacters();
         }
 
         public override void PlayerDead(Character playerCharacter)

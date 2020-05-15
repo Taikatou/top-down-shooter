@@ -6,8 +6,8 @@ namespace Research
     [ExecuteInEditMode]
     public class SpriteOutline : MonoBehaviour
     {
-        public virtual bool IsBlue { get; set; }
-        private Color Color => IsBlue ? Color.white : Color.black;
+        public bool isPrior;
+        private Color Color => isPrior ? Color.white : Color.black;
 
         [Range(0, 16)]
         public int outlineSize = 1;

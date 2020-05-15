@@ -11,13 +11,14 @@ namespace Research
         {
             get
             {
-                var owner = GetComponentInParent<ProjectileWeapon>()?.Owner; return owner != null && owner.GetComponentInChildren<SpriteOutline>().IsBlue;
+                var owner = GetComponentInParent<ProjectileWeapon>()?.Owner; 
+                return owner != null && owner.GetComponentInChildren<SpriteOutline>().isPrior;
             }
         }
 
         private void Start()
         {
-            outline.IsBlue = ParentBlue;
+            outline.isPrior = ParentBlue;
         }
     }
 }

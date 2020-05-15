@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2734321548508270922, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: isPrior
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5740570870492542942, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: selfDetectableTags.Array.data[0]

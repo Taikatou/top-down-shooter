@@ -8,22 +8,17 @@ namespace Research.CharacterDesign.Scripts.Characters
     {
         public override void Kill()
         {
-            base.Kill();
             showHealth = true;
-            
-            var requester = GetComponent<DecisionRequester>();
+            CurrentHealth = 0;
 
-            if (requester)
-            {
-                Academy.Instance.AgentPreStep -= requester.MakeRequests;   
-            }
-            
             // delete bullets
             var pools = GetComponentsInChildren<MLObjectPooler>();
             foreach (var pool in pools)
             {
                 pool.DestroySpawnable();
             }
+            _character.ConditionState.ChangeState(CharacterStates.CharacterConditions.Dead);
+            TopDownEngineEvent.Trigger(TopDownEngineEventTypes.PlayerDeath, _character);
         }
 
         public override void Revive()

@@ -12,13 +12,13 @@ namespace Research
             get
             {
                 var owner = GetComponentInParent<TopDownMeleeWeapon>()?.Owner;
-                return owner != null && owner.GetComponentInChildren<SpriteOutline>().IsBlue;
+                return owner != null && owner.GetComponentInChildren<SpriteOutline>().isPrior;
             }
         }
 
         private void Start()
         {
-            outline.IsBlue = ParentBlue;
+            outline.isPrior = ParentBlue;
         }
     }
 }

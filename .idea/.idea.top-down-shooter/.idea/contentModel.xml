@@ -404,6 +404,7 @@
           </e>
           <e p="UI" t="Include">
             <e p="CountDownTimer.cs" t="Include" />
+            <e p="HealthUI.cs" t="Include" />
           </e>
         </e>
         <e p="TopDownEngine" t="Include">

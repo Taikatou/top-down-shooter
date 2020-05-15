@@ -22,9 +22,6 @@ namespace Research.CharacterDesign.Scripts
 
         public int numAgents = 4;
 
-        public EnvironmentInstance environmentInstance;
-        public MlLevelManager levelManager;
-
         public EnabledCharactersComponent currentEnabledCharacters;
         private AvailableCharacters AvailablePriorCharacters
         {
@@ -58,7 +55,7 @@ namespace Research.CharacterDesign.Scripts
             foreach (var playerPrefab in characters)
             {
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
-                levelManager.AddCharacter(newPlayer, environmentInstance);
+                
                 newPlayer.transform.parent = gameObject.transform;
 
                 var agent = newPlayer.GetComponent<TopDownAgent>();

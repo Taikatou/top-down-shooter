@@ -71,6 +71,11 @@ PrefabInstance:
       propertyPath: SpawnPosition.y
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2985560633630031151, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: isPrior
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5069169494822402855, guid: 63309671082ff30409623a954c22e8f5,
         type: 3}
       propertyPath: m_RayLength

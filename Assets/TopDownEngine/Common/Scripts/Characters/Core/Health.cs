@@ -299,13 +299,13 @@ namespace MoreMountains.TopDownEngine
 
             if (DisableControllerOnDeath && (_controller != null))
             {
-                _controller.enabled = false;
+                //_controller.enabled = false;
                 //_controller.SetKinematic(true);
             }
 
             if (DisableControllerOnDeath && (_characterController != null))
             {
-                _characterController.enabled = false;
+                //_characterController.enabled = false;
             }
 
             if (DisableModelOnDeath && (Model != null))

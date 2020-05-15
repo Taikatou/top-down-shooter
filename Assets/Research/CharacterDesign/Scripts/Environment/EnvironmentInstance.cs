@@ -70,7 +70,6 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void SpawnMultipleCharacters()
         {
-            Debug.Log("Player Count " + mlPlayers.Count);
             for (var i = 0; i < mlPlayers.Count; i++)
             {
                 SpawnPoints[i].SpawnPlayer(mlPlayers[i]);
@@ -92,16 +91,6 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void Restart()
         {
-            foreach (var player in mlPlayers)
-            {
-                var requester = player.GetComponent<DecisionRequester>();
-
-                if (requester)
-                {
-                    Academy.Instance.AgentPreStep -= requester.MakeRequests;   
-                }
-            }
-            
             ChangeLevelDesign();
 
             WaitForRestart();
@@ -117,16 +106,8 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private void SpawnTeamPlayer(Character newPlayer)
         {
-            // Set outline
-            var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
-            var prior = newPlayer.GetComponent<BehaviorParameters>().TeamId > 0;
-            outline.IsBlue = prior;
-
             var health = newPlayer.GetComponent<MlHealth>();
-            if (health)
-            {
-                health.Revive(); 
-            }
+            health.Revive();
         }
         
         public void OnPlayerDeath(Character playerCharacter)
