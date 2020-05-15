@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
 using UnityEngine;
 
@@ -10,20 +11,19 @@ namespace Research.CharacterDesign.Scripts
         public LevelCurriculum currentCurriculum;
         
         public Character[] mlCharacters;
-
         public Character[] priorMlCharacters;
-        
         public Character[] dumbCharacters;
 
         public AvailableCharacters availableCharacters;
-
         private AvailableCharacters _smartPriorCharacters;
-        
         private AvailableCharacters _dumbPriorCharacters;
 
         public Rigidbody2D groundRb;
 
         public int numAgents = 4;
+
+        public EnvironmentInstance environmentInstance;
+        public MlLevelManager levelManager;
 
         public EnabledCharactersComponent currentEnabledCharacters;
         private AvailableCharacters AvailablePriorCharacters
@@ -58,6 +58,7 @@ namespace Research.CharacterDesign.Scripts
             foreach (var playerPrefab in characters)
             {
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+                levelManager.AddCharacter(newPlayer, environmentInstance);
                 newPlayer.transform.parent = gameObject.transform;
 
                 var agent = newPlayer.GetComponent<TopDownAgent>();

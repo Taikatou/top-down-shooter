@@ -292,6 +292,7 @@
               <e p="DataLogger.cs" t="Include" />
               <e p="Environment" t="Include">
                 <e p="AgentsCoin.cs" t="Include" />
+                <e p="EnvironmentInstance.cs" t="Include" />
                 <e p="MLCheckbox.cs" t="Include" />
                 <e p="MLLevelManager.cs" t="Include" />
                 <e p="TopDownInputManager.cs" t="Include" />
@@ -399,6 +400,9 @@
               <e p="TestGridController.cs" t="Include" />
               <e p="TestPickup.cs" t="Include" />
             </e>
+          </e>
+          <e p="UI" t="Include">
+            <e p="CountDownTimer.cs" t="Include" />
           </e>
         </e>
         <e p="TopDownEngine" t="Include">

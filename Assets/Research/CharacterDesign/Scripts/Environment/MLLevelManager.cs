@@ -13,201 +13,63 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {
-    public class MLLevelManager : GrasslandsMultiplayerLevelManager
+    public class MlLevelManager : LevelManager
     {
-        public int teamSize = 2;
+        public List<EnvironmentInstance> environments;
 
-        public AgentQueue agentQueue;
+        private Dictionary<Character, EnvironmentInstance> _characterEnvironmentMap;
 
-        public DataLogger dataLogger;
+        private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
+            _characterEnvironmentMap ??
+            (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
 
-        public IGetSpawnPoints spawnPoints;
-
-        public NuclearThroneLevelGenerator levelGenerator;
-
-        private const int ChangeLevelMap = 100;
-
-        private int _levelCounter;
-
-        public int teamCount = 2;
-
-        protected override void Awake()
+        public void AddCharacter(Character ch, EnvironmentInstance env)
         {
-            base.Awake();
-            UpdateSpawnPoints();
-        }
-
-        private void UpdateSpawnPoints()
-        {
-            if (spawnPoints != null)
+            if (!CharacterEnvironmentMap.ContainsKey(ch))
             {
-                SpawnPoints.Clear();
-                foreach (var point in spawnPoints.Points)
-                {
-                    SpawnPoints.Add(point);
-                }
+                CharacterEnvironmentMap.Add(ch, env);
             }
-        }
-
-        private int[] GetTeamDeaths()
-        {
-            var teamDeaths = new[] { 0, 0 };
-            foreach (var character in Players)
-            {
-                if (MlUtils.Dead(character))
-                {
-                    var behaviour = character.GetComponent<BehaviorParameters>();
-                    var index = behaviour.TeamId;
-                    teamDeaths[index]++;
-                }
-            }
-            return teamDeaths;
-        }
-
-        private void WaitForRestart()
-        {
-            agentQueue.ReturnCharacters(Players);
-
-            Initialization();
-            
-            InstantiatePlayableCharacters();
-
-            SpawnMultipleCharacters();
-
-            MMGameEvent.Trigger("Load");
-        }
-
-        private void ChangeLevelDesign()
-        {
-            if (levelGenerator)
-            {
-                _levelCounter++;
-                if (_levelCounter == ChangeLevelMap)
-                {
-                    levelGenerator.GenerateMap();
-                    _levelCounter = 0;
-                }
-
-                UpdateSpawnPoints();
-            }
-        }
-
-        public virtual void Restart()
-        {
-            foreach (var player in Players)
-            {
-                var requester = player.GetComponent<DecisionRequester>();
-
-                if (requester)
-                {
-                    Academy.Instance.AgentPreStep -= requester.MakeRequests;   
-                }
-            }
-            
-            ChangeLevelDesign();
-
-            WaitForRestart();
         }
 
         protected override void InstantiatePlayableCharacters()
         {
-            Players = new List<Character>();
-            for (var i = 0; i < teamSize; i++)
+            base.InstantiatePlayableCharacters();
+            foreach (var environment in environments)
             {
-                var mlCharacter = agentQueue.PopRandomMlCharacter();
-                SpawnTeamPlayer(mlCharacter, false);
-                var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
-                SpawnTeamPlayer(priorMlCharacter, true);
-            }
-
-            //var sensor1 = Players[0].GetComponent<AgentSensorComponent>();
-            //var sensor2 = Players[1].GetComponent<AgentSensorComponent>();
-            
-            //sensor1.SetAgents(Players[0], Players[1]);
-            //sensor2.SetAgents(Players[1], Players[0]);
-        }
-
-        protected virtual void SpawnTeamPlayer(Character newPlayer, bool prior)
-        {
-            Players.Add(newPlayer);
-
-            // Set outline
-            var outline = newPlayer.GetComponentInChildren<SpriteOutline>();
-            outline.IsBlue = prior;
-
-            var health = newPlayer.GetComponent<MlHealth>();
-            if (health)
-            {
-                health.Revive(); 
+                var players = environment.InstantiatePlayableCharacters();
+                Players.AddRange(players);
             }
         }
 
-        protected override bool GameOverCondition()
+        protected override void SpawnSingleCharacter()
         {
-            var teamDeaths = GetTeamDeaths();
-
-            var gameOver = teamDeaths[0] == teamCount || teamDeaths[1] == teamCount;
-            return gameOver;
+            SpawnCharacters();
         }
 
-        private int WinningTeam()
+        protected override void SpawnMultipleCharacters()
         {
-            var teamDeaths = GetTeamDeaths();
-            var draw = teamDeaths[0] == teamDeaths[1];
-            if (!draw)
-            {
-                return teamDeaths[0] < teamDeaths[1] ? 0 : 1;
-            }
-
-            return -1;
-        }
-        
-        private int GetReward(int teamId, int winningTeam)
-        {
-            if(winningTeam != -1)
-            {
-                return winningTeam == teamId? 1: -1;
-            }
-
-            return 0;
+            SpawnCharacters();
         }
 
-        protected override IEnumerator GameOver()
+        private void SpawnCharacters()
         {
-            var winningTeamId = WinningTeam();
-
-            var loggedData = new [] {0, 0};
-            var loggedNames = new[] {new List<string>(), new List<string>(), };
-            foreach (var player in Players)
+            foreach (var environment in environments)
             {
-                var agent = player.GetComponent<TopDownAgent>();
-                var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
-                var reward = GetReward(teamId, winningTeamId);
-                
-                loggedData[teamId] = reward;
-                var agentName = agent.GetComponent<BehaviorParameters>().FullyQualifiedBehaviorName;
-                loggedNames[teamId].Add(agentName);
-
-                agent.AddReward(reward);
-                agent.EndEpisode();
+                environment.SpawnMultipleCharacters();
             }
+        }
 
-            loggedNames[0].Sort();
-            loggedNames[1].Sort();
-            var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
-            var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
-
-            if (dataLogger != null)
+        public override void PlayerDead(Character playerCharacter)
+        {
+            if (playerCharacter == null)
             {
-                dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
-                dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
+                return;
             }
-            Debug.Log("Winning Team" + winningTeamId);
-            Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
-                       "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
-
-            Restart();
-            yield break;
+            var characterHealth = playerCharacter.GetComponent<Health>();
+            if (characterHealth != null && CharacterEnvironmentMap.ContainsKey(playerCharacter))
+            {
+                CharacterEnvironmentMap[playerCharacter].OnPlayerDeath(playerCharacter);
+            }
         }
     }
 }

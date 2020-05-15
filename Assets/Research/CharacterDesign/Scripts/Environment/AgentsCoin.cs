@@ -7,7 +7,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 {
     public class AgentsCoin : PickableItem
     {
-        public MLLevelManager levelManager;
+        public EnvironmentInstance levelManager;
         // Update is called once per frame
         protected override void Pick(GameObject picker)
         {
