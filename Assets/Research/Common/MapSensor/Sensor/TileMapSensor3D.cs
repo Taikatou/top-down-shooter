@@ -33,11 +33,7 @@ namespace Research.Common.MapSensor.Sensor
             {
                 OutputDebugMap(debugGridSpace);
             }
-            else
-            {
-                Debug.Log("No debug trace");
-            }
-            
+
             var outputSize = MShape[0] * MShape[1] * MShape[2];
             return outputSize;
         }

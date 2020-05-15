@@ -37,8 +37,8 @@ MonoBehaviour:
   - Walls
   m_RaysPerDirection: 10
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_SphereCastRadius: 0
+  m_RayLength: 48
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291

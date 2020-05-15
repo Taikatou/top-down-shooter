@@ -81,21 +81,21 @@ namespace Research.CharacterDesign.Scripts
                 AvailablePriorCharacters.ReturnCharacter(player);
                 player.gameObject.SetActive(false);
 
-                currentEnabledCharacters.availableCharacters.Remove(player.gameObject);
+                //currentEnabledCharacters.availableCharacters.Remove(player);
             }
         }
 
         public Character PopRandomMlCharacter()
         {
             var character = availableCharacters.PopRandomCharacter();
-            currentEnabledCharacters.availableCharacters.Add(character.gameObject);
+            //currentEnabledCharacters.availableCharacters.Add(character);
             return character;
         }
         
         public Character PopRandomPriorMlCharacter()
         {
             var character = AvailablePriorCharacters.PopRandomCharacter();
-            currentEnabledCharacters.availableCharacters.Add(character.gameObject);
+            //currentEnabledCharacters.availableCharacters.Add(character);
             return character;
         }
     }

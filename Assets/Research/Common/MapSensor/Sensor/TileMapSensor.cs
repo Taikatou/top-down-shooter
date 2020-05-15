@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Research.CharacterDesign.Scripts;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
@@ -29,7 +30,7 @@ namespace Research.Common.MapSensor.Sensor
         
         TrackPosition StartEnd => Config.GetTrackPositionPosition(Position);
         
-        public List<GameObject> EntityList { get; set; }
+        public List<TopDownAgent> EntityList { get; set; }
         public Vector3Int Position { get; set; }
         public MapAccessor MapAccessor { get; set; }
         
@@ -113,7 +114,7 @@ namespace Research.Common.MapSensor.Sensor
         {
             foreach (var entity in EntityList)
             {
-                if (entity.activeInHierarchy)
+                if (entity.gameObject.activeInHierarchy)
                 {
                     var entityMap = entity.GetComponentInParent<EntityMapPosition>();
 

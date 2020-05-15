@@ -28,17 +28,14 @@ namespace Research.CharacterDesign.Scripts
 
         public TrainingSettings trainingSettings;
 
-        private Rigidbody2D _mAgentRb;
-
         public Rigidbody2D groundRb;
 
-        public bool enableCuriculuum = true;
+        public bool enableCuriculum = true;
 
         public float punishValue = -0.0005f;
         
         public override void Initialize()
         {
-            _mAgentRb = GetComponent<Rigidbody2D>();
             trainingSettings = new TrainingSettings
             {
                 ShootEnabled = true, 
@@ -148,7 +145,7 @@ namespace Research.CharacterDesign.Scripts
 
         public override void OnEpisodeBegin()
         {
-            if (enableCuriculuum)
+            if (enableCuriculum)
             {
                 var mResetParams = Academy.Instance.EnvironmentParameters;
                 var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);

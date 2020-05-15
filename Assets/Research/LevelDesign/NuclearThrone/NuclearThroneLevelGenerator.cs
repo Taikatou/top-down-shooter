@@ -44,8 +44,6 @@ namespace Research.LevelDesign.NuclearThrone
 
 		private IEnumerable<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
 
-		public AgentQueue agentQueue;
-
 		public LevelUpdate onLevelUpdate;
 
 		public List<MapLayer> MapLayerData =>
@@ -65,26 +63,13 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.N))
-			{
-				ClearMap();
-				GenerateMap();
-			}
-		}
-
 		public void GenerateMap()
 		{
-			var curriculum = agentQueue.currentCurriculum;
-			var generateMap = curriculum == LevelCurriculum.AllActive || 
-									curriculum == LevelCurriculum.NoAdversary;
-			GenerateMap(generateMap);
+			InvokeGenerateMap(true);
 			onLevelUpdate?.Invoke();
 		}
-
-		[ExecuteInEditMode]
-		public void GenerateMap(bool generateMap, int distance=2)
+		
+		public void InvokeGenerateMap(bool generateMap, int distance=2)
 		{
 			ClearMap();
 			
@@ -228,12 +213,12 @@ namespace Research.LevelDesign.NuclearThrone
 
 				if (GUILayout.Button("Generate"))
 				{
-					levelGen.GenerateMap(true);
+					levelGen.InvokeGenerateMap(true);
 				}
 				
 				if (GUILayout.Button("Generate Square"))
 				{
-					levelGen.GenerateMap(false);
+					levelGen.InvokeGenerateMap(false);
 				}
 
 				if (GUILayout.Button("Clear"))

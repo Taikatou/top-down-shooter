@@ -220,6 +220,7 @@
               </e>
             </e>
             <e p="Soccer" t="Include">
+              <e p="DebugComponent.cs" t="Include" />
               <e p="Scripts" t="Include">
                 <e p="AgentSoccer.cs" t="Include" />
                 <e p="SoccerBallController.cs" t="Include" />

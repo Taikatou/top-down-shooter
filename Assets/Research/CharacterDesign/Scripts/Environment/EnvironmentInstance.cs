@@ -14,9 +14,7 @@ namespace Research.CharacterDesign.Scripts.Environment
     public sealed class EnvironmentInstance : MonoBehaviour
     {
         public int teamSize = 2;
-
-        public AgentQueue agentQueue;
-
+        
         public DataLogger dataLogger;
 
         public NuclearThroneLevelGenerator levelGenerator;
@@ -40,6 +38,10 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private bool _gameOver = false;
 
+        public Character mlCharacter;
+
+        public Character priorMlCharacter;
+
         private void Start()
         {
             _timer = gameTime;
@@ -62,8 +64,6 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private void WaitForRestart()
         {
-            agentQueue.ReturnCharacters(Players);
-
             InstantiatePlayableCharacters();
 
             SpawnMultipleCharacters();
@@ -117,9 +117,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             Players = new List<Character>();
             for (var i = 0; i < teamSize; i++)
             {
-                var mlCharacter = agentQueue.PopRandomMlCharacter();
                 SpawnTeamPlayer(mlCharacter, false);
-                var priorMlCharacter = agentQueue.PopRandomPriorMlCharacter();
                 SpawnTeamPlayer(priorMlCharacter, true);
             }
             return Players;
