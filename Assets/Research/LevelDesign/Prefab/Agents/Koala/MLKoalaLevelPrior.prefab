@@ -7,6 +7,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_SelfIds.Array.data[0]
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_SelfIds.Array.data[1]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_AdversaryIds.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_AdversaryIds.Array.data[1]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: mAdversaryIds.Array.data[1]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: mSelfIds.Array.data[0]
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 846092009513502299, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: mSelfIds.Array.data[1]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
     - target: {fileID: 1504718684151471730, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: TeamId
@@ -82,5 +122,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLKoalaLevelPrior
       objectReference: {fileID: 0}
+    - target: {fileID: 8813461447051219256, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925031727156478684, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: CanPickupWeapons
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925031727156478684, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 4767032738106823320, guid: b581b7d0b85ee0948bd1483b6dfc652d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3588df27c133384f97bde26e56aa9ac, type: 3}

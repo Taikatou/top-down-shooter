@@ -20,6 +20,8 @@ MonoBehaviour:
   detectableTags: 010000000200000000000000
   selfDetectableTags: 
   adversaryDetectableTags: 
+  mapAccessor: {fileID: 0}
+  environmentInstance: {fileID: 0}
 --- !u!114 &846092009513502299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +53,6 @@ MonoBehaviour:
   mSelfIds:
   - Player
   - Projectile
-  behaviorParameters: {fileID: 1504718684151471730}
   verticalOffSet: 0.4
 --- !u!114 &1224877945733143149
 MonoBehaviour:
@@ -100,6 +101,8 @@ MonoBehaviour:
   detectableTags: 
   selfDetectableTags: 03000000
   adversaryDetectableTags: 04000000
+  mapAccessor: {fileID: 0}
+  environmentInstance: {fileID: 0}
   normalize: 0
 --- !u!1001 &6425824387268947317
 PrefabInstance:

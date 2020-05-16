@@ -25,6 +25,8 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private int _levelCounter;
 
+        public int CurrentLevelCounter => _levelCounter;
+
         public GetSpawnProcedural getSpawnProcedural;
 
         private List<MLCheckbox> SpawnPoints => getSpawnProcedural.Points;

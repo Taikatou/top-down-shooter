@@ -5797,8 +5797,9 @@ MonoBehaviour:
   gunSpeed: 0.01
   aimControl: 2
   groundRb: {fileID: 0}
-  enableCuriculuum: 1
+  enableCurriculum: 1
   punishValue: -0.0005
+  debugDirection: 0
 --- !u!114 &1798506748191649430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5930,6 +5931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPrior: 0
   outlineSize: 2
 --- !u!1 &2549988411706279017
 GameObject:

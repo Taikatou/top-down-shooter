@@ -4880,7 +4880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4560113285790094}
   - component: {fileID: 212508439041957836}
-  - component: {fileID: 8408512643069532362}
   - component: {fileID: 8104913856365779229}
   m_Layer: 18
   m_Name: GunBullet
@@ -4953,19 +4952,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8408512643069532362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112242749468708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e29beefa27b9a49977a38d50151725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outline: {fileID: 8104913856365779229}
 --- !u!114 &8104913856365779229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4978,7 +4964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineSize: 2
+  isPrior: 0
+  outlineSize: 1
 --- !u!1 &1304302668110314
 GameObject:
   m_ObjectHideFlags: 0
@@ -19626,6 +19613,7 @@ MonoBehaviour:
   Feedbacks:
   - {fileID: 3973177057395551238}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &3973177057395551238
 MonoBehaviour:
@@ -19705,6 +19693,7 @@ MonoBehaviour:
   - {fileID: 7052903848663927743}
   - {fileID: 7297595147976095548}
   InitializationMode: 2
+  AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &7052903848663927743
 MonoBehaviour:
@@ -19764,6 +19753,7 @@ MonoBehaviour:
   DebugActive: 0
   Sfx: {fileID: 8300000, guid: 84a9746d4ee81e841b689a625e33c590, type: 3}
   RandomSfx: []
+  TestButton: 0
   PlayMethod: 0
   PoolSize: 10
   MinVolume: 1

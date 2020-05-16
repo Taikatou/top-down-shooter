@@ -156,7 +156,7 @@ public class AgentSoccer : Agent
 
     public override void OnActionReceived(float[] vectorAction)
     {
-
+        Debug.Log(m_BehaviorParameters.FullyQualifiedBehaviorName);
         if (position == Position.Goalie)
         {
             // Existential bonus for Goalies.

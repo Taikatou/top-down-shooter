@@ -17,7 +17,7 @@ namespace Research.Common
                 var debug = "";
                 foreach (var player in availableCharacters)
                 {
-                    debug += player.inputManager.PrimaryMovement + "\t";
+                    debug += player.debugDirection + "\t";
                 }
                 Debug.Log(debug);   
             }

@@ -30,7 +30,7 @@ namespace Research.CharacterDesign.Scripts
 
         public Rigidbody2D groundRb;
 
-        public bool enableCuriculum = true;
+        public bool enableCurriculum = true;
 
         public float punishValue = -0.0005f;
         
@@ -74,12 +74,16 @@ namespace Research.CharacterDesign.Scripts
                 AddReward(punishValue);
             }
         }
+
+        public float debugDirection;
         
         public override void OnActionReceived(float[] vectorAction)
         {
             var counter = 0;
             // Extrinsic Penalty
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
+            var action = vectorAction[counter++];
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
+            debugDirection = action;
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
             if (trainingSettings.ShootEnabled)
@@ -144,7 +148,7 @@ namespace Research.CharacterDesign.Scripts
 
         public override void OnEpisodeBegin()
         {
-            if (enableCuriculum)
+            if (enableCurriculum)
             {
                 var mResetParams = Academy.Instance.EnvironmentParameters;
                 var levelDesign = mResetParams.GetWithDefault("agent_level_setup", 0);
