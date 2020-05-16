@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
 using SpawnPoints;
@@ -120,7 +121,7 @@ namespace Research.LevelDesign.NuclearThrone
 					: getSpawnPoints.Points[index].gameObject;
 				
 				prefab.transform.position = place;
-				prefab.transform.parent = tilemapGround.transform;
+				prefab.transform.parent = getSpawnPoints.transform;
 
 				index++;
 			}

@@ -3,14 +3,11 @@ using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
     public class TileMapSensor2D : TileMapSensor
     {
-        private readonly bool _normalize;
-
         protected override int WriteObservations(ObservationWriter writer)
         {
             var debugGridSpace = new GridSpace[Config.SizeX, Config.SizeY];
@@ -22,11 +19,6 @@ namespace Research.Common.MapSensor.Sensor
                     if (Config.GridSpaceValues.ContainsKey(gridSpace))
                     {
                         var space = (float) gridSpace;
-                        
-                        if (_normalize)
-                        {
-                            space /= Config.GridSpaceValues.Count;
-                        }
                         writer[x, y, 0] = space;
                         if (Config.Debug)
                         {
@@ -45,9 +37,8 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, bool normalize) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance)
+        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId)
         {
-            _normalize = normalize;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
@@ -27,28 +28,25 @@ namespace Research.Common.MapSensor.Sensor
         public byte[] GetCompressedObservation() { return null; }
         
         public int[] GetObservationShape() { return MShape; }
-        
-        private GridSpace[,] GridSpaces => _mapAccessor? _mapAccessor.Map: null;
-        
-        TrackPosition StartEnd => Config.GetTrackPositionPosition(Position);
+
+        private TrackPosition StartEnd => Config.GetTrackPositionPosition(Position);
 
         private readonly EnvironmentInstance _environmentInstance;
 
-        private IEnumerable<Character> EntityList => _environmentInstance.mlPlayers;
+        private EntityMapPosition[] EntityList => _environmentInstance.EntityMapPositions;
         
         private readonly MapAccessor _mapAccessor;
         
         private Vector3Int Position { get; set; }
 
-        
         protected abstract int WriteObservations(ObservationWriter writer);
 
         protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers,
-            MapAccessor mapAccessor, EnvironmentInstance environmentInstance)
+            MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId)
         {
             _mapAccessor = mapAccessor;
             _environmentInstance = environmentInstance;
-            Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug);
+            Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug, teamId);
 
             var detectable = Config.GridSpaceValues.Count;
             MShape = new[] { Config.SizeX, Config.SizeY, detectable };
@@ -85,10 +83,8 @@ namespace Research.Common.MapSensor.Sensor
             {
                 for (var x = startX; x < endX; x++)
                 {
-                    if (x >= 0 && x < Config.SizeX && y >= 0 && y < Config.SizeY)
-                    {
-                        MObservations[x, y] = GridSpaces[x, y];
-                    }
+                    var value =_mapAccessor.Map[x, y];
+                    MObservations[x, y] = value;
                 }
             }
         }
@@ -109,33 +105,23 @@ namespace Research.Common.MapSensor.Sensor
 
         public void Update()
         {
-            if (GridSpaces != null)
-            {
-                UpdateMap();
-                UpdateMapEntityPositions();
-            }
-            else
-            {
-                Debug.Log("Invalid grid array");
-            }
+            UpdateMap();
+            UpdateMapEntityPositions();
         }
 
-        public void UpdateMapEntityPositions()
+        private void UpdateMapEntityPositions()
         {
             foreach (var entity in EntityList)
             {
-                if (entity.gameObject.activeInHierarchy)
-                {
-                    var entityMap = entity.GetComponentInParent<EntityMapPosition>();
+                var entityMap = entity.GetComponentInParent<EntityMapPosition>();
 
-                    var position = entity.transform.position;
-                    var cell = _mapAccessor.GetPosition(position);
-                    
-                    var gridType = entityMap.GetGridSpaceType();
-                    if (Config.GridSpaceValues.ContainsKey(gridType))
-                    {
-                        UpdateEntityPosition(cell, gridType);
-                    }   
+                var position = entity.transform.position;
+                var cell = _mapAccessor.GetPosition(position);
+                
+                var gridType = entityMap.GetGridSpaceType(Config.TeamId);
+                if (Config.GridSpaceValues.ContainsKey(gridType))
+                {
+                    UpdateEntityPosition(cell, gridType);
                 }
             }
         }

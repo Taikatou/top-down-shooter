@@ -18,11 +18,7 @@ MonoBehaviour:
   trackPosition: 0
   sensorName: 3d Sensor
   detectableTags: 010000000200000000000000
-  selfDetectableTags: 
-  adversaryDetectableTags: 
-  mapAccessor: {fileID: 0}
-  environmentInstance: {fileID: 0}
---- !u!114 &846092009513502299
+--- !u!114 &894682123181429754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,29 +27,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8813461447051219256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
+  m_Script: {fileID: 11500000, guid: 11de9e8670f740342a16b4883a071f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - Walls
-  m_RaysPerDirection: 10
-  m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0
-  m_RayLength: 48
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  mAdversaryIds:
-  - PlayerPrior
-  - ProjectilePrior
-  mSelfIds:
-  - Player
-  - Projectile
-  verticalOffSet: 0.4
+  mapAccessor: {fileID: 0}
+  environmentInstance: {fileID: 0}
 --- !u!114 &1224877945733143149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +46,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!114 &3001302748917082614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Walls
+  - Player
+  - PlayerPrior
+  - Projectile
+  - ProjectilePrior
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 180
+  m_SphereCastRadius: 0
+  m_RayLength: 50
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  verticalOffSet: 0.4
 --- !u!114 &4696932206835980864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,12 +106,7 @@ MonoBehaviour:
   tileMapSize: 50
   trackPosition: 0
   sensorName: 2d Sensor
-  detectableTags: 
-  selfDetectableTags: 03000000
-  adversaryDetectableTags: 04000000
-  mapAccessor: {fileID: 0}
-  environmentInstance: {fileID: 0}
-  normalize: 0
+  detectableTags: 0300000004000000
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0

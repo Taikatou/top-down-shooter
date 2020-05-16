@@ -6,9 +6,9 @@ namespace Research.Common.MapSensor.GridSpaceEntity
     public class AgentMapPosition : EntityMapPosition
     {
         public BehaviorParameters behaviorParameters;
-        public override GridSpace GetGridSpaceType()
+        public override GridSpace GetGridSpaceType(int teamId)
         {
-            return behaviorParameters.TeamId == 0 ? GridSpace.Team1 : GridSpace.Team2;
+            return behaviorParameters.TeamId == teamId ? GridSpace.Team1 : GridSpace.Team2;
         }
     }
 }

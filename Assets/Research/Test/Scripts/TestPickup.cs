@@ -11,7 +11,7 @@ namespace Research.Test.Scripts
     {
         public GameObject playersParent;
 
-        public override GridSpace GetGridSpaceType() => GridSpace.Coin;
+        public override GridSpace GetGridSpaceType(int teamId) => GridSpace.Coin;
 
         private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 

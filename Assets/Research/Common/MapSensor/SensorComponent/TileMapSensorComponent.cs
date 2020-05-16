@@ -3,6 +3,7 @@ using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
+using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -24,28 +25,21 @@ namespace Research.Common.MapSensor.SensorComponent
 
         public List<GridSpace> detectableTags;
 
-        public List<GridSpace> selfDetectableTags;
-        
-        public List<GridSpace> adversaryDetectableTags;
-        
+        public int TeamId => GetComponent<BehaviorParameters>().TeamId;
+
         private TileMapSensor _tileMapSensor;
 
-        public MapAccessor mapAccessor;
-        
-        public EnvironmentInstance environmentInstance;
-        
         private int ObservationStacks => mObservationStacks;
+
+        protected MapAccessor MapAccessor => GetComponent<MapSensorGetter>().mapAccessor;
+
+        protected EnvironmentInstance EnvironmentInstance => GetComponent<MapSensorGetter>().environmentInstance;
 
         protected abstract TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
 
         public override ISensor CreateSensor()
         {
-            var newTags = new List<GridSpace>();
-            newTags.AddRange(detectableTags);
-            newTags.AddRange(selfDetectableTags);
-            newTags.AddRange(adversaryDetectableTags);
-            
-            _tileMapSensor = CreateTileMapSensor(newTags);
+            _tileMapSensor = CreateTileMapSensor(detectableTags);
             if (ObservationStacks != 1)
             {
                 var stackingSensor = new StackingSensor(_tileMapSensor, ObservationStacks);

@@ -13,8 +13,9 @@ namespace Research.Common.MapSensor.SensorComponent
                                         trackPosition, 
                                         debug, 
                                         detectTags, 
-                                        mapAccessor, 
-                                        environmentInstance);
+                                        MapAccessor, 
+                                        EnvironmentInstance,
+                                        TeamId);
         }
     }
 }

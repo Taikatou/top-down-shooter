@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Environment;
-using UnityEngine;
+using SpawnPoints;
 
-namespace SpawnPoints
+namespace Research.CharacterDesign.Scripts.SpawnPoints
 {
     public class BaseGetSpawnPoints : IGetSpawnPoints
     {

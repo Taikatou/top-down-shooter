@@ -45,6 +45,7 @@ namespace Research.LevelDesign.Scripts
         
         public Vector3Int GetPosition(Vector3 position)
         {
+            Debug.Log(position);
             return generator.tilemapGround.WorldToCell(position);
         }
         

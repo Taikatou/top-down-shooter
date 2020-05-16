@@ -6,8 +6,6 @@ namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor2DComponent : TileMapSensorComponent
     {
-        public bool normalize;
-
         protected override TileMapSensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags)
         {
             return new TileMapSensor2D( sensorName,
@@ -15,9 +13,9 @@ namespace Research.Common.MapSensor.SensorComponent
                                         trackPosition, 
                                         debug, 
                                         detectTags,
-                                        mapAccessor,
-                                        environmentInstance, 
-                                        normalize);
+                                        MapAccessor,
+                                        EnvironmentInstance,
+                                        TeamId);
         }
     }
 }

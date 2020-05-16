@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Characters;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
@@ -31,7 +32,9 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private List<MLCheckbox> SpawnPoints => getSpawnProcedural.Points;
 
-        public List<Character> mlPlayers;
+        public EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
+
+        public Character[] mlCharacters;
         
         private float _timer;
 
@@ -47,7 +50,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         private int[] GetTeamDeaths()
         {
             var teamDeaths = new[] { 0, 0 };
-            foreach (var character in mlPlayers)
+            foreach (var character in mlCharacters)
             {
                 if (MlUtils.Dead(character))
                 {
@@ -72,9 +75,9 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void SpawnMultipleCharacters()
         {
-            for (var i = 0; i < mlPlayers.Count; i++)
+            for (var i = 0; i < mlCharacters.Length; i++)
             {
-                SpawnPoints[i].SpawnPlayer(mlPlayers[i]);
+                SpawnPoints[i].SpawnPlayer(mlCharacters[i]);
             }
         }
 
@@ -100,7 +103,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void InstantiatePlayableCharacters()
         {
-            foreach(var agent in mlPlayers)
+            foreach(var agent in mlCharacters)
             {
                 SpawnTeamPlayer(agent);
             }
@@ -170,7 +173,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             var loggedData = new [] {0, 0};
             var loggedNames = new[] {new List<string>(), new List<string>(), };
-            foreach (var player in mlPlayers)
+            foreach (var player in EntityMapPositions)
             {
                 var agent = player.GetComponent<TopDownAgent>();
                 var teamId = agent.GetComponent<BehaviorParameters>().TeamId;

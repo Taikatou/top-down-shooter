@@ -327,6 +327,7 @@
                 <e p="AgentMapPosition.cs" t="Include" />
                 <e p="EntityMapPosition.cs" t="Include" />
               </e>
+              <e p="MapSensorGetter.cs" t="Include" />
               <e p="Sensor" t="Include">
                 <e p="TileMapSensor.cs" t="Include" />
                 <e p="TileMapSensor2D.cs" t="Include" />

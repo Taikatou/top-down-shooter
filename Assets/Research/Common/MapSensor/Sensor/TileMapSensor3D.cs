@@ -40,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance)
+        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId)
         {
         }
     }

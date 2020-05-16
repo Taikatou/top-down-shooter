@@ -15,7 +15,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 {
     public class MlLevelManager : LevelManager
     {
-        public List<EnvironmentInstance> environments;
+        private static IEnumerable<EnvironmentInstance> Environments => FindObjectsOfType<EnvironmentInstance>();
 
         private Dictionary<Character, EnvironmentInstance> _characterEnvironmentMap;
 
@@ -35,7 +35,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private void SpawnCharacters()
         {
-            foreach (var environment in environments)
+            foreach (var environment in Environments)
             {
                 environment.SpawnMultipleCharacters();
             }
@@ -43,14 +43,18 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         protected override void InstantiatePlayableCharacters()
         {
-            foreach (var environment in environments)
+            foreach (var environment in Environments)
             {
-                foreach (var player in environment.mlPlayers)
+                foreach (var player in environment.mlCharacters)
                 {
                     SceneCharacters.Add(player);
                     if (!CharacterEnvironmentMap.ContainsKey(player))
                     {
                         CharacterEnvironmentMap.Add(player, environment);
+                    }
+                    else
+                    {
+                        Debug.Log("Invalid stuff");
                     }
                 }
             }
