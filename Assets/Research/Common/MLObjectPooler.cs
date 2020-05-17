@@ -17,6 +17,20 @@ namespace Research.Common
             }
         }
 
+        public List<Vector3> GetListObjects()
+        {
+            var returnValue = new List<Vector3>();
+            foreach (var obj in _pooledGameObjects)
+            {
+                if (obj && obj.activeInHierarchy)
+                {
+                    returnValue.Add(obj.transform.position);
+                }
+            }
+
+            return returnValue;
+        }
+
         public struct PoolData
         {
             public readonly Vector2 Position;
@@ -54,6 +68,13 @@ namespace Research.Common
                 }
             }
             return output;
+        }
+
+        protected override void CreateWaitingPool()
+        {
+            base.CreateWaitingPool();
+
+            // _waitingPool.transform.parent = transform;
         }
     }
 }

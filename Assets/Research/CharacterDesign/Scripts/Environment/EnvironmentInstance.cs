@@ -22,15 +22,15 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public float gameTime = 60;
         
-        private const int ChangeLevelMap = 100;
+        public int changeLevelMap = 10;
 
-        private int _levelCounter;
+        private int _levelCounter = -20;
 
         public int CurrentLevelCounter => _levelCounter;
 
         public GetSpawnProcedural getSpawnProcedural;
 
-        private List<MLCheckbox> SpawnPoints => getSpawnProcedural.Points;
+        private MLCheckbox[] SpawnPoints => getSpawnProcedural.Points;
 
         public EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
 
@@ -86,7 +86,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             if (levelGenerator)
             {
                 _levelCounter++;
-                if (_levelCounter == ChangeLevelMap)
+                if (_levelCounter == changeLevelMap)
                 {
                     levelGenerator.GenerateMap();
                     _levelCounter = 0;
@@ -173,16 +173,17 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             var loggedData = new [] {0, 0};
             var loggedNames = new[] {new List<string>(), new List<string>(), };
-            foreach (var player in EntityMapPositions)
+            foreach (var player in mlCharacters)
             {
-                var agent = player.GetComponent<TopDownAgent>();
-                var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
+                var behaviour = player.GetComponent<BehaviorParameters>();
+                var agentName = behaviour.FullyQualifiedBehaviorName;
+                var teamId = behaviour.TeamId;
                 var reward = GetReward(teamId, winningTeamId);
                 
                 loggedData[teamId] = reward;
-                var agentName = agent.GetComponent<BehaviorParameters>().FullyQualifiedBehaviorName;
                 loggedNames[teamId].Add(agentName);
 
+                var agent = player.GetComponent<TopDownAgent>();
                 agent.AddReward(reward);
                 agent.EndEpisode();
             }

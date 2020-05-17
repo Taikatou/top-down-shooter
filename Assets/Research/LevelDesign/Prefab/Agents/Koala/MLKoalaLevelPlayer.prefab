@@ -17,6 +17,7 @@ MonoBehaviour:
   tileMapSize: 50
   trackPosition: 0
   sensorName: 3d Sensor
+  buffer: 0
   detectableTags: 010000000200000000000000
 --- !u!114 &894682123181429754
 MonoBehaviour:
@@ -101,12 +102,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mObservationStacks: 1
-  debug: 0
+  mObservationStacks: 3
+  debug: 1
   tileMapSize: 50
   trackPosition: 0
   sensorName: 2d Sensor
-  detectableTags: 0300000004000000
+  buffer: 1
+  detectableTags: 03000000040000000600000007000000
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0

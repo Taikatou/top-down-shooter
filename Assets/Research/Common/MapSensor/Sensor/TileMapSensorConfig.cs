@@ -18,32 +18,32 @@ namespace Research.Common.MapSensor.Sensor
         public readonly string Name;
         public readonly int TeamId;
 
-        public int SizeX => _size - 1; 
+        public int SizeX => _size - 1;
         public int SizeY => _size - 1;
 
-        private int HalfX => _size / 2;
-        private int HalfY => _size / 2;
+        public int OutputSizeLinear => (SizeX - _cacheOffset) * (SizeY - _cacheOffset);
 
-        public TrackPosition GetTrackPositionPosition(Vector3Int position)
+        private readonly int _cacheOffset;
+
+        public TrackPosition GetTrackPosition()
         {
-            var startX = position.x - HalfX;
-            var startY = position.y - HalfY;
-            var endX = position.x + HalfX;
-            var endY = position.y + HalfY;
-            return new TrackPosition()
+            var returnValue = new TrackPosition
             {
-                StartPos = new Vector2Int(startX, startY),
-                EndPos = new Vector2Int(endX, endY)
+                StartPos = new Vector2Int(_cacheOffset, _cacheOffset), 
+                EndPos = new Vector2Int(SizeX - _cacheOffset, SizeY - _cacheOffset)
             };
+
+            return returnValue;
         }
         
         public TileMapSensorConfig(int size, bool trackPosition, string name,
-            IEnumerable<GridSpace> detectableLayers, bool debug, int teamId)
+            IEnumerable<GridSpace> detectableLayers, bool debug, int teamId, bool buffer)
         {
             _size = size;
             Debug = debug;
             Name = name;
             TrackPosition = trackPosition;
+            _cacheOffset = buffer ? 1 : 0;
             GridSpaceValues = new Dictionary<GridSpace, int>();
             TeamId = teamId;
             var counter = 0;

@@ -9,6 +9,9 @@ namespace Research.Common.MapSensor.Sensor
 {
     public class TileMapSensor3D : TileMapSensor
     {
+        protected override int[] MShape => _shape;
+        private int[] _shape;
+
         protected override int WriteObservations(ObservationWriter writer)
         {
             var debugGridSpace = new GridSpace[Config.SizeX, Config.SizeY];
@@ -40,8 +43,10 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId)
+        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
         {
+            var detectable = Config.GridSpaceValues.Count;
+            _shape = new[] { Config.SizeX, Config.SizeY, detectable };
         }
     }
 }

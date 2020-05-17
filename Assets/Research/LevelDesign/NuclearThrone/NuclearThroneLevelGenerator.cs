@@ -2,7 +2,7 @@
 using System.Linq;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
-using SpawnPoints;
+using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
@@ -42,8 +42,6 @@ namespace Research.LevelDesign.NuclearThrone
 		public GameObject spawnPrefab;
 
 		public IGetSpawnPoints getSpawnPoints;
-
-		private IEnumerable<MLCheckbox> SpawnGameObjects => getSpawnPoints.Points;
 
 		public LevelUpdate onLevelUpdate;
 
@@ -185,7 +183,8 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			tilemapGround.ClearAllTiles();
 			tilemapWalls.ClearAllTiles();
-			foreach (var point in SpawnGameObjects)
+			Debug.Log(getSpawnPoints.Points.Length);
+			foreach (var point in getSpawnPoints.Points)
 			{
 				if (!Application.isPlaying)
 				{

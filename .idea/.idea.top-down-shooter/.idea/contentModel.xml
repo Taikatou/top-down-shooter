@@ -321,11 +321,13 @@
               <e p="AgentSensor.cs" t="Include" />
               <e p="AgentSensorComponent.cs" t="Include" />
             </e>
+            <e p="GetSpawnPosition.cs" t="Include" />
             <e p="LearningEnvironmentAccessor.cs" t="Include" />
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />
                 <e p="EntityMapPosition.cs" t="Include" />
+                <e p="ProjectileMapPosition.cs" t="Include" />
               </e>
               <e p="MapSensorGetter.cs" t="Include" />
               <e p="Sensor" t="Include">

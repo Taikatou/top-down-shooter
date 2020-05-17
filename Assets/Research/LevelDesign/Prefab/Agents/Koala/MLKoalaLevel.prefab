@@ -381,6 +381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2555775893509048131}
+  - component: {fileID: 6002779292288816766}
   m_Layer: 10
   m_Name: WeaponAttachment
   m_TagString: Untagged
@@ -402,6 +403,19 @@ Transform:
   m_Father: {fileID: 2551457172768300855}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6002779292288816766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549418505457406643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a20d8230ab3ac2468237a2f0547fc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnTransform: {fileID: 0}
 --- !u!1 &2549786438118128717
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 9
-    NumStackedVectorObservations: 1
+    NumStackedVectorObservations: 3
     VectorActionSize: 05000000020000000500000005000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0

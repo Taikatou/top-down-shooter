@@ -14616,6 +14616,7 @@ GameObject:
   - component: {fileID: 114904966379098586}
   - component: {fileID: 7435059991523441766}
   - component: {fileID: 6862684986851950414}
+  - component: {fileID: 8579995454606818699}
   m_Layer: 0
   m_Name: MLKoalaGun
   m_TagString: Untagged
@@ -14789,6 +14790,20 @@ MonoBehaviour:
     type: 3}
   PoolSize: 20
   PoolCanExpand: 1
+--- !u!114 &8579995454606818699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572783773909934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a299f00070750d41b50b2a5211c7767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTeamId: 0
+  objectPooler: {fileID: 6862684986851950414}
 --- !u!1 &1598119543345386
 GameObject:
   m_ObjectHideFlags: 0
@@ -19761,6 +19776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPrior: 0
   outlineSize: 2
 --- !u!114 &3621778794600094139
 MonoBehaviour:

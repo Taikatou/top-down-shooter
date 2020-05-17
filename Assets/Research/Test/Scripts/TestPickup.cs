@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Research.Common;
 using Research.Common.MapSensor;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
@@ -11,7 +12,10 @@ namespace Research.Test.Scripts
     {
         public GameObject playersParent;
 
-        public override GridSpace GetGridSpaceType(int teamId) => GridSpace.Coin;
+        public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)
+        {
+            return new []{new EntityMapReturn{GridSpace = GridSpace.Coin, Position = transform.position}};
+        }
 
         private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 

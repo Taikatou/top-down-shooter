@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.Environment;
-using SpawnPoints;
+using Research.CharacterDesign.Scripts.SpawnPoints;
+using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {
     public class GetSpawnProcedural : IGetSpawnPoints
     {
-        public override List<MLCheckbox> Points => new List<MLCheckbox>(GetComponentsInChildren<MLCheckbox>());
+        public override MLCheckbox[] Points => GetComponentsInChildren<MLCheckbox>();
     }
 }
