@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
+using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -27,6 +29,7 @@ namespace Research.LevelDesign.Scripts
                 if (_map == null)
                 {
                     UpdateMapData();
+                    TileMapSensor.OutputDebugMap(_map);
                 }
                 return _map;
             }
@@ -45,7 +48,6 @@ namespace Research.LevelDesign.Scripts
         
         public Vector3Int GetPosition(Vector3 position)
         {
-            Debug.Log(position);
             return generator.tilemapGround.WorldToCell(position);
         }
         
@@ -63,11 +65,15 @@ namespace Research.LevelDesign.Scripts
                     {
                         _map[x, y] = type;
                     }
+                    else
+                    {
+                        Debug.Log("Invalid Tilemap");
+                    }
                 }
             }
         }
         
-        private void OutputMap()
+        public void OutputMap()
         {
             var rowData = new List<string[]>();
 
@@ -87,4 +93,23 @@ namespace Research.LevelDesign.Scripts
             dataLogger.OutputMap(rowData);
         }
     }
+    
+#if UNITY_EDITOR
+    [CustomEditor(typeof(MapAccessor))]
+    public class MapAccessorEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            //Reference to our script
+            var levelGen = (MapAccessor) target;
+
+            if (GUILayout.Button("Output map"))
+            {
+                levelGen.OutputMap();
+            }
+        }
+    }
+#endif
 }

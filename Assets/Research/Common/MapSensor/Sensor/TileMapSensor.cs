@@ -53,7 +53,7 @@ namespace Research.Common.MapSensor.Sensor
             MObservations = new GridSpace[Config.SizeX, Config.SizeY];
         }
 
-        protected static void OutputDebugMap(GridSpace [,] debugGrid)
+        public static void OutputDebugMap(GridSpace [,] debugGrid)
         {
             var roomWidth = debugGrid.GetUpperBound(0);
             var roomHeight = debugGrid.GetUpperBound(1);

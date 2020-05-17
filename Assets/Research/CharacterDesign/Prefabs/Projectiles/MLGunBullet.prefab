@@ -19655,7 +19655,6 @@ GameObject:
   - component: {fileID: 7083424556625673126}
   - component: {fileID: 5666555167326870288}
   - component: {fileID: 7052903848663927743}
-  - component: {fileID: 7297595147976095548}
   m_Layer: 18
   m_Name: HitNonDamageableFeedback
   m_TagString: Untagged
@@ -19691,7 +19690,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Feedbacks:
   - {fileID: 7052903848663927743}
-  - {fileID: 7297595147976095548}
   InitializationMode: 2
   AutoPlayOnStart: 0
   DebugActive: 0
@@ -19724,40 +19722,3 @@ MonoBehaviour:
   DebugActive: 0
   BoundParticleSystem: {fileID: 198161342189202992}
   MoveToPosition: 0
---- !u!114 &7297595147976095548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839686357615181372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c2ce51367856bd49b72678cc4263225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Active: 1
-  Label: Sound
-  Chance: 100
-  Timing:
-    TimescaleMode: 0
-    InitialDelay: 0
-    CooldownDuration: 0
-    NumberOfRepeats: 0
-    RepeatForever: 0
-    DelayBetweenRepeats: 1
-    Sequence: {fileID: 0}
-    TrackID: 0
-    Quantized: 0
-    TargetBPM: 120
-  DebugActive: 0
-  Sfx: {fileID: 8300000, guid: 84a9746d4ee81e841b689a625e33c590, type: 3}
-  RandomSfx: []
-  TestButton: 0
-  PlayMethod: 0
-  PoolSize: 10
-  MinVolume: 1
-  MaxVolume: 1
-  MinPitch: 1
-  MaxPitch: 1
-  SfxAudioMixerGroup: {fileID: 0}

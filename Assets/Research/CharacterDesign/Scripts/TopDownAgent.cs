@@ -39,7 +39,7 @@ namespace Research.CharacterDesign.Scripts
             trainingSettings = new TrainingSettings
             {
                 ShootEnabled = true, 
-                PunishTime = true, 
+                PunishTime = false, 
                 SecondaryAbilityEnabled = false, 
                 SecondaryInputEnabled = true
             };

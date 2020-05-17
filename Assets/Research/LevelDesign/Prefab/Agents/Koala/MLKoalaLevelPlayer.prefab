@@ -204,7 +204,14 @@ PrefabInstance:
       propertyPath: TeamId
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8103207668852584256, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: Feedbacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6532842794568370963, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
+    - {fileID: 8241803958302934075, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
 --- !u!1 &8813461447051219256 stripped
 GameObject:
