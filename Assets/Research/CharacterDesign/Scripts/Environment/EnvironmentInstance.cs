@@ -24,7 +24,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         
         public int changeLevelMap = 10;
 
-        private int _levelCounter = -20;
+        private int _levelCounter = 0;
 
         public int CurrentLevelCounter => _levelCounter;
 
@@ -175,7 +175,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             var loggedNames = new[] {new List<string>(), new List<string>(), };
             foreach (var player in mlCharacters)
             {
-                var behaviour = player.GetComponent<BehaviorParameters>();
+                var behaviour = player.GetComponentInChildren<BehaviorParameters>();
                 var agentName = behaviour.FullyQualifiedBehaviorName;
                 var teamId = behaviour.TeamId;
                 var reward = GetReward(teamId, winningTeamId);
@@ -183,7 +183,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 loggedData[teamId] = reward;
                 loggedNames[teamId].Add(agentName);
 
-                var agent = player.GetComponent<TopDownAgent>();
+                var agent = player.GetComponentInChildren<TopDownAgent>();
                 agent.AddReward(reward);
                 agent.EndEpisode();
             }

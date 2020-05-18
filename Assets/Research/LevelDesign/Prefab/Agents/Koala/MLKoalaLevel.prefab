@@ -443,8 +443,6 @@ GameObject:
   - component: {fileID: 2980915014404623530}
   - component: {fileID: 1129635984288842073}
   - component: {fileID: 8277717229346903411}
-  - component: {fileID: 5606076189845811975}
-  - component: {fileID: 7014888569447550707}
   - component: {fileID: 1798506748191649430}
   m_Layer: 10
   m_Name: MLKoalaLevel
@@ -470,6 +468,7 @@ Transform:
   - {fileID: 2417382142183735252}
   - {fileID: 4989245637715074847}
   - {fileID: 6532231200566916883}
+  - {fileID: 797512161304777923}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -879,56 +878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5606076189845811975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2549786438118128717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 9
-    NumStackedVectorObservations: 3
-    VectorActionSize: 05000000020000000500000005000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
-  m_InferenceDevice: 1
-  m_BehaviorType: 0
-  m_BehaviorName: LevelKoala
-  TeamId: 0
-  m_UseChildSensors: 1
---- !u!114 &7014888569447550707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2549786438118128717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  inputManager: {fileID: 2980915014404623530}
-  directionsKeyMapper: {fileID: 1129635984288842073}
-  secondaryDirectionsInput: {fileID: 8277717229346903411}
-  spriteRenderer: {fileID: 2419870454344231125}
-  gunSpeed: 0.01
-  aimControl: 2
-  groundRb: {fileID: 0}
-  enableCurriculum: 1
-  punishValue: -0.0005
-  debugDirection: 0
 --- !u!114 &1798506748191649430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,7 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d21b302271c8874cab1f6f803408494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviorParameters: {fileID: 5606076189845811975}
+  behaviorParameters: {fileID: 0}
 --- !u!1 &2549926896293074131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1195,88 @@ MonoBehaviour:
     m_RotationOrder: 4
   Amplitude: 1
   RelativeIntensity: 0
+--- !u!1 &5422627354756643464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 797512161304777923}
+  - component: {fileID: 6535753668877259236}
+  - component: {fileID: 4535047603838295620}
+  m_Layer: 10
+  m_Name: Agent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797512161304777923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5422627354756643464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2551796511620569519}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6535753668877259236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5422627354756643464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  inputManager: {fileID: 2980915014404623530}
+  directionsKeyMapper: {fileID: 1129635984288842073}
+  secondaryDirectionsInput: {fileID: 8277717229346903411}
+  spriteRenderer: {fileID: 2419870454344231125}
+  gunSpeed: 0.01
+  aimControl: 2
+  groundRb: {fileID: 0}
+  enableCurriculum: 1
+  punishValue: -0.0005
+  debugDirection: 0
+--- !u!114 &4535047603838295620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5422627354756643464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 9
+    NumStackedVectorObservations: 3
+    VectorActionSize: 05000000020000000500000005000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 1
+  m_BehaviorType: 0
+  m_BehaviorName: LevelKoala
+  TeamId: 0
+  m_UseChildSensors: 1
 --- !u!1 &5603108765420614704
 GameObject:
   m_ObjectHideFlags: 0

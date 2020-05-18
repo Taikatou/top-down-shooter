@@ -43,6 +43,7 @@ namespace Research.LevelDesign.Scripts
                 UpdateTileMap(layers.TileMap, layers.Condition);
             }
 
+            TileMapSensor.OutputDebugMap(_map);
             OutputMap();
         }
         

@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &401160260673709956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc4a50803ef8384a9390b51cd5aa993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObservationStacks: 1
-  debug: 0
-  tileMapSize: 50
-  trackPosition: 0
-  sensorName: 3d Sensor
-  buffer: 0
-  detectableTags: 010000000200000000000000
 --- !u!114 &894682123181429754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,27 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapAccessor: {fileID: 0}
   environmentInstance: {fileID: 0}
---- !u!114 &1224877945733143149
+--- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
---- !u!114 &3001302748917082614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
+  m_GameObject: {fileID: 1327462263919007741}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
@@ -73,42 +40,61 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  m_ObservationStacks: 1
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.4
---- !u!114 &4696932206835980864
+--- !u!114 &2588011062899866026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d21b302271c8874cab1f6f803408494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviorParameters: {fileID: 1504718684151471730}
---- !u!114 &5740570870492542942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
+  m_GameObject: {fileID: 1327462263919007741}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mObservationStacks: 3
-  debug: 1
+  debug: 0
   tileMapSize: 50
   trackPosition: 0
   sensorName: 2d Sensor
   buffer: 1
   detectableTags: 03000000040000000600000007000000
+  mObservationStacks: 3
+--- !u!114 &4966199783847539758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc4a50803ef8384a9390b51cd5aa993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  tileMapSize: 50
+  trackPosition: 0
+  sensorName: 3d Sensor
+  buffer: 0
+  detectableTags: 010000000200000000000000
+--- !u!114 &8827520055626299880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,6 +102,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1798506748191649430, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: behaviorParameters
+      value: 
+      objectReference: {fileID: 7476719718635778865}
     - target: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_Name
@@ -191,6 +182,16 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_UseChildSensors
@@ -221,13 +222,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1504718684151471730 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+--- !u!1 &1327462263919007741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5422627354756643464, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
+--- !u!114 &7476719718635778865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}

@@ -52,6 +52,26 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[3]
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2734321548508270922, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: isPrior

@@ -17,6 +17,7 @@ namespace Research.Common.MapSensor.Sensor
             var obsSize = Config.OutputSizeLinear;
             var outputArray = new float[obsSize];
             var trackedPosition = Config.GetTrackPosition();
+            
             var index = 0;
             for (var y = trackedPosition.StartPos.y; y < trackedPosition.EndPos.y; y++)
             {
@@ -28,7 +29,6 @@ namespace Research.Common.MapSensor.Sensor
                         var space = (float) gridSpace;
                         outputArray[index] = space;
                     }
-
                     index++;
                 }
             }
@@ -36,9 +36,8 @@ namespace Research.Common.MapSensor.Sensor
             writer.AddRange(outputArray);
             if (Config.Debug)
             {
-                OutputDebugMap(MObservations);
-                var debugTxt = string.Join(", ", outputArray);
-                Debug.Log(debugTxt);
+                // OutputDebugMap(MObservations);
+                // var debugTxt = string.Join(", ", outputArray);
             }
             return obsSize;
         }

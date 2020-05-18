@@ -65,7 +65,7 @@ namespace Research.LevelDesign.NuclearThrone
 		public void GenerateMap()
 		{
 			InvokeGenerateMap(true);
-			onLevelUpdate?.Invoke();
+			onLevelUpdate.Invoke();
 		}
 		
 		public void InvokeGenerateMap(bool generateMap, int distance=2)
