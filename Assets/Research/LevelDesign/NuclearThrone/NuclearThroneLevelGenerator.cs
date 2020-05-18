@@ -49,8 +49,6 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public int oneInXChance = 2;
 
-		private System.Random _randomGenerator;
-
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
 			{
@@ -68,14 +66,12 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		public void Start()
-		{
-			_randomGenerator = new System.Random();
-		}
-
 		public void GenerateMapRandom()
 		{
-			var random = _randomGenerator.Next(oneInXChance);
+			var seed = gameObject.GetHashCode();
+			Debug.Log(seed);
+			var randomGenerator = new System.Random(seed);
+			var random = randomGenerator.Next(oneInXChance);
 			GenerateMap(random != 1);
 		}
 
