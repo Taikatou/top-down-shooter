@@ -15,33 +15,33 @@
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
-/Assets/TopDownEngine/*
-!/Assets/TopDownEngine/Common
-/Assets/TopDownEngine/Common/*
-!/Assets/TopDownEngine/Common/Scripts
-/Assets/TopDownEngine/Common/Scripts/*
-!/Assets/TopDownEngine/Common/Scripts/Managers
-/Assets/TopDownEngine/Common/Scripts/Managers/*
-!/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs*
+#/Assets/TopDownEngine/*
+#!/Assets/TopDownEngine/Common
+#/Assets/TopDownEngine/Common/*
+#!/Assets/TopDownEngine/Common/Scripts
+#/Assets/TopDownEngine/Common/Scripts/*
+#!/Assets/TopDownEngine/Common/Scripts/Managers
+#/Assets/TopDownEngine/Common/Scripts/Managers/*
+#!/Assets/TopDownEngine/Common/Scripts/Managers/InputManager.cs*
 
-!/Assets/TopDownEngine/Common/Scripts/Characters
-/Assets/TopDownEngine/Common/Scripts/Characters/*
-!/Assets/TopDownEngine/Common/Scripts/Characters/Core
-/Assets/TopDownEngine/Common/Scripts/Characters/Core/*
-!/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
+#!/Assets/TopDownEngine/Common/Scripts/Characters
+#/Assets/TopDownEngine/Common/Scripts/Characters/*
+#!/Assets/TopDownEngine/Common/Scripts/Characters/Core
+#/Assets/TopDownEngine/Common/Scripts/Characters/Core/*
+#!/Assets/TopDownEngine/Common/Scripts/Characters/Core/Health.cs*
 
-!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities
-/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/*
-!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs*
+#!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities
+#/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/*
+#!/Assets/TopDownEngine/Common/Scripts/Characters/CharacterAbilities/CharacterHandleWeapon.cs*
 
 
-!/Assets/TopDownEngine/Demos
-/Assets/TopDownEngine/Demos/*
-!/Assets/TopDownEngine/Demos/Grasslands
-/Assets/TopDownEngine/Demos/Grasslands/*
-!/Assets/TopDownEngine/Demos/Grasslands/Scripts
-/Assets/TopDownEngine/Demos/Grasslands/Scripts/*
-!/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs*
+#!/Assets/TopDownEngine/Demos
+#/Assets/TopDownEngine/Demos/*
+#!/Assets/TopDownEngine/Demos/Grasslands
+#/Assets/TopDownEngine/Demos/Grasslands/*
+#!/Assets/TopDownEngine/Demos/Grasslands/Scripts
+#/Assets/TopDownEngine/Demos/Grasslands/Scripts/*
+#!/Assets/TopDownEngine/Demos/Grasslands/Scripts/GrasslandsMultiplayerLevelManager.cs*
 
 
 /Config/models/*
@@ -92,4 +92,4 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-AssetsTopDownEngine/
+# Assets/TopDownEngine/
