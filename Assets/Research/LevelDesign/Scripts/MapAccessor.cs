@@ -76,22 +76,25 @@ namespace Research.LevelDesign.Scripts
         
         public void OutputMap()
         {
-            var rowData = new List<string[]>();
-
-            var roomHeight = Map.GetUpperBound(0);
-            var roomWidth = Map.GetUpperBound(1);
-
-            for (var i = 0; i < roomHeight; i++)
+            if (dataLogger.outputCSV)
             {
-                var row = new string [roomWidth];
-                for (var j = 0; j < roomWidth; j++)
+                var rowData = new List<string[]>();
+
+                var roomHeight = Map.GetUpperBound(0);
+                var roomWidth = Map.GetUpperBound(1);
+
+                for (var i = 0; i < roomHeight; i++)
                 {
-                    row[j] = ((int)Map[i, j]).ToString();
+                    var row = new string [roomWidth];
+                    for (var j = 0; j < roomWidth; j++)
+                    {
+                        row[j] = ((int)Map[i, j]).ToString();
+                    }
+                    rowData.Add(row);
                 }
-                rowData.Add(row);
-            }
 			
-            dataLogger.OutputMap(rowData);
+                dataLogger.OutputMap(rowData);
+            }
         }
     }
     

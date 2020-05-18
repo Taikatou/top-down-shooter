@@ -27,6 +27,8 @@ namespace Research.CharacterDesign.Scripts
     public class DataLogger : MonoBehaviour
     {
         public int mapId;
+
+        public bool outputCSV;
         
         private Dictionary<string, WinResults> _winResultsTeams;
 

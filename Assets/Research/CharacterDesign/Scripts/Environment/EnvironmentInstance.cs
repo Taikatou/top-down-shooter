@@ -172,7 +172,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             var winningTeamId = WinningTeam();
 
             var loggedData = new [] {0, 0};
-            var loggedNames = new[] {new List<string>(), new List<string>(), };
+            var loggedNames = new List<string>();
             foreach (var player in mlCharacters)
             {
                 var behaviour = player.GetComponentInChildren<BehaviorParameters>();
@@ -181,26 +181,16 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var reward = GetReward(teamId, winningTeamId);
                 
                 loggedData[teamId] = reward;
-                loggedNames[teamId].Add(agentName);
+                loggedNames.Add(agentName);
 
                 var agent = player.GetComponentInChildren<TopDownAgent>();
                 agent.AddReward(reward);
                 agent.EndEpisode();
             }
 
-            loggedNames[0].Sort();
-            loggedNames[1].Sort();
-            var sortedNames0 = string.Join("_", loggedNames[0].ToArray());
-            var sortedNames1 = string.Join("_", loggedNames[1].ToArray());
-
-            if (dataLogger != null)
-            {
-                dataLogger.AddResultTeam(sortedNames0, loggedData[0]);
-                dataLogger.AddResultTeam(sortedNames1, loggedData[1]);
-            }
             Debug.Log("Winning Team" + winningTeamId);
-            Debug.Log( "Team 0: " + sortedNames0 + " reward: " + loggedData[0] + 
-                       "Team 1: " + sortedNames1 + " reward: " + loggedData[1]);
+            Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
+                      loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
             Restart();
             yield break;
