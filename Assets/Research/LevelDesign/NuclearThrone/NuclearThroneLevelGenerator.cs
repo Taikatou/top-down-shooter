@@ -48,6 +48,8 @@ namespace Research.LevelDesign.NuclearThrone
 		public LevelUpdate onLevelUpdate;
 
 		public int oneInXChance = 2;
+		
+		private System.Random _randomGenerator;
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -66,15 +68,18 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		public void GenerateMapRandom()
+		private void Start()
 		{
 			var seed = gameObject.GetHashCode();
-			Debug.Log(seed);
-			var randomGenerator = new System.Random(seed);
-			var random = randomGenerator.Next(oneInXChance);
-			GenerateMap(random != 1);
+			_randomGenerator = new System.Random((int)(seed * Time.time));
 		}
 
+		public void GenerateMapRandom()
+		{
+			var random = _randomGenerator.Next(oneInXChance);
+			GenerateMap(random != 1);
+		}
+		
 		public void GenerateMap(bool generate)
 		{
 			InvokeGenerateMap(generate);
@@ -85,7 +90,7 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			ClearMap();
 			
-			var seed = mapSetting.randomSeed ? Time.time : mapSetting.seed;
+			var seed = mapSetting.randomSeed ? gameObject.GetHashCode() * Time.time : mapSetting.seed;
 			Random.InitState(seed.GetHashCode());
 
 			var validPositions = new List<Vector3Int>();
