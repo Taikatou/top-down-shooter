@@ -107,6 +107,12 @@ PrefabInstance:
       propertyPath: behaviorParameters
       value: 
       objectReference: {fileID: 7476719718635778865}
+    - target: {fileID: 2517802659037441961, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 114740255974881622, guid: 94ca7322bedfa1042892135419b92b96,
+        type: 3}
     - target: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_Name

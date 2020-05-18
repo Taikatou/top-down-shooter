@@ -14657,10 +14657,10 @@ MonoBehaviour:
   TriggerMode: 1
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 1
-  TimeBetweenUses: 1
+  TimeBetweenUses: 0.5
   TimeBetweenUsesReleaseInterruption: 0
   MagazineBased: 0
-  MagazineSize: 10
+  MagazineSize: 1000
   AutoReload: 0
   ReloadTime: 2
   AmmoConsumedPerShot: 1
@@ -14803,7 +14803,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletTeamId: 0
-  objectPooler: {fileID: 6862684986851950414}
 --- !u!1 &1598119543345386
 GameObject:
   m_ObjectHideFlags: 0

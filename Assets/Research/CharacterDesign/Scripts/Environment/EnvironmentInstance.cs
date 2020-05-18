@@ -54,7 +54,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 if (MlUtils.Dead(character))
                 {
-                    var behaviour = character.GetComponent<BehaviorParameters>();
+                    var behaviour = character.GetComponentInChildren<BehaviorParameters>();
                     var index = behaviour.TeamId;
                     teamDeaths[index]++;
                 }
@@ -88,7 +88,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 _levelCounter++;
                 if (_levelCounter == changeLevelMap)
                 {
-                    levelGenerator.GenerateMap();
+                    levelGenerator.GenerateMapRandom();
                     _levelCounter = 0;
                 }
             }

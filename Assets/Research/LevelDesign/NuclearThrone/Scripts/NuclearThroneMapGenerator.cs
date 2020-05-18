@@ -101,10 +101,10 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 
 		private static void CreateFloors(GridSpace[,] map, float percentToFill)
 		{
-			var chanceWalkerChangeDir = 0.5f;
-			var chanceWalkerSpawn = 0.08f;
-			var chanceWalkerDestoy = 0.02f;
-			var maxWalkers = 20;
+			const float chanceWalkerChangeDir = 0.5f;
+			const float chanceWalkerSpawn = 0.18f;
+			const float chanceWalkerDestroy = 0.10f;
+			const float maxWalkers = 20;
 
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);
@@ -130,7 +130,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 				for (var i = 0; i < numberChecks; i++)
 				{
 					//only if its not the only one, and at a low chance
-					if (Random.value < chanceWalkerDestoy && walkers.Count > 1)
+					if (Random.value < chanceWalkerDestroy && walkers.Count > 1)
 					{
 						walkers.RemoveAt(i);
 						break; //only destroy one per iteration

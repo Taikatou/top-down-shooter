@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
@@ -10,6 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone
 {
@@ -45,6 +47,10 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public LevelUpdate onLevelUpdate;
 
+		public int oneInXChance = 2;
+
+		private System.Random _randomGenerator;
+
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
 			{
@@ -62,9 +68,20 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		public void GenerateMap()
+		public void Start()
 		{
-			InvokeGenerateMap(true);
+			_randomGenerator = new System.Random();
+		}
+
+		public void GenerateMapRandom()
+		{
+			var random = _randomGenerator.Next(oneInXChance);
+			GenerateMap(random != 1);
+		}
+
+		public void GenerateMap(bool generate)
+		{
+			InvokeGenerateMap(generate);
 			onLevelUpdate.Invoke();
 		}
 		
@@ -183,7 +200,6 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			tilemapGround.ClearAllTiles();
 			tilemapWalls.ClearAllTiles();
-			Debug.Log(getSpawnPoints.Points.Length);
 			foreach (var point in getSpawnPoints.Points)
 			{
 				if (!Application.isPlaying)
