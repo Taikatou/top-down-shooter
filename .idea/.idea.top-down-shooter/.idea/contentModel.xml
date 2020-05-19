@@ -322,11 +322,11 @@
               <e p="AgentSensorComponent.cs" t="Include" />
             </e>
             <e p="GetSpawnPosition.cs" t="Include" />
-            <e p="LearningEnvironmentAccessor.cs" t="Include" />
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />
                 <e p="EntityMapPosition.cs" t="Include" />
+                <e p="GetEnvironmentMapPositions.cs" t="Include" />
                 <e p="ProjectileMapPosition.cs" t="Include" />
               </e>
               <e p="MapSensorGetter.cs" t="Include" />
@@ -400,6 +400,7 @@
           <e p="Test" t="Include">
             <e p="Scripts" t="Include">
               <e p="CoinSpawnLocations.cs" t="Include" />
+              <e p="TestEnvironmentInstance.cs" t="Include" />
               <e p="TestGridAgent.cs" t="Include" />
               <e p="TestGridController.cs" t="Include" />
               <e p="TestPickup.cs" t="Include" />

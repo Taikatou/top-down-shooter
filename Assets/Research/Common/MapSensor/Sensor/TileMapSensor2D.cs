@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Research.CharacterDesign.Scripts.Environment;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
@@ -42,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
             return obsSize;
         }
 
-        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
+        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
         {
         }
     }

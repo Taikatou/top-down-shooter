@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Research.CharacterDesign.Scripts.Environment;
-using Research.Common.MapSensor.Sensor;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace Research.Common.MapSensor.SensorComponent
 {
@@ -22,14 +20,14 @@ namespace Research.Common.MapSensor.SensorComponent
         public bool buffer;
 
         public List<GridSpace> detectableTags;
-
-        protected int GetTeamId => GetComponent<BehaviorParameters>().TeamId;
-
+        
         protected ISensor TileMapSensor;
+        
+        protected int GetTeamId => GetComponent<BehaviorParameters>().TeamId;
 
         protected MapAccessor MapAccessor => GetComponentInParent<MapSensorGetter>().mapAccessor;
 
-        protected EnvironmentInstance EnvironmentInstance => GetComponentInParent<MapSensorGetter>().environmentInstance;
+        protected GetEnvironmentMapPositions EnvironmentInstance => GetComponentInParent<GetEnvironmentMapPositions>();
 
         protected abstract ISensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
 

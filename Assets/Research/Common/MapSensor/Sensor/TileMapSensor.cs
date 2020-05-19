@@ -29,14 +29,14 @@ namespace Research.Common.MapSensor.Sensor
         
         public int[] GetObservationShape() { return MShape; }
 
-        private readonly EnvironmentInstance _environmentInstance;
+        private readonly GetEnvironmentMapPositions _environmentInstance;
 
         private readonly MapAccessor _mapAccessor;
 
         protected abstract int WriteObservations(ObservationWriter writer);
 
         protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers,
-            MapAccessor mapAccessor, EnvironmentInstance environmentInstance, int teamId, bool buffer)
+            MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer)
         {
             _mapAccessor = mapAccessor;
             _environmentInstance = environmentInstance;

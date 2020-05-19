@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Characters;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
-using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {
-    public sealed class EnvironmentInstance : MonoBehaviour
+    public sealed class EnvironmentInstance : GetEnvironmentMapPositions
     {
         public int teamSize = 2;
         
@@ -23,16 +21,11 @@ namespace Research.CharacterDesign.Scripts.Environment
         public float gameTime = 60;
         
         public int changeLevelMap = 10;
-
-        private int _levelCounter = 0;
-
-        public int CurrentLevelCounter => _levelCounter;
-
+        
         public GetSpawnProcedural getSpawnProcedural;
+        public int CurrentLevelCounter { get; private set; }
 
-        private MLCheckbox[] SpawnPoints => getSpawnProcedural.Points;
-
-        public EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
+        public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
 
         public Character[] mlCharacters;
         
@@ -77,7 +70,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             for (var i = 0; i < mlCharacters.Length; i++)
             {
-                SpawnPoints[i].SpawnPlayer(mlCharacters[i]);
+                var spawnPoint = getSpawnProcedural.Points[i];
+                spawnPoint.SpawnPlayer(mlCharacters[i]);
             }
         }
 
@@ -85,16 +79,16 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (levelGenerator)
             {
-                _levelCounter++;
-                if (_levelCounter == changeLevelMap)
+                CurrentLevelCounter++;
+                if (CurrentLevelCounter == changeLevelMap)
                 {
                     levelGenerator.GenerateMapRandom();
-                    _levelCounter = 0;
+                    CurrentLevelCounter = 0;
                 }
             }
         }
 
-        public void Restart()
+        public override void Restart()
         {
             ChangeLevelDesign();
 
