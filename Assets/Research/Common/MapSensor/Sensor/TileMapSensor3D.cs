@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.GridSpaceEntity;
+using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
@@ -36,7 +37,7 @@ namespace Research.Common.MapSensor.Sensor
             
             if (Config.Debug)
             {
-                OutputDebugMap(debugGridSpace);
+                NuclearThroneMapGenerator.OutputDebugMap(debugGridSpace);
             }
 
             var outputSize = MShape[0] * MShape[1] * MShape[2];

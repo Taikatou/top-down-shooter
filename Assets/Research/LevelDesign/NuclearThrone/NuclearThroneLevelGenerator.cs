@@ -6,6 +6,7 @@ using Research.CharacterDesign.Scripts.Environment;
 using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
 using UnityEditor;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public GameObject spawnPrefab;
 
-		public IGetSpawnPoints getSpawnPoints;
+		public GetSpawnProcedural getSpawnPoints;
 
 		public LevelUpdate onLevelUpdate;
 
@@ -136,6 +137,8 @@ namespace Research.LevelDesign.NuclearThrone
 				var prefab = shouldInstantiate
 					? Instantiate(spawnPrefab)
 					: getSpawnPoints.Points[index].gameObject;
+				
+				getSpawnPoints.AddPoint(index, prefab.GetComponent<MLCheckbox>());
 				
 				prefab.transform.position = place;
 				prefab.transform.parent = getSpawnPoints.transform;

@@ -63,8 +63,9 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             for (var i = 0; i < mlCharacters.Length; i++)
             {
-                var spawnPoint = getSpawnProcedural.Points[i];
+                var spawnPoint = getSpawnProcedural.PointDict[i];
                 spawnPoint.SpawnPlayer(mlCharacters[i]);
+                // Debug.Assert([i], "Agent component was not found on this gameObject and is required.");
             }
         }
 
@@ -150,14 +151,12 @@ namespace Research.CharacterDesign.Scripts.Environment
             return -1;
         }
 
-
         private WinLossCondition GetRewardCondition(int teamId, int winningTeam)
         {
             if(winningTeam != -1)
             {
                 return winningTeam == teamId? WinLossCondition.Win: WinLossCondition.Loss;
             }
-
             return WinLossCondition.Draw;
         }
 
@@ -195,6 +194,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 agent.AddReward(reward);
                 agent.EndEpisode();
 
+                Debug.Log(winLossCondition + "\t" + agentName);
                 if (teamId == 0)
                 {
                     outPutter.AddResult(winLossCondition);

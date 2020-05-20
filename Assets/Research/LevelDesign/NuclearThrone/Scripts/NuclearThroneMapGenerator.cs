@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone.Scripts
 {
-	public enum GridSpace {Empty, Wall, Floor, Team1, Team2, Coin, Projectile1, Projectile2}
+	public enum GridSpace {Empty, Wall, Floor, Team1, Team2, Coin, Projectile1, Projectile2, Spawn1, Spawn2}
 	public static class NuclearThroneMapGenerator
 	{
 		private struct Walker
@@ -43,8 +43,23 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 
 			return map;
 		}
-
-
+		
+		public static void OutputDebugMap(GridSpace [,] debugGrid)
+		{
+			var roomWidth = debugGrid.GetUpperBound(0);
+			var roomHeight = debugGrid.GetUpperBound(1);
+			var output = "Output log \n";
+			for (var y = roomHeight - 1; y >= 0; y--)
+			{
+				for (var x = 0; x < roomWidth; x++)
+				{
+					output += (int) debugGrid[x, y];
+				}
+				output += "\n";
+			}
+			Debug.Log(output);
+		}
+		
 		private static void FillInGaps(GridSpace[,] map)
 		{
 			var listToFill = new List<Vector2Int>();

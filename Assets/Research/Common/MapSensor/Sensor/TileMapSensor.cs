@@ -48,22 +48,6 @@ namespace Research.Common.MapSensor.Sensor
             MObservations = new GridSpace[Config.SizeX, Config.SizeY];
         }
 
-        public static void OutputDebugMap(GridSpace [,] debugGrid)
-        {
-            var roomWidth = debugGrid.GetUpperBound(0);
-            var roomHeight = debugGrid.GetUpperBound(1);
-            var output = "Output log \n";
-            for (var y = roomHeight - 1; y >= 0; y--)
-            {
-                for (var x = 0; x < roomWidth; x++)
-                {
-                    output += (int) debugGrid[x, y];
-                }
-                output += "\n";
-            }
-            Debug.Log(output);
-        }
-
         public int Write(ObservationWriter writer)
         {
             using (TimerStack.Instance.Scoped("TileMapSensor.WriteToTensor"))

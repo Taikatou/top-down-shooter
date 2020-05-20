@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
-using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
@@ -25,6 +25,11 @@ namespace Research.LevelDesign.Scripts
         private void Start()
         {
             generator.onLevelUpdate += UpdateMapData;
+        }
+
+        private void AsyncUpdateMapData()
+        {
+            while(generator.getSpawnPoints == null) {}
             UpdateMapData();
         }
 
@@ -34,8 +39,8 @@ namespace Research.LevelDesign.Scripts
             {
                 if (_map == null)
                 {
-                    UpdateMapData();
-                    TileMapSensor.OutputDebugMap(_map);
+                    AsyncUpdateMapData();
+                    // NuclearThroneMapGenerator.OutputDebugMap(_map);
                 }
                 return _map;
             }
@@ -49,7 +54,17 @@ namespace Research.LevelDesign.Scripts
                 UpdateTileMap(layers.TileMap, layers.Condition);
             }
 
-            TileMapSensor.OutputDebugMap(Map);
+            var index = 0;
+            for (var i = 0; i < 2; i++)
+            {
+                var spawnPoint = generator.getSpawnPoints.PointDict[i];
+                var cell = GetPosition(spawnPoint.transform.position);
+
+                _map[cell.x, cell.y] = index == 0 ? GridSpace.Spawn1 : GridSpace.Spawn2;
+                index++;
+            }
+
+            NuclearThroneMapGenerator.OutputDebugMap(_map);
             mapId = _mapIntCounter;
             _mapIntCounter++;
             OutputMap();
