@@ -72,6 +72,7 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			var seed = gameObject.GetHashCode();
 			_randomGenerator = new System.Random((int)(seed * Time.time));
+			// GenerateMapRandom();
 		}
 
 		public void GenerateMapRandom()
@@ -79,8 +80,8 @@ namespace Research.LevelDesign.NuclearThrone
 			var random = _randomGenerator.Next(oneInXChance);
 			GenerateMap(random != 1);
 		}
-		
-		public void GenerateMap(bool generate)
+
+		private void GenerateMap(bool generate)
 		{
 			InvokeGenerateMap(generate);
 			onLevelUpdate.Invoke();
@@ -98,7 +99,7 @@ namespace Research.LevelDesign.NuclearThrone
 			while (validPositions.Count < players)
 			{
 				validPositions.Clear();
-				NuclearThroneMapFunctions.ClearArray(map, true);
+				NuclearThroneMapFunctions.ClearArray(map);
 
 				if (generateMap)
 				{

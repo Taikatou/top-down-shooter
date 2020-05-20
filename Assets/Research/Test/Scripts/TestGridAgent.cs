@@ -46,8 +46,6 @@ namespace Research.Test.Scripts
             
             var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
             controller.UpdateInput(primaryDirection);
-            
-            Debug.Log("Action Received");
         }
 
         public override void OnEpisodeBegin()
@@ -63,8 +61,8 @@ namespace Research.Test.Scripts
                 var found = false;
                 while (!found)
                 {
-                    var randomIndex = random.Next(0, spawnLocations.possibleSpawnPositions.Count);
-                    var randomTransform = spawnLocations.possibleSpawnPositions[randomIndex];
+                    var randomIndex = random.Next(0, spawnLocations.positions.Count);
+                    var randomTransform = spawnLocations.positions[randomIndex];
                 
                     if (!positionSet.Contains(randomTransform))
                     {

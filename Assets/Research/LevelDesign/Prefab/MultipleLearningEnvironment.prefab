@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5559f7952684d40a71ac3077d77c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapId: 0
   generator: {fileID: 1500987370944999141}
   dataLogger: {fileID: 0}
 --- !u!1 &1937059374132805699
@@ -11340,6 +11341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2602413739914685984}
   - component: {fileID: 2602413739914685985}
+  - component: {fileID: 2752097989532596058}
   m_Layer: 0
   m_Name: MultipleLearningEnvironment
   m_TagString: Untagged
@@ -11376,12 +11378,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3916c21e4ad0eb4885c2dba58a7433d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outPutter: {fileID: 2752097989532596058}
   teamSize: 1
-  dataLogger: {fileID: 0}
   levelGenerator: {fileID: 1500987370944999141}
   gameTime: 60
+  changeLevelMap: 10
   getSpawnProcedural: {fileID: 0}
   mlCharacters: []
+--- !u!114 &2752097989532596058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2602413739914685991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25866fc611252cd47a0e98ef9c9d3af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataLogger: {fileID: 0}
+  mapAccessor: {fileID: 0}
 --- !u!1 &2602413740792464597
 GameObject:
   m_ObjectHideFlags: 0

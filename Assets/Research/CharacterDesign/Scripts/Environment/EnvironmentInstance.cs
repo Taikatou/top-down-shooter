@@ -10,34 +10,39 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {
+    public enum WinLossCondition { Win, Loss, Draw};
     public sealed class EnvironmentInstance : GetEnvironmentMapPositions
     {
         public int teamSize = 2;
-        
-        public DataLogger dataLogger;
-
-        public NuclearThroneLevelGenerator levelGenerator;
-
         public float gameTime = 60;
-        
         public int changeLevelMap = 10;
         
+        public Outputter outPutter;
+        public NuclearThroneLevelGenerator levelGenerator;
         public GetSpawnProcedural getSpawnProcedural;
+        public Character[] mlCharacters;
+        
+        private float _timer;
+        private bool _gameOver;
+
+        public int CurrentTimer => (int)_timer;
+        
         public int CurrentLevelCounter { get; private set; }
 
         public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
 
-        public Character[] mlCharacters;
-        
-        private float _timer;
-
-        public int CurrentTimer => (int)_timer;
-
-        private bool _gameOver;
+        private static readonly Dictionary<WinLossCondition, int> RewardMap = new Dictionary<WinLossCondition, int>
+        {
+            { WinLossCondition.Win, 1 },
+            { WinLossCondition.Draw, 0},
+            { WinLossCondition.Loss, -1}
+        };
 
         private void Start()
         {
             _timer = gameTime;
+            CurrentLevelCounter = 118;
+            CurrentLevelCounter = 99;
         }
 
         private int[] GetTeamDeaths()
@@ -95,7 +100,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             WaitForRestart();
         }
 
-        public void InstantiatePlayableCharacters()
+        private void InstantiatePlayableCharacters()
         {
             foreach(var agent in mlCharacters)
             {
@@ -137,15 +142,16 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             return -1;
         }
-        
-        private int GetReward(int teamId, int winningTeam)
+
+
+        private WinLossCondition GetRewardCondition(int teamId, int winningTeam)
         {
             if(winningTeam != -1)
             {
-                return winningTeam == teamId? 1: -1;
+                return winningTeam == teamId? WinLossCondition.Win: WinLossCondition.Loss;
             }
 
-            return 0;
+            return WinLossCondition.Draw;
         }
 
         private void Update()
@@ -172,7 +178,8 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var behaviour = player.GetComponentInChildren<BehaviorParameters>();
                 var agentName = behaviour.FullyQualifiedBehaviorName;
                 var teamId = behaviour.TeamId;
-                var reward = GetReward(teamId, winningTeamId);
+                var winLossCondition = GetRewardCondition(teamId, winningTeamId);
+                var reward = RewardMap[winLossCondition];
                 
                 loggedData[teamId] = reward;
                 loggedNames.Add(agentName);
@@ -180,6 +187,11 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var agent = player.GetComponentInChildren<TopDownAgent>();
                 agent.AddReward(reward);
                 agent.EndEpisode();
+
+                if (teamId == 0)
+                {
+                    outPutter.AddResult(winLossCondition);
+                }
             }
 
             Debug.Log("Winning Team" + winningTeamId);

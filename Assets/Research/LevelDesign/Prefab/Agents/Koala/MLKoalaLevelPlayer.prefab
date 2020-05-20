@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapAccessor: {fileID: 0}
-  environmentInstance: {fileID: 0}
 --- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}

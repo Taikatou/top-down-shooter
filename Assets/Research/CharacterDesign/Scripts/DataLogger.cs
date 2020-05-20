@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
@@ -13,43 +14,37 @@ namespace Research.CharacterDesign.Scripts
 
         public int DrawNumber;
 
-        public int MapId;
-
-        public WinResults(int win, int loss, int draw, int mapId)
+        public WinResults(int win, int loss, int draw)
         {
             WinNumber = win;
             LossNumber = loss;
             DrawNumber = draw;
-            MapId = mapId;
         }
     }
 
     public class DataLogger : MonoBehaviour
     {
-        public int mapId;
-
-        public bool outputCSV;
+        public bool outputCsv;
         
-        private Dictionary<string, WinResults> _winResultsTeams;
+        private Dictionary<int, WinResults> _winResultsTeams;
 
-        private Dictionary<string, WinResults> _winResultsPlayers;
+        private Dictionary<int, WinResults> _winResultsPlayers;
 
         public void Start()
         {
-            _winResultsTeams = new Dictionary<string, WinResults>();
-            _winResultsPlayers = new Dictionary<string, WinResults>();
+            _winResultsTeams = new Dictionary<int, WinResults>();
+            _winResultsPlayers = new Dictionary<int, WinResults>();
         }
 
-        private string GetFileName(string fileName)
+        private static string GetFileName(string fileName)
         {
             var nowStr = DateTime.Now.ToString("_dd_MM_yyyy_HH_mm");
             return fileName + nowStr + ".csv";
         }
 
-        public void OutputMap(List<string[]> rowData)
+        public void OutputMap(List<string[]> rowData, int mapId)
         {
-            mapId++;
-            OutputCsv(rowData, mapId + "_mapdata.csv");
+            OutputCsv(rowData, "mapdata/map_" + mapId);
         }
 
         private void OutputCsv(List<string[]> rowData, string filename)
@@ -66,11 +61,10 @@ namespace Research.CharacterDesign.Scripts
 
             var sb = new StringBuilder();
 
-            for (int index = 0; index < length; index++)
+            for (var index = 0; index < length; index++)
             {
                 sb.AppendLine(string.Join(delimiter, output[index]));   
             }
-
 
             var filePath = GetPath(filename);
 
@@ -80,7 +74,7 @@ namespace Research.CharacterDesign.Scripts
         }
 
         // Following method is used to retrive the relative path as device platform
-        private string GetPath(string fileName)
+        private static string GetPath(string fileName)
         {
             #if UNITY_EDITOR
                 return Application.dataPath + "/CSV/" + GetFileName(fileName);
@@ -95,22 +89,21 @@ namespace Research.CharacterDesign.Scripts
 
         private void OnApplicationQuit()
         {
-            PrintFile(_winResultsTeams, "teams");
-            PrintFile(_winResultsPlayers, "players");
+            PrintFile(_winResultsTeams, "teams/teams");
+            PrintFile(_winResultsPlayers, "players/players");
         }
 
-        private void PrintFile(Dictionary<string, WinResults> dict, string filename)
+        private void PrintFile(Dictionary<int, WinResults> dict, string filename)
         {
-            var rowData = new List<string[]> {new[] {"Name", "Win Rate", "Loss Rate", "Draw Rate", "MapId"}};
-            foreach (var item in _winResultsTeams)
+            var rowData = new List<string[]> {new[] {"MapId", "Win Rate", "Loss Rate", "Draw Rate"}};
+            foreach (var item in dict)
             {
                 var row = new[]
                 {
-                    item.Key,
+                    item.Key.ToString(),
                     item.Value.WinNumber.ToString(),
                     item.Value.LossNumber.ToString(),
                     item.Value.DrawNumber.ToString(),
-                    item.Value.MapId.ToString()
                 };
                 rowData.Add(row);
             }
@@ -118,34 +111,34 @@ namespace Research.CharacterDesign.Scripts
             OutputCsv(rowData, filename);
         }
 
-        private void AddResult(Dictionary<string, WinResults> dict, string resultName, int gameEnding)
+        private void AddResult(Dictionary<int, WinResults> dict, WinLossCondition gameEnding, int mapId)
         {
-            var win = gameEnding == 1 ? 1 : 0;
-            var loss = gameEnding == -1 ? 1 : 0;
-            var draw = gameEnding == 0 ? 1 : 0;
-            if (dict.ContainsKey(resultName))
+            var win = gameEnding == WinLossCondition.Win ? 1 : 0;
+            var loss = gameEnding == WinLossCondition.Loss ? 1 : 0;
+            var draw = gameEnding == WinLossCondition.Draw ? 1 : 0;
+            if (dict.ContainsKey(mapId))
             {
-                dict[resultName].WinNumber += win;
-                dict[resultName].LossNumber += loss;
-                dict[resultName].DrawNumber += draw;
+                dict[mapId].WinNumber += win;
+                dict[mapId].LossNumber += loss;
+                dict[mapId].DrawNumber += draw;
             }
             else
             {
-                var output = new WinResults(win, loss, draw, mapId);
-                dict.Add(resultName, output);
+                var output = new WinResults(win, loss, draw);
+                dict.Add(mapId, output);
             }
 
-            Debug.Log(resultName + "\t" + win + "\t" + loss);
+            Debug.Log(mapId + "\t" + win + "\t" + loss);
         }
 
-        public void AddResultTeam(string teamName, int condition)
+        public void AddResultTeam(WinLossCondition condition, int mapId)
         {
-            AddResult(_winResultsTeams, teamName, condition);
+            AddResult(_winResultsTeams, condition, mapId);
         }
 
-        public void AddResultAgent(string agentName, int condition)
+        public void AddResultAgent(WinLossCondition condition, int mapId)
         {
-            AddResult(_winResultsPlayers, agentName, condition);
+            AddResult(_winResultsPlayers, condition, mapId);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
@@ -11,15 +12,20 @@ namespace Research.LevelDesign.Scripts
 {
     public class MapAccessor : MonoBehaviour
     {
+        private static int _mapIntCounter;
+
+        public int mapId;
+        
         public NuclearThroneLevelGenerator generator;
 
-        private GridSpace[,] _map;
-
         public DataLogger dataLogger;
+        
+        private GridSpace[,] _map;
 
         private void Start()
         {
             generator.onLevelUpdate += UpdateMapData;
+            UpdateMapData();
         }
 
         public GridSpace[,] Map
@@ -43,7 +49,9 @@ namespace Research.LevelDesign.Scripts
                 UpdateTileMap(layers.TileMap, layers.Condition);
             }
 
-            TileMapSensor.OutputDebugMap(_map);
+            TileMapSensor.OutputDebugMap(Map);
+            mapId = _mapIntCounter;
+            _mapIntCounter++;
             OutputMap();
         }
         
@@ -56,6 +64,8 @@ namespace Research.LevelDesign.Scripts
         {
             var z = (int) tileMap.transform.position.y;
 
+            var found = false;
+
             for (var y = 0; y < generator.height; y++)
             {
                 for (var x = 0; x < generator.width; x++)
@@ -65,18 +75,23 @@ namespace Research.LevelDesign.Scripts
                     if (tile != null)
                     {
                         _map[x, y] = type;
-                    }
-                    else
-                    {
-                        Debug.Log("Invalid Tilemap");
+                        if (!found)
+                        {
+                            found = true;
+                        }
                     }
                 }
+            }
+
+            if (!found)
+            {
+                Debug.Log("did not find any tiles");
             }
         }
         
         public void OutputMap()
         {
-            if (dataLogger.outputCSV)
+            if (dataLogger.outputCsv)
             {
                 var rowData = new List<string[]>();
 
@@ -93,7 +108,7 @@ namespace Research.LevelDesign.Scripts
                     rowData.Add(row);
                 }
 			
-                dataLogger.OutputMap(rowData);
+                dataLogger.OutputMap(rowData, mapId);
             }
         }
     }
