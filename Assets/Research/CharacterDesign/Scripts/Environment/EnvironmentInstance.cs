@@ -41,8 +41,6 @@ namespace Research.CharacterDesign.Scripts.Environment
         private void Start()
         {
             _timer = gameTime;
-            CurrentLevelCounter = 118;
-            CurrentLevelCounter = 99;
         }
 
         private int[] GetTeamDeaths()
