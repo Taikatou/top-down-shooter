@@ -45,8 +45,19 @@ namespace Research.Common.MapSensor.Sensor
 
         public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
         {
-            var detectable = Config.GridSpaceValues.Count;
-            MShape = new[] { Config.SizeX, Config.SizeY, detectable };
+            MShape = GetObservationSize3D(Config);
+        }
+
+        private static int[] GetObservationSize3D(TileMapSensorConfig config)
+        {
+            var detectable = config.GridSpaceValues.Count;
+            return new[] { config.SizeX, config.SizeY, detectable };
+        }
+
+        public static int[] GetObservationSize3D(int size, IEnumerable<GridSpace> detectableLayers)
+        {
+            var config = new TileMapSensorConfig(size, false, detectableLayers, false, 1, false);
+            return GetObservationSize3D(config);
         }
     }
 }

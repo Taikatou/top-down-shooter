@@ -5,6 +5,7 @@ using Research.CharacterDesign.Scripts.Characters;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
+using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
@@ -58,17 +59,6 @@ namespace Research.CharacterDesign.Scripts.Environment
             return teamDeaths;
         }
 
-        private void WaitForRestart()
-        {
-            InstantiatePlayableCharacters();
-
-            SpawnMultipleCharacters();
-
-            _gameOver = false;
-            
-            _timer = gameTime;
-        }
-
         public void SpawnMultipleCharacters()
         {
             for (var i = 0; i < mlCharacters.Length; i++)
@@ -91,11 +81,30 @@ namespace Research.CharacterDesign.Scripts.Environment
             }
         }
 
-        public override void Restart()
+        public override IEnumerator Restart()
         {
+            // Pause AI and start stuff
+            SetAllowDecisions(false);
+            yield return new WaitForEndOfFrame();
+            
             ChangeLevelDesign();
+            // Restart the game
+            InstantiatePlayableCharacters();
+            SpawnMultipleCharacters();
+            _gameOver = false;
+            _timer = gameTime;
+            
+            // reenable characters
+            SetAllowDecisions(true);
+        }
 
-            WaitForRestart();
+        private void SetAllowDecisions(bool allow)
+        {
+            foreach (var agent in mlCharacters)
+            {
+                var decisionRequester = agent.GetComponentInChildren<DecisionRequester>();
+                decisionRequester.allowDecisions = allow;
+            }
         }
 
         private void InstantiatePlayableCharacters()
@@ -196,7 +205,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
                       loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
-            Restart();
+            StartCoroutine(Restart());
             yield break;
         }
     }

@@ -28,13 +28,5 @@ namespace Research.Common.MapSensor.SensorComponent
         protected MapAccessor MapAccessor => GetComponentInParent<MapSensorGetter>().mapAccessor;
 
         protected GetEnvironmentMapPositions EnvironmentInstance => GetComponentInParent<GetEnvironmentMapPositions>();
-
-        protected abstract ISensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags);
-
-        public override ISensor CreateSensor()
-        {
-            TileMapSensor = CreateTileMapSensor(detectableTags);
-            return TileMapSensor;
-        }
     }
 }

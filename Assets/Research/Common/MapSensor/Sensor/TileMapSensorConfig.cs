@@ -15,7 +15,6 @@ namespace Research.Common.MapSensor.Sensor
         public readonly bool Debug;
         public readonly Dictionary<GridSpace, int> GridSpaceValues;
         public readonly bool TrackPosition;
-        public readonly string Name;
         public readonly int TeamId;
 
         public int SizeX => _size - 1;
@@ -36,12 +35,11 @@ namespace Research.Common.MapSensor.Sensor
             return returnValue;
         }
         
-        public TileMapSensorConfig(int size, bool trackPosition, string name,
+        public TileMapSensorConfig(int size, bool trackPosition,
             IEnumerable<GridSpace> detectableLayers, bool debug, int teamId, bool buffer)
         {
             _size = size;
             Debug = debug;
-            Name = name;
             TrackPosition = trackPosition;
             _cacheOffset = buffer ? 1 : 0;
             GridSpaceValues = new Dictionary<GridSpace, int>();

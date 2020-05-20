@@ -15,11 +15,13 @@ namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
+        public string Name;
+        
         public readonly TileMapSensorConfig Config;
         protected readonly GridSpace[,] MObservations;
         protected abstract int[] MShape { get; }
 
-        public string GetName() { return Config.Name; }
+        public string GetName() => Name;
         
         public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
 
@@ -40,7 +42,8 @@ namespace Research.Common.MapSensor.Sensor
         {
             _mapAccessor = mapAccessor;
             _environmentInstance = environmentInstance;
-            Config = new TileMapSensorConfig(size, trackPosition, name, detectableLayers, debug, teamId, buffer);
+            Config = new TileMapSensorConfig(size, trackPosition, detectableLayers, debug, teamId, buffer);
+            Name = name;
             
             MObservations = new GridSpace[Config.SizeX, Config.SizeY];
         }

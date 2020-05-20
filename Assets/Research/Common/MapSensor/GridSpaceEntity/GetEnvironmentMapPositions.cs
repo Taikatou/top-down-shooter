@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.GridSpaceEntity
 {
@@ -6,6 +7,6 @@ namespace Research.Common.MapSensor.GridSpaceEntity
     {
         public abstract EntityMapPosition[] EntityMapPositions { get; }
 
-        public abstract void Restart();
+        public abstract IEnumerator Restart();
     }
 }
