@@ -31,7 +31,7 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
     {
         public Algorithm algorithm;
         public bool randomSeed;
-        public float seed;
+        public int seed;
         public int fillAmount;
         public int smoothAmount;
         public int clearAmount;
@@ -60,7 +60,7 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
             //Only appear if we have the random seed set to false
             if (!mapLayer.randomSeed)
             {
-                mapLayer.seed = EditorGUILayout.FloatField("Seed", mapLayer.seed);
+                mapLayer.seed = EditorGUILayout.IntField("Seed", mapLayer.seed);
             }
 
             //Shows different options depending on what algorithm is selected

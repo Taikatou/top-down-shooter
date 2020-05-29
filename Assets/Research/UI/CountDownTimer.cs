@@ -12,7 +12,7 @@ namespace Research.UI
 
         private void Update()
         {
-            textComponent.text = instance.CurrentTimer.ToString();
+            //textComponent.text = instance.CurrentTimer.ToString();
         }
     }
 }

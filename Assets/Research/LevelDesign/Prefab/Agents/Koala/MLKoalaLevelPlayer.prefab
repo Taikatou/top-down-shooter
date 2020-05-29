@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
-  allowDecisions: 1
+  allowDecisions: 0
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0

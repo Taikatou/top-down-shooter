@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\conor\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.-567513877.00" t="ExcludeRecursive" />
-    <e p="C:\Users\conor\Documents\GitHub\ml-agents\com.unity.ml-agents\Editor" t="Include">
+    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
+    <e p="D:\ml-agents\com.unity.ml-agents\Editor" t="Include">
       <e p="AgentEditor.cs" t="Include" />
       <e p="BehaviorParametersEditor.cs" t="Include" />
       <e p="BrainParametersDrawer.cs" t="Include" />
@@ -16,7 +16,7 @@
       <e p="TopDownRayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
-    <e p="C:\Users\conor\Documents\GitHub\ml-agents\com.unity.ml-agents\Runtime" t="Include">
+    <e p="D:\ml-agents\com.unity.ml-agents\Runtime" t="Include">
       <e p="Academy.cs" t="Include" />
       <e p="Agent.cs" t="Include" />
       <e p="AssemblyInfo.cs" t="Include" />
@@ -123,7 +123,7 @@
       <e p="UnityAgentsException.cs" t="Include" />
       <e p="Utilities.cs" t="Include" />
     </e>
-    <e p="C:\Users\conor\Documents\GitHub\top-down-shooter" t="IncludeRecursive">
+    <e p="D:\top-down-shooter" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -359,6 +359,7 @@
               <e p="NuclearThroneMapFunctions.cs" t="Include" />
               <e p="READ ME.txt" t="Include" />
               <e p="Scripts" t="Include">
+                <e p="ClearInnerWalls.cs" t="Include" />
                 <e p="LevelGenerator.cs" t="Include" />
                 <e p="NuclearThroneMapGenerator.cs" t="Include" />
                 <e p="Restarter.cs" t="Include" />
@@ -366,9 +367,9 @@
               </e>
             </e>
             <e p="Scripts" t="Include">
+              <e p="AnalysisTool.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
               <e p="MapAccessor.cs" t="Include" />
-              <e p="Outputter.cs" t="Include" />
             </e>
             <e p="UnityProcedural" t="Include">
               <e p="Global Scripts" t="Include">

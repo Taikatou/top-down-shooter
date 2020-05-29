@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Research.CharacterDesign.Scripts;
+﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.Environment;
-using Research.CharacterDesign.Scripts.SpawnPoints;
-using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
+using Unity.Simulation.Games;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -42,15 +37,13 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public int players = 2;
 
+		public bool clearInnerWalls = true;
+
 		public GameObject spawnPrefab;
 
 		public GetSpawnProcedural getSpawnPoints;
 
 		public LevelUpdate onLevelUpdate;
-
-		public int oneInXChance = 2;
-		
-		private System.Random _randomGenerator;
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -69,32 +62,31 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		private void Start()
+		public void GenerateMap(int seed)
 		{
-			var seed = gameObject.GetHashCode();
-			_randomGenerator = new System.Random((int)(seed * Time.time));
-			// GenerateMapRandom();
-		}
-
-		public void GenerateMapRandom()
-		{
-			var random = _randomGenerator.Next(oneInXChance);
-			GenerateMap(random != 1);
-		}
-
-		private void GenerateMap(bool generate)
-		{
-			InvokeGenerateMap(generate);
+			InvokeGenerateMap(true, seed);
 			onLevelUpdate.Invoke();
 		}
-		
-		public void InvokeGenerateMap(bool generateMap, int distance=2)
+
+		private int GetSeed()
+		{
+			return (int)(gameObject.GetHashCode() * Time.time);
+		}
+
+		public void InvokeGenerateMap(bool generateMap)
+		{
+			var seed = mapSetting.randomSeed ? GetSeed() : mapSetting.seed;
+			InvokeGenerateMap(generateMap, seed);
+		}
+
+		private void InvokeGenerateMap(bool generateMap, int seed, int distance=2)
 		{
 			ClearMap();
+			seed *= GetHashCode();
+			// 
+			Random.InitState(seed);
+			GameSimManager.Instance.SetCounter("seed", seed);
 			
-			var seed = mapSetting.randomSeed ? gameObject.GetHashCode() * Time.time : mapSetting.seed;
-			Random.InitState(seed.GetHashCode());
-
 			var validPositions = new List<Vector3Int>();
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)
@@ -110,6 +102,12 @@ namespace Research.LevelDesign.NuclearThrone
 				{
 					map = NuclearThroneMapGenerator.SquareMap(map);
 				}
+
+				if (clearInnerWalls)
+				{
+					ClearInnerWalls.RemoveInnerWalls(map);
+				}
+
 				var z = (int) tilemapGround.transform.position.y;
 				for (var y = distance; y < height - distance; y++)
 				{

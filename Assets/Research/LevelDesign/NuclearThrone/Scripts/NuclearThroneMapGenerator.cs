@@ -88,6 +88,15 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 		{
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);
+
+			void WallCheck(int xL, int yL)
+			{
+				if (map[xL, yL] == GridSpace.Empty)
+				{
+					map[xL, yL] = GridSpace.Wall;
+				}
+			}
+
 			//loop though every grid space
 			for (var x = 0; x < roomWidth-1; x++)
 			{
@@ -97,20 +106,12 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 					if (map[x, y] == GridSpace.Floor)
 					{
 						//if any surrounding spaces are empty, place a wall
-						AddWallOnEmpty(map, x, y + 1);
-						AddWallOnEmpty(map, x, y -1);
-						AddWallOnEmpty(map, x + 1, y);
-						AddWallOnEmpty(map, x - 1, y);
+						WallCheck(x, y + 1);
+						WallCheck(x, y -1);
+						WallCheck(x + 1, y);
+						WallCheck(x - 1, y);
 					}
 				}
-			}
-		}
-
-		private static void AddWallOnEmpty(GridSpace[,] map, int x, int y)
-		{
-			if (map[x, y] == GridSpace.Empty)
-			{
-				map[x, y] = GridSpace.Wall;
 			}
 		}
 
@@ -199,6 +200,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			}
 			while(iterations < 100000);
 		}
+
 
 		private static void RemoveSingleWalls(GridSpace[,] map, float requiredFloorPercent)
 		{

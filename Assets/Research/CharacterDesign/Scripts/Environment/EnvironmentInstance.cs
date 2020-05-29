@@ -7,6 +7,7 @@ using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
+using Unity.Simulation.Games;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -14,21 +15,23 @@ namespace Research.CharacterDesign.Scripts.Environment
     public enum WinLossCondition { Win, Loss, Draw};
     public sealed class EnvironmentInstance : GetEnvironmentMapPositions
     {
+        public float gameTime = 120;
+        private float _timer;
+        public int CurrentTimer => (int)_timer;
+    
         public int teamSize = 2;
-        public float gameTime = 60;
         public int changeLevelMap = 10;
         
-        public Outputter outPutter;
+        public AnalysisTool outPutter;
         public NuclearThroneLevelGenerator levelGenerator;
         public GetSpawnProcedural getSpawnProcedural;
         public Character[] mlCharacters;
         
-        private float _timer;
         private bool _gameOver;
 
-        public int CurrentTimer => (int)_timer;
-        
         public int CurrentLevelCounter { get; private set; }
+
+        private int _randomSeed;
 
         public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
 
@@ -42,6 +45,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         private void Start()
         {
             _timer = gameTime;
+            CurrentLevelCounter = changeLevelMap;
         }
 
         private int[] GetTeamDeaths()
@@ -73,13 +77,20 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (levelGenerator)
             {
-                CurrentLevelCounter++;
-                if (CurrentLevelCounter == changeLevelMap)
+                if (CurrentLevelCounter >= changeLevelMap)
                 {
-                    levelGenerator.GenerateMapRandom();
-                    CurrentLevelCounter = 0;
+                    levelGenerator.GenerateMap(_randomSeed);
+                    CurrentLevelCounter = 1;
                 }
+                CurrentLevelCounter++;
             }
+        }
+
+        public void StartSimulation(int randomSeed)
+        {
+            _randomSeed = randomSeed;
+            Debug.Log(_randomSeed);
+            StartCoroutine(Restart());
         }
 
         public override IEnumerator Restart()
@@ -92,11 +103,12 @@ namespace Research.CharacterDesign.Scripts.Environment
             // Restart the game
             InstantiatePlayableCharacters();
             SpawnMultipleCharacters();
-            _gameOver = false;
-            _timer = gameTime;
-            
+
             // reenable characters
             SetAllowDecisions(true);
+            
+            _timer = gameTime;
+            _gameOver = false;
         }
 
         private void SetAllowDecisions(bool allow)
@@ -205,7 +217,14 @@ namespace Research.CharacterDesign.Scripts.Environment
             Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
                       loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
-            StartCoroutine(Restart());
+            if (AnalysisTool.UnitySimulation)
+            {
+                Application.Quit();
+            }
+            else
+            {
+                StartCoroutine(Restart());   
+            }
             yield break;
         }
     }

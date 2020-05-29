@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
-using Research.Common.MapSensor.Sensor;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using UnityEditor;
@@ -12,7 +11,7 @@ namespace Research.LevelDesign.Scripts
 {
     public class MapAccessor : MonoBehaviour
     {
-        private static int _mapIntCounter;
+        private static int _mapIntCounter = 2000;
 
         public int mapId;
         

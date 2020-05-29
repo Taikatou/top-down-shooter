@@ -8,6 +8,7 @@ using Research.Common.EntitySensor;
 using Research.LevelDesign.NuclearThrone;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
+using Unity.Simulation.Games;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -22,14 +23,36 @@ namespace Research.CharacterDesign.Scripts.Environment
             _characterEnvironmentMap ??
             (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
 
+        protected override void Start()
+        {
+            base.Start();
+            Application.targetFrameRate = 60;
+        }
+
         protected override void SpawnSingleCharacter()
         {
-            SpawnCharacters();
+            // SpawnCharacters();
+            GetConfigSimulation();
         }
 
         protected override void SpawnMultipleCharacters()
         {
-            SpawnCharacters();
+            // SpawnCharacters();
+            GetConfigSimulation();
+        }
+
+        private void GetConfigSimulation()
+        {
+            GameSimManager.Instance.FetchConfig(OnConfigReceived);
+        }
+        
+        private void OnConfigReceived(GameSimConfigResponse config)
+        {
+            var random = config.GetInt("random_seed");
+            foreach (var environment in Environments)
+            {
+                environment.StartSimulation(random);
+            }
         }
 
         private void SpawnCharacters()
