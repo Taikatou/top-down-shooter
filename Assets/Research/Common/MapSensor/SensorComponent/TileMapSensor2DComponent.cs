@@ -20,7 +20,7 @@ namespace Research.Common.MapSensor.SensorComponent
                                                 trackPosition, 
                                                 debug, 
                                                 detectableTags,
-                                                MapAccessor,
+                                                mapAccessor,
                                                 EnvironmentInstance,
                                                 GetTeamId,
                                                 buffer);

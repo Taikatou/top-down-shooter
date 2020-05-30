@@ -34,8 +34,7 @@ namespace Research.Common.MapSensor.Sensor
             writer.AddRange(outputArray);
             if (Config.Debug)
             {
-                // OutputDebugMap(MObservations);
-                // var debugTxt = string.Join(", ", outputArray);
+                NuclearThroneMapGenerator.OutputDebugMap(MObservations);
             }
             return obsSize;
         }

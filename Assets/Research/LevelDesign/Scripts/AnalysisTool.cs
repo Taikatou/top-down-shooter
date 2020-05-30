@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
+using Research.LevelDesign.NuclearThrone;
 using Unity.Simulation.Games;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Research.LevelDesign.Scripts
             }
             else
             {
-                dataLogger.AddResultAgent(condition, mapAccessor.mapId);   
+                dataLogger.AddResultAgent(condition, NuclearThroneLevelGenerator.MapIntCounter);   
             }
         }
     }

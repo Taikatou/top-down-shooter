@@ -1,50 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.Scripts;
-using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
-        public string Name;
-        
-        public readonly TileMapSensorConfig Config;
+        private readonly string _name;
+
         protected readonly GridSpace[,] MObservations;
+
+        public readonly TileMapSensorConfig Config;
+
+        protected readonly GetEnvironmentMapPositions EnvironmentInstance;
+
+        protected readonly MapAccessor MapAccessor;
+
         protected abstract int[] MShape { get; }
 
-        public string GetName() => Name;
-        
-        public SensorCompressionType GetCompressionType() { return SensorCompressionType.None; }
+        public string GetName() => _name;
 
-        public void Reset() { Array.Clear(MObservations, 0, Config.SizeX*Config.SizeY); }
-        
-        public byte[] GetCompressedObservation() { return null; }
-        
-        public int[] GetObservationShape() { return MShape; }
+        public SensorCompressionType GetCompressionType()
+        {
+            return SensorCompressionType.None;
+        }
 
-        private readonly GetEnvironmentMapPositions _environmentInstance;
+        public byte[] GetCompressedObservation()
+        {
+            return null;
+        }
 
-        private readonly MapAccessor _mapAccessor;
+        public int[] GetObservationShape()
+        {
+            return MShape;
+        }
 
         protected abstract int WriteObservations(ObservationWriter writer);
 
-        protected TileMapSensor(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers,
+        public void Reset()
+        {
+            Array.Clear(MObservations, 0, Config.SizeX * Config.SizeY);
+        }
+
+        protected TileMapSensor(string name, int size, bool trackPosition, bool debug,
+            IEnumerable<GridSpace> detectableLayers,
             MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer)
         {
-            _mapAccessor = mapAccessor;
-            _environmentInstance = environmentInstance;
+            MapAccessor = mapAccessor;
+            EnvironmentInstance = environmentInstance;
             Config = new TileMapSensorConfig(size, trackPosition, detectableLayers, debug, teamId, buffer);
-            Name = name;
-            
+            _name = name;
+
             MObservations = new GridSpace[Config.SizeX, Config.SizeY];
         }
 
@@ -56,37 +66,38 @@ namespace Research.Common.MapSensor.Sensor
             }
         }
 
-        private void UpdateMap()
-        {
-            var startEnd = Config.GetTrackPosition();
-            for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
-            {
-                for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
-                {
-                    var value =_mapAccessor.Map[x, y];
-                    MObservations[x, y] = value;
-                }
-            }
-        }
-
         public void Update()
         {
             UpdateMap();
             UpdateMapEntityPositions();
         }
 
+        private void UpdateMap()
+        {
+            var map = MapAccessor.GetMap();
+            var startEnd = Config.GetTrackPosition();
+            for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
+            {
+                for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
+                {
+                    var value = map[x, y];
+                    MObservations[x, y] = value;
+                }
+            }
+        }
+
         private void UpdateMapEntityPositions()
         {
-            foreach (var entityList in  _environmentInstance.EntityMapPositions)
+            foreach (var entityList in EnvironmentInstance.EntityMapPositions)
             {
                 foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
                 {
-                    var cell = _mapAccessor.GetPosition(entity.Position);
+                    var cell = MapAccessor.GetPosition(entity.Position);
                     var trackPos = Config.GetTrackPosition();
-                    
+
                     var xValid = cell.x >= trackPos.StartPos.x && cell.x < trackPos.EndPos.x;
                     var yValid = cell.y >= trackPos.StartPos.y && cell.y < trackPos.EndPos.y;
-                    
+
                     if (xValid && yValid)
                     {
                         var gridType = entity.GridSpace;

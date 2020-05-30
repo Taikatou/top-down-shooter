@@ -45,6 +45,8 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public LevelUpdate onLevelUpdate;
 
+		public static int MapIntCounter { get; private set; }
+
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
 			{
@@ -65,7 +67,9 @@ namespace Research.LevelDesign.NuclearThrone
 		public void GenerateMap(int seed)
 		{
 			InvokeGenerateMap(true, seed);
-			onLevelUpdate.Invoke();
+			onLevelUpdate?.Invoke();
+			
+			MapIntCounter++;
 		}
 
 		private int GetSeed()

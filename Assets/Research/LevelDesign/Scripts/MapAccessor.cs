@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
@@ -11,62 +10,49 @@ namespace Research.LevelDesign.Scripts
 {
     public class MapAccessor : MonoBehaviour
     {
-        private static int _mapIntCounter = 2000;
-
-        public int mapId;
-        
         public NuclearThroneLevelGenerator generator;
 
         public DataLogger dataLogger;
-        
-        private GridSpace[,] _map;
+
+        private GridSpace[,] _cachedMap;
+
+        private int _cachedMapId = -1;
 
         private void Start()
         {
             generator.onLevelUpdate += UpdateMapData;
         }
 
-        private void AsyncUpdateMapData()
+        public GridSpace[,] GetMap()
         {
-            while(generator.getSpawnPoints == null) {}
             UpdateMapData();
-        }
-
-        public GridSpace[,] Map
-        {
-            get
-            {
-                if (_map == null)
-                {
-                    AsyncUpdateMapData();
-                    // NuclearThroneMapGenerator.OutputDebugMap(_map);
-                }
-                return _map;
-            }
+            return _cachedMap;
         }
 
         private void UpdateMapData()
         {
-            _map = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);
-            foreach (var layers in generator.MapLayerData)
+            var newId = NuclearThroneLevelGenerator.MapIntCounter;
+            if (_cachedMapId != newId)
             {
-                UpdateTileMap(layers.TileMap, layers.Condition);
+                _cachedMap = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);
+                foreach (var layers in generator.MapLayerData)
+                {
+                    UpdateTileMap(_cachedMap, layers.TileMap, layers.Condition);
+                }
+
+                var index = 0;
+                for (var i = 0; i < 2; i++)
+                {
+                    var spawnPoint = generator.getSpawnPoints.PointDict[i];
+                    var cell = GetPosition(spawnPoint.transform.position);
+
+                    _cachedMap[cell.x, cell.y] = index == 0 ? GridSpace.Spawn1 : GridSpace.Spawn2;
+                    index++;
+                }
+
+                //NuclearThroneMapGenerator.OutputDebugMap(map);
+                _cachedMapId = newId;
             }
-
-            var index = 0;
-            for (var i = 0; i < 2; i++)
-            {
-                var spawnPoint = generator.getSpawnPoints.PointDict[i];
-                var cell = GetPosition(spawnPoint.transform.position);
-
-                _map[cell.x, cell.y] = index == 0 ? GridSpace.Spawn1 : GridSpace.Spawn2;
-                index++;
-            }
-
-            NuclearThroneMapGenerator.OutputDebugMap(_map);
-            mapId = _mapIntCounter;
-            _mapIntCounter++;
-            OutputMap();
         }
         
         public Vector3Int GetPosition(Vector3 position)
@@ -74,7 +60,7 @@ namespace Research.LevelDesign.Scripts
             return generator.tilemapGround.WorldToCell(position);
         }
         
-        private void UpdateTileMap(Tilemap tileMap, GridSpace type)
+        private void UpdateTileMap(GridSpace[,] map, Tilemap tileMap, GridSpace type)
         {
             var z = (int) tileMap.transform.position.y;
 
@@ -88,7 +74,7 @@ namespace Research.LevelDesign.Scripts
                     var tile = tileMap.GetTile(tilePosition);
                     if (tile != null)
                     {
-                        _map[x, y] = type;
+                        map[x, y] = type;
                         if (!found)
                         {
                             found = true;
@@ -107,22 +93,23 @@ namespace Research.LevelDesign.Scripts
         {
             if (dataLogger.outputCsv)
             {
+                var map = GetMap();
                 var rowData = new List<string[]>();
 
-                var roomHeight = Map.GetUpperBound(0);
-                var roomWidth = Map.GetUpperBound(1);
+                var roomHeight = map.GetUpperBound(0);
+                var roomWidth = map.GetUpperBound(1);
 
                 for (var i = 0; i < roomHeight; i++)
                 {
                     var row = new string [roomWidth];
                     for (var j = 0; j < roomWidth; j++)
                     {
-                        row[j] = ((int)Map[i, j]).ToString();
+                        row[j] = ((int)map[i, j]).ToString();
                     }
                     rowData.Add(row);
                 }
 			
-                dataLogger.OutputMap(rowData, mapId);
+                dataLogger.OutputMap(rowData, _cachedMapId);
             }
         }
     }

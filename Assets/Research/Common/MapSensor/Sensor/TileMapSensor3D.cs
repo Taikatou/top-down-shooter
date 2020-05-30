@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
@@ -15,7 +12,6 @@ namespace Research.Common.MapSensor.Sensor
 
         protected override int WriteObservations(ObservationWriter writer)
         {
-            var debugGridSpace = new GridSpace[Config.SizeX, Config.SizeY];
             foreach (var pair in Config.GridSpaceValues)
             {
                 var gridInt = pair.Value;
@@ -26,18 +22,13 @@ namespace Research.Common.MapSensor.Sensor
                         var isKey = MObservations[x, y] == pair.Key;
                         var present = isKey? 1.0f: 0.0f;
                         writer[x, y, gridInt] = present;
-
-                        if (isKey)
-                        {
-                            debugGridSpace[x, y] = MObservations[x, y];   
-                        }
                     }
                 }   
             }
             
             if (Config.Debug)
             {
-                NuclearThroneMapGenerator.OutputDebugMap(debugGridSpace);
+                NuclearThroneMapGenerator.OutputDebugMap(MObservations);
             }
 
             var outputSize = MShape[0] * MShape[1] * MShape[2];

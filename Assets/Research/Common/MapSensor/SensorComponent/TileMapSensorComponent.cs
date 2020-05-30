@@ -18,14 +18,14 @@ namespace Research.Common.MapSensor.SensorComponent
         public string sensorName;
 
         public bool buffer;
+        
+        public MapAccessor mapAccessor;
 
         public List<GridSpace> detectableTags;
         
         protected ISensor TileMapSensor;
         
         protected int GetTeamId => GetComponent<BehaviorParameters>().TeamId;
-
-        protected MapAccessor MapAccessor => GetComponentInParent<MapSensorGetter>().mapAccessor;
 
         protected GetEnvironmentMapPositions EnvironmentInstance => GetComponentInParent<GetEnvironmentMapPositions>();
     }

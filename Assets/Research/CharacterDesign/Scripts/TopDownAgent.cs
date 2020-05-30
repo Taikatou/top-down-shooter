@@ -164,10 +164,6 @@ namespace Research.CharacterDesign.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            if (sensor != null)
-            {
-                return;
-            }
             if (observationSettings.ObserveSpriteRenderer)
             {
                 var id = SpriteId.Instance.GetId(spriteRenderer);

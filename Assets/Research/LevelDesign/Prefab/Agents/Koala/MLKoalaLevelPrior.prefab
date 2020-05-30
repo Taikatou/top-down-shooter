@@ -52,24 +52,84 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_ObservationStacks
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: PlayerPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[3]
+      value: ProjectilePrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[4]
+      value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: detectableTags.Array.data[0]
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: detectableTags.Array.data[1]
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: detectableTags.Array.data[2]
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: detectableTags.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sensorName
+      value: 2d Sensor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: buffer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: mObservationStacks
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[4]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: detectableTags.Array.data[5]
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2734321548508270922, guid: f3588df27c133384f97bde26e56aa9ac,
@@ -106,6 +166,11 @@ PrefabInstance:
         type: 3}
       propertyPath: TeamId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476719718635778865, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_Model
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
