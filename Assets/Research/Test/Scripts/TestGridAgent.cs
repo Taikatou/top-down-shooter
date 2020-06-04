@@ -21,7 +21,8 @@ namespace Research.Test.Scripts
         
         public override void Initialize()
         {
-            _mTransform = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            var position = transform.position;
+            _mTransform = new Vector3(position.x, position.y, position.z);
         }
 
         public void CompleteMovement()
@@ -36,19 +37,15 @@ namespace Research.Test.Scripts
 
         public override void Heuristic(float[] actionsOut)
         {
-            var index = 0;
-            actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
+            actionsOut[0] = (int) directionsKeyMapper.PrimaryDirections;
         }
 
         public override void OnActionReceived(float[] vectorAction)
         {
             AddReward(punishValue);
-
-            var counter = 0;
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[counter++]);
-            controller.UpdateInput(primaryDirection);
             
-            Debug.Log("Action Received");
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
+            controller.UpdateInput(primaryDirection);
         }
 
         public override void OnEpisodeBegin()
@@ -64,8 +61,8 @@ namespace Research.Test.Scripts
                 var found = false;
                 while (!found)
                 {
-                    var randomIndex = random.Next(0, spawnLocations.possibleSpawnPositions.Count);
-                    var randomTransform = spawnLocations.possibleSpawnPositions[randomIndex];
+                    var randomIndex = random.Next(0, spawnLocations.positions.Count);
+                    var randomTransform = spawnLocations.positions[randomIndex];
                 
                     if (!positionSet.Contains(randomTransform))
                     {

@@ -1,4 +1,5 @@
 ﻿using MoreMountains.TopDownEngine;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Research.Test.Scripts;
 using Unity.MLAgents.Policies;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 {
     public class AgentsCoin : PickableItem
     {
-        public EnvironmentInstance levelManager;
+        public GetEnvironmentMapPositions levelManager;
         // Update is called once per frame
         protected override void Pick(GameObject picker)
         {

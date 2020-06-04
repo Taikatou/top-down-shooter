@@ -7,7 +7,5 @@ namespace Research.Common.MapSensor
     public class MapSensorGetter : MonoBehaviour
     {
         public MapAccessor mapAccessor;
-        
-        public EnvironmentInstance environmentInstance;
     }
 }

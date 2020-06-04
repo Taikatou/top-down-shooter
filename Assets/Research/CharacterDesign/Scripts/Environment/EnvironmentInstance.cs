@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.Characters;
@@ -12,39 +11,39 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {
-    public sealed class EnvironmentInstance : MonoBehaviour
+    public enum WinLossCondition { Win, Loss, Draw};
+    public sealed class EnvironmentInstance : GetEnvironmentMapPositions
     {
-        public int teamSize = 2;
-        
-        public DataLogger dataLogger;
-
-        public NuclearThroneLevelGenerator levelGenerator;
-
-        public float gameTime = 60;
-        
-        public int changeLevelMap = 10;
-
-        private int _levelCounter = 0;
-
-        public int CurrentLevelCounter => _levelCounter;
-
-        public GetSpawnProcedural getSpawnProcedural;
-
-        private MLCheckbox[] SpawnPoints => getSpawnProcedural.Points;
-
-        public EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
-
-        public Character[] mlCharacters;
-        
+        public float gameTime = 120;
         private float _timer;
 
-        public int CurrentTimer => (int)_timer;
+        public int teamSize = 2;
+        public int changeLevelMap = 10;
+        
+        public AnalysisTool outPutter;
+        public NuclearThroneLevelGenerator levelGenerator;
+        public GetSpawnProcedural getSpawnProcedural;
+        public Character[] mlCharacters;
 
+        
+        public int CurrentLevelCounter { get; private set; }
+
+        private int _randomSeed;
         private bool _gameOver;
+
+        public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
+
+        private static readonly Dictionary<WinLossCondition, int> RewardMap = new Dictionary<WinLossCondition, int>
+        {
+            { WinLossCondition.Win, 1 },
+            { WinLossCondition.Draw, 0},
+            { WinLossCondition.Loss, -1}
+        };
 
         private void Start()
         {
             _timer = gameTime;
+            CurrentLevelCounter = changeLevelMap;
         }
 
         private int[] GetTeamDeaths()
@@ -62,22 +61,13 @@ namespace Research.CharacterDesign.Scripts.Environment
             return teamDeaths;
         }
 
-        private void WaitForRestart()
-        {
-            InstantiatePlayableCharacters();
-
-            SpawnMultipleCharacters();
-
-            _gameOver = false;
-            
-            _timer = gameTime;
-        }
-
         public void SpawnMultipleCharacters()
         {
             for (var i = 0; i < mlCharacters.Length; i++)
             {
-                SpawnPoints[i].SpawnPlayer(mlCharacters[i]);
+                var spawnPoint = getSpawnProcedural.PointDict[i];
+                spawnPoint.SpawnPlayer(mlCharacters[i]);
+                // Debug.Assert([i], "Agent component was not found on this gameObject and is required.");
             }
         }
 
@@ -85,23 +75,49 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (levelGenerator)
             {
-                _levelCounter++;
-                if (_levelCounter == changeLevelMap)
+                if (CurrentLevelCounter >= changeLevelMap)
                 {
-                    levelGenerator.GenerateMapRandom();
-                    _levelCounter = 0;
+                    levelGenerator.GenerateMap(_randomSeed);
+                    CurrentLevelCounter = 1;
                 }
+                CurrentLevelCounter++;
             }
         }
 
-        public void Restart()
+        public void StartSimulation(int randomSeed)
         {
-            ChangeLevelDesign();
-
-            WaitForRestart();
+            _randomSeed = randomSeed * GetHashCode();
+            StartCoroutine(Restart());
         }
 
-        public void InstantiatePlayableCharacters()
+        public override IEnumerator Restart()
+        {
+            // Pause AI and start stuff
+            SetAllowDecisions(false);
+            yield return new WaitForEndOfFrame();
+            
+            ChangeLevelDesign();
+            // Restart the game
+            InstantiatePlayableCharacters();
+            SpawnMultipleCharacters();
+
+            // reenable characters
+            SetAllowDecisions(true);
+            
+            _timer = gameTime;
+            _gameOver = false;
+        }
+
+        private void SetAllowDecisions(bool allow)
+        {
+            foreach (var agent in mlCharacters)
+            {
+                var decisionRequester = agent.GetComponentInChildren<DecisionRequester>();
+                decisionRequester.allowDecisions = allow;
+            }
+        }
+
+        private void InstantiatePlayableCharacters()
         {
             foreach(var agent in mlCharacters)
             {
@@ -143,15 +159,14 @@ namespace Research.CharacterDesign.Scripts.Environment
 
             return -1;
         }
-        
-        private int GetReward(int teamId, int winningTeam)
+
+        private WinLossCondition GetRewardCondition(int teamId, int winningTeam)
         {
             if(winningTeam != -1)
             {
-                return winningTeam == teamId? 1: -1;
+                return winningTeam == teamId? WinLossCondition.Win: WinLossCondition.Loss;
             }
-
-            return 0;
+            return WinLossCondition.Draw;
         }
 
         private void Update()
@@ -178,7 +193,8 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var behaviour = player.GetComponentInChildren<BehaviorParameters>();
                 var agentName = behaviour.FullyQualifiedBehaviorName;
                 var teamId = behaviour.TeamId;
-                var reward = GetReward(teamId, winningTeamId);
+                var winLossCondition = GetRewardCondition(teamId, winningTeamId);
+                var reward = RewardMap[winLossCondition];
                 
                 loggedData[teamId] = reward;
                 loggedNames.Add(agentName);
@@ -186,13 +202,26 @@ namespace Research.CharacterDesign.Scripts.Environment
                 var agent = player.GetComponentInChildren<TopDownAgent>();
                 agent.AddReward(reward);
                 agent.EndEpisode();
+
+                Debug.Log(winLossCondition + "\t" + agentName);
+                if (teamId == 0)
+                {
+                    outPutter.AddResult(winLossCondition);
+                }
             }
 
             Debug.Log("Winning Team" + winningTeamId);
             Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
                       loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
-            Restart();
+            if (MlLevelManager.UnitySimulation)
+            {
+                Application.Quit();
+            }
+            else
+            {
+                StartCoroutine(Restart());   
+            }
             yield break;
         }
     }

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapAccessor: {fileID: 0}
-  environmentInstance: {fileID: 0}
 --- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,9 +60,10 @@ MonoBehaviour:
   trackPosition: 0
   sensorName: 2d Sensor
   buffer: 1
-  detectableTags: 03000000040000000600000007000000
-  mObservationStacks: 3
---- !u!114 &4966199783847539758
+  mapAccessor: {fileID: 0}
+  detectableTags: 010000000200000003000000040000000600000007000000
+  mObservationStacks: 1
+--- !u!114 &8518743103520765402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,15 +72,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1327462263919007741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc4a50803ef8384a9390b51cd5aa993, type: 3}
+  m_Script: {fileID: 11500000, guid: 37451b2efa3f2aa4e853ae3c6142a18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  tileMapSize: 50
-  trackPosition: 0
-  sensorName: 3d Sensor
-  buffer: 0
-  detectableTags: 010000000200000000000000
+  spriteRenderer: {fileID: 8698709721488786848}
 --- !u!114 &8827520055626299880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+  allowDecisions: 0
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,7 +107,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialWeapon
       value: 
-      objectReference: {fileID: 114740255974881622, guid: 94ca7322bedfa1042892135419b92b96,
+      objectReference: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
         type: 3}
     - target: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
@@ -198,6 +194,16 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_UseChildSensors
@@ -213,6 +219,76 @@ PrefabInstance:
       propertyPath: TeamId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.ObserveHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.ObserveSpriteRenderer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.ObserveWeaponTrace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.ObserveInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.ObserveCloseToWall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: trainingSettings.ShootEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: trainingSettings.SecondaryInputEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.observeHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.observeSpriteRenderer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.observeWeaponTrace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.observeInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: observationSettings.observeCloseToWall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: trainingSettings.secondaryInputEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535753668877259236, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: trainingSettings.shootEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8103207668852584256, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: Feedbacks.Array.size
@@ -225,6 +301,12 @@ PrefabInstance:
 --- !u!1 &8813461447051219256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8698709721488786848 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2419870454344231125, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}

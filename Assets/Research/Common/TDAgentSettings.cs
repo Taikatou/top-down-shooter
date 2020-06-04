@@ -17,22 +17,22 @@
         AllActive
     }
 
+    [System.Serializable]
     public struct ObservationSettings
     {
-        public bool ObserveHealth;
-
-        public bool ObserveSpriteRenderer;
-
-        public bool ObserveWeaponTrace;
-
-        public bool ObserveInput;
+        public bool observeHealth;
+        public bool observeWeaponTrace;
+        public bool observeInput;
+        public bool observeCloseToWall;
     }
 
+    [System.Serializable]
     public struct TrainingSettings
     {
-        public bool SecondaryInputEnabled;
-        public bool ShootEnabled;
-        public bool SecondaryAbilityEnabled;
-        public bool PunishTime;
+        public bool secondaryInputEnabled;
+        public bool shootEnabled;
+        public bool secondaryAbilityEnabled;
+        public bool punishTime;
+        public bool enableCurriculum;
     }
 }

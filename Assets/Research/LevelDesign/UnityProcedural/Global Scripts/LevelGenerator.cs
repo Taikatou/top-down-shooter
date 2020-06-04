@@ -38,13 +38,13 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 			ClearMap();
 			int[,] map = new int[width, height];
 			float seed;
-			if (mapSetting.randomSeed)
+			//if (mapSetting.randomSeed)
 			{
 				seed = Time.time;
 			}
-			else
+			//else
 			{
-				seed = mapSetting.seed;
+			//	seed = mapSetting.seed;
 			}
 
 			//Generate the map depending omapSen the algorithm selected

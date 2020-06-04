@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Research.CharacterDesign.Scripts;
+﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.Environment;
-using Research.CharacterDesign.Scripts.SpawnPoints;
-using Research.Common;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
+using Unity.Simulation.Games;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
@@ -41,15 +37,17 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public int players = 2;
 
+		public bool clearInnerWalls = true;
+
 		public GameObject spawnPrefab;
 
-		public IGetSpawnPoints getSpawnPoints;
+		public GetSpawnProcedural getSpawnPoints;
 
 		public LevelUpdate onLevelUpdate;
 
-		public int oneInXChance = 2;
-		
-		private System.Random _randomGenerator;
+		private static int MapIntCounter { get; set; }
+
+		public int instanceMapCounter;
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -68,37 +66,27 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		private void Start()
+		public void GenerateMap(int seed)
 		{
-			var seed = gameObject.GetHashCode();
-			_randomGenerator = new System.Random((int)(seed * Time.time));
+			InvokeGenerateMap(true, seed);
+			onLevelUpdate?.Invoke();
+
+			instanceMapCounter = MapIntCounter;
+			MapIntCounter++;
 		}
 
-		public void GenerateMapRandom()
-		{
-			var random = _randomGenerator.Next(oneInXChance);
-			GenerateMap(random != 1);
-		}
-		
-		public void GenerateMap(bool generate)
-		{
-			InvokeGenerateMap(generate);
-			onLevelUpdate.Invoke();
-		}
-		
-		public void InvokeGenerateMap(bool generateMap, int distance=2)
+		public void InvokeGenerateMap(bool generateMap, int seed, int distance=2)
 		{
 			ClearMap();
+			Random.InitState(seed);
+			GameSimManager.Instance.SetCounter("seed", seed);
 			
-			var seed = mapSetting.randomSeed ? gameObject.GetHashCode() * Time.time : mapSetting.seed;
-			Random.InitState(seed.GetHashCode());
-
 			var validPositions = new List<Vector3Int>();
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)
 			{
 				validPositions.Clear();
-				NuclearThroneMapFunctions.ClearArray(map, true);
+				NuclearThroneMapFunctions.ClearArray(map);
 
 				if (generateMap)
 				{
@@ -108,6 +96,12 @@ namespace Research.LevelDesign.NuclearThrone
 				{
 					map = NuclearThroneMapGenerator.SquareMap(map);
 				}
+
+				if (clearInnerWalls)
+				{
+					ClearInnerWalls.RemoveInnerWalls(map);
+				}
+
 				var z = (int) tilemapGround.transform.position.y;
 				for (var y = distance; y < height - distance; y++)
 				{
@@ -135,6 +129,8 @@ namespace Research.LevelDesign.NuclearThrone
 				var prefab = shouldInstantiate
 					? Instantiate(spawnPrefab)
 					: getSpawnPoints.Points[index].gameObject;
+				
+				getSpawnPoints.AddPoint(index, prefab.GetComponent<MLCheckbox>());
 				
 				prefab.transform.position = place;
 				prefab.transform.parent = getSpawnPoints.transform;
@@ -215,6 +211,8 @@ namespace Research.LevelDesign.NuclearThrone
 	[CustomEditor(typeof(NuclearThroneLevelGenerator))]
 	public class NuclearThroneLevelGeneratorEditor : Editor
 	{
+		public int seed;
+		public bool randomSeed;
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
@@ -222,20 +220,31 @@ namespace Research.LevelDesign.NuclearThrone
 			//Reference to our script
 			var levelGen = (NuclearThroneLevelGenerator)target;
 			
+			//mapLayer.randomSeed = EditorGUILayout.Toggle("Random Seed", mapLayer.randomSeed);
+
+			randomSeed = EditorGUILayout.Toggle("randomSeed", randomSeed);
+			//Only appear if we have the random seed set to false
+			if (!randomSeed)
+			{
+				seed = EditorGUILayout.IntField("Seed", seed);
+			}
+			
 			//Only show the mapsettings UI if we have a reference set up in the editor
 			if (levelGen.mapSetting != null)
 			{
 				Editor mapSettingEditor = CreateEditor(levelGen.mapSetting);
 				mapSettingEditor.OnInspectorGUI();
+				
+				var newSeed = randomSeed ? (int)System.DateTime.Now.Ticks : seed;
 
 				if (GUILayout.Button("Generate"))
 				{
-					levelGen.InvokeGenerateMap(true);
+					levelGen.InvokeGenerateMap(true, newSeed);
 				}
 				
 				if (GUILayout.Button("Generate Square"))
 				{
-					levelGen.InvokeGenerateMap(false);
+					levelGen.InvokeGenerateMap(false, newSeed);
 				}
 
 				if (GUILayout.Button("Clear"))

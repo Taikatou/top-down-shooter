@@ -5,6 +5,6 @@ namespace Research.Test.Scripts
 {
     public class CoinSpawnLocations : MonoBehaviour
     {
-        public List<Transform> possibleSpawnPositions;
+        public List<Transform> positions;
     }
 }

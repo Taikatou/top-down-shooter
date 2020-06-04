@@ -40,7 +40,7 @@ namespace Research.LevelDesign.NuclearThrone
             }   
         }
 
-        public static void ClearArray(GridSpace [,] map, bool empty)
+        public static void ClearArray(GridSpace [,] map, GridSpace clearValue=GridSpace.Empty)
         {
             var roomWidth = map.GetUpperBound(0);
             var roomHeight = map.GetUpperBound(1);
@@ -48,14 +48,7 @@ namespace Research.LevelDesign.NuclearThrone
             {
                 for (var x = 0; x < roomWidth; x++)
                 {
-                    if (empty)
-                    {
-                        map[x, y] = GridSpace.Empty;
-                    }
-                    else
-                    {
-                        map[x, y] = GridSpace.Floor;
-                    }
+                    map[x, y] = clearValue;
                 }
             }
         }
@@ -63,6 +56,7 @@ namespace Research.LevelDesign.NuclearThrone
         public static GridSpace[,] GenerateArray(int width, int height)
         {
             var map = new GridSpace[width, height];
+            ClearArray(map);
             return map;
         }
     }

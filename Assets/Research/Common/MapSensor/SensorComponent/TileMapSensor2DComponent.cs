@@ -13,14 +13,14 @@ namespace Research.Common.MapSensor.SensorComponent
         public int mObservationStacks = 1;
 
         private int _outputSizeLinear;
-        protected override ISensor CreateTileMapSensor(IEnumerable<GridSpace> detectTags)
+        public override ISensor CreateSensor()
         {
             var twoDSensor = new TileMapSensor2D(sensorName,
                                                 tileMapSize,
                                                 trackPosition, 
                                                 debug, 
-                                                detectTags,
-                                                MapAccessor,
+                                                detectableTags,
+                                                mapAccessor,
                                                 EnvironmentInstance,
                                                 GetTeamId,
                                                 buffer);
@@ -36,6 +36,7 @@ namespace Research.Common.MapSensor.SensorComponent
                 returnSensor = twoDSensor;
             }
 
+            TileMapSensor = twoDSensor;
             return returnSensor;
         }
         
