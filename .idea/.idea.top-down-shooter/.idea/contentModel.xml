@@ -344,13 +344,20 @@
             </e>
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
-            <e p="SpriteId.cs" t="Include" />
+            <e p="SpriteSensor" t="Include">
+              <e p="SpriteId.cs" t="Include" />
+              <e p="SpriteSensor.cs" t="Include" />
+              <e p="SpriteSensorComponent.cs" t="Include" />
+            </e>
             <e p="TDAgentSettings.cs" t="Include" />
             <e p="TurnBasedDecisionRequester.cs" t="Include" />
             <e p="Utils" t="Include">
               <e p="AgentUtils.cs" t="Include" />
             </e>
-            <e p="WeaponRayTrace.cs" t="Include" />
+            <e p="Weapons" t="Include">
+              <e p="MLCloseToWall.cs" t="Include" />
+              <e p="WeaponRayTrace.cs" t="Include" />
+            </e>
           </e>
           <e p="LevelDesign" t="Include">
             <e p="NuclearThrone" t="Include">

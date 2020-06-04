@@ -7,7 +7,6 @@ using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
-using Unity.Simulation.Games;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -17,8 +16,7 @@ namespace Research.CharacterDesign.Scripts.Environment
     {
         public float gameTime = 120;
         private float _timer;
-        public int CurrentTimer => (int)_timer;
-    
+
         public int teamSize = 2;
         public int changeLevelMap = 10;
         
@@ -26,12 +24,12 @@ namespace Research.CharacterDesign.Scripts.Environment
         public NuclearThroneLevelGenerator levelGenerator;
         public GetSpawnProcedural getSpawnProcedural;
         public Character[] mlCharacters;
-        
-        private bool _gameOver;
 
+        
         public int CurrentLevelCounter { get; private set; }
 
         private int _randomSeed;
+        private bool _gameOver;
 
         public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
 
@@ -88,8 +86,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void StartSimulation(int randomSeed)
         {
-            _randomSeed = randomSeed;
-            Debug.Log(_randomSeed);
+            _randomSeed = randomSeed * GetHashCode();
             StartCoroutine(Restart());
         }
 
@@ -217,7 +214,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
                       loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
-            if (AnalysisTool.UnitySimulation)
+            if (MlLevelManager.UnitySimulation)
             {
                 Application.Quit();
             }

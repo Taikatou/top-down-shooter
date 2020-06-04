@@ -2,7 +2,7 @@
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace Research.Common
+namespace Research.Common.Weapons
 {
     public class WeaponRayTrace : MonoBehaviour
     {

@@ -18,6 +18,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         private static IEnumerable<EnvironmentInstance> Environments => FindObjectsOfType<EnvironmentInstance>();
 
         private Dictionary<Character, EnvironmentInstance> _characterEnvironmentMap;
+        
+        public static readonly bool UnitySimulation = false;
 
         private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
             _characterEnvironmentMap ??
@@ -43,12 +45,25 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private void GetConfigSimulation()
         {
-            GameSimManager.Instance.FetchConfig(OnConfigReceived);
+            if (UnitySimulation)
+            {
+                GameSimManager.Instance.FetchConfig(OnConfigReceived);   
+            }
+            else
+            {
+                var random = (int) System.DateTime.Now.Ticks;
+                StartEnvironment(random);
+            }
         }
         
         private void OnConfigReceived(GameSimConfigResponse config)
         {
             var random = config.GetInt("random_seed");
+            StartEnvironment(random);
+        }
+
+        private void StartEnvironment(int random)
+        {
             foreach (var environment in Environments)
             {
                 environment.StartSimulation(random);

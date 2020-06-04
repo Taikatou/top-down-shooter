@@ -45,7 +45,9 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public LevelUpdate onLevelUpdate;
 
-		public static int MapIntCounter { get; private set; }
+		private static int MapIntCounter { get; set; }
+
+		public int instanceMapCounter;
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -68,26 +70,14 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			InvokeGenerateMap(true, seed);
 			onLevelUpdate?.Invoke();
-			
+
+			instanceMapCounter = MapIntCounter;
 			MapIntCounter++;
 		}
 
-		private int GetSeed()
-		{
-			return (int)(gameObject.GetHashCode() * Time.time);
-		}
-
-		public void InvokeGenerateMap(bool generateMap)
-		{
-			var seed = mapSetting.randomSeed ? GetSeed() : mapSetting.seed;
-			InvokeGenerateMap(generateMap, seed);
-		}
-
-		private void InvokeGenerateMap(bool generateMap, int seed, int distance=2)
+		public void InvokeGenerateMap(bool generateMap, int seed, int distance=2)
 		{
 			ClearMap();
-			seed *= GetHashCode();
-			// 
 			Random.InitState(seed);
 			GameSimManager.Instance.SetCounter("seed", seed);
 			
@@ -221,6 +211,8 @@ namespace Research.LevelDesign.NuclearThrone
 	[CustomEditor(typeof(NuclearThroneLevelGenerator))]
 	public class NuclearThroneLevelGeneratorEditor : Editor
 	{
+		public int seed;
+		public bool randomSeed;
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
@@ -228,20 +220,31 @@ namespace Research.LevelDesign.NuclearThrone
 			//Reference to our script
 			var levelGen = (NuclearThroneLevelGenerator)target;
 			
+			//mapLayer.randomSeed = EditorGUILayout.Toggle("Random Seed", mapLayer.randomSeed);
+
+			randomSeed = EditorGUILayout.Toggle("randomSeed", randomSeed);
+			//Only appear if we have the random seed set to false
+			if (!randomSeed)
+			{
+				seed = EditorGUILayout.IntField("Seed", seed);
+			}
+			
 			//Only show the mapsettings UI if we have a reference set up in the editor
 			if (levelGen.mapSetting != null)
 			{
 				Editor mapSettingEditor = CreateEditor(levelGen.mapSetting);
 				mapSettingEditor.OnInspectorGUI();
+				
+				var newSeed = randomSeed ? (int)System.DateTime.Now.Ticks : seed;
 
 				if (GUILayout.Button("Generate"))
 				{
-					levelGen.InvokeGenerateMap(true);
+					levelGen.InvokeGenerateMap(true, newSeed);
 				}
 				
 				if (GUILayout.Button("Generate Square"))
 				{
-					levelGen.InvokeGenerateMap(false);
+					levelGen.InvokeGenerateMap(false, newSeed);
 				}
 
 				if (GUILayout.Button("Clear"))

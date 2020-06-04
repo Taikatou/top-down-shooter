@@ -31,7 +31,7 @@ namespace Research.LevelDesign.Scripts
 
         private void UpdateMapData()
         {
-            var newId = NuclearThroneLevelGenerator.MapIntCounter;
+            var newId = generator.instanceMapCounter;
             if (_cachedMapId != newId)
             {
                 _cachedMap = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);

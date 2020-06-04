@@ -46,13 +46,13 @@ namespace Research.LevelDesign.UnityProcedural.Scripts
 			{
 				int[,] map = new int[width, height];
 				float seed;
-				if (mapSettings[i].randomSeed)
+				//if (mapSettings[i].randomSeed)
 				{
 					seed = Time.time.GetHashCode();
 				}
-				else
+				//else
 				{
-					seed = mapSettings[i].seed.GetHashCode();
+				//	seed = mapSettings[i].seed.GetHashCode();
 				}
 
 				//Generate the map depending on the algorithm selected

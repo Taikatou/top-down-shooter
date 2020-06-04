@@ -30,8 +30,6 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
     public class MapSettings : ScriptableObject
     {
         public Algorithm algorithm;
-        public bool randomSeed;
-        public int seed;
         public int fillAmount;
         public int smoothAmount;
         public int clearAmount;
@@ -44,7 +42,7 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
 #if UNITY_EDITOR
     //Custom UI for our class
     [CustomEditor(typeof(MapSettings))]
-    public class MapSettings_Editor : Editor
+    public class MapSettingsEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -55,13 +53,6 @@ namespace Research.LevelDesign.UnityProcedural.Global_Scripts
             mapLayer.algorithm = (Algorithm) EditorGUILayout.EnumPopup(
                 new GUIContent("Generation Method", "The generation method we want to use to generate the map"),
                 mapLayer.algorithm);
-            mapLayer.randomSeed = EditorGUILayout.Toggle("Random Seed", mapLayer.randomSeed);
-
-            //Only appear if we have the random seed set to false
-            if (!mapLayer.randomSeed)
-            {
-                mapLayer.seed = EditorGUILayout.IntField("Seed", mapLayer.seed);
-            }
 
             //Shows different options depending on what algorithm is selected
             switch (mapLayer.algorithm)

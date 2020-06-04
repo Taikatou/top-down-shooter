@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Research.Common
+namespace Research.Common.SpriteSensor
 {
     public class SpriteId
     {
@@ -47,9 +47,11 @@ namespace Research.Common
             var index = indexAvailable? int.Parse(split[2]) : 0;
             var animIndex = indexAvailable ? 1 : 0;
             var anim =  _mapper[split[animIndex]];
-            var results = new int [] {anim, index};
+            var results = new  [] {anim, index};
             return results;
         }
+
+        public int Length = 2;
 
         public int[] GetId(SpriteRenderer spriteRenderer)
         {
