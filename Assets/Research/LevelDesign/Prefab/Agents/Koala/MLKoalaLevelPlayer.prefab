@@ -55,13 +55,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  tileMapSize: 50
-  trackPosition: 0
   sensorName: 2d Sensor
-  buffer: 1
   mapAccessor: {fileID: 0}
-  detectableTags: 010000000200000003000000040000000600000007000000
+  sileMapSensorConfig:
+    debug: 0
+    layerList: 010000000200000000000000
+    selfList: 0300000006000000
+    otherList: 0400000007000000
+    behaviorParameters: {fileID: 7476719718635778865}
+    sizeX: 50
+    sizeY: 50
   mObservationStacks: 1
 --- !u!114 &8518743103520765402
 MonoBehaviour:

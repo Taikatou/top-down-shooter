@@ -737,6 +737,36 @@ PrefabInstance:
       propertyPath: mapAccessor
       value: 
       objectReference: {fileID: 466912766}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: buffer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: mObservationStacks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: sileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 466912766}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: sileMapSensorConfig.sizeX
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: sileMapSensorConfig.sizeY
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7812274827904020366, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1, type: 3}
 --- !u!114 &931098880 stripped
@@ -987,11 +1017,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1491946107}
     m_Modifications:
+    - target: {fileID: 1327462263919007741, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: mapAccessor
       value: 
       objectReference: {fileID: 466912766}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: buffer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 466912766}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.sizeX
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.sizeY
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.layerList.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.layerList.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: sileMapSensorConfig.layerList.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x

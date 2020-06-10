@@ -7,15 +7,10 @@ namespace Research.CharacterDesign.Scripts.Characters
 {
     public class MlCharacter : Character
     {
-        public override void RespawnAt(Transform spawnPoint, FacingDirections facingDirection)
-        {
-            base.RespawnAt(spawnPoint, facingDirection);
-        }
-
         public override void SetInputManager()
         {
-            LinkedInputManager = GetComponent<TopDownInputManager>();
-            UpdateInputManagersInAbilities();
+            var inputManager = GetComponent<TopDownInputManager>();
+            SetInputManager(inputManager);
         }
     }
 }

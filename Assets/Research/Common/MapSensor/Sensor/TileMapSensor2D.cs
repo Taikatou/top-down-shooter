@@ -8,13 +8,13 @@ namespace Research.Common.MapSensor.Sensor
 {
     public class TileMapSensor2D : TileMapSensor
     {
-        protected override int[] MShape => new[] { Config.OutputSizeLinear };
+        protected override int[] MShape { get; }
 
         protected override int WriteObservations(ObservationWriter writer)
         {
-            var obsSize = Config.OutputSizeLinear;
+            var obsSize = TileMapSensorConfigUtils.GetOutputSizeLinear(Config);
             var outputArray = new float[obsSize];
-            var trackedPosition = Config.GetTrackPosition();
+            var trackedPosition = TileMapSensorConfigUtils.GetTrackPosition(Config);
             
             var index = 0;
             for (var y = trackedPosition.StartPos.y; y < trackedPosition.EndPos.y; y++)
@@ -32,15 +32,16 @@ namespace Research.Common.MapSensor.Sensor
             }
 
             writer.AddRange(outputArray);
-            if (Config.Debug)
+            if (Config.debug)
             {
                 NuclearThroneMapGenerator.OutputDebugMap(MObservations);
             }
             return obsSize;
         }
 
-        public TileMapSensor2D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
+        public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config) : base(name, environmentInstance, config)
         {
+            MShape = new[] {TileMapSensorConfigUtils.GetOutputSizeLinear(Config)};
         }
     }
 }

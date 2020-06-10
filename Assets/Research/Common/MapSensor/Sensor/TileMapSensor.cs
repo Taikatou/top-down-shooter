@@ -16,9 +16,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public readonly TileMapSensorConfig Config;
 
-        protected readonly GetEnvironmentMapPositions EnvironmentInstance;
-
-        protected readonly MapAccessor MapAccessor;
+        private readonly GetEnvironmentMapPositions _environmentInstance;
 
         protected abstract int[] MShape { get; }
 
@@ -43,19 +41,17 @@ namespace Research.Common.MapSensor.Sensor
 
         public void Reset()
         {
-            Array.Clear(MObservations, 0, Config.SizeX * Config.SizeY);
+            Array.Clear(MObservations, 0, Config.sizeX * Config.sizeY);
         }
 
-        protected TileMapSensor(string name, int size, bool trackPosition, bool debug,
-            IEnumerable<GridSpace> detectableLayers,
-            MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer)
+        protected TileMapSensor(string name, GetEnvironmentMapPositions environmentInstance,
+            TileMapSensorConfig config)
         {
-            MapAccessor = mapAccessor;
-            EnvironmentInstance = environmentInstance;
-            Config = new TileMapSensorConfig(size, trackPosition, detectableLayers, debug, teamId, buffer);
+            _environmentInstance = environmentInstance;
+            Config = config;
             _name = name;
 
-            MObservations = new GridSpace[Config.SizeX, Config.SizeY];
+            MObservations = new GridSpace[Config.sizeX, Config.sizeY];
         }
 
         public int Write(ObservationWriter writer)
@@ -74,8 +70,8 @@ namespace Research.Common.MapSensor.Sensor
 
         private void UpdateMap()
         {
-            var map = MapAccessor.GetMap();
-            var startEnd = Config.GetTrackPosition();
+            var map = Config.mapAccessor.GetMap();
+            var startEnd = TileMapSensorConfigUtils.GetTrackPosition(Config);
             for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
             {
                 for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
@@ -88,12 +84,12 @@ namespace Research.Common.MapSensor.Sensor
 
         private void UpdateMapEntityPositions()
         {
-            foreach (var entityList in EnvironmentInstance.EntityMapPositions)
+            foreach (var entityList in _environmentInstance.EntityMapPositions)
             {
                 foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
                 {
-                    var cell = MapAccessor.GetPosition(entity.Position);
-                    var trackPos = Config.GetTrackPosition();
+                    var cell = Config.mapAccessor.GetPosition(entity.Position);
+                    var trackPos = TileMapSensorConfigUtils.GetTrackPosition(Config);
 
                     var xValid = cell.x >= trackPos.StartPos.x && cell.x < trackPos.EndPos.x;
                     var yValid = cell.y >= trackPos.StartPos.y && cell.y < trackPos.EndPos.y;

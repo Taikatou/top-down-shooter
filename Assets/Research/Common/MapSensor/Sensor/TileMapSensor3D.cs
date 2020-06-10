@@ -15,9 +15,9 @@ namespace Research.Common.MapSensor.Sensor
             foreach (var pair in Config.GridSpaceValues)
             {
                 var gridInt = pair.Value;
-                for (var y = 0; y < Config.SizeY; y++)
+                for (var y = 0; y < Config.sizeY; y++)
                 {
-                    for (var x = 0; x < Config.SizeX; x++)
+                    for (var x = 0; x < Config.sizeX; x++)
                     {
                         var isKey = MObservations[x, y] == pair.Key;
                         var present = isKey? 1.0f: 0.0f;
@@ -26,7 +26,7 @@ namespace Research.Common.MapSensor.Sensor
                 }   
             }
             
-            if (Config.Debug)
+            if (Config.debug)
             {
                 NuclearThroneMapGenerator.OutputDebugMap(MObservations);
             }
@@ -35,21 +35,15 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        public TileMapSensor3D(string name, int size, bool trackPosition, bool debug, IEnumerable<GridSpace> detectableLayers, MapAccessor mapAccessor, GetEnvironmentMapPositions environmentInstance, int teamId, bool buffer) : base(name, size, trackPosition, debug, detectableLayers, mapAccessor, environmentInstance, teamId, buffer)
-        {
-            MShape = GetObservationSize3D(Config);
-        }
-
         private static int[] GetObservationSize3D(TileMapSensorConfig config)
         {
             var detectable = config.GridSpaceValues.Count;
-            return new[] { config.SizeX, config.SizeY, detectable };
+            return new[] { config.sizeX, config.sizeY, detectable };
         }
 
-        public static int[] GetObservationSize3D(int size, IEnumerable<GridSpace> detectableLayers)
+        public TileMapSensor3D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config) : base(name, environmentInstance, config)
         {
-            var config = new TileMapSensorConfig(size, false, detectableLayers, false, 1, false);
-            return GetObservationSize3D(config);
+            MShape = GetObservationSize3D(Config);
         }
     }
 }

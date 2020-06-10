@@ -31,9 +31,6 @@ namespace Research.CharacterDesign.Scripts
         public Rigidbody2D groundRb;
 
         public float punishValue = -0.0005f;
-        
-        [HideInInspector]
-        public float debugDirection;
 
         private float Increment
         {
@@ -64,7 +61,6 @@ namespace Research.CharacterDesign.Scripts
             // Extrinsic Penalty
             var action = vectorAction[counter++];
             var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
-            debugDirection = action;
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
             if (trainingSettings.shootEnabled)
@@ -122,7 +118,6 @@ namespace Research.CharacterDesign.Scripts
             {
                 var secondaryShootButtonState = Input.GetKey(KeyCode.C);
                 var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-                Debug.Log(index);
                 actionsOut[index] = secondaryShootButtonInput;
             }
         }

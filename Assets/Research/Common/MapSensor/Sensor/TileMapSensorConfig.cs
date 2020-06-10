@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
@@ -9,46 +11,64 @@ namespace Research.Common.MapSensor.Sensor
         public Vector2Int StartPos;
         public Vector2Int EndPos;
     }
-    public class TileMapSensorConfig
+
+    public static class TileMapSensorConfigUtils
     {
-        private readonly int _size;
-        public readonly bool Debug;
-        public readonly Dictionary<GridSpace, int> GridSpaceValues;
-        public readonly bool TrackPosition;
-        public readonly int TeamId;
-
-        public int SizeX => _size - 1;
-        public int SizeY => _size - 1;
-
-        public int OutputSizeLinear => (SizeX - _cacheOffset) * (SizeY - _cacheOffset);
-
-        private readonly int _cacheOffset;
-
-        public TrackPosition GetTrackPosition()
+        public static TrackPosition GetTrackPosition(TileMapSensorConfig config)
         {
             var returnValue = new TrackPosition
             {
-                StartPos = new Vector2Int(_cacheOffset, _cacheOffset), 
-                EndPos = new Vector2Int(SizeX - _cacheOffset, SizeY - _cacheOffset)
+                StartPos = new Vector2Int(0, 0), 
+                EndPos = new Vector2Int(config.sizeX, config.sizeY)
             };
 
             return returnValue;
         }
-        
-        public TileMapSensorConfig(int size, bool trackPosition,
-            IEnumerable<GridSpace> detectableLayers, bool debug, int teamId, bool buffer)
+
+        public static int GetOutputSizeLinear(TileMapSensorConfig config)
         {
-            _size = size;
-            Debug = debug;
-            TrackPosition = trackPosition;
-            _cacheOffset = buffer ? 1 : 0;
-            GridSpaceValues = new Dictionary<GridSpace, int>();
-            TeamId = teamId;
-            var counter = 0;
-            foreach (var layer in detectableLayers)
+            return config.sizeX * config.sizeY;
+        }
+    }
+    
+    [System.Serializable]
+    public struct TileMapSensorConfig
+    {
+        public bool debug;
+        public GridSpace[] layerList;
+        public GridSpace[] selfList;
+        public GridSpace[] otherList;
+        public BehaviorParameters behaviorParameters;
+        
+        public MapAccessor mapAccessor;
+        public int sizeX;
+        public int sizeY;
+        
+        public int TeamId => behaviorParameters.TeamId;
+
+        private Dictionary<GridSpace, int> _gridSpaceValues;
+        
+        public Dictionary<GridSpace, int> GridSpaceValues
+        {
+            get
             {
-                GridSpaceValues.Add(layer, counter);
-                counter++;
+                if (_gridSpaceValues == null)
+                {
+                    _gridSpaceValues = new Dictionary<GridSpace, int>();
+                    AddToList(layerList);
+                    AddToList(TeamId == 0 ? selfList : otherList);
+                    AddToList(TeamId == 1 ? selfList : otherList);
+                }
+
+                return _gridSpaceValues;
+            }
+        }
+
+        public void AddToList(GridSpace[] list)
+        {
+            foreach (var layer in list)
+            {
+                _gridSpaceValues.Add(layer, _gridSpaceValues.Count);
             }
         }
     }

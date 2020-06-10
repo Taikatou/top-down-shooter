@@ -13,18 +13,13 @@ namespace Research.Common.MapSensor.SensorComponent
         public int mObservationStacks = 1;
 
         private int _outputSizeLinear;
+        
         public override ISensor CreateSensor()
         {
             var twoDSensor = new TileMapSensor2D(sensorName,
-                                                tileMapSize,
-                                                trackPosition, 
-                                                debug, 
-                                                detectableTags,
-                                                mapAccessor,
                                                 EnvironmentInstance,
-                                                GetTeamId,
-                                                buffer);
-            _outputSizeLinear = twoDSensor.Config.OutputSizeLinear;
+                                                sileMapSensorConfig);
+            _outputSizeLinear = TileMapSensorConfigUtils.GetOutputSizeLinear(twoDSensor.Config);
             ISensor returnSensor;
             if (mObservationStacks != 1)
             {

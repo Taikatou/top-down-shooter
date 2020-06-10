@@ -9,21 +9,15 @@ namespace Research.Common.MapSensor.SensorComponent
     {
         public override ISensor CreateSensor()
         {
-            TileMapSensor = new TileMapSensor3D( sensorName, 
-                                        tileMapSize, 
-                                        trackPosition, 
-                                        debug, 
-                                        detectableTags, 
-                                        mapAccessor, 
-                                        EnvironmentInstance,
-                                        GetTeamId,
-                                        buffer);
+            TileMapSensor = new TileMapSensor3D(sensorName,
+                                                EnvironmentInstance,
+                                                sileMapSensorConfig);
             return TileMapSensor;
         }
         
         public override int[] GetObservationShape()
         {
-            var shape = TileMapSensor3D.GetObservationSize3D(tileMapSize, detectableTags);
+            var shape = TileMapSensor.GetObservationShape();
             return shape;
         }
     }

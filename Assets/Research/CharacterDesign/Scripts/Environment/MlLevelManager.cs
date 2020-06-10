@@ -1,14 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.Scripts.Characters;
-using Research.Common;
-using Research.Common.EntitySensor;
-using Research.LevelDesign.NuclearThrone;
-using Unity.MLAgents;
-using Unity.MLAgents.Policies;
 using Unity.Simulation.Games;
+using UnityEngine.Analytics;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -18,8 +11,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         private static IEnumerable<EnvironmentInstance> Environments => FindObjectsOfType<EnvironmentInstance>();
 
         private Dictionary<Character, EnvironmentInstance> _characterEnvironmentMap;
-        
-        public static readonly bool UnitySimulation = false;
+
+        public const bool UnitySimulation = false;
 
         private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
             _characterEnvironmentMap ??
@@ -28,7 +21,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         protected override void Start()
         {
             base.Start();
-            Application.targetFrameRate = 60;
+            AnalyticsEvent.GameStart();
         }
 
         protected override void SpawnSingleCharacter()

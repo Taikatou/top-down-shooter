@@ -1,8 +1,11 @@
-﻿using Research.CharacterDesign.Scripts;
+﻿using System.Collections.Generic;
+using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone;
 using Unity.Simulation.Games;
 using UnityEngine;
+
+using UnityEngine.Analytics;
 
 namespace Research.LevelDesign.Scripts
 {
@@ -13,6 +16,13 @@ namespace Research.LevelDesign.Scripts
 
         public void AddResult(WinLossCondition condition)
         {
+            var customParams = new Dictionary<string, object>
+            {
+                {"map_counter", generator.instanceMapCounter}, {"condition", condition}
+            };
+
+            AnalyticsEvent.Custom("map_complete", customParams);
+
             if (MlLevelManager.UnitySimulation)
             {
                 var valueId = condition.ToString();
@@ -20,7 +30,7 @@ namespace Research.LevelDesign.Scripts
             }
             else
             {
-                dataLogger.AddResultAgent(condition, generator.instanceMapCounter);   
+                dataLogger.AddResultAgent(condition, generator.instanceMapCounter);
             }
         }
     }
