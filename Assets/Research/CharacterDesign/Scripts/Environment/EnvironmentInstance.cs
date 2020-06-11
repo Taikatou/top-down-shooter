@@ -14,9 +14,7 @@ namespace Research.CharacterDesign.Scripts.Environment
     public enum WinLossCondition { Win, Loss, Draw};
     public sealed class EnvironmentInstance : GetEnvironmentMapPositions
     {
-        public float gameTime = 120;
-        private float _timer;
-
+        public int gameTime = 120;
         public int teamSize = 2;
         public int changeLevelMap = 10;
         
@@ -24,6 +22,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         public NuclearThroneLevelGenerator levelGenerator;
         public GetSpawnProcedural getSpawnProcedural;
         public Character[] mlCharacters;
+        
+        public float CurrentTimer { get; private set; }
 
         
         public int CurrentLevelCounter { get; private set; }
@@ -42,7 +42,7 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private void Start()
         {
-            _timer = gameTime;
+            CurrentTimer = gameTime;
             CurrentLevelCounter = changeLevelMap;
         }
 
@@ -75,17 +75,27 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (levelGenerator)
             {
+                CurrentLevelCounter++;
                 if (CurrentLevelCounter >= changeLevelMap)
                 {
+                    _randomSeed = GetRandomSeed();
                     levelGenerator.GenerateMap(_randomSeed);
-                    CurrentLevelCounter = 1;
+                    CurrentLevelCounter = 0;
                 }
-                CurrentLevelCounter++;
             }
+        }
+
+        private static int GetRandomSeed()
+        {
+            return (int) System.DateTime.Now.Ticks;
         }
 
         public void StartSimulation(int randomSeed)
         {
+            if (randomSeed == -1)
+            {
+                randomSeed = GetRandomSeed();
+            }
             _randomSeed = randomSeed * GetHashCode();
             StartCoroutine(Restart());
         }
@@ -104,7 +114,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             // reenable characters
             SetAllowDecisions(true);
             
-            _timer = gameTime;
+            CurrentTimer = gameTime;
             _gameOver = false;
         }
 
@@ -173,8 +183,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             if (!_gameOver)
             {
-                _timer -= Time.deltaTime;
-                if (_timer <= 0)
+                CurrentTimer -= Time.deltaTime;
+                if (CurrentTimer <= 0)
                 {
                     _gameOver = true;
                     StartCoroutine(GameOver());

@@ -63,6 +63,7 @@ MonoBehaviour:
     selfList: 0300000006000000
     otherList: 0400000007000000
     behaviorParameters: {fileID: 7476719718635778865}
+    mapAccessor: {fileID: 0}
     sizeX: 50
     sizeY: 50
   mObservationStacks: 1
@@ -101,6 +102,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 448704471391848065, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: InitialHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 448704471391848065, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: MaximumHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1798506748191649430, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: behaviorParameters

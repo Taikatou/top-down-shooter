@@ -12,11 +12,10 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private Dictionary<Character, EnvironmentInstance> _characterEnvironmentMap;
 
-        public const bool UnitySimulation = false;
+        public static bool UnitySimulation = false;
 
         private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
-            _characterEnvironmentMap ??
-            (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
+            _characterEnvironmentMap ??= new Dictionary<Character, EnvironmentInstance>();
 
         protected override void Start()
         {
@@ -44,8 +43,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             }
             else
             {
-                var random = (int) System.DateTime.Now.Ticks;
-                StartEnvironment(random);
+                StartEnvironment(-1);
             }
         }
         

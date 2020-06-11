@@ -79,8 +79,11 @@ namespace Research.LevelDesign.NuclearThrone
 		{
 			ClearMap();
 			Random.InitState(seed);
-			GameSimManager.Instance.SetCounter("seed", seed);
-			
+			if (MlLevelManager.UnitySimulation)
+			{
+				GameSimManager.Instance.SetCounter("seed", seed);	
+			}
+
 			var validPositions = new List<Vector3Int>();
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			while (validPositions.Count < players)

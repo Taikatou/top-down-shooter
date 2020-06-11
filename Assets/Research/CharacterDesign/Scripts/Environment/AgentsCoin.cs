@@ -31,7 +31,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 
                 Debug.Log("Reward Found");
 
-                levelManager.Restart();
+                StartCoroutine(levelManager.Restart());
             }
         }
     }

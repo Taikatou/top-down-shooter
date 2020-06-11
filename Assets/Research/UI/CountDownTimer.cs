@@ -1,4 +1,5 @@
-﻿using Research.CharacterDesign.Scripts.Environment;
+﻿using System.Globalization;
+using Research.CharacterDesign.Scripts.Environment;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ namespace Research.UI
 
         private void Update()
         {
-            //textComponent.text = instance.CurrentTimer.ToString();
+            textComponent.text = instance.CurrentTimer.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
