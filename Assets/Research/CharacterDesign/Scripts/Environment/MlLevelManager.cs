@@ -15,7 +15,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         public static bool UnitySimulation = false;
 
         private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
-            _characterEnvironmentMap ??= new Dictionary<Character, EnvironmentInstance>();
+            _characterEnvironmentMap ??
+            (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
 
         protected override void Start()
         {
