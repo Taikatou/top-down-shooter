@@ -823,6 +823,16 @@ PrefabInstance:
       propertyPath: sileMapSensorConfig.sizeY
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 466912766}
     - target: {fileID: 7812274827904020366, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1128,6 +1138,16 @@ PrefabInstance:
       propertyPath: sileMapSensorConfig.layerList.Array.data[2]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 466912766}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -13,9 +13,9 @@ namespace Research.Common.MapSensor.Sensor
         protected override int WriteObservations(ObservationWriter writer)
         {
             var obsSize = TileMapSensorConfigUtils.GetOutputSizeLinear(Config);
-            var outputArray = new float[obsSize];
             var trackedPosition = TileMapSensorConfigUtils.GetTrackPosition(Config);
             
+            var outputArray = new float[obsSize];
             var index = 0;
             for (var y = trackedPosition.StartPos.y; y < trackedPosition.EndPos.y; y++)
             {
@@ -41,7 +41,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config) : base(name, environmentInstance, config)
         {
-            MShape = new[] {TileMapSensorConfigUtils.GetOutputSizeLinear(Config)};
+            MShape = new[] { TileMapSensorConfigUtils.GetOutputSizeLinear(Config) };
         }
     }
 }

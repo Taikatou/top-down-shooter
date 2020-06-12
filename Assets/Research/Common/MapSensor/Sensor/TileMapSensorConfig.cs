@@ -36,8 +36,6 @@ namespace Research.Common.MapSensor.Sensor
     {
         public bool debug;
         public GridSpace[] layerList;
-        public GridSpace[] selfList;
-        public GridSpace[] otherList;
         public BehaviorParameters behaviorParameters;
         
         public MapAccessor mapAccessor;
@@ -55,20 +53,13 @@ namespace Research.Common.MapSensor.Sensor
                 if (_gridSpaceValues == null)
                 {
                     _gridSpaceValues = new Dictionary<GridSpace, int>();
-                    AddToList(layerList);
-                    AddToList(TeamId == 0 ? selfList : otherList);
-                    AddToList(TeamId == 1 ? selfList : otherList);
+                    foreach (var layer in layerList)
+                    {
+                        _gridSpaceValues.Add(layer, _gridSpaceValues.Count);
+                    }
                 }
 
                 return _gridSpaceValues;
-            }
-        }
-
-        public void AddToList(GridSpace[] list)
-        {
-            foreach (var layer in list)
-            {
-                _gridSpaceValues.Add(layer, _gridSpaceValues.Count);
             }
         }
     }

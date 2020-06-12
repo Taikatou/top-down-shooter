@@ -8,14 +8,12 @@ namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor2DComponent : TileMapSensorComponent
     {
-        private int _outputSizeLinear;
         
         public override ISensor CreateSensor()
         {
             var twoDSensor = new TileMapSensor2D(sensorName,
                                                 EnvironmentInstance,
-                                                sileMapSensorConfig);
-            _outputSizeLinear = TileMapSensorConfigUtils.GetOutputSizeLinear(twoDSensor.Config);
+                                                tileMapSensorConfig);
 
             TileMapSensor = twoDSensor;
             return TileMapSensor;
@@ -23,7 +21,8 @@ namespace Research.Common.MapSensor.SensorComponent
         
         public override int[] GetObservationShape()
         {
-            return new [] { _outputSizeLinear };
+            var outputSizeLinear = TileMapSensorConfigUtils.GetOutputSizeLinear(tileMapSensorConfig);
+            return new [] { outputSizeLinear };
         }
     }
 }
