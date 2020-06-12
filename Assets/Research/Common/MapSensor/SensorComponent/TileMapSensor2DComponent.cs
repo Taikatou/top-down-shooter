@@ -8,10 +8,6 @@ namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor2DComponent : TileMapSensorComponent
     {
-        [Range(1, 50)]
-        [Tooltip("Number of raycast results that will be stacked before being fed to the neural network.")]
-        public int mObservationStacks = 1;
-
         private int _outputSizeLinear;
         
         public override ISensor CreateSensor()
@@ -20,25 +16,14 @@ namespace Research.Common.MapSensor.SensorComponent
                                                 EnvironmentInstance,
                                                 sileMapSensorConfig);
             _outputSizeLinear = TileMapSensorConfigUtils.GetOutputSizeLinear(twoDSensor.Config);
-            ISensor returnSensor;
-            if (mObservationStacks != 1)
-            {
-                var stackingSensor = new StackingSensor(twoDSensor, mObservationStacks);
-                returnSensor = stackingSensor;
-            }
-            else
-            {
-                returnSensor = twoDSensor;
-            }
 
             TileMapSensor = twoDSensor;
-            return returnSensor;
+            return TileMapSensor;
         }
         
         public override int[] GetObservationShape()
         {
-            var stacks = mObservationStacks > 1 ? mObservationStacks : 1;
-            return new [] { _outputSizeLinear * stacks };
+            return new [] { _outputSizeLinear };
         }
     }
 }

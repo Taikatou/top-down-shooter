@@ -32,7 +32,7 @@ namespace Research.Common.SpriteSensor
             AddIds(animIds);
         }
 
-        private void AddIds(string[] ids)
+        private void AddIds(IEnumerable<string> ids)
         {
             foreach (var id in ids)
             {
@@ -43,11 +43,12 @@ namespace Research.Common.SpriteSensor
         private int[] GetId(string name)
         {
             var split = name.Split('_');
+            
             var indexAvailable = split.Length == 3;
             var index = indexAvailable? int.Parse(split[2]) : 0;
             var animIndex = indexAvailable ? 1 : 0;
             var anim =  _mapper[split[animIndex]];
-            var results = new  [] {anim, index};
+            var results = new [] {anim, index};
             return results;
         }
 

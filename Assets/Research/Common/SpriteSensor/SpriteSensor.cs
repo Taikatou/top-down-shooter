@@ -14,8 +14,10 @@ namespace Research.Common.SpriteSensor
         public SpriteSensor(SpriteRenderer spriteRenderer)
         {
             _spriteRenderer = spriteRenderer;
-            _mObservations = new float [SpriteId.Instance.Length];
+            _mObservations = new float [Length];
         }
+
+        public static int Length => SpriteId.Instance.Length;
         // Update is called once per frame
         public int[] GetObservationShape()
         {

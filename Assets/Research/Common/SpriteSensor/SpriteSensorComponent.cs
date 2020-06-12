@@ -16,7 +16,7 @@ namespace Research.Common.SpriteSensor
 
         public override int[] GetObservationShape()
         {
-            return _spriteSensor.GetObservationShape();
+            return new[] { SpriteSensor.Length };
         }
     }
 }
