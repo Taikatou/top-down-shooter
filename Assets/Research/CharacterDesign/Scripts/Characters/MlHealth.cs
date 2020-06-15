@@ -6,6 +6,16 @@ namespace Research.CharacterDesign.Scripts.Characters
 {
     public class MlHealth : Health
     {
+        public bool showHealth = false;
+
+        public void AddHealth(float health)
+        {
+            CurrentHealth += health;
+            if (CurrentHealth > MaximumHealth)
+            {
+                CurrentHealth = MaximumHealth;
+            }
+        }
         public override void Kill()
         {
             showHealth = true;
@@ -26,8 +36,6 @@ namespace Research.CharacterDesign.Scripts.Characters
             base.Revive();
             ResetHealthToMaxHealth();
         }
-        
-        public bool showHealth = false;
 
         private void Update()
         {

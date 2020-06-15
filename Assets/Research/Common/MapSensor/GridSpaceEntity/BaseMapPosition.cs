@@ -9,7 +9,7 @@ namespace Research.Common.MapSensor.GridSpaceEntity
         public GridSpace GridSpace;
         public Vector3 Position;
     }
-    public abstract class EntityMapPosition : MonoBehaviour
+    public abstract class BaseMapPosition : MonoBehaviour
     {
         public abstract IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId);
     }

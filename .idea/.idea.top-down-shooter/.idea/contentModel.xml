@@ -337,9 +337,10 @@
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />
+                <e p="BaseMapPosition.cs" t="Include" />
                 <e p="BehaviourGetTeamId.cs" t="Include" />
-                <e p="EntityMapPosition.cs" t="Include" />
                 <e p="GetEnvironmentMapPositions.cs" t="Include" />
+                <e p="HealthMapPosition.cs" t="Include" />
                 <e p="IGetTeamID.cs" t="Include" />
                 <e p="NoTeamGetTeamId.cs" t="Include" />
                 <e p="ProjectileMapPosition.cs" t="Include" />
@@ -389,9 +390,11 @@
             </e>
             <e p="Scripts" t="Include">
               <e p="AnalysisTool.cs" t="Include" />
+              <e p="EntityUtils.cs" t="Include" />
               <e p="GetEntityProcedural.cs" t="Include" />
               <e p="GetPickupProcedural.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
+              <e p="HealthPickup.cs" t="Include" />
               <e p="MapAccessor.cs" t="Include" />
             </e>
             <e p="UnityProcedural" t="Include">

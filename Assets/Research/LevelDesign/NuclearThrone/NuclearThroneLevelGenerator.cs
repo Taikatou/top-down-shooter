@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
@@ -34,8 +35,6 @@ namespace Research.LevelDesign.NuclearThrone
 		
 		[Tooltip("The settings of our map")]
 		public MapSettings mapSetting;
-
-		public int players = 2;
 
 		public bool clearInnerWalls = true;
 
@@ -75,7 +74,7 @@ namespace Research.LevelDesign.NuclearThrone
 			MapIntCounter++;
 		}
 
-		public void InvokeGenerateMap(bool generateMap, int seed, int distance=2)
+		public void InvokeGenerateMap(bool generateMap, int seed)
 		{
 			ClearMap();
 			Random.InitState(seed);
@@ -84,11 +83,13 @@ namespace Research.LevelDesign.NuclearThrone
 				GameSimManager.Instance.SetCounter("seed", seed);	
 			}
 
-			var validPositions = new List<Vector3Int>();
+			var z = (int) tilemapGround.transform.position.y;
+		
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
-			while (validPositions.Count < players)
+			var spawnPositions = new List<Vector3Int>();
+			while (spawnPositions.Count < getSpawnPoints.players)
 			{
-				validPositions.Clear();
+				spawnPositions.Clear();
 				NuclearThroneMapFunctions.ClearArray(map);
 
 				if (generateMap)
@@ -105,26 +106,16 @@ namespace Research.LevelDesign.NuclearThrone
 					ClearInnerWalls.RemoveInnerWalls(map);
 				}
 
-				var z = (int) tilemapGround.transform.position.y;
-				for (var y = distance; y < height - distance; y++)
-				{
-					for (var x = distance; x < width - distance; x++)
-					{
-						var free = FreeTile(x, y, map, distance);
-						var notClose = CheckDistance(x, y, validPositions, 15);
-						if (free && notClose)
-						{
-							validPositions.Add(new Vector3Int(x, y, z));
-						}
-					}
-				}
+				spawnPositions = getSpawnPoints.GetLocations(map, z);
 			}
 			
 			//Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
-
-			var spawnPositions = GetMaxDistance(validPositions);
+			
 			SpawnPoints(spawnPositions, getSpawnPoints);
+
+			var healthPositions = pickupProcedural.GetHealthPositions(map, spawnPositions, z);
+			SpawnPoints(healthPositions, pickupProcedural);
 		}
 
 		private void SpawnPoints<T>(IEnumerable<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour
@@ -132,86 +123,36 @@ namespace Research.LevelDesign.NuclearThrone
 			var index = 0;
 			foreach(var position in spawnPositions)
 			{
-				var place = tilemapGround.CellToWorld(position);
-				var shouldInstantiate = !Application.isPlaying;
-				var prefab = shouldInstantiate
-					? Instantiate(proceduralPoint.entityPrefab)
-					: proceduralPoint.Points[index].gameObject;
+				var prefab = SpawnGameObject(proceduralPoint, position, index);
 				
 				proceduralPoint.AddPoint(index, prefab.GetComponent<T>());
 				
-				prefab.transform.position = place;
-				prefab.transform.parent = getSpawnPoints.transform;
+				prefab.transform.parent = proceduralPoint.transform;
 
 				index++;
 			}
 		}
 
-		private static IEnumerable<Vector3Int> GetMaxDistance(IReadOnlyCollection<Vector3Int> array)
+		private GameObject SpawnGameObject<T>(GetEntityProcedural<T> proceduralPoint, Vector3Int position, int index) where T : MonoBehaviour
 		{
-			var output = new List<Vector3Int>();
-			var maxDistance = -1;
-			foreach (var item in array)
-			{
-				foreach (var secondItem in array)
-				{
-					if (item != secondItem)
-					{
-						var xDiff = Mathf.Abs(item.x - secondItem.x);
-						var yDiff = Mathf.Abs(item.y - secondItem.y);
-						var distance = Mathf.Max(xDiff, yDiff);
-						if (distance > maxDistance)
-						{
-							maxDistance = distance;
-							output = new List<Vector3Int> {item, secondItem};
-						}
-					}
-				}
-			}
-			return output;
-		}
+			var place = tilemapGround.CellToWorld(position);
+			place.x += 0.5f;
+			place.y += 0.5f;
+			var shouldInstantiate = !Application.isPlaying;
+			var prefab = shouldInstantiate
+				? Instantiate(proceduralPoint.entityPrefab)
+				: proceduralPoint.Points[index].gameObject;
+			prefab.transform.position = place;
 
-		private bool CheckDistance(int x, int y, IEnumerable<Vector3Int> availableSpots, int distance)
-		{
-			foreach (var spot in availableSpots)
-			{
-				var xDistance = Mathf.Abs(spot.x - x);
-				var yDistance = Mathf.Abs(spot.y - y);
-				if (xDistance < distance || yDistance < distance)
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		private bool FreeTile(int x, int y, GridSpace[,] map, int distance)
-		{
-			for (var i = -distance; i <= distance; i++)
-			{
-				for (var j = -distance; j <= distance; j++)
-				{
-					if (map[x + i, y + j] != GridSpace.Floor)
-					{
-						return false;
-					}
-				}
-			}
-			return true;
+			return prefab;
 		}
 
 		public void ClearMap()
 		{
 			tilemapGround.ClearAllTiles();
 			tilemapWalls.ClearAllTiles();
-			foreach (var point in getSpawnPoints.Points)
-			{
-				if (!Application.isPlaying)
-				{
-					DestroyImmediate(point.gameObject);
-				}
-			}
+			getSpawnPoints.DestroyEntity();
+			pickupProcedural.DestroyEntity();
 		}
 	}
 
@@ -230,7 +171,7 @@ namespace Research.LevelDesign.NuclearThrone
 			
 			//mapLayer.randomSeed = EditorGUILayout.Toggle("Random Seed", mapLayer.randomSeed);
 
-			randomSeed = EditorGUILayout.Toggle("randomSeed", randomSeed);
+			randomSeed = EditorGUILayout.Toggle("Random Seed", randomSeed);
 			//Only appear if we have the random seed set to false
 			if (!randomSeed)
 			{

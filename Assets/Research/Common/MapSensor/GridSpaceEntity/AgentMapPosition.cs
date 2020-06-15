@@ -4,7 +4,7 @@ using Unity.MLAgents.Policies;
 
 namespace Research.Common.MapSensor.GridSpaceEntity
 {
-    public class AgentMapPosition : EntityMapPosition
+    public class AgentMapPosition : BaseMapPosition
     {
         public IGetTeamId getTeamId;
         public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)

@@ -58,7 +58,7 @@ MonoBehaviour:
   sensorName: 2d Sensor
   tileMapSensorConfig:
     debug: 0
-    layerList: 010000000200000003000000040000000600000007000000
+    layerList: 0100000002000000030000000400000006000000070000000a000000
     behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
     sizeX: 50
@@ -85,15 +85,15 @@ MonoBehaviour:
   gunSpeed: 0.01
   aimControl: 2
   observationSettings:
-    observeHealth: 0
-    observeWeaponTrace: 0
-    observeInput: 0
-    observeCloseToWall: 0
+    observeHealth: 1
+    observeWeaponTrace: 1
+    observeInput: 1
+    observeCloseToWall: 1
   trainingSettings:
-    secondaryInputEnabled: 0
-    shootEnabled: 0
+    secondaryInputEnabled: 1
+    shootEnabled: 1
     secondaryAbilityEnabled: 0
-    punishTime: 0
+    punishTime: 1
     enableCurriculum: 0
   groundRb: {fileID: 0}
   punishValue: -0.0005

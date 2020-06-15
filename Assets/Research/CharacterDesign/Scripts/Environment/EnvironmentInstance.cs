@@ -31,7 +31,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         private int _randomSeed;
         private bool _gameOver;
 
-        public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
+        public override BaseMapPosition[] EntityMapPositions => GetComponentsInChildren<BaseMapPosition>();
 
         private static readonly Dictionary<WinLossCondition, int> RewardMap = new Dictionary<WinLossCondition, int>
         {

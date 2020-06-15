@@ -8,16 +8,16 @@ using UnityEngine;
 
 namespace Research.Test.Scripts
 {
-    public class TestPickup : EntityMapPosition
+    public class TestPickup : BaseMapPosition
     {
         public GameObject playersParent;
+        
+        private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 
         public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)
         {
             return new []{new EntityMapReturn{GridSpace = GridSpace.Coin, Position = transform.position}};
         }
-
-        private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 
         public void OnTriggerEnter2D(Collider2D agentCollider)
         {

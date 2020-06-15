@@ -50,6 +50,12 @@ namespace Research.LevelDesign.Scripts
                     index++;
                 }
 
+                foreach (var point in generator.pickupProcedural.Points)
+                {
+                    var cell = GetPosition(point.transform.position);
+                    _cachedMap[cell.x, cell.y] = GridSpace.Health;
+                }
+
                 //NuclearThroneMapGenerator.OutputDebugMap(map);
                 _cachedMapId = newId;
             }

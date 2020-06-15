@@ -5,7 +5,7 @@ namespace Research.Test.Scripts
 {
     public class TestEnvironmentInstance : GetEnvironmentMapPositions
     {
-        public override EntityMapPosition[] EntityMapPositions => GetComponentsInChildren<EntityMapPosition>();
+        public override BaseMapPosition[] EntityMapPositions => GetComponentsInChildren<BaseMapPosition>();
         public override IEnumerator Restart()
         {
             throw new System.NotImplementedException();

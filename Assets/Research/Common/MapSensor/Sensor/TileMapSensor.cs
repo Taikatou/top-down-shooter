@@ -10,11 +10,11 @@ namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
-        private readonly string _name;
-
-        protected readonly GridSpace[,] MObservations;
-
         public readonly TileMapSensorConfig Config;
+        
+        protected readonly GridSpace[,] MObservations;
+        
+        private readonly string _name;
 
         private readonly GetEnvironmentMapPositions _environmentInstance;
 
@@ -65,7 +65,7 @@ namespace Research.Common.MapSensor.Sensor
         public void Update()
         {
             UpdateMap();
-            UpdateMapEntityPositions();
+            UpdateMapEntityPositions(MObservations);
         }
 
         private void UpdateMap()
@@ -82,7 +82,7 @@ namespace Research.Common.MapSensor.Sensor
             }
         }
 
-        private void UpdateMapEntityPositions()
+        private void UpdateMapEntityPositions(GridSpace[,] map)
         {
             foreach (var entityList in _environmentInstance.EntityMapPositions)
             {
@@ -100,7 +100,7 @@ namespace Research.Common.MapSensor.Sensor
                         var contains = Config.GridSpaceValues.ContainsKey(gridType);
                         if (contains)
                         {
-                            MObservations[cell.x, cell.y] = gridType;
+                            map[cell.x, cell.y] = gridType;
                         }
                     }
                 }
