@@ -32,6 +32,8 @@ namespace Research.CharacterDesign.Scripts
 
         public float punishValue = -0.0005f;
 
+        public bool enableHeuristic;
+
         private float Increment
         {
             get
@@ -98,27 +100,30 @@ namespace Research.CharacterDesign.Scripts
 
         public override void Heuristic(float[] actionsOut)
         {
-            var index = 0;
-            actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
-            if (trainingSettings.shootEnabled)
+            if (enableHeuristic)
             {
-                var shootButtonState = Input.GetKey(KeyCode.X);
-                var shootButtonInput = Convert.ToSingle(shootButtonState);
-                actionsOut[index++] = shootButtonInput;
-            }
+                var index = 0;
+                actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
+                if (trainingSettings.shootEnabled)
+                {
+                    var shootButtonState = Input.GetKey(KeyCode.X);
+                    var shootButtonInput = Convert.ToSingle(shootButtonState);
+                    actionsOut[index++] = shootButtonInput;
+                }
 
-            if (trainingSettings.secondaryInputEnabled)
-            {
-                var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
-                actionsOut[index++] = secondaryDirections.x;
-                actionsOut[index++] = secondaryDirections.y;
-            }
+                if (trainingSettings.secondaryInputEnabled)
+                {
+                    var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
+                    actionsOut[index++] = secondaryDirections.x;
+                    actionsOut[index++] = secondaryDirections.y;
+                }
             
-            if (trainingSettings.secondaryAbilityEnabled)
-            {
-                var secondaryShootButtonState = Input.GetKey(KeyCode.C);
-                var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-                actionsOut[index] = secondaryShootButtonInput;
+                if (trainingSettings.secondaryAbilityEnabled)
+                {
+                    var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+                    var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+                    actionsOut[index] = secondaryShootButtonInput;
+                }   
             }
         }
 
