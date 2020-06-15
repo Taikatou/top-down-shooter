@@ -1,4 +1,5 @@
 ﻿using MoreMountains.TopDownEngine;
+using Research.Common.MapSensor.GridSpaceEntity;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
@@ -15,12 +16,12 @@ namespace Research.CharacterDesign.Scripts
         {
             if (Owner)
             {
-                var owner = Owner.GetComponent<BehaviorParameters>();
-                var character = collider.GetComponent<BehaviorParameters>();
+                var owner = Owner.GetComponent<IGetTeamId>();
+                var character = collider.GetComponent<IGetTeamId>();
 
                 if (character && owner)
                 {
-                    _isTeam = owner.TeamId == character.TeamId;
+                    _isTeam = owner.GetTeamId == character.GetTeamId;
 
                     if (!healingItem && _isTeam)
                     {

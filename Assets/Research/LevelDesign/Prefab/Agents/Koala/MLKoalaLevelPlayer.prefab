@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &894682123181429754
+--- !u!114 &1604756009888559516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8813461447051219256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11de9e8670f740342a16b4883a071f78, type: 3}
+  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapAccessor: {fileID: 0}
+  parameters: {fileID: 6588580973578983833}
 --- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,10 +59,83 @@ MonoBehaviour:
   tileMapSensorConfig:
     debug: 0
     layerList: 010000000200000003000000040000000600000007000000
-    behaviorParameters: {fileID: 7476719718635778865}
+    behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
     sizeX: 50
     sizeY: 50
+--- !u!114 &3626092262812648849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  inputManager: {fileID: 8102902984675058143}
+  directionsKeyMapper: {fileID: 6233079523000986668}
+  secondaryDirectionsInput: {fileID: 3156256748972505094}
+  gunSpeed: 0.01
+  aimControl: 2
+  observationSettings:
+    observeHealth: 0
+    observeWeaponTrace: 0
+    observeInput: 0
+    observeCloseToWall: 0
+  trainingSettings:
+    secondaryInputEnabled: 0
+    shootEnabled: 0
+    secondaryAbilityEnabled: 0
+    punishTime: 0
+    enableCurriculum: 0
+  groundRb: {fileID: 0}
+  punishValue: -0.0005
+  enableHeuristic: 0
+--- !u!114 &6588580973578983833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 6
+    NumStackedVectorObservations: 3
+    VectorActionSize: 05000000020000000500000005000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: LevelKoala
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &6779050172656131190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters: {fileID: 6588580973578983833}
 --- !u!114 &8518743103520765402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +185,12 @@ PrefabInstance:
         type: 3}
       propertyPath: behaviorParameters
       value: 
-      objectReference: {fileID: 7476719718635778865}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798506748191649430, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: getTeamId
+      value: 
+      objectReference: {fileID: 1604756009888559516}
     - target: {fileID: 2517802659037441961, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: InitialWeapon
@@ -320,6 +398,42 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8102902984675058143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2980915014404623530, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8779c1d16e208fa498429dafc1d111a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6233079523000986668 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1129635984288842073, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02cfb6cb362e624a900d8db164edd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3156256748972505094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8277717229346903411, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &8698709721488786848 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2419870454344231125, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
@@ -332,15 +446,3 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7476719718635778865 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4535047603838295620, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-    type: 3}
-  m_PrefabInstance: {fileID: 6425824387268947317}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327462263919007741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

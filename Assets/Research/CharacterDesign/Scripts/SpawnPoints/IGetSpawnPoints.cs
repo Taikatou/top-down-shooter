@@ -1,10 +1,10 @@
-﻿using Research.CharacterDesign.Scripts.Environment;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.SpawnPoints
 {
-    public abstract class IGetSpawnPoints : MonoBehaviour
+    public abstract class IGetSpawnPoints<T> : MonoBehaviour
     {
-        public abstract MLCheckbox[] Points { get; }
+        public abstract T[] Points { get; }
     }
 }

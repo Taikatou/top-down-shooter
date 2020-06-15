@@ -1,21 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3770133431801089609
+--- !u!114 &3216253885255577028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576168718503937663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab970321a6ae72b48bf950f35fa66e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamId: 1
+--- !u!1001 &2081639899425749554
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1798506748191649430, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: getTeamId
+      value: 
+      objectReference: {fileID: 3216253885255577028}
     - target: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_Name
       value: MLKoalaLevelNoDecisions
-      objectReference: {fileID: 0}
-    - target: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-        type: 3}
-      propertyPath: m_TagString
-      value: PlayerPrior
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
@@ -72,20 +85,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-        type: 3}
-      propertyPath: m_BehaviorName
-      value: LevelKoalaNoDecisions
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-        type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606076189845811975, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-        type: 3}
-      propertyPath: TeamId
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
+--- !u!1 &4576168718503937663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2549786438118128717, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 2081639899425749554}
+  m_PrefabAsset: {fileID: 0}

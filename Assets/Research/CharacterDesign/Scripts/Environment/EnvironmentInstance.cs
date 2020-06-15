@@ -53,8 +53,8 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 if (MlUtils.Dead(character))
                 {
-                    var behaviour = character.GetComponentInChildren<BehaviorParameters>();
-                    var index = behaviour.TeamId;
+                    var behaviour = character.GetComponentInChildren<IGetTeamId>();
+                    var index = behaviour.GetTeamId;
                     teamDeaths[index]++;
                 }
             }
@@ -123,7 +123,10 @@ namespace Research.CharacterDesign.Scripts.Environment
             foreach (var agent in mlCharacters)
             {
                 var decisionRequester = agent.GetComponentInChildren<DecisionRequester>();
-                decisionRequester.allowDecisions = allow;
+                if (decisionRequester != null)
+                {
+                    decisionRequester.allowDecisions = allow;   
+                }
             }
         }
 
@@ -197,23 +200,23 @@ namespace Research.CharacterDesign.Scripts.Environment
             var winningTeamId = WinningTeam();
 
             var loggedData = new [] {0, 0};
-            var loggedNames = new List<string>();
             foreach (var player in mlCharacters)
             {
-                var behaviour = player.GetComponentInChildren<BehaviorParameters>();
-                var agentName = behaviour.FullyQualifiedBehaviorName;
-                var teamId = behaviour.TeamId;
+                var behaviour = player.GetComponentInChildren<IGetTeamId>();
+                var teamId = behaviour.GetTeamId;
                 var winLossCondition = GetRewardCondition(teamId, winningTeamId);
                 var reward = RewardMap[winLossCondition];
                 
                 loggedData[teamId] = reward;
-                loggedNames.Add(agentName);
 
                 var agent = player.GetComponentInChildren<TopDownAgent>();
-                agent.AddReward(reward);
-                agent.EndEpisode();
+                if (agent)
+                {
+                    agent.AddReward(reward);
+                    agent.EndEpisode();   
+                }
 
-                Debug.Log(winLossCondition + "\t" + agentName);
+                //Debug.Log(winLossCondition + "\t" + agentName);
                 if (teamId == 0)
                 {
                     outPutter.AddResult(winLossCondition);
@@ -221,8 +224,6 @@ namespace Research.CharacterDesign.Scripts.Environment
             }
 
             Debug.Log("Winning Team" + winningTeamId);
-            Debug.Log(loggedNames[0] + " reward: " + loggedData[0] + "\n" + 
-                      loggedNames[1] + " reward: " + loggedData[1] + "\n");
 
             if (MlLevelManager.UnitySimulation)
             {

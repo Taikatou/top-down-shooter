@@ -39,9 +39,9 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public bool clearInnerWalls = true;
 
-		public GameObject spawnPrefab;
-
 		public GetSpawnProcedural getSpawnPoints;
+
+		public GetPickupProcedural pickupProcedural;
 
 		public LevelUpdate onLevelUpdate;
 
@@ -123,17 +123,22 @@ namespace Research.LevelDesign.NuclearThrone
 			//Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
 
-			var index = 0;
 			var spawnPositions = GetMaxDistance(validPositions);
+			SpawnPoints(spawnPositions, getSpawnPoints);
+		}
+
+		private void SpawnPoints<T>(IEnumerable<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour
+		{
+			var index = 0;
 			foreach(var position in spawnPositions)
 			{
 				var place = tilemapGround.CellToWorld(position);
 				var shouldInstantiate = !Application.isPlaying;
 				var prefab = shouldInstantiate
-					? Instantiate(spawnPrefab)
-					: getSpawnPoints.Points[index].gameObject;
+					? Instantiate(proceduralPoint.entityPrefab)
+					: proceduralPoint.Points[index].gameObject;
 				
-				getSpawnPoints.AddPoint(index, prefab.GetComponent<MLCheckbox>());
+				proceduralPoint.AddPoint(index, prefab.GetComponent<T>());
 				
 				prefab.transform.position = place;
 				prefab.transform.parent = getSpawnPoints.transform;

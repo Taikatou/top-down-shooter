@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\conor\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
     <e p="D:\ml-agents\com.unity.ml-agents\Editor" t="Include">
       <e p="AgentEditor.cs" t="Include" />
       <e p="BehaviorParametersEditor.cs" t="Include" />
@@ -96,6 +96,18 @@
         <e p="RayPerceptionSensorComponent2D.cs" t="Include" />
         <e p="RayPerceptionSensorComponent3D.cs" t="Include" />
         <e p="RayPerceptionSensorComponentBase.cs" t="Include" />
+        <e p="Reflection" t="Include">
+          <e p="BoolReflectionSensor.cs" t="Include" />
+          <e p="EnumReflectionSensor.cs" t="Include" />
+          <e p="FloatReflectionSensor.cs" t="Include" />
+          <e p="IntReflectionSensor.cs" t="Include" />
+          <e p="ObservableAttribute.cs" t="Include" />
+          <e p="QuaternionReflectionSensor.cs" t="Include" />
+          <e p="ReflectionSensorBase.cs" t="Include" />
+          <e p="Vector2ReflectionSensor.cs" t="Include" />
+          <e p="Vector3ReflectionSensor.cs" t="Include" />
+          <e p="Vector4ReflectionSensor.cs" t="Include" />
+        </e>
         <e p="RenderTextureSensor.cs" t="Include" />
         <e p="RenderTextureSensorComponent.cs" t="Include" />
         <e p="SensorComponent.cs" t="Include" />
@@ -325,11 +337,13 @@
             <e p="MapSensor" t="Include">
               <e p="GridSpaceEntity" t="Include">
                 <e p="AgentMapPosition.cs" t="Include" />
+                <e p="BehaviourGetTeamId.cs" t="Include" />
                 <e p="EntityMapPosition.cs" t="Include" />
                 <e p="GetEnvironmentMapPositions.cs" t="Include" />
+                <e p="IGetTeamID.cs" t="Include" />
+                <e p="NoTeamGetTeamId.cs" t="Include" />
                 <e p="ProjectileMapPosition.cs" t="Include" />
               </e>
-              <e p="MapSensorGetter.cs" t="Include" />
               <e p="Sensor" t="Include">
                 <e p="TileMapSensor.cs" t="Include" />
                 <e p="TileMapSensor2D.cs" t="Include" />
@@ -375,6 +389,8 @@
             </e>
             <e p="Scripts" t="Include">
               <e p="AnalysisTool.cs" t="Include" />
+              <e p="GetEntityProcedural.cs" t="Include" />
+              <e p="GetPickupProcedural.cs" t="Include" />
               <e p="GetSpawnProcedural.cs" t="Include" />
               <e p="MapAccessor.cs" t="Include" />
             </e>
