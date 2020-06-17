@@ -162,6 +162,16 @@ PrefabInstance:
       propertyPath: selfDetectableTags.Array.data[0]
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6588580973578983833, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: TeamId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588580973578983833, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7476719718635778865, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: TeamId
