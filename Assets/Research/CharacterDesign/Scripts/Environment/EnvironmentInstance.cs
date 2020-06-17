@@ -213,6 +213,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 if (agent)
                 {
                     agent.AddReward(reward);
+                    Debug.Log("Reward: " + agent.GetCumulativeReward());
                     agent.EndEpisode();   
                 }
 

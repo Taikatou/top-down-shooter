@@ -14,7 +14,7 @@ namespace Research.Test.Scripts
         
         private TestGridAgent [] Players => playersParent.GetComponentsInChildren<TestGridAgent>();
 
-        public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)
+        public override EntityMapReturn[] GetGridSpaceType(int teamId)
         {
             return new []{new EntityMapReturn{GridSpace = GridSpace.Coin, Position = transform.position}};
         }

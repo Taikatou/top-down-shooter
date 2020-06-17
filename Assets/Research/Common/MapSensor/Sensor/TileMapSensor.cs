@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using Research.Common.MapSensor.GridSpaceEntity;
+using Research.Common.MapSensor.Sensor.SensorData;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
     public abstract class TileMapSensor : ISensor
     {
-        public readonly TileMapSensorConfig Config;
+        protected readonly TileMapSensorConfig Config;
         
         protected readonly GridSpace[,] MObservations;
         
         private readonly string _name;
 
         private readonly GetEnvironmentMapPositions _environmentInstance;
+
+        private readonly BaseSensorData _sensorData;
 
         protected abstract int[] MShape { get; }
 
@@ -45,13 +49,21 @@ namespace Research.Common.MapSensor.Sensor
         }
 
         protected TileMapSensor(string name, GetEnvironmentMapPositions environmentInstance,
-            TileMapSensorConfig config)
+            TileMapSensorConfig config, Transform transform)
         {
             _environmentInstance = environmentInstance;
             Config = config;
             _name = name;
 
             MObservations = new GridSpace[Config.sizeX, Config.sizeY];
+            if (config.trackPosition)
+            {
+                _sensorData = new FollowSensorData(config, transform);
+            }
+            else
+            {
+                _sensorData = new FullSensorData(config);
+            }
         }
 
         public int Write(ObservationWriter writer)
@@ -64,47 +76,8 @@ namespace Research.Common.MapSensor.Sensor
 
         public void Update()
         {
-            UpdateMap();
-            UpdateMapEntityPositions(MObservations);
-        }
-
-        private void UpdateMap()
-        {
-            var map = Config.mapAccessor.GetMap();
-            var startEnd = TileMapSensorConfigUtils.GetTrackPosition(Config);
-            for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
-            {
-                for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
-                {
-                    var value = map[x, y];
-                    MObservations[x, y] = value;
-                }
-            }
-        }
-
-        private void UpdateMapEntityPositions(GridSpace[,] map)
-        {
-            foreach (var entityList in _environmentInstance.EntityMapPositions)
-            {
-                foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
-                {
-                    var cell = Config.mapAccessor.GetPosition(entity.Position);
-                    var trackPos = TileMapSensorConfigUtils.GetTrackPosition(Config);
-
-                    var xValid = cell.x >= trackPos.StartPos.x && cell.x < trackPos.EndPos.x;
-                    var yValid = cell.y >= trackPos.StartPos.y && cell.y < trackPos.EndPos.y;
-
-                    if (xValid && yValid)
-                    {
-                        var gridType = entity.GridSpace;
-                        var contains = Config.GridSpaceValues.ContainsKey(gridType);
-                        if (contains)
-                        {
-                            map[cell.x, cell.y] = gridType;
-                        }
-                    }
-                }
-            }
+            _sensorData.UpdateMap(MObservations);
+            _sensorData.UpdateMapEntityPositions(MObservations, _environmentInstance.EntityMapPositions);
         }
     }
 }

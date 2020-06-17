@@ -7,7 +7,7 @@ namespace Research.Common.MapSensor.GridSpaceEntity
     public class ProjectileMapPosition : BaseMapPosition
     {
         public int bulletTeamId;
-        public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)
+        public override EntityMapReturn[] GetGridSpaceType(int teamId)
         {
             var objectPooler = GetComponentInChildren<MLObjectPooler>();
             var positions = objectPooler.GetListObjects();

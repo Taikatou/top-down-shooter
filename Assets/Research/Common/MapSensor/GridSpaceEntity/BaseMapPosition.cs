@@ -11,6 +11,6 @@ namespace Research.Common.MapSensor.GridSpaceEntity
     }
     public abstract class BaseMapPosition : MonoBehaviour
     {
-        public abstract IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId);
+        public abstract EntityMapReturn[] GetGridSpaceType(int teamId);
     }
 }

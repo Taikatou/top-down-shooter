@@ -137,10 +137,9 @@ namespace Research.LevelDesign.NuclearThrone
 			var place = tilemapGround.CellToWorld(position);
 			place.x += 0.5f;
 			place.y += 0.5f;
-			var shouldInstantiate = !Application.isPlaying;
-			var prefab = shouldInstantiate
-				? Instantiate(proceduralPoint.entityPrefab)
-				: proceduralPoint.Points[index].gameObject;
+
+			var prefab = Instantiate(proceduralPoint.entityPrefab);
+				
 			prefab.transform.position = place;
 
 			return prefab;

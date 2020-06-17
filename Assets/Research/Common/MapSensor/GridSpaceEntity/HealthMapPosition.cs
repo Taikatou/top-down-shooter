@@ -5,7 +5,7 @@ namespace Research.Common.MapSensor.GridSpaceEntity
 {
     public class HealthMapPosition : BaseMapPosition
     {
-        public override IEnumerable<EntityMapReturn> GetGridSpaceType(int teamId)
+        public override EntityMapReturn[] GetGridSpaceType(int teamId)
         {
             return new[] { new EntityMapReturn { GridSpace = GridSpace.Health, Position = transform.position }};
         }

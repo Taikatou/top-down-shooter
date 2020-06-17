@@ -3,6 +3,7 @@ using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
@@ -13,7 +14,7 @@ namespace Research.Common.MapSensor.Sensor
         protected override int WriteObservations(ObservationWriter writer)
         {
             var obsSize = TileMapSensorConfigUtils.GetOutputSizeLinear(Config);
-            var trackedPosition = TileMapSensorConfigUtils.GetTrackPosition(Config);
+            var trackedPosition = TileMapSensorConfigUtils.GetStartEndPosition(Config);
             
             var outputArray = new float[obsSize];
             var index = 0;
@@ -39,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
             return obsSize;
         }
 
-        public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config) : base(name, environmentInstance, config)
+        public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
         {
             MShape = new[] { TileMapSensorConfigUtils.GetOutputSizeLinear(Config) };
         }

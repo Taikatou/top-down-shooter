@@ -32,7 +32,7 @@ MonoBehaviour:
   - PlayerPrior
   - Projectile
   - ProjectilePrior
-  m_RaysPerDirection: 10
+  m_RaysPerDirection: 7
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
   m_RayLength: 50
@@ -63,6 +63,7 @@ MonoBehaviour:
     mapAccessor: {fileID: 0}
     sizeX: 50
     sizeY: 50
+    trackPosition: 0
 --- !u!114 &3626092262812648849
 MonoBehaviour:
   m_ObjectHideFlags: 0

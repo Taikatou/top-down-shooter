@@ -9943,6 +9943,21 @@ PrefabInstance:
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1937059374405893445}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeX
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeY
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.trackPosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3626092262812648849, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: groundRb
@@ -10292,5 +10307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLKoalaLevelPrior
       objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 1937059374405893445}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1, type: 3}

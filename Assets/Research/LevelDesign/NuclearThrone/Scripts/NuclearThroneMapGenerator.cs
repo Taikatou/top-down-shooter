@@ -49,11 +49,11 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			var roomWidth = debugGrid.GetUpperBound(0);
 			var roomHeight = debugGrid.GetUpperBound(1);
 			var output = "Output log \n";
-			for (var y = roomHeight - 1; y >= 0; y--)
+			for (var y = roomHeight; y >= 0; y--)
 			{
-				for (var x = 0; x < roomWidth; x++)
+				for (var x = 0; x <= roomWidth; x++)
 				{
-					output += (int)debugGrid[x, y] + ",";
+					output += debugGrid[x, y] + " ";
 				}
 				output += "\n";
 			}

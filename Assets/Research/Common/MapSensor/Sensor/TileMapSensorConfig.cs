@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
-    public struct TrackPosition
+    public struct StartEndPosition
     {
         public Vector2Int StartPos;
         public Vector2Int EndPos;
@@ -14,15 +14,36 @@ namespace Research.Common.MapSensor.Sensor
 
     public static class TileMapSensorConfigUtils
     {
-        public static TrackPosition GetTrackPosition(TileMapSensorConfig config)
+        public static StartEndPosition GetStartEndPosition(TileMapSensorConfig config)
         {
-            var returnValue = new TrackPosition
+            var returnValue = new StartEndPosition
             {
                 StartPos = new Vector2Int(0, 0), 
                 EndPos = new Vector2Int(config.sizeX, config.sizeY)
             };
 
             return returnValue;
+        }
+        
+        public static StartEndPosition GetTrackStartEndPosition(TileMapSensorConfig config, Vector3Int cell)
+        {
+            var halfX = config.sizeX / 2;
+            var halfY = config.sizeY / 2;
+            var returnValue = new StartEndPosition
+            {
+                StartPos =  new Vector2Int(cell.x - halfX, cell.y-halfY),
+                EndPos = new Vector2Int(cell.x + halfX, cell.y+halfY)
+            };
+
+            return returnValue;
+        }
+
+        public static Vector2Int GetMappedPosition(TileMapSensorConfig config, int x, int y, Vector3Int self)
+        {
+            var halfX = config.sizeX / 2;
+            var halfY = config.sizeY / 2;
+            
+            return new Vector2Int(x - self.x + halfX, y - self.y + halfY);
         }
 
         public static int GetOutputSizeLinear(TileMapSensorConfig config)
@@ -41,6 +62,8 @@ namespace Research.Common.MapSensor.Sensor
         public MapAccessor mapAccessor;
         public int sizeX;
         public int sizeY;
+
+        public bool trackPosition;
         
         public int TeamId => behaviorParameters.TeamId;
 

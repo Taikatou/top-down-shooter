@@ -13,31 +13,33 @@ namespace Research.LevelDesign.Scripts
         public List<Vector3Int> GetHealthPositions(GridSpace[,] map, List<Vector3Int> avoidPositions, int z, int freeDistance=2)
         {
             var newLocations = new List<Vector3Int>();
-            var newStartDistance = startDistance;
-            var locations = GetLocations(map, z, freeDistance, minDistance);
-            foreach (var location in locations)
+            if (healthPositionCount > 0)
             {
-                var valid = true;
-                foreach (var toAvoid in avoidPositions)
+                var newStartDistance = startDistance;
+                var locations = GetLocations(map, z, freeDistance, minDistance);
+                foreach (var location in locations)
                 {
-                    var entityDistance = EntityUtils.GetDistance(location,toAvoid);
-                    if (entityDistance < newStartDistance)
+                    var valid = true;
+                    foreach (var toAvoid in avoidPositions)
                     {
-                        valid = false;
+                        var entityDistance = EntityUtils.GetDistance(location, toAvoid);
+                        if (entityDistance < newStartDistance)
+                        {
+                            valid = false;
+                        }
                     }
-                }
-                Debug.Log(valid);
-                if (valid)
-                {
-                    newLocations.Add(location);
-                    avoidPositions.Add(location);
-                    if (newLocations.Count >= healthPositionCount)
+
+                    if (valid)
                     {
-                        break;
+                        newLocations.Add(location);
+                        avoidPositions.Add(location);
+                        if (newLocations.Count >= healthPositionCount)
+                        {
+                            break;
+                        }
                     }
                 }
             }
-
             return newLocations;
         }
     }

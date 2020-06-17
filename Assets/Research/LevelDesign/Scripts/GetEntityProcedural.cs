@@ -114,11 +114,15 @@ namespace Research.LevelDesign.Scripts
 
         public void DestroyEntity()
         {
-            if (!Application.isPlaying)
+            foreach (var point in Points)
             {
-                foreach (var point in Points)
+                if (!Application.isPlaying)
                 {
                     DestroyImmediate(point.gameObject);
+                }
+                else
+                {
+                    Destroy(point.gameObject);
                 }
             }
         }

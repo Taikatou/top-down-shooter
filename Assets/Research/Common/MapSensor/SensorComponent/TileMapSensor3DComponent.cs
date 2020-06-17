@@ -11,7 +11,8 @@ namespace Research.Common.MapSensor.SensorComponent
         {
             TileMapSensor = new TileMapSensor3D(sensorName,
                                                 EnvironmentInstance,
-                                                tileMapSensorConfig);
+                                                tileMapSensorConfig,
+                                                transform);
             return TileMapSensor;
         }
         

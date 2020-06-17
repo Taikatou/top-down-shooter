@@ -3,6 +3,7 @@ using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor
 {
@@ -41,7 +42,7 @@ namespace Research.Common.MapSensor.Sensor
             return new[] { config.sizeX, config.sizeY, detectable };
         }
 
-        public TileMapSensor3D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config) : base(name, environmentInstance, config)
+        public TileMapSensor3D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
         {
             MShape = GetObservationSize3D(Config);
         }
