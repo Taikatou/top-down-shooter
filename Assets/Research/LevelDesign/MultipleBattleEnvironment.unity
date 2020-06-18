@@ -1823,7 +1823,7 @@ PrefabInstance:
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: trainingSettings.punishTime
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -1833,7 +1833,7 @@ PrefabInstance:
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: punishValue
-      value: -0.0001
+      value: -0.00001
       objectReference: {fileID: 0}
     - target: {fileID: 1937059374405893445, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -85627,7 +85627,12 @@ PrefabInstance:
     - target: {fileID: 3626092262682243008, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: trainingSettings.punishTime
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626092262682243008, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: punishValue
+      value: -0.00001
       objectReference: {fileID: 0}
     - target: {fileID: 7224613874024565018, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}

@@ -9,7 +9,6 @@
     "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.vscode": "1.2.0",
     "com.unity.ml-agents": "file:../../ml-agents/com.unity.ml-agents",
-    "com.unity.ml-agents.extensions": "file:../../ml-agents/com.unity.ml-agents.extensions",
     "com.unity.postprocessing": "2.2.2",
     "com.unity.render-pipelines.universal": "7.3.1",
     "com.unity.simulation.games": "0.4.1-preview.7",
@@ -55,9 +54,5 @@
       "revision": "master",
       "hash": "18cae2921070fc149efc3e9a0b410df35309db73"
     }
-  },
-  "testables": [
-    "com.unity.ml-agents",
-    "com.unity.ml-agents.extensions"
-  ]
+  }
 }

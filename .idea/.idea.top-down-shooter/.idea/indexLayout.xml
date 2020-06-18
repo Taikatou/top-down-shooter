@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelUserStore">
-    <attachedFolders />
+    <attachedFolders>
+      <Path>../ml-agents/com.unity.ml-agents.extensions</Path>
+    </attachedFolders>
     <explicitIncludes>
       <Path>../ml-agents/com.unity.ml-agents</Path>
-      <Path>../ml-agents/com.unity.ml-agents.extensions</Path>
       <Path>Library/PackageCache/com.unity.2d.pixel-perfect@2.0.4</Path>
       <Path>Library/PackageCache/com.unity.analytics@3.3.5</Path>
+      <Path>Library/PackageCache/com.unity.barracuda@0.7.0-preview</Path>
       <Path>Library/PackageCache/com.unity.barracuda@1.0.0</Path>
       <Path>Library/PackageCache/com.unity.burst@1.2.3</Path>
       <Path>Library/PackageCache/com.unity.cinemachine@2.4.0</Path>

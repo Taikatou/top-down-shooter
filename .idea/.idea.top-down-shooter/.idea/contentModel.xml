@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
     <e p="D:\ml-agents\com.unity.ml-agents\Editor" t="Include">
       <e p="AgentEditor.cs" t="Include" />
       <e p="BehaviorParametersEditor.cs" t="Include" />
@@ -13,7 +13,6 @@
       <e p="EditorUtilities.cs" t="Include" />
       <e p="RayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
-      <e p="TopDownRayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
     <e p="D:\ml-agents\com.unity.ml-agents\Runtime" t="Include">
@@ -86,7 +85,6 @@
         <e p="IPolicy.cs" t="Include" />
         <e p="RemotePolicy.cs" t="Include" />
       </e>
-      <e p="Sampler.cs" t="Include" />
       <e p="Sensors" t="Include">
         <e p="CameraSensor.cs" t="Include" />
         <e p="CameraSensorComponent.cs" t="Include" />
@@ -99,7 +97,6 @@
         <e p="RayPerceptionSensorComponentBase.cs" t="Include" />
         <e p="Reflection" t="Include">
           <e p="BoolReflectionSensor.cs" t="Include" />
-          <e p="EnumReflectionSensor.cs" t="Include" />
           <e p="FloatReflectionSensor.cs" t="Include" />
           <e p="IntReflectionSensor.cs" t="Include" />
           <e p="ObservableAttribute.cs" t="Include" />
@@ -114,9 +111,6 @@
         <e p="SensorComponent.cs" t="Include" />
         <e p="SensorShapeValidator.cs" t="Include" />
         <e p="StackingSensor.cs" t="Include" />
-        <e p="TopDown" t="Include">
-          <e p="TopDownRaySensorComponent.cs" t="Include" />
-        </e>
         <e p="VectorSensor.cs" t="Include" />
       </e>
       <e p="SideChannels" t="Include">
@@ -135,68 +129,6 @@
       <e p="Unity.ML-Agents.asmdef" t="Include" />
       <e p="UnityAgentsException.cs" t="Include" />
       <e p="Utilities.cs" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents\Tests\Editor" t="Include">
-      <e p="AcademyTests.cs" t="Include" />
-      <e p="BehaviorParameterTests.cs" t="Include" />
-      <e p="Communicator" t="Include">
-        <e p="GrpcExtensionsTests.cs" t="Include" />
-        <e p="RpcCommunicatorTests.cs" t="Include" />
-        <e p="UnityRLCapabilitiesTests.cs" t="Include" />
-      </e>
-      <e p="DemonstrationTests.cs" t="Include" />
-      <e p="DiscreteActionOutputApplierTest.cs" t="Include" />
-      <e p="EditModeTestActionMasker.cs" t="Include" />
-      <e p="EditModeTestInternalBrainTensorApplier.cs" t="Include" />
-      <e p="EditModeTestInternalBrainTensorGenerator.cs" t="Include" />
-      <e p="MLAgentsEditModeTest.cs" t="Include" />
-      <e p="ModelRunnerTest.cs" t="Include" />
-      <e p="MultinomialTest.cs" t="Include" />
-      <e p="ParameterLoaderTest.cs" t="Include" />
-      <e p="PublicAPI" t="Include">
-        <e p="PublicApiValidation.cs" t="Include" />
-        <e p="Unity.ML-Agents.Editor.Tests.PublicAPI.asmdef" t="Include" />
-      </e>
-      <e p="RandomNormalTest.cs" t="Include" />
-      <e p="SamplerTests.cs" t="Include" />
-      <e p="Sensor" t="Include">
-        <e p="CameraSensorComponentTest.cs" t="Include" />
-        <e p="CameraSensorTest.cs" t="Include" />
-        <e p="FloatVisualSensorTests.cs" t="Include" />
-        <e p="ObservableAttributeTests.cs" t="Include" />
-        <e p="ObservationWriterTests.cs" t="Include" />
-        <e p="RayPerceptionSensorTests.cs" t="Include" />
-        <e p="RenderTextureSensorComponentTests.cs" t="Include" />
-        <e p="RenderTextureSensorTests.cs" t="Include" />
-        <e p="SensorShapeValidatorTests.cs" t="Include" />
-        <e p="StackingSensorTests.cs" t="Include" />
-        <e p="VectorSensorTests.cs" t="Include" />
-      </e>
-      <e p="SideChannelTests.cs" t="Include" />
-      <e p="TensorUtilsTest.cs" t="Include" />
-      <e p="TimerTest.cs" t="Include" />
-      <e p="Unity.ML-Agents.Editor.Tests.asmdef" t="Include" />
-      <e p="UtilitiesTests.cs" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents\Tests\Runtime" t="Include">
-      <e p="RuntimeAPITest.cs" t="Include" />
-      <e p="Unity.ML-Agents.Runtime.Tests.asmdef" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents.extensions\Editor" t="Include">
-      <e p="EditorExample.cs" t="Include" />
-      <e p="Unity.ML-Agents.Extensions.Editor.asmdef" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents.extensions\Runtime" t="Include">
-      <e p="RuntimeExample.cs" t="Include" />
-      <e p="Unity.ML-Agents.Extensions.asmdef" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents.extensions\Tests\Editor" t="Include">
-      <e p="EditorExampleTest.cs" t="Include" />
-      <e p="Unity.ML-Agents.Extensions.EditorTests.asmdef" t="Include" />
-    </e>
-    <e p="D:\ml-agents\com.unity.ml-agents.extensions\Tests\Runtime" t="Include">
-      <e p="RuntimeExampleTest.cs" t="Include" />
-      <e p="Unity.ML-Agents.Extensions.Tests.asmdef" t="Include" />
     </e>
     <e p="D:\top-down-shooter" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
@@ -1482,17 +1414,10 @@
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
-      <e p="Tests.csproj" t="IncludeRecursive" />
       <e p="top-down-shooter.sln" t="IncludeFlat" />
       <e p="Unity.ML-Agents.CommunicatorObjects.csproj" t="IncludeRecursive" />
       <e p="Unity.ML-Agents.csproj" t="IncludeRecursive" />
       <e p="Unity.ML-Agents.Editor.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Editor.Tests.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Editor.Tests.PublicAPI.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Extensions.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Extensions.Editor.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Extensions.EditorTests.csproj" t="IncludeRecursive" />
-      <e p="Unity.ML-Agents.Extensions.Tests.csproj" t="IncludeRecursive" />
     </e>
   </component>
 </project>
