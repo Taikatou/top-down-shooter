@@ -1,5 +1,4 @@
 ﻿using System;
-using AgentInput;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
@@ -19,10 +18,8 @@ namespace Research.CharacterDesign.Scripts
         public DirectionsKeyMapper directionsKeyMapper;
 
         public SecondaryDirectionsInput secondaryDirectionsInput;
-
-        public float gunSpeed = 0.01f;
         
-        public AimControl aimControl = AimControl.ThirtyTwoWay;
+        public AimControl aimControl = AimControl.EightWay;
         
         public ObservationSettings observationSettings;
 
@@ -33,21 +30,6 @@ namespace Research.CharacterDesign.Scripts
         public float punishValue = -0.0005f;
 
         public bool enableHeuristic;
-
-        private float Increment
-        {
-            get
-            {
-                switch (aimControl)
-                {
-                    case AimControl.SixTeenWay:
-                        return 0.5f;
-                    case AimControl.ThirtyTwoWay:
-                        return 0.33f;
-                }
-                return 1;   
-            }
-        }
 
         private void PunishMovement()
         {
@@ -75,25 +57,19 @@ namespace Research.CharacterDesign.Scripts
             if (trainingSettings.secondaryInputEnabled)
             {
                 // Set secondary input as vector
-                var secondaryXInput = AgentUtils.GetDecision(vectorAction[counter++], Increment);
-                var secondaryYInput = AgentUtils.GetDecision(vectorAction[counter++], Increment);
+                var secondaryXInput = AgentUtils.GetDecision(vectorAction[counter++], aimControl);
+                var secondaryYInput = AgentUtils.GetDecision(vectorAction[counter++], aimControl);
                 var secondary = new Vector2(secondaryXInput, secondaryYInput);
-                switch (aimControl)
-                {
-                    case AimControl.Addition:
-                        inputManager.MoveAiSecondaryMovement(secondary, gunSpeed);
-                        break;
-                    case AimControl.SixTeenWay:
-                        inputManager.SetAiSecondaryMovement(secondary);
-                        break;
-                }
+                inputManager.SetAiSecondaryMovement(secondary);
             }
 
             if (trainingSettings.secondaryAbilityEnabled)
             {
-                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter++]);
+                var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
+            
+            Debug.Log(vectorAction[2] + "\t" + vectorAction[3]);
 
             PunishMovement();
         }

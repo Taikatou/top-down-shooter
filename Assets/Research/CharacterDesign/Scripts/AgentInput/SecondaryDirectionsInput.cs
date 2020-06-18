@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Research.CharacterDesign.Scripts.AgentInput;
+﻿using System.Collections.Generic;
 using Research.Common;
 using UnityEngine;
 
-namespace AgentInput
+namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class SecondaryDirectionsInput : VectorInput
     {

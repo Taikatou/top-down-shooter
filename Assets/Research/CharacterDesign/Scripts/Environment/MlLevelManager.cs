@@ -22,6 +22,11 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             base.Start();
             AnalyticsEvent.GameStart();
+            if (Application.isEditor)
+            {
+                Application.targetFrameRate = 60;
+                Debug.Log("Set target frame rate");
+            }
         }
 
         protected override void SpawnSingleCharacter()

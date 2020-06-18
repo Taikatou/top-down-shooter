@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1604756009888559516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameters: {fileID: 6588580973578983833}
 --- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,13 +44,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensorName: 2d Sensor
   tileMapSensorConfig:
-    debug: 0
+    debug: 1
     layerList: 0100000002000000030000000400000006000000070000000a000000
     behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
-    sizeX: 50
-    sizeY: 50
-    trackPosition: 0
+    sizeX: 21
+    sizeY: 21
+    trackPosition: 1
 --- !u!114 &3626092262812648849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +71,7 @@ MonoBehaviour:
   directionsKeyMapper: {fileID: 6233079523000986668}
   secondaryDirectionsInput: {fileID: 3156256748972505094}
   gunSpeed: 0.01
-  aimControl: 2
+  aimControl: 1
   observationSettings:
     observeHealth: 1
     observeWeaponTrace: 1
@@ -97,8 +84,8 @@ MonoBehaviour:
     punishTime: 1
     enableCurriculum: 0
   groundRb: {fileID: 0}
-  punishValue: -0.0005
-  enableHeuristic: 0
+  punishValue: -0.0001
+  enableHeuristic: 1
 --- !u!114 &6588580973578983833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +152,19 @@ MonoBehaviour:
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
+--- !u!114 &1604756009888559516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters: {fileID: 6588580973578983833}
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,12 +206,12 @@ PrefabInstance:
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.23
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 23.83
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}

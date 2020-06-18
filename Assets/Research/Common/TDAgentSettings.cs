@@ -4,7 +4,6 @@
     
     public enum AimControl
     {
-        Addition,
         EightWay,
         SixTeenWay,
         ThirtyTwoWay

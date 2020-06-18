@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\conor\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\conor\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_top-down-shooter.1415087056.00" t="ExcludeRecursive" />
     <e p="D:\ml-agents\com.unity.ml-agents\Editor" t="Include">
       <e p="AgentEditor.cs" t="Include" />
       <e p="BehaviorParametersEditor.cs" t="Include" />
@@ -13,6 +13,7 @@
       <e p="EditorUtilities.cs" t="Include" />
       <e p="RayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
+      <e p="TopDownRayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
     <e p="D:\ml-agents\com.unity.ml-agents\Runtime" t="Include">
@@ -85,6 +86,7 @@
         <e p="IPolicy.cs" t="Include" />
         <e p="RemotePolicy.cs" t="Include" />
       </e>
+      <e p="Sampler.cs" t="Include" />
       <e p="Sensors" t="Include">
         <e p="CameraSensor.cs" t="Include" />
         <e p="CameraSensorComponent.cs" t="Include" />
@@ -97,6 +99,7 @@
         <e p="RayPerceptionSensorComponentBase.cs" t="Include" />
         <e p="Reflection" t="Include">
           <e p="BoolReflectionSensor.cs" t="Include" />
+          <e p="EnumReflectionSensor.cs" t="Include" />
           <e p="FloatReflectionSensor.cs" t="Include" />
           <e p="IntReflectionSensor.cs" t="Include" />
           <e p="ObservableAttribute.cs" t="Include" />
@@ -111,6 +114,9 @@
         <e p="SensorComponent.cs" t="Include" />
         <e p="SensorShapeValidator.cs" t="Include" />
         <e p="StackingSensor.cs" t="Include" />
+        <e p="TopDown" t="Include">
+          <e p="TopDownRaySensorComponent.cs" t="Include" />
+        </e>
         <e p="VectorSensor.cs" t="Include" />
       </e>
       <e p="SideChannels" t="Include">

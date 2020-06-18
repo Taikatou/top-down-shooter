@@ -1823,7 +1823,7 @@ PrefabInstance:
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: trainingSettings.punishTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -85627,7 +85627,7 @@ PrefabInstance:
     - target: {fileID: 3626092262682243008, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: trainingSettings.punishTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3626092262682243008, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -85648,7 +85648,7 @@ PrefabInstance:
     - target: {fileID: 7224613874024565018, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: healthPositionCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67917fedeeb7c7349aec566a24da550b, type: 3}
