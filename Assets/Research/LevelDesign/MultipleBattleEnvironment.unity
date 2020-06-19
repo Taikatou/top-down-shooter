@@ -1868,7 +1868,7 @@ PrefabInstance:
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
