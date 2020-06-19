@@ -1833,12 +1833,12 @@ PrefabInstance:
     - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeX
-      value: 21
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeY
-      value: 21
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -1858,7 +1858,7 @@ PrefabInstance:
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: enableHeuristic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1937059374405893445, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -1878,12 +1878,12 @@ PrefabInstance:
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeX
-      value: 21
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeY
-      value: 21
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
