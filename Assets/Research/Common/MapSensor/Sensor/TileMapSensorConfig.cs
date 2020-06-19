@@ -21,8 +21,15 @@ namespace Research.Common.MapSensor.Sensor
                 StartPos = new Vector2Int(0, 0), 
                 EndPos = new Vector2Int(config.sizeX, config.sizeY)
             };
+            
+            return ReturnStartEndCompressed(returnValue, config);
+        }
 
-            return returnValue;
+        private static StartEndPosition ReturnStartEndCompressed(StartEndPosition position, TileMapSensorConfig config)
+        {
+            position.StartPos /= config.compressRatio;
+            position.EndPos /= config.compressRatio;
+            return position;
         }
         
         public static StartEndPosition GetTrackStartEndPosition(TileMapSensorConfig config, Vector3Int cell)
@@ -35,7 +42,7 @@ namespace Research.Common.MapSensor.Sensor
                 EndPos = new Vector2Int(cell.x + halfX, cell.y+halfY)
             };
 
-            return returnValue;
+            return ReturnStartEndCompressed(returnValue, config);;
         }
 
         public static Vector2Int GetMappedPosition(TileMapSensorConfig config, int x, int y, Vector3Int self)
@@ -48,7 +55,13 @@ namespace Research.Common.MapSensor.Sensor
 
         public static int GetOutputSizeLinear(TileMapSensorConfig config)
         {
-            return config.sizeX * config.sizeY;
+            var size = config.sizeX * config.sizeY;
+            if (config.compressRatio > 1)
+            {
+                size /= config.compressRatio;
+            }
+
+            return size;
         }
     }
     
@@ -64,6 +77,8 @@ namespace Research.Common.MapSensor.Sensor
         public int sizeY;
 
         public bool trackPosition;
+
+        public int compressRatio;
         
         public int TeamId => behaviorParameters.TeamId;
 

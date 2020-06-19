@@ -53,7 +53,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			{
 				for (var x = 0; x <= roomWidth; x++)
 				{
-					output += debugGrid[x, y] + " ";
+					output += (int)debugGrid[x, y] + " ";
 				}
 				output += "\n";
 			}

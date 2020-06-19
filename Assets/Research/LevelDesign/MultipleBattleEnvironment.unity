@@ -1820,6 +1820,26 @@ PrefabInstance:
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1806934201}
+    - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: tileMapSensorConfig.compressRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: tileMapSensorConfig.debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeX
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 510450902927601596, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeY
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: trainingSettings.punishTime
@@ -1835,6 +1855,11 @@ PrefabInstance:
       propertyPath: punishValue
       value: -0.00001
       objectReference: {fileID: 0}
+    - target: {fileID: 1634100291749417863, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: enableHeuristic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1937059374405893445, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: dataLogger
@@ -1843,7 +1868,7 @@ PrefabInstance:
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: tileMapSensorConfig.debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
@@ -1859,6 +1884,11 @@ PrefabInstance:
         type: 3}
       propertyPath: tileMapSensorConfig.sizeY
       value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062761051131, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: tileMapSensorConfig.compressRatio
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2602413739657755606, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}

@@ -68,8 +68,6 @@ namespace Research.CharacterDesign.Scripts
                 var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
-            
-            Debug.Log(vectorAction[2] + "\t" + vectorAction[3]);
 
             PunishMovement();
         }

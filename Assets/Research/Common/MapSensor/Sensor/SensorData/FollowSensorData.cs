@@ -34,8 +34,7 @@ namespace Research.Common.MapSensor.Sensor.SensorData
             {
                 for (var x = trackedPosition.StartPos.x; x <= trackedPosition.EndPos.x; x++)
                 {
-                    var xyValid = x >= 0 && x <= map.GetUpperBound(0) &&
-                                  y >= 0 && y <= map.GetUpperBound(1);
+                    var xyValid = ValidSpace(map, x, y);
                     if (xyValid && XyValid(x, y))
                     {
                         InsertXy(observations, x, y, map[x, y]);   
@@ -46,9 +45,19 @@ namespace Research.Common.MapSensor.Sensor.SensorData
 
         private bool XyValid(int x, int y)
         {
-            var xyValid = x >= _startEndPosition.StartPos.x && x <= _startEndPosition.EndPos.x &&
-                          y >= _startEndPosition.StartPos.y && y <= _startEndPosition.EndPos.y;
-            return xyValid;
+            return x >= _startEndPosition.StartPos.x && x <= _startEndPosition.EndPos.x &&
+                   y >= _startEndPosition.StartPos.y && y <= _startEndPosition.EndPos.y;
+        }
+
+        public static bool ValidSpace(GridSpace[,] map, int x, int y, int beginX=0, int beginY=0)
+        {
+            return x >= beginX && x < map.GetUpperBound(0) &&
+                   y >= beginY && y < map.GetUpperBound(1);
+        }
+
+        private static bool ValidSpace(GridSpace[,] map, Vector2Int position)
+        {
+            return ValidSpace(map, position.x, position.y);
         }
 
         private void InsertXy(GridSpace[,] observations, int x, int y, GridSpace gridSpace)
@@ -57,15 +66,16 @@ namespace Research.Common.MapSensor.Sensor.SensorData
             if (contains)
             {
                 var mappedCell = TileMapSensorConfigUtils.GetMappedPosition(Config, x, y, _agentCell);
-                observations[mappedCell.x, mappedCell.y] = gridSpace;
-                //Debug.Log(entity.GridSpace + "\t" + mappedCell.x + "\t" + mappedCell.y);
+                if (ValidSpace(observations, mappedCell))
+                {
+                    observations[mappedCell.x, mappedCell.y] = gridSpace;
+                    //Debug.Log(entity.GridSpace + "\t" + mappedCell.x + "\t" + mappedCell.y);   
+                }
             }
         }
 
         public override void UpdateMapEntityPositions(GridSpace[,] observations, BaseMapPosition[] entityMapPositions)
         {
-            var debugText = "";
-            var counter = 0;
             foreach (var entityList in entityMapPositions)
             {
                 foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
@@ -76,8 +86,7 @@ namespace Research.Common.MapSensor.Sensor.SensorData
                         InsertXy(observations, entityCell.x, entityCell.y, entity.GridSpace);   
                     }
                 }
-            }
-            Debug.Log(debugText + "\t" + counter);
+            } 
         }
     }
 }
