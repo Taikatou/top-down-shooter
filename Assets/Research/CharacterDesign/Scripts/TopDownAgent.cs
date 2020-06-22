@@ -39,7 +39,25 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
-        public override void OnActionReceived(float[] vectorAction)
+        private void OnActionReceivedEasy(float[] vectorAction)
+        {
+            var action = (int)vectorAction[0];
+            if (action == 5)
+            {
+                inputManager.SetShootButton(true);
+            }
+            else if (action > 5)
+            {
+                Debug.Log("Error");
+            }
+            else
+            {
+                var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
+                inputManager.SetAiPrimaryMovement(primaryDirection);
+            }
+        }
+
+        private void OnActionReceivedComplex(float[] vectorAction)
         {
             var counter = 0;
             // Extrinsic Penalty
@@ -68,6 +86,11 @@ namespace Research.CharacterDesign.Scripts
                 var secondaryShootButtonDown = Convert.ToBoolean(vectorAction[counter]);
                 inputManager.SetSecondaryShootButton(secondaryShootButtonDown);
             }
+        }
+
+        public override void OnActionReceived(float[] vectorAction)
+        {
+            OnActionReceivedEasy(vectorAction);
 
             PunishMovement();
         }
@@ -81,8 +104,11 @@ namespace Research.CharacterDesign.Scripts
                 if (trainingSettings.shootEnabled)
                 {
                     var shootButtonState = Input.GetKey(KeyCode.X);
-                    var shootButtonInput = Convert.ToSingle(shootButtonState);
-                    actionsOut[index++] = shootButtonInput;
+                    if (shootButtonState)
+                    {
+                        var shootButtonInput = Convert.ToSingle(shootButtonState);
+                        actionsOut[0] = 5;
+                    }
                 }
 
                 if (trainingSettings.secondaryInputEnabled)
