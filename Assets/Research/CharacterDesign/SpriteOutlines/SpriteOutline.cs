@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 // Outline is based from https://nielson.dev/2016/04/2d-sprite-outlines-in-unity
-namespace Research
+namespace Research.CharacterDesign.SpriteOutlines
 {
     [ExecuteInEditMode]
     public class SpriteOutline : MonoBehaviour

@@ -278,8 +278,6 @@
         </e>
         <e p="Research" t="Include">
           <e p="CharacterDesign" t="Include">
-            <e p="BulletOutline.cs" t="Include" />
-            <e p="GunOutline.cs" t="Include" />
             <e p="Scripts" t="Include">
               <e p="AgentInput" t="Include">
                 <e p="DirectionsKeyMapper.cs" t="Include" />
@@ -323,8 +321,12 @@
               <e p="Projector.shader" t="Include" />
               <e p="Sprite-Outline.shader" t="Include" />
             </e>
-            <e p="SpriteOutline.cs" t="Include" />
-            <e p="SwordOutline.cs" t="Include" />
+            <e p="SpriteOutlines" t="Include">
+              <e p="BulletOutline.cs" t="Include" />
+              <e p="GunOutline.cs" t="Include" />
+              <e p="SpriteOutline.cs" t="Include" />
+              <e p="SwordOutline.cs" t="Include" />
+            </e>
             <e p="TimeScaleChecker.cs" t="Include" />
           </e>
           <e p="Common" t="Include">

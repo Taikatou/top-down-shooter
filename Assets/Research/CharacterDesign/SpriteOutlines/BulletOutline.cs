@@ -1,7 +1,7 @@
 ﻿using Research.CharacterDesign.Scripts;
 using UnityEngine;
 
-namespace Research
+namespace Research.CharacterDesign.SpriteOutlines
 {
     public class BulletOutline : MonoBehaviour
     {
