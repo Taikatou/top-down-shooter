@@ -1,4 +1,5 @@
 ﻿using System;
+using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
@@ -30,6 +31,9 @@ namespace Research.CharacterDesign.Scripts
         public float punishValue = -0.0005f;
 
         public bool enableHeuristic;
+
+        public Health ourHealth;
+        public Health otherHealth;
 
         private void PunishMovement()
         {
@@ -95,6 +99,23 @@ namespace Research.CharacterDesign.Scripts
             PunishMovement();
         }
 
+        private int SetShootState(float[] actionsOut, int index)
+        {
+            var shootButtonState = Input.GetKey(KeyCode.X);
+            if (simpleHeuristic)
+            {
+                actionsOut[0] = shootButtonState ? 5 : actionsOut[0];
+            }
+            else
+            {
+                actionsOut[index++] = Convert.ToSingle(shootButtonState);
+            }
+
+            return index;
+        }
+
+        public bool simpleHeuristic = true;
+
         public override void Heuristic(float[] actionsOut)
         {
             if (enableHeuristic)
@@ -103,12 +124,7 @@ namespace Research.CharacterDesign.Scripts
                 actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
                 if (trainingSettings.shootEnabled)
                 {
-                    var shootButtonState = Input.GetKey(KeyCode.X);
-                    if (shootButtonState)
-                    {
-                        var shootButtonInput = Convert.ToSingle(shootButtonState);
-                        actionsOut[0] = 5;
-                    }
+                    index = SetShootState(actionsOut, index);
                 }
 
                 if (trainingSettings.secondaryInputEnabled)
@@ -163,6 +179,12 @@ namespace Research.CharacterDesign.Scripts
             {
                 sensor.AddObservation(inputManager.PrimaryMovement);
                 sensor.AddObservation(inputManager.SecondaryMovement);
+            }
+
+            if (observationSettings.observeHealth)
+            {
+                sensor.AddObservation(ourHealth.CurrentHealth);
+                sensor.AddObservation(otherHealth.CurrentHealth);
             }
             
             // var agentPos = _mAgentRb.position - groundRb.position;

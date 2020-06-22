@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1604756009888559516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters: {fileID: 6588580973578983833}
 --- !u!114 &1593176102070486780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,6 +64,7 @@ MonoBehaviour:
     sizeX: 21
     sizeY: 21
     trackPosition: 1
+    compressRatio: 0
 --- !u!114 &3626092262812648849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +84,6 @@ MonoBehaviour:
   inputManager: {fileID: 8102902984675058143}
   directionsKeyMapper: {fileID: 6233079523000986668}
   secondaryDirectionsInput: {fileID: 3156256748972505094}
-  gunSpeed: 0.01
   aimControl: 1
   observationSettings:
     observeHealth: 1
@@ -86,6 +99,9 @@ MonoBehaviour:
   groundRb: {fileID: 0}
   punishValue: -0.0001
   enableHeuristic: 1
+  ourHealth: {fileID: 0}
+  otherHealth: {fileID: 0}
+  simpleHeuristic: 1
 --- !u!114 &6588580973578983833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,19 +168,6 @@ MonoBehaviour:
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
---- !u!114 &1604756009888559516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813461447051219256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0241806d6075429498e6d3120a7904cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameters: {fileID: 6588580973578983833}
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,12 +209,12 @@ PrefabInstance:
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.83
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}

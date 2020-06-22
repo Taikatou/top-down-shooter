@@ -45,12 +45,17 @@ PrefabInstance:
     - target: {fileID: 7934611380701230976, guid: 133a16688dcaa7e479421c4a6ce13373,
         type: 3}
       propertyPath: trainingSettings.shootEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8193291489664769972, guid: 133a16688dcaa7e479421c4a6ce13373,
         type: 3}
       propertyPath: m_Name
       value: MLHornsRedPrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193291489664769972, guid: 133a16688dcaa7e479421c4a6ce13373,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerPrior
       objectReference: {fileID: 0}
     - target: {fileID: 8196286455369775702, guid: 133a16688dcaa7e479421c4a6ce13373,
         type: 3}
