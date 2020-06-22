@@ -46,18 +46,13 @@ namespace Research.CharacterDesign.Scripts
         private void OnActionReceivedEasy(float[] vectorAction)
         {
             var action = (int)vectorAction[0];
-            if (action == 5)
-            {
-                inputManager.SetShootButton(true);
-            }
-            else if (action > 5)
-            {
-                Debug.Log("Error");
-            }
-            else
+            var setShoot = action == 5;
+            inputManager.SetShootButton(setShoot);
+            if (!setShoot)
             {
                 var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
                 inputManager.SetAiPrimaryMovement(primaryDirection);
+                inputManager.SetShootButton(true);
             }
         }
 
@@ -105,6 +100,7 @@ namespace Research.CharacterDesign.Scripts
             if (simpleHeuristic)
             {
                 actionsOut[0] = shootButtonState ? 5 : actionsOut[0];
+                Debug.Log(actionsOut[0]);
             }
             else
             {
