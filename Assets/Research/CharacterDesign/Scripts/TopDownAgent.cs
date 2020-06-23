@@ -1,6 +1,7 @@
 ﻿using System;
 using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.AgentInput;
+using Research.CharacterDesign.Scripts.Characters;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
 using Research.Common.SpriteSensor;
@@ -9,6 +10,7 @@ using Research.Common.Weapons;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Research.CharacterDesign.Scripts
 {
@@ -35,6 +37,8 @@ namespace Research.CharacterDesign.Scripts
         public Health ourHealth;
         public Health otherHealth;
 
+        public MlCharacter character;
+
         private void PunishMovement()
         {
             if (trainingSettings.punishTime)
@@ -42,10 +46,11 @@ namespace Research.CharacterDesign.Scripts
                 AddReward(punishValue);
             }
         }
+        
         public override void OnActionReceived(float[] vectorAction)
         {
             OnActionReceivedImp(vectorAction);
-            
+            character.UpdateFrame();
             PunishMovement();
         }
 

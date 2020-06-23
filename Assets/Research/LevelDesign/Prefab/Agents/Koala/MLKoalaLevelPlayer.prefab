@@ -80,6 +80,7 @@ MonoBehaviour:
   enableHeuristic: 1
   ourHealth: {fileID: 6851949116067802100}
   otherHealth: {fileID: 0}
+  character: {fileID: 7511461236860475256}
   turnRate: 1
 --- !u!114 &2588011062899866026
 MonoBehaviour:
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 2
+  DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
 --- !u!1001 &6425824387268947317
@@ -403,6 +404,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7511461236860475256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3536186687755024909, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f96f38692fd22438c5aa0a1991ad7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6851949116067802100 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 448704471391848065, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,

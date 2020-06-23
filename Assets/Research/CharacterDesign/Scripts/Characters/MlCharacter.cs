@@ -12,5 +12,15 @@ namespace Research.CharacterDesign.Scripts.Characters
             var inputManager = GetComponent<TopDownInputManager>();
             SetInputManager(inputManager);
         }
+
+        protected override void Update()
+        {
+
+        }
+
+        public void UpdateFrame()
+        {
+            EveryFrame();
+        }
     }
 }
