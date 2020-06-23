@@ -44,7 +44,7 @@ namespace Research.Test.Scripts
         {
             AddReward(punishValue);
             
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(vectorAction[0]);
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(Mathf.FloorToInt(vectorAction[0]));
             controller.UpdateInput(primaryDirection);
         }
 

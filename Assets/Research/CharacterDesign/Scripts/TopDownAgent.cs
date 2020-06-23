@@ -42,25 +42,18 @@ namespace Research.CharacterDesign.Scripts
                 AddReward(punishValue);
             }
         }
-
-        private void OnActionReceivedEasy(float[] vectorAction)
+        public override void OnActionReceived(float[] vectorAction)
         {
-            var action = (int)vectorAction[0];
-            var setShoot = action == 5;
-            inputManager.SetShootButton(setShoot);
-            if (!setShoot)
-            {
-                var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
-                inputManager.SetAiPrimaryMovement(primaryDirection);
-                inputManager.SetShootButton(true);
-            }
+            OnActionReceivedImp(vectorAction);
+            
+            PunishMovement();
         }
 
-        private void OnActionReceivedComplex(float[] vectorAction)
+        protected virtual void OnActionReceivedImp(float[] vectorAction)
         {
             var counter = 0;
             // Extrinsic Penalty
-            var action = vectorAction[counter++];
+            var action = Mathf.FloorToInt(vectorAction[counter++]);
             var primaryDirection = directionsKeyMapper.GetVectorDirection(action);
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
@@ -87,56 +80,37 @@ namespace Research.CharacterDesign.Scripts
             }
         }
 
-        public override void OnActionReceived(float[] vectorAction)
-        {
-            OnActionReceivedEasy(vectorAction);
-
-            PunishMovement();
-        }
-
-        private int SetShootState(float[] actionsOut, int index)
-        {
-            var shootButtonState = Input.GetKey(KeyCode.X);
-            if (simpleHeuristic)
-            {
-                actionsOut[0] = shootButtonState ? 5 : actionsOut[0];
-                Debug.Log(actionsOut[0]);
-            }
-            else
-            {
-                actionsOut[index++] = Convert.ToSingle(shootButtonState);
-            }
-
-            return index;
-        }
-
-        public bool simpleHeuristic = true;
-
         public override void Heuristic(float[] actionsOut)
         {
             if (enableHeuristic)
             {
-                var index = 0;
-                actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
-                if (trainingSettings.shootEnabled)
-                {
-                    index = SetShootState(actionsOut, index);
-                }
-
-                if (trainingSettings.secondaryInputEnabled)
-                {
-                    var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
-                    actionsOut[index++] = secondaryDirections.x;
-                    actionsOut[index++] = secondaryDirections.y;
-                }
-            
-                if (trainingSettings.secondaryAbilityEnabled)
-                {
-                    var secondaryShootButtonState = Input.GetKey(KeyCode.C);
-                    var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
-                    actionsOut[index] = secondaryShootButtonInput;
-                }   
+                HeuristicImp(actionsOut);
             }
+        }
+
+        protected virtual void HeuristicImp(float[] actionsOut)
+        {
+            var index = 0;
+            actionsOut[index++] = (int) directionsKeyMapper.PrimaryDirections;
+            if (trainingSettings.shootEnabled)
+            {
+                var shootButtonState = Input.GetKey(KeyCode.X);
+                actionsOut[index++] = Convert.ToSingle(shootButtonState);
+            }
+
+            if (trainingSettings.secondaryInputEnabled)
+            {
+                var secondaryDirections = secondaryDirectionsInput.SecondaryDirection;
+                actionsOut[index++] = secondaryDirections.x;
+                actionsOut[index++] = secondaryDirections.y;
+            }
+            
+            if (trainingSettings.secondaryAbilityEnabled)
+            {
+                var secondaryShootButtonState = Input.GetKey(KeyCode.C);
+                var secondaryShootButtonInput = Convert.ToSingle(secondaryShootButtonState);
+                actionsOut[index] = secondaryShootButtonInput;
+            }  
         }
 
         public override void OnEpisodeBegin()

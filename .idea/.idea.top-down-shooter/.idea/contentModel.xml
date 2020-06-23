@@ -309,6 +309,7 @@
                 <e p="MLLevelManager.cs" t="Include" />
                 <e p="TopDownInputManager.cs" t="Include" />
               </e>
+              <e p="SimpleTopDownAgent.cs" t="Include" />
               <e p="SpawnPoints" t="Include">
                 <e p="BaseGetSpawnPoints.cs" t="Include" />
                 <e p="IGetSpawnPoints.cs" t="Include" />

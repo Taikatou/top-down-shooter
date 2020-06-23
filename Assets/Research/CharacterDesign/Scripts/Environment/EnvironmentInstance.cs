@@ -198,7 +198,8 @@ namespace Research.CharacterDesign.Scripts.Environment
         private IEnumerator GameOver()
         {
             var winningTeamId = WinningTeam();
-
+            
+            var rewardDebug = "";
             var loggedData = new [] {0, 0};
             foreach (var player in mlCharacters)
             {
@@ -213,7 +214,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 if (agent)
                 {
                     agent.AddReward(reward);
-                    Debug.Log("Reward: " + agent.GetCumulativeReward());
+                    rewardDebug = "\nReward: " + agent.GetCumulativeReward();
                     agent.EndEpisode();   
                 }
 
@@ -224,7 +225,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 }
             }
 
-            Debug.Log("Winning Team" + winningTeamId);
+            Debug.Log("Winning Team: " + winningTeamId + rewardDebug);
 
             if (MlLevelManager.UnitySimulation)
             {

@@ -63,7 +63,7 @@ namespace Research.CharacterDesign.Scripts.AgentInput
             return new Vector2();
         }
 
-        public Vector2 GetVectorDirection(float direction)
+        public Vector2 GetVectorDirection(int direction)
         {
             return GetVectorDirection((Directions)direction);
         }

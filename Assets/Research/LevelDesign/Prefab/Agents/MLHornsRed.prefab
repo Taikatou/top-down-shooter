@@ -240,13 +240,14 @@ MonoBehaviour:
   - ProjectilePrior
   - HealingBullet
   - HealingBulletPrior
-  m_RaysPerDirection: 10
+  - HealthPack
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 271616
+    m_Bits: 33826048
   m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}

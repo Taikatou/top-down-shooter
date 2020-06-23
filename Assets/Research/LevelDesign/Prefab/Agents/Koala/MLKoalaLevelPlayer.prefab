@@ -32,17 +32,55 @@ MonoBehaviour:
   - PlayerPrior
   - Projectile
   - ProjectilePrior
+  - HealthPack
   m_RaysPerDirection: 7
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
   m_RayLength: 50
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 263424
+    m_Bits: 33817856
   m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   verticalOffSet: 0.4
+--- !u!114 &1747582203328074530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54719f0d80c3e5b4586c8ab085d5f294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  inputManager: {fileID: 8102902984675058143}
+  directionsKeyMapper: {fileID: 6233079523000986668}
+  secondaryDirectionsInput: {fileID: 3156256748972505094}
+  aimControl: 0
+  observationSettings:
+    observeHealth: 1
+    observeWeaponTrace: 1
+    observeInput: 1
+    observeCloseToWall: 0
+  trainingSettings:
+    secondaryInputEnabled: 1
+    shootEnabled: 1
+    secondaryAbilityEnabled: 0
+    punishTime: 0
+    enableCurriculum: 0
+  groundRb: {fileID: 0}
+  punishValue: -0.0001
+  enableHeuristic: 1
+  ourHealth: {fileID: 6851949116067802100}
+  otherHealth: {fileID: 0}
+  turnRate: 1
 --- !u!114 &2588011062899866026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,51 +95,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensorName: 2d Sensor
   tileMapSensorConfig:
-    debug: 1
+    debug: 0
     layerList: 0100000002000000030000000400000006000000070000000a000000
     behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
     sizeX: 21
     sizeY: 21
     trackPosition: 1
-    compressRatio: 0
---- !u!114 &3626092262812648849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327462263919007741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712e623dea19e3d44a1de202b743b4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  inputManager: {fileID: 8102902984675058143}
-  directionsKeyMapper: {fileID: 6233079523000986668}
-  secondaryDirectionsInput: {fileID: 3156256748972505094}
-  aimControl: 1
-  observationSettings:
-    observeHealth: 1
-    observeWeaponTrace: 1
-    observeInput: 1
-    observeCloseToWall: 1
-  trainingSettings:
-    secondaryInputEnabled: 1
-    shootEnabled: 1
-    secondaryAbilityEnabled: 0
-    punishTime: 1
-    enableCurriculum: 0
-  groundRb: {fileID: 0}
-  punishValue: -0.0001
-  enableHeuristic: 1
-  ourHealth: {fileID: 0}
-  otherHealth: {fileID: 0}
-  simpleHeuristic: 1
+    compressRatio: 1
 --- !u!114 &6588580973578983833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,9 +116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 7
     NumStackedVectorObservations: 3
-    VectorActionSize: 05000000020000000500000005000000
+    VectorActionSize: 08000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 2
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
 --- !u!1001 &6425824387268947317
@@ -402,6 +403,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6425824387268947317}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6851949116067802100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 448704471391848065, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813461447051219256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dc80b8f637f4142a447409d92d065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8102902984675058143 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2980915014404623530, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
