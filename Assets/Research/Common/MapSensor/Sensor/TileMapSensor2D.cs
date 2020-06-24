@@ -14,25 +14,23 @@ namespace Research.Common.MapSensor.Sensor
         protected override int WriteObservations(ObservationWriter writer)
         {
             var obsSize = TileMapSensorConfigUtils.GetOutputSizeLinear(Config);
-            var trackedPosition = TileMapSensorConfigUtils.GetStartEndPosition(Config);
             
-            var outputArray = new float[obsSize];
-            var index = 0;
-            for (var y = trackedPosition.StartPos.y; y < trackedPosition.EndPos.y; y++)
+            // var outputArray = new float[obsSize];
+            for (var y = 0; y < Config.ObsSizeY; y++)
             {
-                for (var x = trackedPosition.StartPos.x; x < trackedPosition.EndPos.x; x++)
+                for (var x = 0; x < Config.ObsSizeX; x++)
                 {
                     var gridSpace = MObservations[x, y];
                     if (Config.GridSpaceValues.ContainsKey(gridSpace))
                     {
                         var space = (float) gridSpace;
-                        outputArray[index] = space;
+                        // outputArray[index] = space;
+                        writer[x, y, 0] = space;
                     }
-                    index++;
                 }
             }
-
-            writer.AddRange(outputArray);
+            
+            // writer.AddRange(outputArray);
             if (Config.debug)
             {
                 NuclearThroneMapGenerator.OutputDebugMap(MObservations);
@@ -42,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
         {
-            MShape = new[] { TileMapSensorConfigUtils.GetOutputSizeLinear(Config) };
+            MShape = new[] { Config.ObsSizeX, Config.ObsSizeY, 1 };
         }
     }
 }

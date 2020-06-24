@@ -58,10 +58,7 @@ namespace Research.Common.MapSensor.Sensor
             Config = config;
             _name = name;
 
-            var observationX = Config.sizeX / Config.compressRatio;
-            var observationY = Config.sizeY / Config.compressRatio;
-
-            MObservations = new GridSpace[observationX, observationY];
+            MObservations = new GridSpace[Config.ObsSizeX, Config.ObsSizeY];
             _compress = Config.compressRatio > 1;
 
             if (_compress)

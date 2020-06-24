@@ -34,12 +34,12 @@ namespace Research.Common.MapSensor.Sensor
         
         public static StartEndPosition GetTrackStartEndPosition(TileMapSensorConfig config, Vector3Int cell)
         {
-            var halfX = config.sizeX / 2;
-            var halfY = config.sizeY / 2;
+            var halfSize = HalfSize(config);
+            
             var returnValue = new StartEndPosition
             {
-                StartPos =  new Vector2Int(cell.x - halfX, cell.y-halfY),
-                EndPos = new Vector2Int(cell.x + halfX, cell.y+halfY)
+                StartPos =  new Vector2Int(cell.x, cell.y) - halfSize,
+                EndPos = new Vector2Int(cell.x, cell.y) + halfSize
             };
 
             return ReturnStartEndCompressed(returnValue, config);;
@@ -47,34 +47,35 @@ namespace Research.Common.MapSensor.Sensor
 
         public static Vector2Int GetMappedPosition(TileMapSensorConfig config, int x, int y, Vector3Int self)
         {
+            return new Vector2Int(x - self.x, y - self.y) + HalfSize(config);
+        }
+
+        private static Vector2Int HalfSize(TileMapSensorConfig config)
+        {
             var halfX = config.sizeX / 2;
             var halfY = config.sizeY / 2;
-            
-            return new Vector2Int(x - self.x + halfX, y - self.y + halfY);
+            return new Vector2Int(halfX, halfY);
         }
 
         public static int GetOutputSizeLinear(TileMapSensorConfig config)
         {
-            var size = config.ObsSizeX * config.ObsSizeY;
-
-            return size;
+            return config.ObsSizeX * config.ObsSizeY;
         }
     }
     
     [System.Serializable]
     public struct TileMapSensorConfig
     {
-        public bool debug;
-        public GridSpace[] layerList;
-        public BehaviorParameters behaviorParameters;
-        
-        public MapAccessor mapAccessor;
         public int sizeX;
         public int sizeY;
-
-        public bool trackPosition;
-
         public int compressRatio;
+        public bool debug;
+        public bool trackPosition;
+        
+        public BehaviorParameters behaviorParameters;
+        public MapAccessor mapAccessor;
+
+        public GridSpace[] layerList;
 
         public int ObsSizeX => sizeX / compressRatio;
         public int ObsSizeY => sizeY / compressRatio;

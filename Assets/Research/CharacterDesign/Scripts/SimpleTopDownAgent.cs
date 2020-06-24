@@ -22,7 +22,6 @@ namespace Research.CharacterDesign.Scripts
             switch (gunAction)
             {
                 case GunControls.Shoot:
-                    Debug.Log("Shoot");
                     break;
                 case GunControls.AimClock:
                     _rotation += turnRate;
