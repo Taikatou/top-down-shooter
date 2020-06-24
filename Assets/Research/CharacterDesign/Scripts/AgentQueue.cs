@@ -57,13 +57,8 @@ namespace Research.CharacterDesign.Scripts
                 var newPlayer = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
                 
                 newPlayer.transform.parent = gameObject.transform;
+                newPlayer.transform.parent = gameObject.transform;
 
-                var agent = newPlayer.GetComponent<TopDownAgent>();
-                if (agent)
-                {
-                    agent.groundRb = groundRb;
-                }
-                
                 available.Add(newPlayer);
                 newPlayer.gameObject.SetActive(false);
             }

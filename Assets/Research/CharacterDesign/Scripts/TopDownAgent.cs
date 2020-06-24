@@ -28,8 +28,6 @@ namespace Research.CharacterDesign.Scripts
 
         public TrainingSettings trainingSettings;
 
-        public Rigidbody2D groundRb;
-
         public float punishValue = -0.0005f;
 
         public bool enableHeuristic;
@@ -141,19 +139,20 @@ namespace Research.CharacterDesign.Scripts
                 var weaponTrace = GetComponentInChildren<WeaponRayTrace>();
                 var traceOutput = weaponTrace ? weaponTrace.GetRay() : 0.0f;
                 sensor.AddObservation(traceOutput);
+                
+                // Debug.Log(traceOutput);
             }
 
             if (observationSettings.observeCloseToWall)
             {
                 var closeWall = GetComponentInParent<MlCloseToWall>();
-                var closeWallOutput = closeWall ? closeWall.CanShoot : false;
+                var closeWallOutput = closeWall && closeWall.CanShoot;
                 sensor.AddObservation(closeWallOutput);
             }
 
             if (observationSettings.observeInput)
             {
-                sensor.AddObservation(inputManager.PrimaryMovement);
-                sensor.AddObservation(inputManager.SecondaryMovement);
+                ObserveWeapon(sensor);
             }
 
             if (observationSettings.observeHealth)
@@ -161,9 +160,12 @@ namespace Research.CharacterDesign.Scripts
                 sensor.AddObservation(ourHealth.CurrentHealth);
                 sensor.AddObservation(otherHealth.CurrentHealth);
             }
-            
-            // var agentPos = _mAgentRb.position - groundRb.position;
-            // sensor.AddObservation(agentPos / 20f);
+        }
+
+        protected virtual void ObserveWeapon(VectorSensor sensor)
+        {
+            sensor.AddObservation(inputManager.PrimaryMovement);
+            sensor.AddObservation(inputManager.SecondaryMovement);
         }
     }
 }

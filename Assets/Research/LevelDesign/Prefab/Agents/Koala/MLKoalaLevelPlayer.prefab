@@ -27,11 +27,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
-  - Walls
-  - Player
   - PlayerPrior
-  - Projectile
   - ProjectilePrior
+  - Projectile
   - HealthPack
   m_RaysPerDirection: 7
   m_MaxRayDegrees: 180
@@ -75,13 +73,12 @@ MonoBehaviour:
     secondaryAbilityEnabled: 0
     punishTime: 0
     enableCurriculum: 0
-  groundRb: {fileID: 0}
   punishValue: -0.0001
   enableHeuristic: 1
   ourHealth: {fileID: 6851949116067802100}
   otherHealth: {fileID: 0}
   character: {fileID: 7511461236860475256}
-  turnRate: 1
+  turnRate: 3
 --- !u!114 &2588011062899866026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +97,8 @@ MonoBehaviour:
     layerList: 0100000002000000030000000400000006000000070000000a000000
     behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
-    sizeX: 21
-    sizeY: 21
+    sizeX: 30
+    sizeY: 30
     trackPosition: 1
     compressRatio: 1
 --- !u!114 &6588580973578983833
@@ -117,9 +114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 3
-    VectorActionSize: 08000000
+    VectorObservationSize: 3
+    NumStackedVectorObservations: 1
+    VectorActionSize: 0500000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
@@ -167,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 2
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
 --- !u!1001 &6425824387268947317
@@ -211,12 +208,12 @@ PrefabInstance:
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 12.22
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 14.7842245
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
@@ -226,17 +223,17 @@ PrefabInstance:
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}

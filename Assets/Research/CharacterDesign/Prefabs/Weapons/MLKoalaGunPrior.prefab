@@ -86,6 +86,11 @@ PrefabInstance:
       propertyPath: m_RayLayerMask.m_Bits
       value: 1280
       objectReference: {fileID: 0}
+    - target: {fileID: 5069169494822402855, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6862684986851950414, guid: 63309671082ff30409623a954c22e8f5,
         type: 3}
       propertyPath: GameObjectToPool

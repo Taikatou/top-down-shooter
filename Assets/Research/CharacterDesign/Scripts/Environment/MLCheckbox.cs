@@ -10,5 +10,10 @@ namespace Research.CharacterDesign.Scripts.Environment
             base.SpawnPlayer(player);
             player.PlayerID = "Player" + playerId;
         }
+
+        protected override void OnDrawGizmos()
+        {
+
+        }
     }
 }

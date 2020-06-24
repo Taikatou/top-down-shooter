@@ -55,11 +55,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public static int GetOutputSizeLinear(TileMapSensorConfig config)
         {
-            var size = config.sizeX * config.sizeY;
-            if (config.compressRatio > 1)
-            {
-                size /= config.compressRatio;
-            }
+            var size = config.ObsSizeX * config.ObsSizeY;
 
             return size;
         }
@@ -79,6 +75,9 @@ namespace Research.Common.MapSensor.Sensor
         public bool trackPosition;
 
         public int compressRatio;
+
+        public int ObsSizeX => sizeX / compressRatio;
+        public int ObsSizeY => sizeY / compressRatio;
         
         public int TeamId => behaviorParameters.TeamId;
 

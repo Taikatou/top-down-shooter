@@ -23,7 +23,7 @@ namespace Research.Common.MapSensor.Sensor
 
         private readonly BaseSensorData _sensorData;
 
-        private bool _compress;
+        private readonly bool _compress;
 
         protected abstract int[] MShape { get; }
 

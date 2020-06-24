@@ -19836,11 +19836,11 @@ MonoBehaviour:
   m_RayLength: 20
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   m_DetectableTags:
-  - Player
+  - PlayerPrior
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 1280
 --- !u!1 &9211281547571822360
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,28 +54,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
       propertyPath: m_ObservationStacks
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[2]
-      value: Player
+      value: ProjectilePrior
       objectReference: {fileID: 0}
     - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[1]
-      value: PlayerPrior
+      value: Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[3]
-      value: ProjectilePrior
+      value: HealthPack
       objectReference: {fileID: 0}
     - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[4]
       value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593176102070486780, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747582203328074530, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: observationSettings.observeWeaponTrace
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
@@ -135,12 +150,12 @@ PrefabInstance:
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeX
-      value: 21
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: tileMapSensorConfig.sizeY
-      value: 21
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
@@ -206,12 +221,12 @@ PrefabInstance:
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 26.144466
       objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 13.629607
       objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}

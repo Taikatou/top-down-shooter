@@ -291,11 +291,26 @@ PrefabInstance:
       propertyPath: otherHealth
       value: 
       objectReference: {fileID: 1425658667}
+    - target: {fileID: 1747582203328074530, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: observationSettings.observeWeaponTrace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1806934201}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeX
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeY
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1691,16 +1706,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLKoalaLevelPrior
       objectReference: {fileID: 0}
-    - target: {fileID: 421865450684676783, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
-        type: 3}
-      propertyPath: CanPickupWeapons
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1806934201}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeX
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767968148789150169, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.sizeY
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 7369711658475400017, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
       propertyPath: otherHealth

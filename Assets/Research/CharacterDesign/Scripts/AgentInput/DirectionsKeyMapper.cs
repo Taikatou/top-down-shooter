@@ -54,7 +54,7 @@ namespace Research.CharacterDesign.Scripts.AgentInput
             return Directions.None;
         }
 
-        private Vector2 GetVectorDirection(Directions direction)
+        public Vector2 GetVectorDirection(Directions direction)
         {
             if (_vectorDirectionsMap != null)
             {
