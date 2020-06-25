@@ -288,34 +288,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1747582203328074530, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
-      propertyPath: otherHealth
+      propertyPath: agentHealths.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1747582203328074530, guid: f3588df27c133384f97bde26e56aa9ac,
-        type: 3}
-      propertyPath: observationSettings.observeWeaponTrace
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1285529968}
     - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1806934201}
-    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
-        type: 3}
-      propertyPath: tileMapSensorConfig.sizeX
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
-        type: 3}
-      propertyPath: tileMapSensorConfig.sizeY
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2588011062899866026, guid: f3588df27c133384f97bde26e56aa9ac,
-        type: 3}
-      propertyPath: tileMapSensorConfig.debug
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -354,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
@@ -936,7 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 858029499}
-  health: {fileID: 0}
+  health: {fileID: 1285529968}
   playerId: 2
 --- !u!114 &858029499
 MonoBehaviour:
@@ -1140,6 +1120,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5792995851594094605, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: tileMapSensorConfig.mapAccessor
+      value: 
+      objectReference: {fileID: 1806934201}
+    - target: {fileID: 7768152525380039301, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: agentHealths.Array.data[1]
+      value: 
+      objectReference: {fileID: 309447805}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1, type: 3}
 --- !u!1 &888233333
@@ -1564,6 +1554,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1285529967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1995305070309275359, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+    type: 3}
+  m_PrefabInstance: {fileID: 887724816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f96f38692fd22438c5aa0a1991ad7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1285529968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3213791380673088083, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+    type: 3}
+  m_PrefabInstance: {fileID: 887724816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dc80b8f637f4142a447409d92d065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1349412511
 GameObject:
   m_ObjectHideFlags: 0
@@ -13818,12 +13832,12 @@ PrefabInstance:
         type: 3}
       propertyPath: mlCharacters.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1052215134}
     - target: {fileID: 2602413739914685985, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: mlCharacters.Array.data[1]
       value: 
-      objectReference: {fileID: 1052215134}
+      objectReference: {fileID: 1285529967}
     - target: {fileID: 2602413739914685985, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: changeLevelMap

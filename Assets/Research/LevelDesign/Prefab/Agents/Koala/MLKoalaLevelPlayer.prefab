@@ -13,6 +13,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters: {fileID: 6588580973578983833}
+--- !u!114 &109020872626223143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813038955545393574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d26cd422211d442a49732fd44093d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineSize: 1
+  teamId: {fileID: 1604756009888559516}
 --- !u!114 &1747582203328074530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,7 +48,7 @@ MonoBehaviour:
   secondaryDirectionsInput: {fileID: 3156256748972505094}
   observationSettings:
     observeHealth: 1
-    observeWeaponTrace: 1
+    observeWeaponTrace: 0
     observeInput: 1
     observeCloseToWall: 0
   trainingSettings:
@@ -45,8 +59,9 @@ MonoBehaviour:
     enableCurriculum: 0
   punishValue: -0.0001
   enableHeuristic: 1
-  ourHealth: {fileID: 6851949116067802100}
-  otherHealth: {fileID: 0}
+  agentHealths:
+  - {fileID: 6851949116067802100}
+  - {fileID: 0}
   character: {fileID: 7511461236860475256}
   turnRate: 3
 --- !u!114 &2588011062899866026
@@ -92,7 +107,7 @@ MonoBehaviour:
   m_RaysPerDirection: 10
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 25
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 33555712
@@ -397,6 +412,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6532842794568370963, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
     - {fileID: 8241803958302934075, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
+    - {fileID: 8998015901709974591, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 57e7b62e90b9e16428e1c8e8ca2c4930, type: 3}
 --- !u!1 &8813461447051219256 stripped
 GameObject:
@@ -464,6 +480,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8813038955545393574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2549926896293074131, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+    type: 3}
+  m_PrefabInstance: {fileID: 6425824387268947317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &8698709721488786848 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2419870454344231125, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,

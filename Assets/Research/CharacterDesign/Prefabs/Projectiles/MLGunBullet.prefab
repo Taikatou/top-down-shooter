@@ -4880,7 +4880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4560113285790094}
   - component: {fileID: 212508439041957836}
-  - component: {fileID: 8104913856365779229}
+  - component: {fileID: 7533011496827589328}
   m_Layer: 18
   m_Name: GunBullet
   m_TagString: Untagged
@@ -4952,7 +4952,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8104913856365779229
+--- !u!114 &7533011496827589328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4961,10 +4961,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1112242749468708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 08e29beefa27b9a49977a38d50151725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPrior: 0
   outlineSize: 1
 --- !u!1 &1304302668110314
 GameObject:

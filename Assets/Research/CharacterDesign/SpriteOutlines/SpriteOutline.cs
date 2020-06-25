@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using Research.Common.MapSensor.GridSpaceEntity;
+using UnityEngine;
 
 // Outline is based from https://nielson.dev/2016/04/2d-sprite-outlines-in-unity
 namespace Research.CharacterDesign.SpriteOutlines
 {
     [ExecuteInEditMode]
-    public class SpriteOutline : MonoBehaviour
+    public abstract class SpriteOutline : MonoBehaviour
     {
-        public bool isPrior;
-        private Color Color => isPrior ? Color.white : Color.black;
+        public abstract bool IsPrior { get; }
+        private Color Color => IsPrior ? Color.white : Color.black;
 
         [Range(0, 16)]
         public int outlineSize = 1;

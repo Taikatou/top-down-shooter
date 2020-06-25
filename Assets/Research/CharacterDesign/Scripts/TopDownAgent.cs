@@ -30,8 +30,7 @@ namespace Research.CharacterDesign.Scripts
 
         public bool enableHeuristic;
 
-        public Health ourHealth;
-        public Health otherHealth;
+        public Health [] agentHealths;
 
         public MlCharacter character;
         
@@ -105,8 +104,10 @@ namespace Research.CharacterDesign.Scripts
 
             if (observationSettings.observeHealth)
             {
-                sensor.AddObservation(ourHealth.CurrentHealth);
-                sensor.AddObservation(otherHealth.CurrentHealth);
+                foreach (var health in agentHealths)
+                {
+                    sensor.AddObservation(health.CurrentHealth);
+                }
             }
         }
     }

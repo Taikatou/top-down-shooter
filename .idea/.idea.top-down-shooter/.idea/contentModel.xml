@@ -321,6 +321,7 @@
             </e>
             <e p="SpriteOutlines" t="Include">
               <e p="BulletOutline.cs" t="Include" />
+              <e p="CharacterSpriteOutline.cs" t="Include" />
               <e p="GunOutline.cs" t="Include" />
               <e p="SpriteOutline.cs" t="Include" />
               <e p="SwordOutline.cs" t="Include" />

@@ -3,22 +3,17 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.SpriteOutlines
 {
-    public class BulletOutline : MonoBehaviour
+    public class BulletOutline : SpriteOutline
     {
-        public SpriteOutline outline;
-
         private bool ParentBlue
         {
             get
             {
                 var owner = GetComponentInParent<TeamDamageOnTouch>()?.Owner;
-                return owner != null && owner.GetComponentInChildren<SpriteOutline>().isPrior;
+                return owner != null && owner.GetComponentInChildren<SpriteOutline>().IsPrior;
             }
         }
 
-        private void Start()
-        {
-            outline.isPrior = ParentBlue;
-        }
+        public override bool IsPrior => ParentBlue;
     }
 }

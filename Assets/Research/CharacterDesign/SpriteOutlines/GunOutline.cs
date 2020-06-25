@@ -3,22 +3,17 @@ using UnityEngine;
 
 namespace Research.CharacterDesign.SpriteOutlines
 {
-    public class GunOutline : MonoBehaviour
+    public class GunOutline : SpriteOutline
     {
-        public SpriteOutline outline;
-
-        private bool ParentBlue
+        private bool ParentPrior
         {
             get
             {
                 var owner = GetComponentInParent<ProjectileWeapon>()?.Owner; 
-                return owner != null && owner.GetComponentInChildren<SpriteOutline>().isPrior;
+                return owner != null && owner.GetComponentInChildren<SpriteOutline>().IsPrior;
             }
         }
 
-        private void Start()
-        {
-            outline.isPrior = ParentBlue;
-        }
+        public override bool IsPrior => ParentPrior;
     }
 }

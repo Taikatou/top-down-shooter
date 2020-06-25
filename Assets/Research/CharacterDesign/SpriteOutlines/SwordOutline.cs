@@ -12,13 +12,13 @@ namespace Research.CharacterDesign.SpriteOutlines
             get
             {
                 var owner = GetComponentInParent<TopDownMeleeWeapon>()?.Owner;
-                return owner != null && owner.GetComponentInChildren<SpriteOutline>().isPrior;
+                return owner != null && owner.GetComponentInChildren<SpriteOutline>().IsPrior;
             }
         }
 
         private void Start()
         {
-            outline.isPrior = ParentBlue;
+            // outline.IsPrior = ParentBlue;
         }
     }
 }
