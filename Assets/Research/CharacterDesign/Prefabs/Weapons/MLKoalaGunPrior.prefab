@@ -55,6 +55,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 74945304983256687, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 114349044915979940, guid: 63309671082ff30409623a954c22e8f5,
         type: 3}
       propertyPath: GameObjectToPool

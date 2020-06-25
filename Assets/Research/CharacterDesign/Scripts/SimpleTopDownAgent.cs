@@ -92,6 +92,7 @@ namespace Research.CharacterDesign.Scripts
         {
             base.OnEpisodeBegin();
             _rotation = 0;
+            inputManager.SetShootButton(false);
         }
     }
 }

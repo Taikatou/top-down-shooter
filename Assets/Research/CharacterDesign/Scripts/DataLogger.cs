@@ -128,7 +128,7 @@ namespace Research.CharacterDesign.Scripts
                 dict.Add(mapId, output);
             }
 
-            Debug.Log(mapId + "\t" + win + "\t" + loss);
+            // Debug.Log(mapId + "\t" + win + "\t" + loss);
         }
 
         public void AddResultTeam(WinLossCondition condition, int mapId)

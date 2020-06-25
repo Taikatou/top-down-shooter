@@ -60,6 +60,19 @@ namespace Research.CharacterDesign.Scripts.Environment
             return teamDeaths;
         }
 
+        private int[] GetTeamHealth()
+        {
+            var teamHealth = new[] { 0, 0 };
+            foreach (var character in mlCharacters)
+            {
+                var health = character.GetComponent<MlHealth>();
+                var behaviour = character.GetComponentInChildren<IGetTeamId>();
+                teamHealth[behaviour.GetTeamId] = - (int) health.CurrentHealth;
+            }
+
+            return teamHealth;
+        }
+
         public void SpawnMultipleCharacters()
         {
             for (var i = 0; i < mlCharacters.Length; i++)
@@ -166,16 +179,26 @@ namespace Research.CharacterDesign.Scripts.Environment
             return gameOver;
         }
 
-        private int WinningTeam()
+        private int GetVictoryCondition(int[] teamData)
         {
-            var teamDeaths = GetTeamDeaths();
-            var draw = teamDeaths[0] == teamDeaths[1];
+            var draw = teamData[0] == teamData[1];
             if (!draw)
             {
-                return teamDeaths[0] < teamDeaths[1] ? 0 : 1;
+                return teamData[0] < teamData[1] ? 0 : 1;
             }
 
             return -1;
+        }
+
+        private int WinningTeam()
+        {
+            var endCondition = GetVictoryCondition(GetTeamDeaths());
+            if (endCondition == -1)
+            {
+                endCondition = GetVictoryCondition(GetTeamHealth());
+            }
+
+            return endCondition;
         }
 
         private WinLossCondition GetRewardCondition(int teamId, int winningTeam)
@@ -219,10 +242,9 @@ namespace Research.CharacterDesign.Scripts.Environment
                 if (agent)
                 {
                     agent.AddReward(reward);
-                    rewardDebug = "\nReward: " + agent.GetCumulativeReward();
+                    rewardDebug += "\nReward: " + agent.GetCumulativeReward();
                     agent.EndEpisode();   
                 }
-
                 //Debug.Log(winLossCondition + "\t" + agentName);
                 if (teamId == 0)
                 {
