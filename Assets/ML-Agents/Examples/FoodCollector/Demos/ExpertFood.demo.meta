@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: 95285c32be79a4c77a5ac225e671e4b5
 ScriptedImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      114: 11400000
+    second: Assets/ML-Agents/Examples/FoodCollector/Demos/ExpertFood.demo
   externalObjects: {}
   serializedVersion: 2
   userData: ' (Unity.MLAgents.Demonstrations.DemonstrationSummary)'

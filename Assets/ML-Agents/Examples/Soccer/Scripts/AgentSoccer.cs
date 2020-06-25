@@ -96,8 +96,6 @@ public class AgentSoccer : Agent
         m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
-    public bool debugAgents;
-
     public void MoveAgent(float[] act)
     {
         var dirToGo = Vector3.zero;
@@ -140,23 +138,14 @@ public class AgentSoccer : Agent
                 break;
         }
 
-        if (debugAgents)
-        {
-            debugDir = forwardAxis;
-            rotation = rotateAxis;
-        }
-
         transform.Rotate(rotateDir, Time.deltaTime * 100f);
         agentRb.AddForce(dirToGo * m_SoccerSettings.agentRunSpeed,
             ForceMode.VelocityChange);
     }
 
-    public int debugDir;
-    public int rotation;
-
     public override void OnActionReceived(float[] vectorAction)
     {
-        Debug.Log(m_BehaviorParameters.FullyQualifiedBehaviorName);
+
         if (position == Position.Goalie)
         {
             // Existential bonus for Goalies.

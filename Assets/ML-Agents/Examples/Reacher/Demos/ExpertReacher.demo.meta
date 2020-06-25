@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: 4f14b17d2835e482097c88301323e587
 ScriptedImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      114: 11400000
+    second: Assets/ML-Agents/Examples/Reacher/Demos/ExpertReacher.demo
   externalObjects: {}
   serializedVersion: 2
   userData: ' (Unity.MLAgents.Demonstrations.DemonstrationSummary)'

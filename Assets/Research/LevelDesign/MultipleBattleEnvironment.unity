@@ -13868,6 +13868,11 @@ PrefabInstance:
       propertyPath: mlCharacters.Array.data[1]
       value: 
       objectReference: {fileID: 1052215134}
+    - target: {fileID: 2602413739914685985, guid: 67917fedeeb7c7349aec566a24da550b,
+        type: 3}
+      propertyPath: changeLevelMap
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2602413739914685991, guid: 67917fedeeb7c7349aec566a24da550b,
         type: 3}
       propertyPath: m_Name
