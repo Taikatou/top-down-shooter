@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1276146157}
   - component: {fileID: 1276146155}
   - component: {fileID: 8234046504122258025}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: PickedMMFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 4556928094934004}
   - component: {fileID: 212383149453595630}
   - component: {fileID: 95606021025752482}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Koala_Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 4908915340654398}
   - component: {fileID: 212463287479805572}
   - component: {fileID: 95886714091026536}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Koala_Pickups_Shadow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 61369599479639190}
   - component: {fileID: 2786975855980097644}
   - component: {fileID: 9193655461864699780}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: MLKoalaHealth
   m_TagString: HealthPack
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4895907494202538}
   - component: {fileID: 95897142557683302}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

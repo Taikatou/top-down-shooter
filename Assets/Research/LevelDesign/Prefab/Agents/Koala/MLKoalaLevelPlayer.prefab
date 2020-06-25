@@ -13,35 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters: {fileID: 6588580973578983833}
---- !u!114 &1593176102070486780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327462263919007741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530edd38bbbab8c4693ba0d152dccfc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - PlayerPrior
-  - ProjectilePrior
-  - Projectile
-  - HealthPack
-  m_RaysPerDirection: 7
-  m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0
-  m_RayLength: 50
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 33817856
-  m_ObservationStacks: 3
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  verticalOffSet: 0.4
 --- !u!114 &1747582203328074530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +32,6 @@ MonoBehaviour:
   inputManager: {fileID: 8102902984675058143}
   directionsKeyMapper: {fileID: 6233079523000986668}
   secondaryDirectionsInput: {fileID: 3156256748972505094}
-  aimControl: 0
   observationSettings:
     observeHealth: 1
     observeWeaponTrace: 1
@@ -167,7 +137,34 @@ MonoBehaviour:
   DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
-  multipleStepsPerStep: 2
+--- !u!114 &2989435602654743701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - PlayerPrior
+  - ProjectilePrior
+  - Projectile
+  - HealthPack
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 180
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 33555712
+  m_ObservationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -184,6 +181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MaximumHealth
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 797512161304777923, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1798506748191649430, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
@@ -209,12 +211,12 @@ PrefabInstance:
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.22
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.7842245
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2551796511620569519, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
