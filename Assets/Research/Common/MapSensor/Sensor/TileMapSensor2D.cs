@@ -40,7 +40,7 @@ namespace Research.Common.MapSensor.Sensor
 
         public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
         {
-            MShape = new[] { Config.ObsSizeX, Config.ObsSizeY, 1 };
+            MShape = config.GetSize(true);
         }
     }
 }

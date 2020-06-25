@@ -18,8 +18,7 @@ namespace Research.Common.MapSensor.SensorComponent
         
         public override int[] GetObservationShape()
         {
-            var outputSizeLinear = TileMapSensorConfigUtils.GetOutputSizeLinear(tileMapSensorConfig);
-            return new [] { outputSizeLinear };
+            return tileMapSensorConfig.GetSize(true);
         }
     }
 }

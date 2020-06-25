@@ -63,14 +63,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensorName: 2d Sensor
   tileMapSensorConfig:
-    sizeX: 30
-    sizeY: 30
+    sizeX: 36
+    sizeY: 36
     compressRatio: 1
     debug: 0
     trackPosition: 1
     behaviorParameters: {fileID: 6588580973578983833}
     mapAccessor: {fileID: 0}
     layerList: 0100000002000000030000000400000006000000070000000a000000
+--- !u!114 &2989435602654743701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327462263919007741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - PlayerPrior
+  - ProjectilePrior
+  - Projectile
+  - HealthPack
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 180
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 33555712
+  m_ObservationStacks: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6588580973578983833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,34 +165,6 @@ MonoBehaviour:
   DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
   allowDecisions: 0
---- !u!114 &2989435602654743701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327462263919007741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - PlayerPrior
-  - ProjectilePrior
-  - Projectile
-  - HealthPack
-  m_RaysPerDirection: 10
-  m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 33555712
-  m_ObservationStacks: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &6425824387268947317
 PrefabInstance:
   m_ObjectHideFlags: 0

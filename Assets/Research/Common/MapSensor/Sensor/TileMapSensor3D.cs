@@ -36,15 +36,9 @@ namespace Research.Common.MapSensor.Sensor
             return outputSize;
         }
 
-        private static int[] GetObservationSize3D(TileMapSensorConfig config)
-        {
-            var detectable = config.GridSpaceValues.Count;
-            return new[] { config.sizeX, config.sizeY, detectable };
-        }
-
         public TileMapSensor3D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
         {
-            MShape = GetObservationSize3D(Config);
+            MShape = config.GetSize(false);
         }
     }
 }

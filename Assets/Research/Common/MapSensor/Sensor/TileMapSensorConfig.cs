@@ -100,5 +100,10 @@ namespace Research.Common.MapSensor.Sensor
                 return _gridSpaceValues;
             }
         }
+
+        public int[] GetSize(bool twoD)
+        {
+            return new[] { ObsSizeX, ObsSizeY, twoD? 1 : layerList.Length};
+        }
     }
 }
