@@ -13,7 +13,6 @@
       <e p="EditorUtilities.cs" t="Include" />
       <e p="RayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="RenderTextureSensorComponentEditor.cs" t="Include" />
-      <e p="TopDownRayPerceptionSensorComponentBaseEditor.cs" t="Include" />
       <e p="Unity.ML-Agents.Editor.asmdef" t="Include" />
     </e>
     <e p="D:\ml-agents\com.unity.ml-agents\Runtime" t="Include">
@@ -114,9 +113,6 @@
         <e p="SensorComponent.cs" t="Include" />
         <e p="SensorShapeValidator.cs" t="Include" />
         <e p="StackingSensor.cs" t="Include" />
-        <e p="TopDown" t="Include">
-          <e p="TopDownRaySensorComponent.cs" t="Include" />
-        </e>
         <e p="VectorSensor.cs" t="Include" />
       </e>
       <e p="SideChannels" t="Include">
@@ -127,7 +123,7 @@
         <e p="OutgoingMessage.cs" t="Include" />
         <e p="RawBytesChannel.cs" t="Include" />
         <e p="SideChannel.cs" t="Include" />
-        <e p="SideChannelsManager.cs" t="Include" />
+        <e p="SideChannelManager.cs" t="Include" />
         <e p="StatsSideChannel.cs" t="Include" />
       </e>
       <e p="StatsRecorder.cs" t="Include" />
@@ -301,6 +297,7 @@
                 </e>
                 <e p="TopDownMeleeWeapon.cs" t="Include" />
               </e>
+              <e p="ComplexTopDownAgent.cs" t="Include" />
               <e p="DataLogger.cs" t="Include" />
               <e p="Environment" t="Include">
                 <e p="AgentsCoin.cs" t="Include" />
@@ -363,6 +360,9 @@
             </e>
             <e p="MLCharacterHandleWeapon.cs" t="Include" />
             <e p="MLObjectPooler.cs" t="Include" />
+            <e p="RaySensor" t="Include">
+              <e p="TopDownRaySensorComponent.cs" t="Include" />
+            </e>
             <e p="SpriteSensor" t="Include">
               <e p="SpriteId.cs" t="Include" />
               <e p="SpriteSensor.cs" t="Include" />

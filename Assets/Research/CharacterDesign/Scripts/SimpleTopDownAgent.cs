@@ -69,26 +69,29 @@ namespace Research.CharacterDesign.Scripts
                     var action = turnRight ? Controls.AimClock : Controls.AimAntiClock;
                     actionsOut[0] = (int) action;
                 }
-                else if(ShootButtonState)
-                {
-                    actionsOut[0] = (int) Controls.Shoot;
-                }
                 else
                 {
-                    actionsOut[0] = (int) Controls.None;
+                    var action = ShootButtonState? Controls.Shoot : Controls.None;
+                    actionsOut[0] = (int) action;
                 }
             }
         }
         
         private static bool IsMovement(Controls control)	
         {	
-            return control == Controls.Down || control == Controls.Left || control == Controls.Right ||	
-                   control == Controls.Up;	
+            return control == Controls.Down || control == Controls.Left || 
+                   control == Controls.Right || control == Controls.Up;	
         }
 
         protected override void ObserveWeapon(VectorSensor sensor)
         {
             sensor.AddObservation(_rotation / 360.0f);
+        }
+
+        public override void OnEpisodeBegin()
+        {
+            base.OnEpisodeBegin();
+            _rotation = 0;
         }
     }
 }
