@@ -6,7 +6,6 @@ using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
-using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -107,6 +106,12 @@ namespace Research.CharacterDesign.Scripts.Environment
             yield return new WaitForEndOfFrame();
             
             ChangeLevelDesign();
+            
+            foreach (var pick in Resources.FindObjectsOfTypeAll<HealthPickup>())
+            {
+                pick.gameObject.SetActive(true);
+            }
+            
             // Restart the game
             InstantiatePlayableCharacters();
             SpawnMultipleCharacters();

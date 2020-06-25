@@ -1,11 +1,15 @@
-﻿using System;
-using Research.Common;
+﻿using Research.Common;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts
 {
-    public enum GunControls {
+    public enum Controls {
+        None = Directions.None, 
+        Left = Directions.Left, 
+        Right = Directions.Right, 
+        Up = Directions.Up,
+        Down = Directions.Down,
         Shoot,
         AimClock,
         AimAntiClock
@@ -15,25 +19,32 @@ namespace Research.CharacterDesign.Scripts
         private float _rotation;
         public float turnRate = 0.1f;
         
+        protected virtual bool ShootButtonState => Input.GetKey(KeyCode.X);
         protected override void OnActionReceivedImp(float[] vectorAction)
         {
-            var gunAction = (GunControls) vectorAction[1];
-            inputManager.SetShootButton(gunAction == GunControls.Shoot);
-            switch (gunAction)
+            var action = (Controls) vectorAction[0];
+            inputManager.SetShootButton(action == Controls.Shoot);
+            
+            var isMovement = IsMovement(action);
+            var movementAction = isMovement ? action : Controls.None;
+            var primaryDirection = directionsKeyMapper.GetVectorDirection((Directions)movementAction);
+            
+            if(!isMovement)
             {
-                case GunControls.Shoot:
-                    break;
-                case GunControls.AimClock:
-                    _rotation += turnRate;
-                    break;
-                case GunControls.AimAntiClock:
-                    _rotation -= turnRate;
-                    break;
+                switch (action)
+                {
+                    case Controls.Shoot:
+                        break;
+                    case Controls.AimClock:
+                        _rotation += turnRate;
+                        break;
+                    case Controls.AimAntiClock:
+                        _rotation -= turnRate;
+                        break;
+                }
+                _rotation %= 360.0f; 
             }
-            _rotation %= 360.0f;
-
-            var movementAction = (Directions) (vectorAction[0]);
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(movementAction);
+            
             inputManager.SetAiPrimaryMovement(primaryDirection);
 
             var radians =  _rotation * Mathf.Deg2Rad;
@@ -43,20 +54,36 @@ namespace Research.CharacterDesign.Scripts
 
         protected override void HeuristicImp(float[] actionsOut)
         {
-            actionsOut[0] = (float) directionsKeyMapper.PrimaryDirections;
+            var move = directionsKeyMapper.PrimaryDirections;
 
-            var turnRight = Input.GetKey(KeyCode.Home);
-            var turnLeft = Input.GetKey(KeyCode.End);
-            if (turnRight ^ turnLeft)
+            if (IsMovement((Controls)move))
             {
-                var action = turnRight ? GunControls.AimClock : GunControls.AimAntiClock;
-                actionsOut[1] = (int) action;
+                actionsOut[0] = (int) move;
             }
             else
             {
-                var shootButtonState = Input.GetKey(KeyCode.X);
-                actionsOut[1] = shootButtonState ? (int)GunControls.Shoot : -1;
+                var turnRight = Input.GetKey(KeyCode.Home);
+                var turnLeft = Input.GetKey(KeyCode.End);
+                if (turnRight ^ turnLeft)
+                {
+                    var action = turnRight ? Controls.AimClock : Controls.AimAntiClock;
+                    actionsOut[0] = (int) action;
+                }
+                else if(ShootButtonState)
+                {
+                    actionsOut[0] = (int) Controls.Shoot;
+                }
+                else
+                {
+                    actionsOut[0] = (int) Controls.None;
+                }
             }
+        }
+        
+        private static bool IsMovement(Controls control)	
+        {	
+            return control == Controls.Down || control == Controls.Left || control == Controls.Right ||	
+                   control == Controls.Up;	
         }
 
         protected override void ObserveWeapon(VectorSensor sensor)
