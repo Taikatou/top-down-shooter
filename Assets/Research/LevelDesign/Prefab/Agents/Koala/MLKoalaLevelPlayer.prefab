@@ -64,28 +64,6 @@ MonoBehaviour:
   - {fileID: 0}
   character: {fileID: 7511461236860475256}
   turnRate: 3
---- !u!114 &2588011062899866026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327462263919007741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef5c7bffa5214e48bc1e4b49e035cca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensorName: 2d Sensor
-  tileMapSensorConfig:
-    sizeX: 36
-    sizeY: 36
-    compressRatio: 1
-    debug: 0
-    trackPosition: 1
-    behaviorParameters: {fileID: 6588580973578983833}
-    mapAccessor: {fileID: 0}
-    layerList: 0100000002000000030000000400000006000000070000000a000000
 --- !u!114 &2989435602654743701
 MonoBehaviour:
   m_ObjectHideFlags: 0
