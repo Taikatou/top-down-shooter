@@ -296,6 +296,12 @@ PrefabInstance:
       propertyPath: tileMapSensorConfig.mapAccessor
       value: 
       objectReference: {fileID: 1806934201}
+    - target: {fileID: 6588580973578983833, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 025b4c1af0a2ca44386fe68a73477c85,
+        type: 3}
     - target: {fileID: 8810395831817254106, guid: f3588df27c133384f97bde26e56aa9ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,6 +361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MLKoalaLevelPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827520055626299880, guid: f3588df27c133384f97bde26e56aa9ac,
+        type: 3}
+      propertyPath: DecisionPeriod
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3588df27c133384f97bde26e56aa9ac, type: 3}
@@ -1060,6 +1071,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 230232777}
     m_Modifications:
+    - target: {fileID: 652753567056353359, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: DecisionPeriod
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 702870696978034847, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
       propertyPath: m_Name
@@ -1120,6 +1136,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2945910705031493694, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 025b4c1af0a2ca44386fe68a73477c85,
+        type: 3}
     - target: {fileID: 5792995851594094605, guid: 33a8d7da3db8b1e4f8e0a88d74881ab1,
         type: 3}
       propertyPath: tileMapSensorConfig.mapAccessor
