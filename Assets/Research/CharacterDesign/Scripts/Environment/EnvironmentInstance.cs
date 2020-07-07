@@ -6,6 +6,7 @@ using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
 using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -75,10 +76,16 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         public void SpawnMultipleCharacters()
         {
+            var characterDict = new Dictionary<int, Character>();
+            foreach (var character in mlCharacters)
+            {
+                characterDict.Add(character.GetComponentInChildren<BehaviorParameters>().TeamId, character);
+            }
+            
             for (var i = 0; i < mlCharacters.Length; i++)
             {
                 var spawnPoint = getSpawnProcedural.PointDict[i];
-                spawnPoint.SpawnPlayer(mlCharacters[i]);
+                spawnPoint.SpawnPlayer(characterDict[i]);
                 // Debug.Assert([i], "Agent component was not found on this gameObject and is required.");
             }
         }
@@ -99,7 +106,8 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private static int GetRandomSeed()
         {
-            return (int) System.DateTime.Now.Ticks;
+            var randomSeed = (int) System.DateTime.Now.Ticks;
+            return Mathf.Abs(randomSeed);
         }
 
         public void StartSimulation(int randomSeed)

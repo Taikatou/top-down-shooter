@@ -12,8 +12,6 @@ namespace Research.LevelDesign.Scripts
     {
         public NuclearThroneLevelGenerator generator;
 
-        public DataLogger dataLogger;
-
         private GridSpace[,] _cachedMap;
 
         private int _cachedMapId = -1;
@@ -29,9 +27,14 @@ namespace Research.LevelDesign.Scripts
             return _cachedMap;
         }
 
+        public Vector3Int GetPosition(Vector3 position)
+        {
+            return generator.GetPosition(position);
+        }
+
         private void UpdateMapData()
         {
-            var newId = generator.instanceMapCounter;
+            var newId = generator.MapSeed;
             if (_cachedMapId != newId)
             {
                 _cachedMap = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);
@@ -44,28 +47,22 @@ namespace Research.LevelDesign.Scripts
                 for (var i = 0; i < 2; i++)
                 {
                     var spawnPoint = generator.getSpawnPoints.PointDict[i];
-                    var cell = GetPosition(spawnPoint.transform.position);
+                    var cell = generator.GetPosition(spawnPoint.transform.position);
 
                     _cachedMap[cell.x, cell.y] = index == 0 ? GridSpace.Spawn1 : GridSpace.Spawn2;
                     index++;
                 }
-
                 foreach (var point in generator.pickupProcedural.Points)
                 {
-                    var cell = GetPosition(point.transform.position);
-                    // _cachedMap[cell.x, cell.y] = GridSpace.Health;
+                    var cell = generator.GetPosition(point.transform.position);
+                    _cachedMap[cell.x, cell.y] = GridSpace.Health;
                 }
 
                 //NuclearThroneMapGenerator.OutputDebugMap(map);
                 _cachedMapId = newId;
             }
         }
-        
-        public Vector3Int GetPosition(Vector3 position)
-        {
-            return generator.tilemapGround.WorldToCell(position);
-        }
-        
+
         private void UpdateTileMap(GridSpace[,] map, Tilemap tileMap, GridSpace type)
         {
             var z = (int) tileMap.transform.position.y;
@@ -94,29 +91,16 @@ namespace Research.LevelDesign.Scripts
                 Debug.Log("did not find any tiles");
             }
         }
-        
+
         public void OutputMap()
         {
-            if (dataLogger.outputCsv)
-            {
-                var map = GetMap();
-                var rowData = new List<string[]>();
+            var map = GetMap();
+            OutputMap(map);
+        }
 
-                var roomHeight = map.GetUpperBound(0);
-                var roomWidth = map.GetUpperBound(1);
-
-                for (var i = 0; i < roomHeight; i++)
-                {
-                    var row = new string [roomWidth];
-                    for (var j = 0; j < roomWidth; j++)
-                    {
-                        row[j] = ((int)map[i, j]).ToString();
-                    }
-                    rowData.Add(row);
-                }
-			
-                dataLogger.OutputMap(rowData, _cachedMapId);
-            }
+        private void OutputMap(GridSpace[,] map)
+        {
+            //dataLogger.OutputMap(map, _cachedMapId);
         }
     }
     

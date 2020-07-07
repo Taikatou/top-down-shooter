@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {
-    public class GetSpawnProcedural : GetEntityProcedural<MLCheckbox>
+    public class GetSpawnProcedural : GetEntityProcedural<MlCheckbox>
     {
         public int players = 2;
 

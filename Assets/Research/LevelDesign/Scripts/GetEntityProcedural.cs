@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {
-    public abstract class GetEntityProcedural<T> : IGetSpawnPoints<T> where T : MonoBehaviour
+    public abstract class GetEntityProcedural<T> : GetSpawnPoints<T> where T : MonoBehaviour, IEntityClass
     {
         public GameObject entityPrefab;
 
@@ -36,11 +36,9 @@ namespace Research.LevelDesign.Scripts
             {
                 _pointDict = new Dictionary<int, T>();
                 set = true;
-                var index = 0;
                 foreach (var point in Points)
                 {
-                    AddPoint(index, point);
-                    index++;
+                    AddPoint(point.GetId(), point);
                 }
             }
         }
@@ -60,8 +58,8 @@ namespace Research.LevelDesign.Scripts
                 }   
             }
         }
-        
-        protected bool FreeTile(int x, int y, GridSpace[,] map, int distance)
+
+        private bool FreeTile(int x, int y, GridSpace[,] map, int distance)
         {
             for (var i = -distance; i <= distance; i++)
             {

@@ -4,8 +4,8 @@ using Research.CharacterDesign.Scripts.SpawnPoints;
 
 namespace Research.LevelDesign.NuclearThrone
 {
-    public class CheckpointSpawner : IGetSpawnPoints<MLCheckbox>
+    public class CheckpointSpawner : GetSpawnPoints<MlCheckbox>
     {
-        public override MLCheckbox[] Points { get; }
+        public override MlCheckbox[] Points { get; }
     }
 }

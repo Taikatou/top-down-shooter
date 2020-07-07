@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Research.CharacterDesign.Scripts.Environment;
+using Research.LevelDesign.NuclearThrone.Scripts;
 using UnityEngine;
+using Application = UnityEngine.Application;
 
 namespace Research.CharacterDesign.Scripts
 {
@@ -26,71 +28,88 @@ namespace Research.CharacterDesign.Scripts
     {
         public bool outputCsv;
         
+        private int counter;
+        
+        public int maxCount = 100;
+        
         private Dictionary<int, WinResults> _winResultsTeams;
 
         private Dictionary<int, WinResults> _winResultsPlayers;
+        
 
         public void Start()
         {
+            counter = 0;
             _winResultsTeams = new Dictionary<int, WinResults>();
             _winResultsPlayers = new Dictionary<int, WinResults>();
         }
 
-        private static string GetFileName(string fileName)
+        public void OutputMap(GridSpace[,] map, int mapId)
         {
-            var nowStr = DateTime.Now.ToString("_dd_MM_yyyy_HH_mm");
-            return fileName + nowStr + ".csv";
-        }
-
-        public void OutputMap(List<string[]> rowData, int mapId)
-        {
-            OutputCsv(rowData, "mapdata/map_" + mapId);
+            var rowData = new List<string[]>();
+            var roomHeight = map.GetUpperBound(0);
+            var roomWidth = map.GetUpperBound(1);
+            
+            for (var y = roomHeight; y >= 0; y--)
+            {
+                var row = new string [roomWidth];
+                for (var x = 0; x < roomWidth; x++)
+                {
+                    row[x] = ((int)map[x, y]).ToString();
+                }
+                rowData.Add(row);
+            }
+            OutputCsv(rowData, "map_" + mapId);
         }
 
         private void OutputCsv(List<string[]> rowData, string filename)
         {
-            var output = new string[rowData.Count][];
-
-            for (var i = 0; i < output.Length; i++)
+            if (outputCsv)
             {
-                output[i] = rowData[i];
+                var output = new string[rowData.Count][];
+
+                for (var i = 0; i < output.Length; i++)
+                {
+                    output[i] = rowData[i];
+                }
+
+                var length = output.GetLength(0);
+
+                var sb = new StringBuilder();
+
+                for (var index = 0; index < length; index++)
+                {
+                    sb.AppendLine(string.Join(",", output[index]));
+                }
+
+                Directory.CreateDirectory(FolderName);
+
+                var outStream = File.CreateText(FolderName + filename + ".csv");
+                outStream.WriteLine(sb);
+                outStream.Close();
             }
-
-            var length = output.GetLength(0);
-            var delimiter = ",";
-
-            var sb = new StringBuilder();
-
-            for (var index = 0; index < length; index++)
-            {
-                sb.AppendLine(string.Join(delimiter, output[index]));   
-            }
-
-            var filePath = GetPath(filename);
-
-            var outStream = System.IO.File.CreateText(filePath);
-            outStream.WriteLine(sb);
-            outStream.Close();
         }
 
-        // Following method is used to retrive the relative path as device platform
-        private static string GetPath(string fileName)
+        private static string FolderName
         {
-            #if UNITY_EDITOR
-                return Application.dataPath + "/CSV/" + GetFileName(fileName);
-            #elif UNITY_ANDROID
-                return Application.persistentDataPath+"Saved_data.csv";
-            #elif UNITY_IPHONE
-                return Application.persistentDataPath+"/"+"Saved_data.csv";
-            #else
-                return Application.dataPath + "/" + "Saved_data.csv";
-            #endif
+            get
+            {
+                #if UNITY_EDITOR
+                    return Application.dataPath + "/CSV/";
+                #elif UNITY_ANDROID
+                    return Application.persistentDataPath + "/CSV/";
+                #elif UNITY_IPHONE
+                    return Application.persistentDataPath + "/CSV/";
+                #else
+                    return Application.dataPath + "/CSV/";
+                #endif
+            }
         }
 
         private void OnApplicationQuit()
         {
-            PrintFile(_winResultsTeams, "teams/teams");
-            PrintFile(_winResultsPlayers, "players/players");
+            // PrintFile(_winResultsTeams, "teams/teams");
+            PrintFile(_winResultsPlayers, "players");
         }
 
         private void PrintFile(Dictionary<int, WinResults> dict, string filename)
@@ -139,6 +158,16 @@ namespace Research.CharacterDesign.Scripts
         public void AddResultAgent(WinLossCondition condition, int mapId)
         {
             AddResult(_winResultsPlayers, condition, mapId);
+        }
+
+        private void Update()
+        {
+            counter++;
+            if (counter >= maxCount)
+            {
+                counter = 0;
+                PrintFile(_winResultsPlayers, "players");
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Research.LevelDesign.NuclearThrone.Scripts;
+﻿using Research.LevelDesign.NuclearThrone.Scripts;
 
 namespace Research.Common.MapSensor.GridSpaceEntity
 {

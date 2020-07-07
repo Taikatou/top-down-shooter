@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Research.LevelDesign.Scripts
 {
-    public class GetPickupProcedural : GetEntityProcedural<PickableItem>
+    public class GetPickupProcedural : GetEntityProcedural<HealthPickup>
     {
         public int minDistance = 15;
         public int healthPositionCount = 3;
