@@ -13,20 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters: {fileID: 6588580973578983833}
---- !u!114 &109020872626223143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813038955545393574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d26cd422211d442a49732fd44093d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineSize: 1
-  teamId: {fileID: 1604756009888559516}
 --- !u!114 &1747582203328074530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +149,11 @@ PrefabInstance:
       propertyPath: MaximumHealth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 486697296328196112, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
+        type: 3}
+      propertyPath: teamId
+      value: 
+      objectReference: {fileID: 6779050172656131190}
     - target: {fileID: 797512161304777923, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -446,12 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b370b564baab3b546b1c92585c8528b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8813038955545393574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2549926896293074131, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,
-    type: 3}
-  m_PrefabInstance: {fileID: 6425824387268947317}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1327462263919007741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5422627354756643464, guid: 57e7b62e90b9e16428e1c8e8ca2c4930,

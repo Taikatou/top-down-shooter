@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.CharacterDesign.Scripts.SpawnPoints;
@@ -106,22 +107,22 @@ namespace Research.LevelDesign.NuclearThrone
 				spawnPositions = getSpawnPoints.GetLocations(map, z);
 			}
 
-			//Render the result
+			// Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
 			
-			SpawnPoints(spawnPositions, getSpawnPoints);
-			AddToMap(map, getSpawnPoints);
+			var spawnPoints = SpawnPoints(spawnPositions, getSpawnPoints);
+			AddToMap(map, spawnPoints);
 
 			var healthPositions = pickupProcedural.GetHealthPositions(map, spawnPositions, z);
-			SpawnPoints(healthPositions, pickupProcedural);
-			AddToMap(map, pickupProcedural);
+			var pickups = SpawnPoints(healthPositions, pickupProcedural);
+			AddToMap(map, pickups);
 
 			FindObjectOfType<DataLogger>()?.OutputMap(map, seed);
 		}
 
-		private void AddToMap<T>(GridSpace[,] map, GetEntityProcedural<T> spawner) where T : MonoBehaviour, IEntityClass
+		private void AddToMap<T>(GridSpace[,] map, T[] points) where T : MonoBehaviour, IEntityClass
 		{
-			foreach (var point in spawner.Points)
+			foreach (var point in points)
 			{
 				var cell = GetPosition(point.transform.position);
 				map[cell.x, cell.y] = point.GetGridSpace();
@@ -133,13 +134,15 @@ namespace Research.LevelDesign.NuclearThrone
 			return tilemapGround.WorldToCell(position);
 		}
 
-		private void SpawnPoints<T>(IEnumerable<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour, IEntityClass
+		private T[] SpawnPoints<T>(List<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour, IEntityClass
 		{
+			var spawnedItems = new T[spawnPositions.Count];
 			var index = 0;
 			foreach(var position in spawnPositions)
 			{
 				var prefab = SpawnGameObject(proceduralPoint, position, index);
 				var inter = prefab.GetComponent<T>();
+				spawnedItems[index] = inter;
 				
 				proceduralPoint.AddPoint(index, inter);
 				inter.SetId(index);
@@ -148,6 +151,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 				index++;
 			}
+			return spawnedItems;
 		}
 
 		private GameObject SpawnGameObject<T>(GetEntityProcedural<T> proceduralPoint, Vector3Int position, int index) where T : MonoBehaviour, IEntityClass

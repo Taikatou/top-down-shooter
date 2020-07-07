@@ -123,6 +123,7 @@ namespace Research.LevelDesign.Scripts
                     Destroy(point.gameObject);
                 }
             }
+            _pointDict.Clear();
         }
     }
 }
