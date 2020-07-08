@@ -9,8 +9,6 @@ namespace Research.LevelDesign.Scripts
     {
         public GameObject entityPrefab;
 
-        private bool set;
-        
         private Dictionary<int, T> _pointDict;
 
         public override T[] Points => GetComponentsInChildren<T>();
@@ -32,10 +30,9 @@ namespace Research.LevelDesign.Scripts
 
         private void SetPoints()
         {
-            if (!set)
+            if (_pointDict == null)
             {
                 _pointDict = new Dictionary<int, T>();
-                set = true;
                 foreach (var point in Points)
                 {
                     AddPoint(point.GetId(), point);
@@ -123,7 +120,7 @@ namespace Research.LevelDesign.Scripts
                     Destroy(point.gameObject);
                 }
             }
-            _pointDict.Clear();
+            PointDict.Clear();
         }
     }
 }

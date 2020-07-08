@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Research.CharacterDesign.Scripts.Environment;
@@ -27,10 +28,12 @@ namespace Research.CharacterDesign.Scripts
     public class DataLogger : MonoBehaviour
     {
         public bool outputCsv;
-        
-        private int counter;
-        
+
         public int maxCount = 100;
+        
+        private int _counter;
+
+        private DateTime _date;
         
         private Dictionary<int, WinResults> _winResultsTeams;
 
@@ -39,7 +42,8 @@ namespace Research.CharacterDesign.Scripts
 
         public void Start()
         {
-            counter = 0;
+            _counter = 0;
+            _date = DateTime.Now;
             _winResultsTeams = new Dictionary<int, WinResults>();
             _winResultsPlayers = new Dictionary<int, WinResults>();
         }
@@ -94,9 +98,7 @@ namespace Research.CharacterDesign.Scripts
         {
             get
             {
-                #if UNITY_EDITOR
-                    return Application.dataPath + "/CSV/";
-                #elif UNITY_ANDROID
+                #if UNITY_ANDROID
                     return Application.persistentDataPath + "/CSV/";
                 #elif UNITY_IPHONE
                     return Application.persistentDataPath + "/CSV/";
@@ -162,11 +164,14 @@ namespace Research.CharacterDesign.Scripts
 
         private void Update()
         {
-            counter++;
-            if (counter >= maxCount)
+            _counter++;
+            if (_counter >= maxCount)
             {
-                counter = 0;
-                PrintFile(_winResultsPlayers, "players");
+                _counter = 0;
+                
+                var playerName = $"{_date.Hour}_{_date.Minute}_{_date.Second}";
+                
+                PrintFile(_winResultsPlayers, "players_" + playerName);
             }
         }
     }
