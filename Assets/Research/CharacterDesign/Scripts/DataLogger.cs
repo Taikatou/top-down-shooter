@@ -169,7 +169,7 @@ namespace Research.CharacterDesign.Scripts
             {
                 _counter = 0;
                 
-                var playerName = $"{_date.Hour}_{_date.Minute}_{_date.Second}";
+                var playerName = $"{_date.Hour}_{_date.Minute}_{_date.Second}_{_date.Millisecond}";
                 
                 PrintFile(_winResultsPlayers, "players_" + playerName);
             }

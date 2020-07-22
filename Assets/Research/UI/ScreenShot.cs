@@ -6,9 +6,10 @@ namespace Research.UI
     public class ScreenShot : MonoBehaviour
     {
         public NuclearThroneLevelGenerator generator;
-        void OnMouseDown()
+        public void TakeScreenShot()
         {
-            ScreenCapture.CaptureScreenshot(generator.MapSeed.ToString());
+            Debug.Log("Take screenshot");
+            ScreenCapture.CaptureScreenshot(generator.MapSeed.ToString(), 4);
         }
     }
 }
