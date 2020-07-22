@@ -64,9 +64,9 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		public void GenerateMap(int seed)
+		public void GenerateMap(int seed, bool generateMap=true)
 		{
-			InvokeGenerateMap(true, seed);
+			InvokeGenerateMap(generateMap, seed);
 			MapSeed = seed;
 			
 			onLevelUpdate?.Invoke();
