@@ -98,7 +98,7 @@ namespace Research.CharacterDesign.Scripts.Environment
                 if (CurrentLevelCounter >= changeLevelMap)
                 {
                     _randomSeed = GetRandomSeed();
-                    levelGenerator.GenerateMap(_randomSeed);
+                    levelGenerator.GenerateMap(_randomSeed, false);
                     CurrentLevelCounter = 0;
                 }
             }
