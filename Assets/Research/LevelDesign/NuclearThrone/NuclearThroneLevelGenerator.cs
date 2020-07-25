@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
+using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
@@ -42,10 +45,7 @@ namespace Research.LevelDesign.NuclearThrone
 		public GetPickupProcedural pickupProcedural;
 
 		public LevelUpdate onLevelUpdate;
-
-		private static int MapIntCounter { get; set; }
-
-		public int instanceMapCounter;
+		public int MapSeed { get; private set; }
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -64,13 +64,12 @@ namespace Research.LevelDesign.NuclearThrone
 				}
 			};
 
-		public void GenerateMap(int seed)
+		public void GenerateMap(int seed, bool generateMap=true)
 		{
-			InvokeGenerateMap(true, seed);
+			InvokeGenerateMap(generateMap, seed);
+			MapSeed = seed;
+			
 			onLevelUpdate?.Invoke();
-
-			instanceMapCounter = MapIntCounter;
-			MapIntCounter++;
 		}
 
 		public void InvokeGenerateMap(bool generateMap, int seed)
@@ -79,11 +78,11 @@ namespace Research.LevelDesign.NuclearThrone
 			Random.InitState(seed);
 			if (MlLevelManager.UnitySimulation)
 			{
-				GameSimManager.Instance.SetCounter("seed", seed);	
+				GameSimManager.Instance.SetCounter("seed", seed);
 			}
 
 			var z = (int) tilemapGround.transform.position.y;
-		
+
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			var spawnPositions = new List<Vector3Int>();
 			while (spawnPositions.Count < getSpawnPoints.players)
@@ -107,32 +106,55 @@ namespace Research.LevelDesign.NuclearThrone
 
 				spawnPositions = getSpawnPoints.GetLocations(map, z);
 			}
-			
-			//Render the result
+
+			// Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
 			
-			SpawnPoints(spawnPositions, getSpawnPoints);
+			var spawnPoints = SpawnPoints(spawnPositions, getSpawnPoints);
+			AddToMap(map, spawnPoints);
 
 			var healthPositions = pickupProcedural.GetHealthPositions(map, spawnPositions, z);
-			SpawnPoints(healthPositions, pickupProcedural);
+			var pickups = SpawnPoints(healthPositions, pickupProcedural);
+			AddToMap(map, pickups);
+
+			FindObjectOfType<DataLogger>()?.OutputMap(map, seed);
 		}
 
-		private void SpawnPoints<T>(IEnumerable<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour
+		private void AddToMap<T>(GridSpace[,] map, T[] points) where T : MonoBehaviour, IEntityClass
 		{
+			foreach (var point in points)
+			{
+				var cell = GetPosition(point.transform.position);
+				map[cell.x, cell.y] = point.GetGridSpace();
+			}
+		}
+		
+		public Vector3Int GetPosition(Vector3 position)
+		{
+			return tilemapGround.WorldToCell(position);
+		}
+
+		private T[] SpawnPoints<T>(List<Vector3Int> spawnPositions, GetEntityProcedural<T> proceduralPoint) where T : MonoBehaviour, IEntityClass
+		{
+			var spawnedItems = new T[spawnPositions.Count];
 			var index = 0;
 			foreach(var position in spawnPositions)
 			{
 				var prefab = SpawnGameObject(proceduralPoint, position, index);
+				var inter = prefab.GetComponent<T>();
+				spawnedItems[index] = inter;
 				
-				proceduralPoint.AddPoint(index, prefab.GetComponent<T>());
+				proceduralPoint.AddPoint(index, inter);
+				inter.SetId(index);
 				
 				prefab.transform.parent = proceduralPoint.transform;
 
 				index++;
 			}
+			return spawnedItems;
 		}
 
-		private GameObject SpawnGameObject<T>(GetEntityProcedural<T> proceduralPoint, Vector3Int position, int index) where T : MonoBehaviour
+		private GameObject SpawnGameObject<T>(GetEntityProcedural<T> proceduralPoint, Vector3Int position, int index) where T : MonoBehaviour, IEntityClass
 		{
 			var place = tilemapGround.CellToWorld(position);
 			place.x += 0.5f;

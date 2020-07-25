@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 2551457172768300855}
   - component: {fileID: 2419870454344231125}
   - component: {fileID: 2465121863758779369}
-  - component: {fileID: 8998015901709974591}
+  - component: {fileID: 486697296328196112}
   m_Layer: 10
   m_Name: KoalaModel
   m_TagString: Untagged
@@ -807,7 +807,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8998015901709974591
+--- !u!114 &486697296328196112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -816,11 +816,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2549926896293074131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16bd70675dc9e4d4c9d46d0d6a57a2bf, type: 3}
+  m_Script: {fileID: 11500000, guid: a0d26cd422211d442a49732fd44093d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPrior: 0
-  outlineSize: 2
+  outlineSize: 1
+  teamId: {fileID: 0}
 --- !u!1 &2550107097959032067
 GameObject:
   m_ObjectHideFlags: 0

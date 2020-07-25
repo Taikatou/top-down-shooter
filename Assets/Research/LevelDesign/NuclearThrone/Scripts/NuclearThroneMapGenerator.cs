@@ -6,7 +6,20 @@ using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone.Scripts
 {
-	public enum GridSpace {Empty, Wall, Floor, Team1, Team2, Coin, Projectile1, Projectile2, Spawn1, Spawn2, Health}
+	public enum GridSpace 
+	{
+		Empty=0,
+		Wall=1,
+		Floor=2,
+		Team1=3,
+		Team2=4,
+		Coin=5,
+		Projectile1=6,
+		Projectile2=7,
+		Spawn1=8,
+		Spawn2=9,
+		Health=10
+	}
 	public static class NuclearThroneMapGenerator
 	{
 		private struct Walker
@@ -26,7 +39,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			return map;
 		}
 
-		public static GridSpace[,] SquareMap(GridSpace[,] map, int border = 7)
+		public static GridSpace[,] SquareMap(GridSpace[,] map, int border = 9)
 		{
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);

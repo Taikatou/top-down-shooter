@@ -19,6 +19,7 @@
       <Path>Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0-preview</Path>
       <Path>Library/PackageCache/com.unity.postprocessing@2.1.7</Path>
       <Path>Library/PackageCache/com.unity.postprocessing@2.2.2</Path>
+      <Path>Library/PackageCache/com.unity.recorder@2.2.0-preview.4</Path>
       <Path>Library/PackageCache/com.unity.remote-config@1.2.0-preview.2</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.core@7.1.8</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.core@7.3.1</Path>
@@ -43,7 +44,7 @@
       <Path>Build</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
-      <Path>Temp</Path>
+      <Path>Recordings</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>
