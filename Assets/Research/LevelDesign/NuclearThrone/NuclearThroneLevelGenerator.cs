@@ -6,6 +6,9 @@ using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
+using Unity.Barracuda;
+using Unity.MLAgents.Inference;
+using Unity.MLAgents.Policies;
 using Unity.Simulation.Games;
 using UnityEditor;
 using UnityEngine;
@@ -45,6 +48,10 @@ namespace Research.LevelDesign.NuclearThrone
 		public GetPickupProcedural pickupProcedural;
 
 		public LevelUpdate onLevelUpdate;
+
+		public NNModel predictionModel;
+
+		public int fairNess;
 		public int MapSeed { get; private set; }
 
 		public List<MapLayer> MapLayerData =>
@@ -72,7 +79,7 @@ namespace Research.LevelDesign.NuclearThrone
 			onLevelUpdate?.Invoke();
 		}
 
-		public void InvokeGenerateMap(bool generateMap, int seed)
+		public GridSpace[,] InvokeGenerateMap(bool generateMap, int seed)
 		{
 			ClearMap();
 			Random.InitState(seed);
@@ -118,6 +125,8 @@ namespace Research.LevelDesign.NuclearThrone
 			AddToMap(map, pickups);
 
 			FindObjectOfType<DataLogger>()?.OutputMap(map, seed);
+
+			return map;
 		}
 
 		private void AddToMap<T>(GridSpace[,] map, T[] points) where T : MonoBehaviour, IEntityClass
@@ -182,6 +191,7 @@ namespace Research.LevelDesign.NuclearThrone
 	{
 		public int seed;
 		public bool randomSeed;
+		Dictionary<int, List<float>> m_Memories = new Dictionary<int, List<float>>();
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
@@ -208,7 +218,25 @@ namespace Research.LevelDesign.NuclearThrone
 
 				if (GUILayout.Button("Generate"))
 				{
-					levelGen.InvokeGenerateMap(true, newSeed);
+					var map = levelGen.InvokeGenerateMap(true, newSeed);
+					var model = ModelLoader.Load(levelGen.predictionModel);
+					var engine = WorkerFactory.CreateWorker(model, WorkerFactory.Device.CPU);
+
+					var input = new float[50*49];
+					var counter = 0;
+					for (var i = 0; i < map.GetUpperBound(0); i++)
+					{
+						for (var j = 0; j < map.GetUpperBound(0); j++)
+						{
+							input[counter] = (float)map[i,j];
+							counter++;
+						}
+					}
+					var inputTensor = new Tensor(1, 50, 49, 1, input);
+					engine.Execute(inputTensor);
+
+					levelGen.fairNess = Mathf.Abs((int)(engine.PeekOutput()[0] * 100f) - 100);
+					
 				}
 				
 				if (GUILayout.Button("Generate Square"))
