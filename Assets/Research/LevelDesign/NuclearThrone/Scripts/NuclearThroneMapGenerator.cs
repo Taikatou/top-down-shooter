@@ -39,7 +39,7 @@ namespace Research.LevelDesign.NuclearThrone.Scripts
 			return map;
 		}
 
-		public static GridSpace[,] SquareMap(GridSpace[,] map, int border = 7)
+		public static GridSpace[,] SquareMap(GridSpace[,] map, int border = 9)
 		{
 			var roomWidth = map.GetUpperBound(0);
 			var roomHeight = map.GetUpperBound(1);
