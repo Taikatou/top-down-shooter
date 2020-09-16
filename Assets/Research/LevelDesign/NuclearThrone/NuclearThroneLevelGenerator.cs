@@ -49,10 +49,8 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public LevelUpdate onLevelUpdate;
 
-		public NNModel predictionModel;
-
-		public int fairNess;
-		public int MapSeed { get; private set; }
+		[HideInInspector]
+		public int mapSeed;
 
 		public List<MapLayer> MapLayerData =>
 			new List<MapLayer>
@@ -74,7 +72,7 @@ namespace Research.LevelDesign.NuclearThrone
 		public void GenerateMap(int seed, bool generateMap=true)
 		{
 			InvokeGenerateMap(generateMap, seed);
-			MapSeed = seed;
+			mapSeed = seed;
 			
 			onLevelUpdate?.Invoke();
 		}
@@ -191,7 +189,7 @@ namespace Research.LevelDesign.NuclearThrone
 	{
 		public int seed;
 		public bool randomSeed;
-		Dictionary<int, List<float>> m_Memories = new Dictionary<int, List<float>>();
+
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
@@ -218,25 +216,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 				if (GUILayout.Button("Generate"))
 				{
-					var map = levelGen.InvokeGenerateMap(true, newSeed);
-					var model = ModelLoader.Load(levelGen.predictionModel);
-					var engine = WorkerFactory.CreateWorker(model, WorkerFactory.Device.CPU);
-
-					var input = new float[50*49];
-					var counter = 0;
-					for (var i = 0; i < map.GetUpperBound(0); i++)
-					{
-						for (var j = 0; j < map.GetUpperBound(0); j++)
-						{
-							input[counter] = (float)map[i,j];
-							counter++;
-						}
-					}
-					var inputTensor = new Tensor(1, 50, 49, 1, input);
-					engine.Execute(inputTensor);
-
-					levelGen.fairNess = Mathf.Abs((int)(engine.PeekOutput()[0] * 100f) - 100);
-					
+					levelGen.InvokeGenerateMap(true, newSeed);
 				}
 				
 				if (GUILayout.Button("Generate Square"))

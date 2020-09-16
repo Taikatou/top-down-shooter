@@ -18,7 +18,7 @@ namespace Research.LevelDesign.Scripts
         {
             var customParams = new Dictionary<string, object>
             {
-                {"map_counter", generator.MapSeed}, {"condition", condition}
+                {"map_counter", generator.mapSeed}, {"condition", condition}
             };
 
             AnalyticsEvent.Custom("map_complete", customParams);
@@ -30,7 +30,7 @@ namespace Research.LevelDesign.Scripts
             }
             else
             {
-                dataLogger.AddResultAgent(condition, generator.MapSeed);
+                dataLogger.AddResultAgent(condition, generator.mapSeed);
             }
         }
     }

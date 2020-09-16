@@ -390,6 +390,9 @@
                 <e p="SlowGenerator.cs" t="Include" />
               </e>
             </e>
+            <e p="Predicion" t="Include">
+              <e p="LevelPrediction.cs" t="Include" />
+            </e>
             <e p="Scripts" t="Include">
               <e p="AnalysisTool.cs" t="Include" />
               <e p="EntityUtils.cs" t="Include" />
@@ -1388,6 +1391,32 @@
                 <e p="NavMeshSurface.cs" t="Include" />
               </e>
             </e>
+          </e>
+        </e>
+        <e p="TopDownEngineExtensions" t="Include">
+          <e p="AdvancedCharacterGridMovement" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="Characters" t="Include">
+                <e p="AdvancedCharacterGridMovement.cs" t="Include" />
+                <e p="AdvancedTopDownController.cs" t="Include" />
+              </e>
+              <e p="Environment" t="Include">
+                <e p="GridPushable.cs" t="Include" />
+              </e>
+              <e p="Vector3Directions.cs" t="Include" />
+            </e>
+          </e>
+          <e p="AIPerformanceManager" t="Include">
+            <e p="AIPerformanceManager.cs" t="Include" />
+          </e>
+          <e p="MMFeedbackLootDrops" t="Include">
+            <e p="MMFeedbackLootDrops.cs" t="Include" />
+          </e>
+          <e p="MultiInventoryDetails" t="Include">
+            <e p="ItemDetails.cs" t="Include" />
+          </e>
+          <e p="ReferenceFrameCharacterMovement" t="Include">
+            <e p="ReferenceFrameCharacterMovement.cs" t="Include" />
           </e>
         </e>
       </e>

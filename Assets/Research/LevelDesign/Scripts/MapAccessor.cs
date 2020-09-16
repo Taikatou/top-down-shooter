@@ -21,9 +21,9 @@ namespace Research.LevelDesign.Scripts
             generator.onLevelUpdate += UpdateMapData;
         }
 
-        public GridSpace[,] GetMap()
+        public GridSpace[,] GetMap(bool overrideCache=false)
         {
-            UpdateMapData();
+            UpdateMapData(overrideCache);
             return _cachedMap;
         }
 
@@ -34,8 +34,12 @@ namespace Research.LevelDesign.Scripts
 
         private void UpdateMapData()
         {
-            var newId = generator.MapSeed;
-            if (_cachedMapId != newId)
+            UpdateMapData(false);
+        }
+
+        private void UpdateMapData(bool overrideCache)
+        {
+            if (_cachedMapId != generator.mapSeed || overrideCache)
             {
                 _cachedMap = NuclearThroneMapFunctions.GenerateArray(generator.width, generator.height);
                 foreach (var layers in generator.MapLayerData)
@@ -44,9 +48,8 @@ namespace Research.LevelDesign.Scripts
                 }
 
                 var index = 0;
-                for (var i = 0; i < 2; i++)
+                foreach(var spawnPoint in generator.getSpawnPoints.Points)
                 {
-                    var spawnPoint = generator.getSpawnPoints.PointDict[i];
                     var cell = generator.GetPosition(spawnPoint.transform.position);
 
                     _cachedMap[cell.x, cell.y] = index == 0 ? GridSpace.Spawn1 : GridSpace.Spawn2;
@@ -59,7 +62,7 @@ namespace Research.LevelDesign.Scripts
                 }
 
                 //NuclearThroneMapGenerator.OutputDebugMap(map);
-                _cachedMapId = newId;
+                _cachedMapId = generator.mapSeed;
             }
         }
 
