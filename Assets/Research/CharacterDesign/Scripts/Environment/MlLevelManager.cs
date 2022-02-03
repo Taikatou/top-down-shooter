@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Unity.Simulation.Games;
-using UnityEngine.Analytics;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
@@ -15,19 +14,7 @@ namespace Research.CharacterDesign.Scripts.Environment
         public static bool UnitySimulation = false;
 
         private Dictionary<Character, EnvironmentInstance> CharacterEnvironmentMap =>
-            _characterEnvironmentMap ??
-            (_characterEnvironmentMap = new Dictionary<Character, EnvironmentInstance>());
-
-        protected override void Start()
-        {
-            base.Start();
-            AnalyticsEvent.GameStart();
-            // if (Application.isEditor)
-            {
-                Application.targetFrameRate = 60;
-                Debug.Log("Set target frame rate");
-            }
-        }
+            _characterEnvironmentMap ??= new Dictionary<Character, EnvironmentInstance>();
 
         protected override void SpawnSingleCharacter()
         {
@@ -67,16 +54,9 @@ namespace Research.CharacterDesign.Scripts.Environment
             }
         }
 
-        private void SpawnCharacters()
+        private void RefreshCharacterMap()
         {
-            foreach (var environment in Environments)
-            {
-                environment.SpawnMultipleCharacters();
-            }
-        }
-
-        protected override void InstantiatePlayableCharacters()
-        {
+            CharacterEnvironmentMap.Clear();
             foreach (var environment in Environments)
             {
                 foreach (var player in environment.mlCharacters)
@@ -92,7 +72,11 @@ namespace Research.CharacterDesign.Scripts.Environment
                     }
                 }
             }
-
+        }
+        
+        protected override void InstantiatePlayableCharacters()
+        {
+            RefreshCharacterMap();
             base.InstantiatePlayableCharacters();
         }
 
@@ -102,11 +86,11 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 return;
             }
-            var characterHealth = playerCharacter.GetComponent<Health>();
-            if (characterHealth != null && CharacterEnvironmentMap.ContainsKey(playerCharacter))
+            if (!CharacterEnvironmentMap.ContainsKey(playerCharacter))
             {
-                CharacterEnvironmentMap[playerCharacter].OnPlayerDeath(playerCharacter);
+                RefreshCharacterMap();
             }
+            CharacterEnvironmentMap[playerCharacter].OnPlayerDeath(playerCharacter);
         }
     }
 }

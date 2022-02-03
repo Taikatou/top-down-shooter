@@ -5,8 +5,6 @@ using Research.LevelDesign.NuclearThrone;
 using Unity.Simulation.Games;
 using UnityEngine;
 
-using UnityEngine.Analytics;
-
 namespace Research.LevelDesign.Scripts
 {
     public class AnalysisTool : MonoBehaviour
@@ -14,14 +12,14 @@ namespace Research.LevelDesign.Scripts
         public DataLogger dataLogger;
         public NuclearThroneLevelGenerator generator;
 
-        public void AddResult(WinLossCondition condition)
+        public void AddResult(WinLossCondition condition, TeamMember[] teamMembers)
         {
             var customParams = new Dictionary<string, object>
             {
                 {"map_counter", generator.mapSeed}, {"condition", condition}
             };
 
-            AnalyticsEvent.Custom("map_complete", customParams);
+            // AnalyticsEvent.Custom("map_complete", customParams);
 
             if (MlLevelManager.UnitySimulation)
             {
@@ -30,7 +28,7 @@ namespace Research.LevelDesign.Scripts
             }
             else
             {
-                dataLogger.AddResultAgent(condition, generator.mapSeed);
+                dataLogger.AddResult(condition, teamMembers, generator.mapSeed);
             }
         }
     }

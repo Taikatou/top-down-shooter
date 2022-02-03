@@ -1,4 +1,4 @@
-﻿using Research.Common.MapSensor.GridSpaceEntity;
+﻿using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.SpriteOutlines
@@ -6,9 +6,9 @@ namespace Research.CharacterDesign.SpriteOutlines
     [ExecuteInEditMode]
     public class CharacterSpriteOutline : SpriteOutline
     {
-        public BehaviourGetTeamId teamId;
+        public BehaviorParameters teamId;
 
         // Update is called once per frame
-        public override bool IsPrior =>  teamId.GetTeamId == 1;
+        public override bool IsPrior =>  teamId.TeamId == 1;
     }
 }

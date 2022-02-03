@@ -12,6 +12,10 @@ PrefabInstance:
       value: MLKoalaGunHealing
       objectReference: {fileID: 0}
     - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -24,6 +28,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -33,14 +41,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4404346593870928, guid: 63309671082ff30409623a954c22e8f5, type: 3}
@@ -56,6 +56,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114349044915979940, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: GameObjectToPool
+      value: 
+      objectReference: {fileID: 743203144247654622, guid: 6d188a8f3f5e09d46b805b6f84409d77,
+        type: 3}
+    - target: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: SpawnPosition.x
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 114552424271636822, guid: 63309671082ff30409623a954c22e8f5,
+        type: 3}
+      propertyPath: SpawnPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862684986851950414, guid: 63309671082ff30409623a954c22e8f5,
         type: 3}
       propertyPath: GameObjectToPool
       value: 

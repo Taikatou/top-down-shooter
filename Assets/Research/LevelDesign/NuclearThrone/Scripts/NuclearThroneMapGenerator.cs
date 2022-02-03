@@ -1,25 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone.Scripts
 {
-	public enum GridSpace 
-	{
-		Empty=0,
-		Wall=1,
-		Floor=2,
-		Team1=3,
-		Team2=4,
-		Coin=5,
-		Projectile1=6,
-		Projectile2=7,
-		Spawn1=8,
-		Spawn2=9,
-		Health=10
-	}
 	public static class NuclearThroneMapGenerator
 	{
 		private struct Walker

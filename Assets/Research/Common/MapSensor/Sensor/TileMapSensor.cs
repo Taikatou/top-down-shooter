@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using Research.Common.MapSensor.GridSpaceEntity;
+using Research.CharacterDesign.Scripts.Environment;
 using Research.Common.MapSensor.Sensor.SensorData;
-using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -17,27 +16,22 @@ namespace Research.Common.MapSensor.Sensor
 
         private readonly string _name;
 
-        private readonly GetEnvironmentMapPositions _environmentInstance;
-
         private readonly BaseSensorData _sensorData;
+
+        protected ObservationSpec MObservationSpec;
         
         protected abstract int[] MShape { get; }
 
         public string GetName() => _name;
-
-        public SensorCompressionType GetCompressionType()
+        
+        public CompressionSpec GetCompressionSpec()
         {
-            return SensorCompressionType.None;
+            return CompressionSpec.Default();
         }
 
         public byte[] GetCompressedObservation()
         {
             return null;
-        }
-
-        public int[] GetObservationShape()
-        {
-            return MShape;
         }
 
         protected abstract int WriteObservations(ObservationWriter writer);
@@ -47,10 +41,9 @@ namespace Research.Common.MapSensor.Sensor
             Array.Clear(MObservations, 0, TileMapSensorConfigUtils.GetOutputSizeLinear(Config));
         }
 
-        protected TileMapSensor(string name, GetEnvironmentMapPositions environmentInstance,
-            TileMapSensorConfig config, Transform transform)
+        protected TileMapSensor(string name,
+            ref TileMapSensorConfig config, Transform transform)
         {
-            _environmentInstance = environmentInstance;
             Config = config;
             _name = name;
 
@@ -58,26 +51,40 @@ namespace Research.Common.MapSensor.Sensor
 
             if (config.trackPosition)
             {
-                _sensorData = new FollowSensorData(config, transform);
+                _sensorData = new FollowSensorData(ref config, transform);
             }
             else
             {
-                _sensorData = new FullSensorData(config);
+                _sensorData = new FullSensorData(ref config);
             }
+        }
+
+        public ObservationSpec GetObservationSpec()
+        {
+            return MObservationSpec;
         }
 
         public int Write(ObservationWriter writer)
         {
-            using (TimerStack.Instance.Scoped("TileMapSensor.WriteToTensor"))
-            {
-                return WriteObservations(writer);
-            }
+            return WriteObservations(writer);
         }
 
+        private EnvironmentInstance _instance;
         public void Update()
         {
-            _sensorData.UpdateMap(MObservations);
-            _sensorData.UpdateMapEntityPositions(MObservations, _environmentInstance.EntityMapPositions);
+            using (TimerStack.Instance.Scoped("Update tilemap sensor"))
+            {
+                if (!_instance)
+                {
+                    _instance = Config.behaviorParameters.GetComponentInParent<EnvironmentInstance>();
+                }
+
+                if (_instance)
+                {
+                    _sensorData.UpdateMap(MObservations);
+                    _sensorData.UpdateMapEntityPositions(MObservations, _instance.EntityMapPositions);
+                }
+            }
         }
     }
 }

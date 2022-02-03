@@ -1,9 +1,11 @@
-﻿using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone.Scripts;
+﻿using System.Collections.Generic;
+using Research.Common.MapSensor.GridSpaceEntity;
+using Research.LevelDesign.Scripts.MLAgents;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor.SensorData
 {
-    public abstract class BaseSensorData
+    public abstract class BaseSensorData : MonoBehaviour
     {
         protected TileMapSensorConfig Config;
 

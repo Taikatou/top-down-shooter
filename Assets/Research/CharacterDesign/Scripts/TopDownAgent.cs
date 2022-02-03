@@ -1,44 +1,24 @@
 ﻿using System;
 using MoreMountains.TopDownEngine;
-using Research.CharacterDesign.Scripts.AgentInput;
 using Research.CharacterDesign.Scripts.Characters;
-using Research.CharacterDesign.Scripts.Environment;
 using Research.Common;
-using Research.Common.SpriteSensor;
-using Research.Common.Utils;
 using Research.Common.Weapons;
 using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Research.CharacterDesign.Scripts
 {
-    public abstract class TopDownAgent : Agent
+    public class TopDownAgent : Agent
     {
-        public TopDownInputManager inputManager;
-
-        public DirectionsKeyMapper directionsKeyMapper;
-
-        public SecondaryDirectionsInput secondaryDirectionsInput;
-
         public ObservationSettings observationSettings;
 
         public TrainingSettings trainingSettings;
 
         public float punishValue = -0.0005f;
 
-        public bool enableHeuristic;
-
-        public Health [] agentHealths;
-
         public MlCharacter character;
-        
-        protected abstract void ObserveWeapon(VectorSensor sensor);
-
-        protected abstract void OnActionReceivedImp(float[] vectorAction);
-        
-        protected abstract void HeuristicImp(float[] actionsOut);
 
         private void PunishMovement()
         {
@@ -48,23 +28,16 @@ namespace Research.CharacterDesign.Scripts
             }
         }
         
-        public override void OnActionReceived(float[] vectorAction)
+        public override void OnActionReceived(ActionBuffers actions)
         {
-            OnActionReceivedImp(vectorAction);
+            base.OnActionReceived(actions);
             character.UpdateFrame();
             PunishMovement();
         }
 
-        public override void Heuristic(float[] actionsOut)
-        {
-            if (enableHeuristic)
-            {
-                HeuristicImp(actionsOut);
-            }
-        }
-
         public override void OnEpisodeBegin()
         {
+            base.OnEpisodeBegin();
             if (trainingSettings.enableCurriculum)
             {
                 var mResetParams = Academy.Instance.EnvironmentParameters;
@@ -81,13 +54,12 @@ namespace Research.CharacterDesign.Scripts
 
         public override void CollectObservations(VectorSensor sensor)
         {
+            base.CollectObservations(sensor);
             if (observationSettings.observeWeaponTrace)
             {
                 var weaponTrace = GetComponentInChildren<WeaponRayTrace>();
                 var traceOutput = weaponTrace ? weaponTrace.GetRay() : 0.0f;
                 sensor.AddObservation(traceOutput);
-                
-                // Debug.Log(traceOutput);
             }
 
             if (observationSettings.observeCloseToWall)
@@ -97,18 +69,17 @@ namespace Research.CharacterDesign.Scripts
                 sensor.AddObservation(closeWallOutput);
             }
 
-            if (observationSettings.observeInput)
-            {
-                ObserveWeapon(sensor);
-            }
-
             if (observationSettings.observeHealth)
             {
-                foreach (var health in agentHealths)
-                {
-                    sensor.AddObservation(health.CurrentHealth);
-                }
+                var health = GetComponentInParent<Health>();
+
+                sensor.AddObservation(health.CurrentHealth); 
             }
+        }
+
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+
         }
     }
 }

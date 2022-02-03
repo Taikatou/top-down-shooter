@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
@@ -71,10 +71,24 @@ namespace Research.Common.MapSensor.Sensor
         public int compressRatio;
         public bool debug;
         public bool trackPosition;
+
+        private MapAccessor _mapAccessor;
+
+        public MapAccessor MapAccessor
+        {
+            get
+            {
+                if (_mapAccessor == null)
+                {
+                    _mapAccessor = behaviorParameters.GetComponentInParent<MapAccessor>();
+                }
+
+                return _mapAccessor;
+            }
+        }
         
         public BehaviorParameters behaviorParameters;
-        public MapAccessor mapAccessor;
-
+        
         public GridSpace[] layerList;
 
         public int ObsSizeX => sizeX / compressRatio;
@@ -100,6 +114,8 @@ namespace Research.Common.MapSensor.Sensor
                 return _gridSpaceValues;
             }
         }
+
+        public int GridSpaceCount => GridSpaceValues.Count;
 
         public int[] GetSize(bool twoD)
         {

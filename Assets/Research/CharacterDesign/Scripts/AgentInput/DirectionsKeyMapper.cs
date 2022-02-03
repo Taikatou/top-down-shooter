@@ -6,11 +6,11 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class DirectionsKeyMapper : VectorInput
     {
-        private Dictionary<Vector2, Directions> _directionsVectorMap;
+        private Dictionary<Vector2, EDirections> _directionsVectorMap;
 
-        private Dictionary<Directions, Vector2> _vectorDirectionsMap;
+        private Dictionary<EDirections, Vector2> _vectorDirectionsMap;
 
-        public Directions PrimaryDirections
+        public EDirections PrimaryDirections
         {
             get
             {
@@ -21,40 +21,40 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 
         private void Start()
         {
-            InputDirections = new Dictionary<Directions, KeyCode>
+            InputDirections = new Dictionary<EDirections, KeyCode>
             {
-                { Directions.Left, KeyCode.A },
-                { Directions.Right, KeyCode.D },
-                { Directions.Down, KeyCode.S },
-                { Directions.Up, KeyCode.W }
+                { EDirections.Left, KeyCode.A },
+                { EDirections.Right, KeyCode.D },
+                { EDirections.Down, KeyCode.S },
+                { EDirections.Up, KeyCode.W }
             };
-            _directionsVectorMap = new Dictionary<Vector2, Directions>
+            _directionsVectorMap = new Dictionary<Vector2, EDirections>
             {
-                { new Vector2(-1, 0), Directions.Left },
-                { new Vector2(1, 0), Directions.Right },
-                { new Vector2(0, 1), Directions.Up },
-                { new Vector2(0, -1), Directions.Down },
+                { new Vector2(-1, 0), EDirections.Left },
+                { new Vector2(1, 0), EDirections.Right },
+                { new Vector2(0, 1), EDirections.Up },
+                { new Vector2(0, -1), EDirections.Down },
             };
-            _vectorDirectionsMap = new Dictionary<Directions, Vector2>
+            _vectorDirectionsMap = new Dictionary<EDirections, Vector2>
             {
-                { Directions.Left, new Vector2(-1, 0)  },
-                { Directions.Right, new Vector2(1, 0) },
-                { Directions.Up,  new Vector2(0, 1)},
-                { Directions.Down, new Vector2(0, -1) },
-                { Directions.None, new Vector2(0, 0) }
+                { EDirections.Left, new Vector2(-1, 0)  },
+                { EDirections.Right, new Vector2(1, 0) },
+                { EDirections.Up,  new Vector2(0, 1)},
+                { EDirections.Down, new Vector2(0, -1) },
+                { EDirections.None, new Vector2(0, 0) }
             };
         }
 
-        private Directions GetDirectionVector(Vector2 input)
+        private EDirections GetDirectionVector(Vector2 input)
         { 
             if (_directionsVectorMap != null && _directionsVectorMap.ContainsKey(input))
             {
                 return _directionsVectorMap[input];
             }
-            return Directions.None;
+            return EDirections.None;
         }
 
-        public Vector2 GetVectorDirection(Directions direction)
+        public Vector2 GetVectorDirection(EDirections direction)
         {
             if (_vectorDirectionsMap != null)
             {
@@ -65,7 +65,7 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 
         public Vector2 GetVectorDirection(int direction)
         {
-            return GetVectorDirection((Directions)direction);
+            return GetVectorDirection((EDirections)direction);
         }
     }
 }

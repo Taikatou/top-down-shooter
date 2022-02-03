@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEngine;
 
 namespace Research.Common.MapSensor.Sensor.SensorData
@@ -13,7 +12,7 @@ namespace Research.Common.MapSensor.Sensor.SensorData
 
         private Vector3Int _agentCell;
 
-        public FollowSensorData(TileMapSensorConfig config, Transform parentTransform) : base(config)
+        public FollowSensorData(ref TileMapSensorConfig config, Transform parentTransform) : base(config)
         {
             _parentTransform = parentTransform;
         }
@@ -21,25 +20,28 @@ namespace Research.Common.MapSensor.Sensor.SensorData
         public override void UpdateMap(GridSpace[,] observations)
         {
             Array.Clear(observations, 0, Config.sizeX * Config.sizeY);
-            // NuclearThroneMapGenerator.OutputDebugMap(observations);
-            var map = Config.mapAccessor.GetMap();
-            var cell = Config.mapAccessor.GetPosition(_parentTransform.position);
-
-            var trackedPosition = TileMapSensorConfigUtils.GetTrackStartEndPosition(Config, cell);
-            
-            _agentCell = Config.mapAccessor.GetPosition(_parentTransform.transform.position);
-            _startEndPosition = TileMapSensorConfigUtils.GetTrackStartEndPosition(Config, _agentCell);
-
-            for (var y = trackedPosition.StartPos.y; y <= trackedPosition.EndPos.y; y++)
+            if (Config.MapAccessor)
             {
-                for (var x = trackedPosition.StartPos.x; x <= trackedPosition.EndPos.x; x++)
+                // NuclearThroneMapGenerator.OutputDebugMap(observations);
+                var map = Config.MapAccessor.GetMap();
+                var cell = Config.MapAccessor.GetPosition(_parentTransform.position);
+
+                var trackedPosition = TileMapSensorConfigUtils.GetTrackStartEndPosition(Config, cell);
+            
+                _agentCell = Config.MapAccessor.GetPosition(_parentTransform.transform.position);
+                _startEndPosition = TileMapSensorConfigUtils.GetTrackStartEndPosition(Config, _agentCell);
+
+                for (var y = trackedPosition.StartPos.y; y <= trackedPosition.EndPos.y; y++)
                 {
-                    var xyValid = ValidSpace(map, x, y);
-                    if (xyValid && XyValid(x, y))
+                    for (var x = trackedPosition.StartPos.x; x <= trackedPosition.EndPos.x; x++)
                     {
-                        InsertXy(observations, x, y, map[x, y]);   
+                        var xyValid = ValidSpace(map, x, y);
+                        if (xyValid && XyValid(x, y))
+                        {
+                            InsertXy(observations, x, y, map[x, y]);   
+                        }
                     }
-                }
+                }   
             }
         }
 
@@ -49,7 +51,7 @@ namespace Research.Common.MapSensor.Sensor.SensorData
                    y >= _startEndPosition.StartPos.y && y <= _startEndPosition.EndPos.y;
         }
 
-        public static bool ValidSpace(GridSpace[,] map, int x, int y, int beginX=0, int beginY=0)
+        private static bool ValidSpace(GridSpace[,] map, int x, int y, int beginX=0, int beginY=0)
         {
             return x >= beginX && x < map.GetUpperBound(0) &&
                    y >= beginY && y < map.GetUpperBound(1);
@@ -76,17 +78,20 @@ namespace Research.Common.MapSensor.Sensor.SensorData
 
         public override void UpdateMapEntityPositions(GridSpace[,] observations, BaseMapPosition[] entityMapPositions)
         {
-            foreach (var entityList in entityMapPositions)
+            if (Config.MapAccessor)
             {
-                foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
+                foreach (var entityList in entityMapPositions)
                 {
-                    var entityCell = Config.mapAccessor.GetPosition(entity.Position);
-                    if (XyValid(entityCell.x, entityCell.y))
+                    foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
                     {
-                        InsertXy(observations, entityCell.x, entityCell.y, entity.GridSpace);   
+                        var entityCell = Config.MapAccessor.GetPosition(entity.Position);
+                        if (XyValid(entityCell.x, entityCell.y))
+                        {
+                            InsertXy(observations, entityCell.x, entityCell.y, entity.GridSpace);   
+                        }
                     }
-                }
-            } 
+                }    
+            }
         }
     }
 }

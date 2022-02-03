@@ -4,8 +4,8 @@ using System.IO;
 using System.Text;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEngine;
-using Application = UnityEngine.Application;
 
 namespace Research.CharacterDesign.Scripts
 {
@@ -17,11 +17,14 @@ namespace Research.CharacterDesign.Scripts
 
         public int DrawNumber;
 
-        public WinResults(int win, int loss, int draw)
+        public readonly TeamMember[] TeamMembers;
+
+        public WinResults(int win, int loss, int draw, TeamMember[] teamMembers)
         {
             WinNumber = win;
             LossNumber = loss;
             DrawNumber = draw;
+            TeamMembers = teamMembers;
         }
     }
 
@@ -34,18 +37,22 @@ namespace Research.CharacterDesign.Scripts
         private int _counter;
 
         private DateTime _date;
-        
-        private Dictionary<int, WinResults> _winResultsTeams;
 
         private Dictionary<int, WinResults> _winResultsPlayers;
+
+        private static int _dataLoggerCounter;
+
+        private int _logCount;
         
 
         public void Start()
         {
             _counter = 0;
             _date = DateTime.Now;
-            _winResultsTeams = new Dictionary<int, WinResults>();
             _winResultsPlayers = new Dictionary<int, WinResults>();
+
+            _logCount = _dataLoggerCounter;
+            _dataLoggerCounter++;
         }
 
         public void OutputMap(GridSpace[,] map, int mapId)
@@ -63,7 +70,7 @@ namespace Research.CharacterDesign.Scripts
                 }
                 rowData.Add(row);
             }
-            OutputCsv(rowData, "map_" + mapId);
+            OutputCsv(rowData, _logCount + "_map_" + mapId);
         }
 
         private void OutputCsv(List<string[]> rowData, string filename)
@@ -88,7 +95,7 @@ namespace Research.CharacterDesign.Scripts
 
                 Directory.CreateDirectory(FolderName);
 
-                var outStream = File.CreateText(FolderName + filename + ".csv");
+                var outStream = File.CreateText(FolderName + "/" + filename + ".csv");
                 outStream.WriteLine(sb);
                 outStream.Close();
             }
@@ -111,55 +118,70 @@ namespace Research.CharacterDesign.Scripts
         private void OnApplicationQuit()
         {
             // PrintFile(_winResultsTeams, "teams/teams");
+            
             PrintFile(_winResultsPlayers, "players");
         }
 
         private void PrintFile(Dictionary<int, WinResults> dict, string filename)
         {
-            var rowData = new List<string[]> {new[] {"MapId", "Win Rate", "Loss Rate", "Draw Rate"}};
+            var firstRow = new List<string> {"MapId", "Win Rate", "Loss Rate", "Draw Rate"};
+
+            for(var i = 0; i < EnvironmentInstance.TeamCount*2; i++)
+            {
+                var teamId = i / 2;
+                var characterId = i % 2;
+                firstRow.AddRange(new [] {$"Team{teamId}Character{characterId}", $"Team{teamId}Elo{characterId}"});
+            }
+            var rowData = new List<string[]> {firstRow.ToArray()};
             foreach (var item in dict)
             {
-                var row = new[]
+                var row = new List<string>
                 {
                     item.Key.ToString(),
                     item.Value.WinNumber.ToString(),
                     item.Value.LossNumber.ToString(),
                     item.Value.DrawNumber.ToString(),
                 };
-                rowData.Add(row);
+                foreach (var member in item.Value.TeamMembers)
+                {
+                    row.AddRange(new[]
+                    {
+                        member.Type.ToString(),
+                        member.TeamID.ToString(),
+                        member.SkillRating.ToString()
+                    });
+                }
+                rowData.Add(row.ToArray());
             }
 
             OutputCsv(rowData, filename);
         }
 
-        private void AddResult(Dictionary<int, WinResults> dict, WinLossCondition gameEnding, int mapId)
+        public void AddResult(WinLossCondition gameEnding, TeamMember[] teamMember, int mapId)
         {
             var win = gameEnding == WinLossCondition.Win ? 1 : 0;
             var loss = gameEnding == WinLossCondition.Loss ? 1 : 0;
             var draw = gameEnding == WinLossCondition.Draw ? 1 : 0;
-            if (dict.ContainsKey(mapId))
+            if (_winResultsPlayers.ContainsKey(mapId))
             {
-                dict[mapId].WinNumber += win;
-                dict[mapId].LossNumber += loss;
-                dict[mapId].DrawNumber += draw;
+                _winResultsPlayers[mapId].WinNumber += win;
+                _winResultsPlayers[mapId].LossNumber += loss;
+                _winResultsPlayers[mapId].DrawNumber += draw;
             }
             else
             {
-                var output = new WinResults(win, loss, draw);
-                dict.Add(mapId, output);
+                var output = new WinResults(win, loss, draw, teamMember);
+                _winResultsPlayers.Add(mapId, output);
             }
 
+            var text = "";
+            foreach (var t in teamMember)
+            {
+                text += t.Type + "\t" + t.SkillRating;
+            }
+            Debug.Log(text);
+
             // Debug.Log(mapId + "\t" + win + "\t" + loss);
-        }
-
-        public void AddResultTeam(WinLossCondition condition, int mapId)
-        {
-            AddResult(_winResultsTeams, condition, mapId);
-        }
-
-        public void AddResultAgent(WinLossCondition condition, int mapId)
-        {
-            AddResult(_winResultsPlayers, condition, mapId);
         }
 
         private void Update()
@@ -169,9 +191,9 @@ namespace Research.CharacterDesign.Scripts
             {
                 _counter = 0;
                 
-                var playerName = $"{_date.Hour}_{_date.Minute}_{_date.Second}_{_date.Millisecond}";
+                var playerName = $"players_{_date.Hour}_{_date.Minute}_{_date.Second}_{_date.Millisecond}";
                 
-                PrintFile(_winResultsPlayers, "players_" + playerName);
+                PrintFile(_winResultsPlayers, playerName);
             }
         }
     }

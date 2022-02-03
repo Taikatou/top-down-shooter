@@ -48,7 +48,7 @@ public class AdvancedCharacterGridMovement : CharacterAbility
     /// the position of the object on the grid
     public Vector3 CurrentGridPosition { get; protected set; }
     /// the position the object will be at when it reaches its next perfect tile
-    public Vector3 TargetGridPosition { get; protected set; }
+    public Vector3Int TargetGridPosition { get; protected set; }
 
     [MMReadOnly]
     /// this is true everytime a character is at the exact position of a tile
@@ -85,7 +85,7 @@ public class AdvancedCharacterGridMovement : CharacterAbility
     protected float _lastPressDownRight = 0;
     protected float _horizontalMovement;
     protected float _verticalMovement;
-    protected Vector3 _lastOccupiedCell;
+    protected Vector3Int _lastOccupiedCell;
 
     protected const string _speedAnimationParameterName = "Speed";
     protected const string _walkingAnimationParameterName = "Walking";
@@ -114,10 +114,10 @@ public class AdvancedCharacterGridMovement : CharacterAbility
         if (!_firstPositionRegistered)
         {
             _endWorldPosition = this.transform.position;
-            _lastOccupiedCell = GridManager.Instance.ComputeGridPosition(_endWorldPosition);
+            _lastOccupiedCell = GridManager.Instance.WorldToCellCoordinates(_endWorldPosition);
             GridManager.Instance.OccupyCell(GridManager.Instance.ComputeGridPosition(this.transform.position));
-            GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(this.transform.position));
-            GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(this.transform.position));
+            GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(this.transform.position));
+            GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(this.transform.position));
             _firstPositionRegistered = true;
         }
     }
@@ -254,8 +254,8 @@ public class AdvancedCharacterGridMovement : CharacterAbility
                 _agentMoving = false;
                 CurrentSpeed = 0;
 
-                GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(_endWorldPosition));
-                GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(_endWorldPosition));
+                GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(_endWorldPosition));
+                GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(_endWorldPosition));
 
                 return;
             }
@@ -272,8 +272,8 @@ public class AdvancedCharacterGridMovement : CharacterAbility
             {
                 _currentDirection = _bufferedDirection;
 
-                GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(_endWorldPosition));
-                GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.ComputeGridPosition(_endWorldPosition));
+                GridManager.Instance.SetLastPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(_endWorldPosition));
+                GridManager.Instance.SetNextPosition(this.gameObject, GridManager.Instance.WorldToCellCoordinates(_endWorldPosition));
 
                 return;
             }
@@ -296,7 +296,7 @@ public class AdvancedCharacterGridMovement : CharacterAbility
             DetermineEndPosition();
 
             // we make sure the target cell is free
-            TargetGridPosition = GridManager.Instance.ComputeGridPosition(_endWorldPosition);
+            TargetGridPosition = GridManager.Instance.WorldToCellCoordinates(_endWorldPosition);
             if (GridManager.Instance.CellIsOccupied(TargetGridPosition))
             {
                 _movingToNextGridUnit = false;
@@ -316,7 +316,7 @@ public class AdvancedCharacterGridMovement : CharacterAbility
         }
 
         // computes our new grid position
-        TargetGridPosition = GridManager.Instance.ComputeGridPosition(_endWorldPosition);
+        TargetGridPosition = GridManager.Instance.WorldToCellCoordinates(_endWorldPosition);
 
         // moves the controller to the next position
         Vector3 newPosition = Vector3.MoveTowards(transform.position, _endWorldPosition, Time.deltaTime * CurrentSpeed);

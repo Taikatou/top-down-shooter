@@ -2,6 +2,7 @@
 using Research.CharacterDesign.Scripts;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -18,7 +19,7 @@ namespace Research.LevelDesign.Scripts
 
         private void Start()
         {
-            generator.onLevelUpdate += UpdateMapData;
+            generator.OnLevelUpdate += UpdateMapData;
         }
 
         public GridSpace[,] GetMap(bool overrideCache=false)
@@ -87,11 +88,6 @@ namespace Research.LevelDesign.Scripts
                         }
                     }
                 }
-            }
-
-            if (!found)
-            {
-                Debug.Log("did not find any tiles");
             }
         }
 

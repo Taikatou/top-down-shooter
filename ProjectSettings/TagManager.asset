@@ -8,21 +8,15 @@ TagManager:
   - FX
   - Enemy
   - World
+  - NoMask
+  - HealthPack
   - Walls
-  - ball
-  - purpleAgent
-  - blueAgent
-  - purpleGoal
-  - blueGoal
-  - Coin
   - Projectile
   - ProjectilePrior
-  - HealingBullet
-  - HealingBulletPrior
   - PlayerPrior
+  - Ground
+  - Dead
   - Prior
-  - HealthPack
-  - Camera
   layers:
   - Default
   - TransparentFX
@@ -47,9 +41,9 @@ TagManager:
   - Camera2
   - Camera3
   - Camera4
-  - CollisionBox
-  - Sword
-  - Pickup
+  - 
+  - 
+  - 
   - 
   - 
   - 

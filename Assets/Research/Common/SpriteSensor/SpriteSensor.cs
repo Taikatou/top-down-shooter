@@ -24,9 +24,14 @@ namespace Research.Common.SpriteSensor
             return new[] {_mObservations.Length};
         }
 
+        public ObservationSpec GetObservationSpec()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public int Write(ObservationWriter writer)
         {
-            writer.AddRange(_mObservations);
+            writer.AddList(_mObservations);
             return _mObservations.Length;
         }
 
@@ -51,6 +56,11 @@ namespace Research.Common.SpriteSensor
             {
                 _mObservations[index] = 0;
             }
+        }
+
+        public CompressionSpec GetCompressionSpec()
+        {
+            throw new System.NotImplementedException();
         }
 
         public SensorCompressionType GetCompressionType()

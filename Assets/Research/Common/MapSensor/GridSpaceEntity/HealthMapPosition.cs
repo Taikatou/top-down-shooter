@@ -1,4 +1,5 @@
 ﻿using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 
 namespace Research.Common.MapSensor.GridSpaceEntity
 {

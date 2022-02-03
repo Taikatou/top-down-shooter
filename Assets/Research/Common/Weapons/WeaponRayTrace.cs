@@ -28,39 +28,36 @@ namespace Research.Common.Weapons
             var rayInput = GetRayPerceptionInput();
             for (var rayIndex = 0; rayIndex < rayInput.Angles.Count; rayIndex++)
             {
-                DebugDisplayInfo.RayInfo debugRay;
-                RayPerceptionSensor.PerceiveSingleRay(rayInput, rayIndex, out debugRay);
-                DrawRaycastGizmos(debugRay);
+                var outputRay = RayPerceptionSensor.PerceiveSingleRay(rayInput, rayIndex);
+                DrawRaycastGizmos(outputRay);
             }
         }
 
         public float GetRay()
         {
-            DebugDisplayInfo.RayInfo output;
             var rayInput = GetRayPerceptionInput();
-            RayPerceptionSensor.PerceiveSingleRay(rayInput, 0, out output);
-            var rayOutput = output.rayOutput;
+            var rayOutput = RayPerceptionSensor.PerceiveSingleRay(rayInput, 0);
             return rayOutput.HasHit? rayOutput.HitFraction: 0;
         }
     
-        void DrawRaycastGizmos(DebugDisplayInfo.RayInfo rayInfo, float alpha = 1.0f)
+        void DrawRaycastGizmos(RayPerceptionOutput.RayOutput rayInfo, float alpha = 1.0f)
         {
-            var startPositionWorld = rayInfo.worldStart;
-            var endPositionWorld = rayInfo.worldEnd;
+            var startPositionWorld = rayInfo.StartPositionWorld;
+            var endPositionWorld = rayInfo.EndPositionWorld;
             var rayDirection = endPositionWorld - startPositionWorld;
-            rayDirection *= rayInfo.rayOutput.HitFraction;
+            rayDirection *= rayInfo.HitFraction;
 
             // hit fraction ^2 will shift "far" hits closer to the hit color
-            var lerpT = rayInfo.rayOutput.HitFraction * rayInfo.rayOutput.HitFraction;
+            var lerpT = rayInfo.HitFraction * rayInfo.HitFraction;
             var color = Color.Lerp(rayHitColor, rayMissColor, lerpT);
             color.a *= alpha;
             Gizmos.color = color;
             Gizmos.DrawRay(startPositionWorld, rayDirection);
 
             // Draw the hit point as a sphere. If using rays to cast (0 radius), use a small sphere.
-            if (rayInfo.rayOutput.HasHit)
+            if (rayInfo.HasHit)
             {
-                var hitRadius = Mathf.Max(rayInfo.castRadius, .05f);
+                var hitRadius = Mathf.Max(rayInfo.ScaledCastRadius, .05f);
                 Gizmos.DrawWireSphere(startPositionWorld + rayDirection, hitRadius);
             }
         }

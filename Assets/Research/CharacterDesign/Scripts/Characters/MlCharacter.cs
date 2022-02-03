@@ -13,11 +13,6 @@ namespace Research.CharacterDesign.Scripts.Characters
             SetInputManager(inputManager);
         }
 
-        protected override void Update()
-        {
-
-        }
-
         public void UpdateFrame()
         {
             EveryFrame();

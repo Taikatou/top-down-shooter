@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone.Scripts;
-using Research.LevelDesign.Scripts;
+﻿using Research.LevelDesign.NuclearThrone.Scripts;
+using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -13,32 +11,38 @@ namespace Research.Common.MapSensor.Sensor
 
         protected override int WriteObservations(ObservationWriter writer)
         {
-            foreach (var pair in Config.GridSpaceValues)
+            using (TimerStack.Instance.Scoped("WriteObservations"))
             {
-                var gridInt = pair.Value;
-                for (var y = 0; y < Config.sizeY; y++)
+                foreach (var pair in Config.GridSpaceValues)
                 {
-                    for (var x = 0; x < Config.sizeX; x++)
+                    var gridInt = pair.Value;
+                    for (var y = 0; y < Config.sizeY; y++)
                     {
-                        var isKey = MObservations[x, y] == pair.Key;
-                        var present = isKey? 1.0f: 0.0f;
-                        writer[x, y, gridInt] = present;
+                        for (var x = 0; x < Config.sizeX; x++)
+                        {
+                            var isKey = MObservations[x, y] == pair.Key;
+                            var present = isKey ? 1.0f : 0.0f;
+                            writer[x, y, gridInt] = present;
+                        }
                     }
-                }   
-            }
-            
-            if (Config.debug)
-            {
-                NuclearThroneMapGenerator.OutputDebugMap(MObservations);
-            }
+                }
 
-            var outputSize = MShape[0] * MShape[1] * MShape[2];
-            return outputSize;
+                if (Config.debug)
+                {
+                    NuclearThroneMapGenerator.OutputDebugMap(MObservations);
+                }
+
+                var outputSize = MShape[0] * MShape[1] * MShape[2];
+                return outputSize;
+            }
         }
 
-        public TileMapSensor3D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
+        public TileMapSensor3D(string name, ref TileMapSensorConfig config, Transform transform) : base(name, ref config, transform)
         {
-            MShape = config.GetSize(false);
+            var size = config.GetSize(false);
+            MObservationSpec = ObservationSpec.Visual(size[0], size[1], size[2]);
+
+            MShape = size;
         }
     }
 }

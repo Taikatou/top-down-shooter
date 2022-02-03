@@ -14,12 +14,12 @@ namespace Research.CharacterDesign.Scripts.AgentInput
         
         private void Start()
         {
-            InputDirections = new Dictionary<Directions, KeyCode>
+            InputDirections = new Dictionary<EDirections, KeyCode>
             {
-                {Directions.Left, KeyCode.LeftArrow},
-                {Directions.Right, KeyCode.RightArrow },
-                {Directions.Down, KeyCode.DownArrow },
-                {Directions.Up, KeyCode.UpArrow }
+                {EDirections.Left, KeyCode.LeftArrow},
+                {EDirections.Right, KeyCode.RightArrow },
+                {EDirections.Down, KeyCode.DownArrow },
+                {EDirections.Up, KeyCode.UpArrow }
             };
         }
     }

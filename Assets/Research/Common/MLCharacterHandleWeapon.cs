@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
+﻿using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-[AddComponentMenu("TopDown Engine/Character/Abilities/ML Character Handle Weapon")]
-public class MLCharacterHandleWeapon : CharacterHandleWeapon
+namespace Research.Common
 {
-    protected override void OnDeath()
+    [AddComponentMenu("TopDown Engine/Character/Abilities/ML Character Handle Weapon")]
+    public class MLCharacterHandleWeapon : CharacterHandleWeapon
     {
-        var previousWeapon = CurrentWeapon;
-        CurrentWeapon = null;
-        base.OnDeath();
-        CurrentWeapon = previousWeapon;
+        protected override void OnDeath()
+        {
+            var previousWeapon = CurrentWeapon;
+            CurrentWeapon = null;
+            base.OnDeath();
+            CurrentWeapon = previousWeapon;
+        }
     }
 }

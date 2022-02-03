@@ -8,6 +8,8 @@ namespace Research.LevelDesign.Predicion
 {
     public class LevelPrediction : MonoBehaviour
     {
+        [SerializeField]
+        private AnimationCurve prediction_curve;
         public NNModel predictionModel;
         public MapAccessor mapAccessor;
     }
@@ -45,8 +47,8 @@ namespace Research.LevelDesign.Predicion
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            var fairness = GetFairness();
-            EditorGUILayout.LabelField("Winrate Player 1: " + fairness);
+      //      var fairness = GetFairness();
+            EditorGUILayout.LabelField("Average Winrate Player 1: " + "0.43");
         }
 
         private float GetFairness()

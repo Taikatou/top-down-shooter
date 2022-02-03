@@ -6,7 +6,7 @@ namespace Research.CharacterDesign.Scripts.AgentInput
 {
     public class VectorInput : MonoBehaviour
     {
-        protected Dictionary<Directions, KeyCode> InputDirections;
+        protected Dictionary<EDirections, KeyCode> InputDirections;
 
         protected virtual int NegativeValue => -1;
 
@@ -16,8 +16,8 @@ namespace Research.CharacterDesign.Scripts.AgentInput
         {
             if (InputDirections != null)
             {
-                var x = GetInput(InputDirections[Directions.Left], InputDirections[Directions.Right]);
-                var y = GetInput(InputDirections[Directions.Down], InputDirections[Directions.Up]);
+                var x = GetInput(InputDirections[EDirections.Left], InputDirections[EDirections.Right]);
+                var y = GetInput(InputDirections[EDirections.Down], InputDirections[EDirections.Up]);
                 return new Vector2(x, y);
             }
 

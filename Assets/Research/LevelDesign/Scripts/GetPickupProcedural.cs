@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using MoreMountains.TopDownEngine;
-using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEngine;
 
 namespace Research.LevelDesign.Scripts

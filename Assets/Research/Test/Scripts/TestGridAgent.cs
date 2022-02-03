@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Research.CharacterDesign.Scripts.AgentInput;
 using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -35,16 +36,17 @@ namespace Research.Test.Scripts
 
         }
 
-        public override void Heuristic(float[] actionsOut)
+        public override void Heuristic(in ActionBuffers actionsOut)
         {
-            actionsOut[0] = (int) directionsKeyMapper.PrimaryDirections;
+            //TODO FIX THIS
+            // actionsOut.DiscreteActions[0] = (int) directionsKeyMapper.PrimaryDirections;
         }
 
-        public override void OnActionReceived(float[] vectorAction)
+        public override void OnActionReceived(ActionBuffers actions)
         {
             AddReward(punishValue);
             
-            var primaryDirection = directionsKeyMapper.GetVectorDirection(Mathf.FloorToInt(vectorAction[0]));
+            var primaryDirection = directionsKeyMapper.GetVectorDirection(Mathf.FloorToInt(actions.DiscreteActions[0]));
             controller.UpdateInput(primaryDirection);
         }
 

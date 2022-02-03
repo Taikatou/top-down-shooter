@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using Research.LevelDesign.NuclearThrone.Scripts;
-using UnityEngine;
+﻿using Research.LevelDesign.Scripts.MLAgents;
 
 namespace Research.Common.MapSensor.GridSpaceEntity
 {
     public class ProjectileMapPosition : BaseMapPosition
     {
-        public int bulletTeamId;
         public override EntityMapReturn[] GetGridSpaceType(int teamId)
         {
+            var teamID = GetComponentInParent<GetTeamID>().TeamId;
             var objectPooler = GetComponentInChildren<MLObjectPooler>();
             var positions = objectPooler.GetListObjects();
-            var value  = bulletTeamId == teamId ? GridSpace.Projectile1 : GridSpace.Projectile2;
+            var value  = teamID == 0 ? GridSpace.Projectile1 : GridSpace.Projectile2;
             var returnValues = new EntityMapReturn [positions.Count];
             for (var i = 0; i < returnValues.Length; i++)
             {

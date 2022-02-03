@@ -1,5 +1,5 @@
 ﻿using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 
 namespace Research.Common.MapSensor.Sensor.SensorData
 {
@@ -7,14 +7,17 @@ namespace Research.Common.MapSensor.Sensor.SensorData
     {
         public override void UpdateMap(GridSpace[,] observations)
         {
-            var map = Config.mapAccessor.GetMap();
-            var startEnd = TileMapSensorConfigUtils.GetStartEndPosition(Config);
-            for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
+            if (Config.MapAccessor)
             {
-                for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
+                var map = Config.MapAccessor.GetMap();
+                var startEnd = TileMapSensorConfigUtils.GetStartEndPosition(Config);
+                for (var y = startEnd.StartPos.y; y < startEnd.EndPos.y; y++)
                 {
-                    var value = map[x, y];
-                    observations[x, y] = value;
+                    for (var x = startEnd.StartPos.x; x < startEnd.EndPos.x; x++)
+                    {
+                        var value = map[x, y];
+                        observations[x, y] = value;
+                    }
                 }
             }
         }
@@ -25,26 +28,29 @@ namespace Research.Common.MapSensor.Sensor.SensorData
             {
                 foreach (var entity in entityList.GetGridSpaceType(Config.TeamId))
                 {
-                    var cell = Config.mapAccessor.GetPosition(entity.Position);
-                    var trackPos = TileMapSensorConfigUtils.GetStartEndPosition(Config);
-
-                    var xValid = cell.x >= trackPos.StartPos.x && cell.x < trackPos.EndPos.x;
-                    var yValid = cell.y >= trackPos.StartPos.y && cell.y < trackPos.EndPos.y;
-
-                    if (xValid && yValid)
+                    if (Config.MapAccessor)
                     {
-                        var gridType = entity.GridSpace;
-                        var contains = Config.GridSpaceValues.ContainsKey(gridType);
-                        if (contains)
+                        var cell = Config.MapAccessor.GetPosition(entity.Position);
+                        var trackPos = TileMapSensorConfigUtils.GetStartEndPosition(Config);
+
+                        var xValid = cell.x >= trackPos.StartPos.x && cell.x < trackPos.EndPos.x;
+                        var yValid = cell.y >= trackPos.StartPos.y && cell.y < trackPos.EndPos.y;
+
+                        if (xValid && yValid)
                         {
-                            observations[cell.x, cell.y] = gridType;
-                        }
+                            var gridType = entity.GridSpace;
+                            var contains = Config.GridSpaceValues.ContainsKey(gridType);
+                            if (contains)
+                            {
+                                observations[cell.x, cell.y] = gridType;
+                            }
+                        }   
                     }
                 }
             }
         }
 
-        public FullSensorData(TileMapSensorConfig config) : base(config)
+        public FullSensorData(ref TileMapSensorConfig config) : base(config)
         {
         }
     }

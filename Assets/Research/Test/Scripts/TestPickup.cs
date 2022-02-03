@@ -3,6 +3,7 @@ using Research.Common;
 using Research.Common.MapSensor;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 

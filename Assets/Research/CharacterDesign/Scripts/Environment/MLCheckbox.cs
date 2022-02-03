@@ -1,6 +1,7 @@
 ﻿using MoreMountains.TopDownEngine;
 using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {

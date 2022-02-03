@@ -2,6 +2,7 @@
 using Research.CharacterDesign.Scripts.Characters;
 using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using UnityEngine;
 
 namespace Research.LevelDesign.Scripts

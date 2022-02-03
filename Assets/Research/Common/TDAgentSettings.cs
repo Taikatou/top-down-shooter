@@ -1,6 +1,13 @@
-﻿namespace Research.Common
+﻿using System;
+
+namespace Research.Common
 {
-    public enum Directions { None, Left, Right, Up, Down }
+    public static class EDirectionsUtils
+    {
+        public static int Length => Enum.GetNames(typeof(EDirections)).Length;
+    }
+    
+    public enum EDirections { None, Left, Right, Up, Down }
     
     public enum AimControl
     {

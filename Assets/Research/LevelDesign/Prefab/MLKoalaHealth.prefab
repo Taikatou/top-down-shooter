@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 1276146155}
   - {fileID: 8234046504122258025}
   InitializationMode: 2
+  SafeMode: 3
   AutoPlayOnStart: 0
   DebugActive: 0
 --- !u!114 &1276146155
@@ -81,6 +82,7 @@ MonoBehaviour:
   Sfx: {fileID: 8300000, guid: d399c32442598874995aa5443a689b4e, type: 3}
   RandomSfx: []
   TestButton: 0
+  TestStopButton: 0
   PlayMethod: 1
   PoolSize: 10
   MinVolume: 1
@@ -170,6 +172,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -271,6 +274,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:

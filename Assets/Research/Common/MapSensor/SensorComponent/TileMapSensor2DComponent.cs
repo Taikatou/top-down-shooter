@@ -5,20 +5,14 @@ namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor2DComponent : TileMapSensorComponent
     {
-        public override ISensor CreateSensor()
+        public override ISensor[] CreateSensors()
         {
-            var twoDSensor = new TileMapSensor2D(sensorName,
-                                                EnvironmentInstance,
-                                                tileMapSensorConfig,
-                                                transform);
-
-            TileMapSensor = twoDSensor;
-            return TileMapSensor;
-        }
-        
-        public override int[] GetObservationShape()
-        {
-            return tileMapSensorConfig.GetSize(true);
+            return new ISensor[]
+            {
+                new TileMapSensor2D(sensorName,
+                    ref tileMapSensorConfig,
+                    transform)
+            };
         }
     }
 }

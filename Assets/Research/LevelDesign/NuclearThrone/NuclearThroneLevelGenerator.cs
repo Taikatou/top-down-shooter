@@ -1,19 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Research.CharacterDesign.Scripts;
 using Research.CharacterDesign.Scripts.Environment;
 using Research.CharacterDesign.Scripts.SpawnPoints;
 using Research.LevelDesign.NuclearThrone.Scripts;
 using Research.LevelDesign.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using Research.LevelDesign.UnityProcedural.Global_Scripts;
-using Unity.Barracuda;
-using Unity.MLAgents.Inference;
-using Unity.MLAgents.Policies;
 using Unity.Simulation.Games;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Random = UnityEngine.Random;
 
 namespace Research.LevelDesign.NuclearThrone
 {
@@ -47,7 +43,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 		public GetPickupProcedural pickupProcedural;
 
-		public LevelUpdate onLevelUpdate;
+		public LevelUpdate OnLevelUpdate;
 
 		[HideInInspector]
 		public int mapSeed;
@@ -74,7 +70,7 @@ namespace Research.LevelDesign.NuclearThrone
 			InvokeGenerateMap(generateMap, seed);
 			mapSeed = seed;
 			
-			onLevelUpdate?.Invoke();
+			OnLevelUpdate?.Invoke();
 		}
 
 		public GridSpace[,] InvokeGenerateMap(bool generateMap, int seed)
@@ -90,7 +86,7 @@ namespace Research.LevelDesign.NuclearThrone
 
 			var map = NuclearThroneMapFunctions.GenerateArray(width, height);
 			var spawnPositions = new List<Vector3Int>();
-			while (spawnPositions.Count < getSpawnPoints.players)
+			while (spawnPositions.Count < getSpawnPoints.Players)
 			{
 				spawnPositions.Clear();
 				NuclearThroneMapFunctions.ClearArray(map);
@@ -115,6 +111,7 @@ namespace Research.LevelDesign.NuclearThrone
 			// Render the result
 			NuclearThroneMapFunctions.RenderMapWithOffset(map, MapLayerData);
 			
+			Debug.Log("Spawn Positions");
 			var spawnPoints = SpawnPoints(spawnPositions, getSpawnPoints);
 			AddToMap(map, spawnPoints);
 

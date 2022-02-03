@@ -1,24 +1,24 @@
-﻿using System.Collections.Generic;
-using Research.Common.MapSensor.Sensor;
-using Research.LevelDesign.NuclearThrone.Scripts;
+﻿using Research.Common.MapSensor.Sensor;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace Research.Common.MapSensor.SensorComponent
 {
     public class TileMapSensor3DComponent : TileMapSensorComponent
     {
-        public override ISensor CreateSensor()
+        public bool twoDSensor;
+        public int stackObservation = 3;
+        public override ISensor[] CreateSensors()
         {
-            TileMapSensor = new TileMapSensor3D(sensorName,
-                                                EnvironmentInstance,
-                                                tileMapSensorConfig,
-                                                transform);
-            return TileMapSensor;
-        }
-        
-        public override int[] GetObservationShape()
-        {
-            return tileMapSensorConfig.GetSize(false);
+            var sensor = twoDSensor
+                ? (ISensor)new TileMapSensor2D(sensorName, ref tileMapSensorConfig, transform)
+                : (ISensor)new TileMapSensor3D(sensorName, ref tileMapSensorConfig, transform);
+            
+            if (stackObservation > 1)
+            {
+                sensor = new StackingSensor(sensor, stackObservation);
+            } 
+            return new[] { sensor };
         }
     }
 }

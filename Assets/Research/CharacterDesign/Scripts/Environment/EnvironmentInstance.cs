@@ -5,23 +5,54 @@ using Research.CharacterDesign.Scripts.Characters;
 using Research.Common.MapSensor.GridSpaceEntity;
 using Research.LevelDesign.NuclearThrone;
 using Research.LevelDesign.Scripts;
+using Research.LevelDesign.Scripts.MLAgents;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace Research.CharacterDesign.Scripts.Environment
 {
-    public enum WinLossCondition { Win, Loss, Draw};
-    public sealed class EnvironmentInstance : GetEnvironmentMapPositions
+    public enum CharacterTypes {Base, AOE, Healer, Tank}
+    public struct TeamMember
     {
+        public int TeamID;
+        public string Type;
+        public float SkillRating;
+
+        public static readonly Dictionary<string, CharacterTypes> CharacterNames = new Dictionary<string, CharacterTypes>
+        {
+            { "Koala", CharacterTypes.Base },
+            { "KoalaAOE", CharacterTypes.AOE },
+            { "KoalaHealer", CharacterTypes.Healer },
+            { "KoalaTank", CharacterTypes.Tank }
+        };
+    }
+
+    public static class WinLossMap
+    {
+        public static readonly Dictionary<WinLossCondition, int> RewardMap = new Dictionary<WinLossCondition, int>
+        {
+            { WinLossCondition.Win, 1 },
+            { WinLossCondition.Draw, 0},
+            { WinLossCondition.Loss, -1}
+        };
+    }
+    
+    public enum WinLossCondition { Win, Loss, Draw};
+    public class EnvironmentInstance : GetEnvironmentMapPositions
+    {
+        public static int TeamCount = 2;
+        
+        public MlCharacter[] possibleCharactersPolicy;
+        public MlCharacter[] possibleCharactersPrior;
+        
         public int gameTime = 120;
-        public int teamSize = 2;
         public int changeLevelMap = 10;
         
         public AnalysisTool outPutter;
         public NuclearThroneLevelGenerator levelGenerator;
         public GetSpawnProcedural getSpawnProcedural;
-        public Character[] mlCharacters;
+        public List<Character> mlCharacters;
         
         public float CurrentTimer { get; private set; }
 
@@ -30,20 +61,23 @@ namespace Research.CharacterDesign.Scripts.Environment
 
         private int _randomSeed;
         private bool _gameOver;
-
+        private readonly Dictionary<int, SimpleMultiAgentGroup> _agentGroups = new Dictionary<int, SimpleMultiAgentGroup>();
+        
+        public GameObject characterLayer;
+        
         public override BaseMapPosition[] EntityMapPositions => GetComponentsInChildren<BaseMapPosition>();
 
-        private static readonly Dictionary<WinLossCondition, int> RewardMap = new Dictionary<WinLossCondition, int>
-        {
-            { WinLossCondition.Win, 1 },
-            { WinLossCondition.Draw, 0},
-            { WinLossCondition.Loss, -1}
-        };
+        private int _fixedIndex;
 
         private void Start()
         {
+            _fixedIndex = TrainingConfig.GetPlayerId(possibleCharactersPolicy);
+            
             CurrentTimer = gameTime;
             CurrentLevelCounter = changeLevelMap;
+            mlCharacters = new List<Character>();
+            
+            SpawnTeams();
         }
 
         private int[] GetTeamDeaths()
@@ -53,41 +87,71 @@ namespace Research.CharacterDesign.Scripts.Environment
             {
                 if (MlUtils.Dead(character))
                 {
-                    var behaviour = character.GetComponentInChildren<IGetTeamId>();
-                    var index = behaviour.GetTeamId;
+                    var behaviour = character.GetComponentInChildren<BehaviorParameters>();
+                    var index = behaviour.TeamId;
                     teamDeaths[index]++;
                 }
             }
             return teamDeaths;
         }
 
-        private int[] GetTeamHealth()
+        private void SpawnMultipleCharacters()
         {
-            var teamHealth = new[] { 0, 0 };
+            var characterDict = new Dictionary<int, List<Character>>();
             foreach (var character in mlCharacters)
             {
-                var health = character.GetComponent<MlHealth>();
-                var behaviour = character.GetComponentInChildren<IGetTeamId>();
-                teamHealth[behaviour.GetTeamId] = - (int) health.CurrentHealth;
-            }
-
-            return teamHealth;
-        }
-
-        public void SpawnMultipleCharacters()
-        {
-            var characterDict = new Dictionary<int, Character>();
-            foreach (var character in mlCharacters)
-            {
-                characterDict.Add(character.GetComponentInChildren<BehaviorParameters>().TeamId, character);
+                var teamId = character.GetComponentInChildren<BehaviorParameters>().TeamId;
+                if (!characterDict.ContainsKey(teamId))
+                {
+                    characterDict.Add(teamId, new List<Character>());
+                }
+                characterDict[teamId].Add(character);
             }
             
-            for (var i = 0; i < mlCharacters.Length; i++)
+            for (var i = 0; i < mlCharacters.Count; i++)
             {
                 var spawnPoint = getSpawnProcedural.PointDict[i];
-                spawnPoint.SpawnPlayer(characterDict[i]);
+                spawnPoint.SpawnPlayer(characterDict[i%2][i/2]);
                 // Debug.Assert([i], "Agent component was not found on this gameObject and is required.");
             }
+        }
+
+        private void SpawnCharacters(MlCharacter[] possibleCharacters)
+        {
+            var index = _fixedIndex;
+            var random = new System.Random();
+            for (var j = 0; j < TeamCount; j++)
+            {
+                if (TrainingConfig.AsymmetricMatches)
+                {
+                    index = random.Next(0, possibleCharacters.Length);
+                }
+                var characterPrefab = possibleCharacters[index];
+                    
+                var character = Instantiate(characterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                character.transform.parent = characterLayer.transform;
+                mlCharacters.Add(character);
+                AddToGroup(character.GetComponentInChildren<Agent>());
+            }  
+        }
+
+        private void AddToGroup(Agent agent)
+        {
+            if (TrainingConfig.GroupReward)
+            {
+                var teamId = agent.GetComponent<BehaviorParameters>().TeamId;
+                if (!_agentGroups.ContainsKey(teamId))
+                {
+                    _agentGroups.Add(teamId, new SimpleMultiAgentGroup());
+                }
+                _agentGroups[teamId].RegisterAgent(agent);
+            }
+        }
+
+        private void SpawnTeams()
+        {
+            SpawnCharacters(possibleCharactersPolicy);
+            SpawnCharacters(possibleCharactersPrior);
         }
 
         private void ChangeLevelDesign()
@@ -97,11 +161,30 @@ namespace Research.CharacterDesign.Scripts.Environment
                 CurrentLevelCounter++;
                 if (CurrentLevelCounter >= changeLevelMap)
                 {
+                    DestroyCharacters();
+                    SpawnTeams();
+                    
                     _randomSeed = GetRandomSeed();
-                    levelGenerator.GenerateMap(_randomSeed, false);
+                    levelGenerator.GenerateMap(_randomSeed);
                     CurrentLevelCounter = 0;
                 }
             }
+        }
+
+        private void DestroyCharacters()
+        {
+            foreach (var t in mlCharacters)
+            {
+                if (TrainingConfig.GroupReward)
+                {
+                    var behaviour = t.GetComponentInChildren<BehaviorParameters>();
+                    var agent = t.GetComponentInChildren<Agent>();
+                    _agentGroups[behaviour.TeamId].UnregisterAgent(agent);
+                } 
+                Destroy(t.gameObject);
+            }
+            
+            mlCharacters.Clear();
         }
 
         private static int GetRandomSeed()
@@ -160,16 +243,11 @@ namespace Research.CharacterDesign.Scripts.Environment
         {
             foreach(var agent in mlCharacters)
             {
-                SpawnTeamPlayer(agent);
+                var health = agent.GetComponent<MlHealth>();
+                health.Revive();
             }
         }
 
-        private void SpawnTeamPlayer(Character newPlayer)
-        {
-            var health = newPlayer.GetComponent<MlHealth>();
-            health.Revive();
-        }
-        
         public void OnPlayerDeath(Character playerCharacter)
         {
             var gameOver = GameOverCondition();
@@ -182,12 +260,11 @@ namespace Research.CharacterDesign.Scripts.Environment
         private bool GameOverCondition()
         {
             var teamDeaths = GetTeamDeaths();
-
-            var gameOver = teamDeaths[0] == teamSize || teamDeaths[1] == teamSize;
+            var gameOver = teamDeaths[0] == TeamCount || teamDeaths[1] == TeamCount;
             return gameOver;
         }
 
-        private int GetVictoryCondition(int[] teamData)
+        private static int GetVictoryCondition(IReadOnlyList<int> teamData)
         {
             var draw = teamData[0] == teamData[1];
             if (!draw)
@@ -201,15 +278,22 @@ namespace Research.CharacterDesign.Scripts.Environment
         private int WinningTeam()
         {
             var endCondition = GetVictoryCondition(GetTeamDeaths());
-            if (endCondition == -1)
+            if (endCondition == -1 && TrainingConfig.WinWithHealth)
             {
-                endCondition = GetVictoryCondition(GetTeamHealth());
+                var teamHealth = new[] { 0, 0 };
+                foreach (var character in mlCharacters)
+                {
+                    var health = character.GetComponent<MlHealth>();
+                    var behaviour = character.GetComponentInChildren<BehaviorParameters>();
+                    teamHealth[behaviour.TeamId] += (int) health.CurrentHealth;
+                }
+                endCondition = GetVictoryCondition(teamHealth);
             }
 
             return endCondition;
         }
 
-        private WinLossCondition GetRewardCondition(int teamId, int winningTeam)
+        private static WinLossCondition GetRewardCondition(int teamId, int winningTeam)
         {
             if(winningTeam != -1)
             {
@@ -218,7 +302,7 @@ namespace Research.CharacterDesign.Scripts.Environment
             return WinLossCondition.Draw;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!_gameOver)
             {
@@ -234,33 +318,32 @@ namespace Research.CharacterDesign.Scripts.Environment
         private IEnumerator GameOver()
         {
             var winningTeamId = WinningTeam();
-            
-            var rewardDebug = "";
-            var loggedData = new [] {0, 0};
-            foreach (var player in mlCharacters)
+ 
+            var teamMembers = new TeamMember[mlCharacters.Count];
+            for (var j = 0; j < mlCharacters.Count; j++)
             {
-                var behaviour = player.GetComponentInChildren<IGetTeamId>();
-                var teamId = behaviour.GetTeamId;
-                var winLossCondition = GetRewardCondition(teamId, winningTeamId);
-                var reward = RewardMap[winLossCondition];
-                
-                loggedData[teamId] = reward;
+                var player = mlCharacters[j];
 
-                var agent = player.GetComponentInChildren<TopDownAgent>();
-                if (agent)
+                var agent = player.GetComponentInChildren<Agent>();
+                var behaviour = agent.GetComponent<BehaviorParameters>();
+                SetAgentReward(agent, behaviour, winningTeamId);
+                
+                Debug.Log(behaviour.BehaviorName);
+                var key = behaviour.BehaviorName + behaviour.TeamId;
+                var skillRating = Academy.Instance.EnvironmentParameters.GetElo(key, 1200);
+                teamMembers[j] = new TeamMember
                 {
-                    agent.AddReward(reward);
-                    rewardDebug += "\nReward: " + agent.GetCumulativeReward();
-                    agent.EndEpisode();   
-                }
-                //Debug.Log(winLossCondition + "\t" + agentName);
-                if (teamId == 0)
-                {
-                    outPutter.AddResult(winLossCondition);
-                }
+                    TeamID = behaviour.TeamId,
+                    Type = behaviour.BehaviorName,
+                    SkillRating = skillRating
+                };
             }
 
-            Debug.Log("Winning Team: " + winningTeamId + rewardDebug);
+            EndEpisode();
+            
+            var playerWin = GetRewardCondition(0, winningTeamId);
+            
+            outPutter.AddResult(playerWin, teamMembers);
 
             if (MlLevelManager.UnitySimulation)
             {
@@ -271,6 +354,43 @@ namespace Research.CharacterDesign.Scripts.Environment
                 StartCoroutine(Restart());   
             }
             yield break;
+        }
+        
+        private void EndEpisode()
+        {
+            if (TrainingConfig.GroupReward)
+            {
+                foreach (var group in _agentGroups.Values)
+                {
+                    group.EndGroupEpisode();
+                }
+            }
+            else
+            {
+                foreach (var character in mlCharacters)
+                {
+                    var agent = character.GetComponentInChildren<Agent>();
+                    agent.EndEpisode();
+                }
+            }
+        }
+
+        private void SetAgentReward(Agent agent, BehaviorParameters behaviour, int winningTeamId)
+        {
+            var winLossCondition = GetRewardCondition(behaviour.TeamId, winningTeamId);
+            var reward = WinLossMap.RewardMap[winLossCondition];
+
+            if (TrainingConfig.GroupReward)
+            {
+                if (_agentGroups.ContainsKey(behaviour.TeamId))
+                {
+                    _agentGroups[behaviour.TeamId].AddGroupReward(reward);
+                }
+            }
+            else
+            {
+                agent.AddReward(reward);
+            }
         }
     }
 }

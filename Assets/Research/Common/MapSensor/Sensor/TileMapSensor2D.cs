@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Research.Common.MapSensor.GridSpaceEntity;
-using Research.LevelDesign.NuclearThrone.Scripts;
-using Research.LevelDesign.Scripts;
+﻿using Research.LevelDesign.NuclearThrone.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -13,8 +10,6 @@ namespace Research.Common.MapSensor.Sensor
 
         protected override int WriteObservations(ObservationWriter writer)
         {
-            var obsSize = TileMapSensorConfigUtils.GetOutputSizeLinear(Config);
-            
             // var outputArray = new float[obsSize];
             for (var y = 0; y < Config.ObsSizeY; y++)
             {
@@ -23,7 +18,7 @@ namespace Research.Common.MapSensor.Sensor
                     var gridSpace = MObservations[x, y];
                     if (Config.GridSpaceValues.ContainsKey(gridSpace))
                     {
-                        var space = (float) gridSpace;
+                        var space = (float)Config.GridSpaceValues[gridSpace] / (float)Config.GridSpaceCount;
                         // outputArray[index] = space;
                         writer[x, y, 0] = space;
                     }
@@ -35,12 +30,14 @@ namespace Research.Common.MapSensor.Sensor
             {
                 NuclearThroneMapGenerator.OutputDebugMap(MObservations);
             }
-            return obsSize;
+            return MShape[0] * MShape[1];
         }
 
-        public TileMapSensor2D(string name, GetEnvironmentMapPositions environmentInstance, TileMapSensorConfig config, Transform transform) : base(name, environmentInstance, config, transform)
+        public TileMapSensor2D(string name, ref TileMapSensorConfig config, Transform transform) : base(name, ref config, transform)
         {
-            MShape = config.GetSize(true);
+            var shape = config.GetSize(true);
+            MObservationSpec = ObservationSpec.Visual(shape[0], shape[1], 1);
+            MShape = shape;
         }
     }
 }

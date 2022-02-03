@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3813234464623754962
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1498750440386690, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_Name
+      value: MLKoalaHealer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001341059962208, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114545434076996454, guid: b2e67bf2a88db1b458fa4aeabd95c6ee,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 5511077292446169015, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+    - target: {fileID: 114545434076996454, guid: b2e67bf2a88db1b458fa4aeabd95c6ee,
+        type: 3}
+      propertyPath: CanPickupWeapons
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902141507233015497, guid: b2e67bf2a88db1b458fa4aeabd95c6ee,
+        type: 3}
+      propertyPath: m_BehaviorName
+      value: KoalaHealer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639473197609218133, guid: b2e67bf2a88db1b458fa4aeabd95c6ee,
+        type: 3}
+      propertyPath: InitialWeapon
+      value: 
+      objectReference: {fileID: 5511077292446169015, guid: 019f89f11e3ed11478877a6b0f48a1e9,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2e67bf2a88db1b458fa4aeabd95c6ee, type: 3}
+--- !u!1 &2066359317193725980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2902141507233015502, guid: b2e67bf2a88db1b458fa4aeabd95c6ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 3813234464623754962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6054801256370570060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066359317193725980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f3803d028ddce40980df4024356bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

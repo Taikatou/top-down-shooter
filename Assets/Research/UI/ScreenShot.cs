@@ -9,7 +9,7 @@ namespace Research.UI
         public void TakeScreenShot()
         {
             Debug.Log("Take screenshot");
-            ScreenCapture.CaptureScreenshot(generator.mapSeed.ToString(), 4);
+            ScreenCapture.CaptureScreenshot(generator.mapSeed + ".png", 4);
         }
     }
 }
